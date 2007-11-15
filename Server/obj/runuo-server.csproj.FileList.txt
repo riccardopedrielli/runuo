@@ -1,0 +1,3 @@
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\runuo.exe
+..\runuo.exe
