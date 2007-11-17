@@ -11,7 +11,7 @@ namespace Server.Spells.Eighth
 				"Energy Vortex", "Vas Corp Por",
 				260,
 				9032,
-				false,
+                true, /*** MOD_START_END ***/ //parametro che permette di castare in citta
 				Reagent.Bloodmoss,
 				Reagent.BlackPearl,
 				Reagent.MandrakeRoot,
@@ -53,8 +53,12 @@ namespace Server.Spells.Eighth
 			{
 				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
 			}
-			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+			/*** MOD_START ***/
+            //si deve poter castare in citta'
+            //else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+			else if ( CheckSequence() )
 			{
+                /*** MOD_END ***/
 				TimeSpan duration;
 
 				if ( Core.AOS )

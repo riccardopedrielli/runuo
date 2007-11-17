@@ -12,7 +12,7 @@ namespace Server.Spells.Sixth
 				"Paralyze Field", "In Ex Grav",
 				230,
 				9012,
-				false,
+                true, /*** MOD_START_END ***/ //parametro che permette di castare in citta
 				Reagent.BlackPearl,
 				Reagent.Ginseng,
 				Reagent.SpidersSilk
@@ -35,8 +35,12 @@ namespace Server.Spells.Sixth
 			{
 				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
 			}
-			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
-			{
+            /*** MOD_START ***/
+            //si deve poter castare in citta'
+            //else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+            else if (CheckSequence())
+            {
+                /*** MOD_END ***/
 				SpellHelper.Turn( Caster, p );
 
 				SpellHelper.GetSurfaceTop( ref p );

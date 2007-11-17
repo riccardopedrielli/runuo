@@ -11,7 +11,7 @@ namespace Server.Spells.Fifth
 				"Blade Spirits", "In Jux Hur Ylem", 
 				266,
 				9040,
-				false,
+                true, /*** MOD_START_END ***/ //parametro che permette di castare in citta
 				Reagent.BlackPearl,
 				Reagent.MandrakeRoot,
 				Reagent.Nightshade
@@ -60,8 +60,12 @@ namespace Server.Spells.Fifth
 			{
 				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
 			}
-			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
-			{
+            /*** MOD_START ***/
+            //si deve poter castare in citta'
+            //else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+            else if (CheckSequence())
+            {
+                /*** MOD_END ***/
 				TimeSpan duration;
 
 				if ( Core.AOS )

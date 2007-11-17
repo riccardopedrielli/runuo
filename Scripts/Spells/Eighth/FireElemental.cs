@@ -11,7 +11,7 @@ namespace Server.Spells.Eighth
 				"Fire Elemental", "Kal Vas Xen Flam",
 				269,
 				9050,
-				false,
+                true,/*** MOD_START_END ***/ //parametro che permette di castare in citta
 				Reagent.Bloodmoss,
 				Reagent.MandrakeRoot,
 				Reagent.SpidersSilk,

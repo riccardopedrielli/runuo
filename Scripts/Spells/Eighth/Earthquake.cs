@@ -12,7 +12,7 @@ namespace Server.Spells.Eighth
 				"Earthquake", "In Vas Por",
 				233,
 				9012,
-				false,
+                true,/*** MOD_START_END ***/ //parametro che permette di castare in citta
 				Reagent.Bloodmoss,
 				Reagent.Ginseng,
 				Reagent.MandrakeRoot,
@@ -29,8 +29,12 @@ namespace Server.Spells.Eighth
 
 		public override void OnCast()
 		{
-			if ( SpellHelper.CheckTown( Caster, Caster ) && CheckSequence() )
+			/*** MOD_START ***/
+            //si deve poter castare in citta'
+            //else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+			if ( CheckSequence() )
 			{
+                /*** MOD_END ***/
 				List<Mobile> targets = new List<Mobile>();
 
 				Map map = Caster.Map;

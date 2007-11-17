@@ -12,7 +12,7 @@ namespace Server.Spells.Third
 				"Wall of Stone", "In Sanct Ylem",
 				227,
 				9011,
-				false,
+				true, /*** MOD_START_END ***/ //parametro che permette di castare in citta
 				Reagent.Bloodmoss,
 				Reagent.Garlic
 			);
@@ -34,8 +34,12 @@ namespace Server.Spells.Third
 			{
 				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
 			}
-			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+            /*** MOD_START ***/
+            //si deve poter castare in citta'
+            //else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+			else if ( CheckSequence() )
 			{
+                /*** MOD_END ***/
 				SpellHelper.Turn( Caster, p );
 
 				SpellHelper.GetSurfaceTop( ref p );
@@ -66,8 +70,11 @@ namespace Server.Spells.Third
 
 				Effects.PlaySound( p, Caster.Map, 0x1F6 );
 
-				for ( int i = -1; i <= 1; ++i )
-				{
+                /*** MOD_START ***/
+                // setto il muro di dimensione 5 tile
+                //for ( int i = -1; i <= 1; ++i )
+				for ( int i = -2; i <= 2; ++i )
+                {/*** MOD_END ***/
 					Point3D loc = new Point3D( eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z );
 					bool canFit = SpellHelper.AdjustField( ref loc, Caster.Map, 22, true );
 
