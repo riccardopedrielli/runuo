@@ -109,11 +109,13 @@ namespace Server.Spells.Third
 
 				if ( Deleted )
 					return;
-
-				m_Timer = new InternalTimer( this, TimeSpan.FromSeconds( 10.0 ) );
+                /*** MOD_START ***/
+                //durata del wall of stone settata a 120sec invece che 10
+				m_Timer = new InternalTimer( this, TimeSpan.FromSeconds( 120.0 ) );
 				m_Timer.Start();
 
-				m_End = DateTime.Now + TimeSpan.FromSeconds( 10.0 );
+				m_End = DateTime.Now + TimeSpan.FromSeconds( 120.0 );
+                /*** MOD_END ***/
 			}
 
 			public InternalItem( Serial serial ) : base( serial )
