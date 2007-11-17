@@ -190,7 +190,9 @@ namespace Server.Items
 
 		public virtual void BeginConfirmation( Mobile from )
 		{
-			if ( IsInTown( from.Location, from.Map ) && !IsInTown( m_Target, m_TargetMap ) || (from.Map != Map.Felucca && TargetMap == Map.Felucca && ShowFeluccaWarning) )
+            /*** MOD_START ***/
+            //non ci deve essere nessuna conferma se si entra in un gate!
+			/*if ( IsInTown( from.Location, from.Map ) && !IsInTown( m_Target, m_TargetMap ) || (from.Map != Map.Felucca && TargetMap == Map.Felucca && ShowFeluccaWarning) )
 			{
 				from.Send( new PlaySound( 0x20E, from.Location ) );
 				from.CloseGump( typeof( MoongateConfirmGump ) );
@@ -199,7 +201,9 @@ namespace Server.Items
 			else
 			{
 				EndConfirmation( from );
-			}
+			}*/
+            /*** MOD_END ***/
+            EndConfirmation(from);
 		}
 
 		public virtual void EndConfirmation( Mobile from )
@@ -237,7 +241,11 @@ namespace Server.Items
 			private Moongate m_Gate;
 			private int m_Range;
 
-			public DelayTimer( Mobile from, Moongate gate, int range ) : base( TimeSpan.FromSeconds( 1.0 ) )
+            /*** MOD_START ***/
+            //nessun delay per netrare nei gate
+            //public DelayTimer( Mobile from, Moongate gate, int range ) : base( TimeSpan.FromSeconds( 1.0 ) )
+            /*** MOD_END ***/
+			public DelayTimer( Mobile from, Moongate gate, int range ) : base( TimeSpan.FromSeconds( 0 ) )
 			{
 				m_From = from;
 				m_Gate = gate;
