@@ -371,8 +371,14 @@ namespace Server.Items
 
 			for ( int i = 0; i < checkLists.Length; ++i )
 			{
+				/*** DEL_START ***/
+				
+				/*
 				AddButton( 10, 35 + (i * 25), 2117, 2118, 0, GumpButtonType.Page, Array.IndexOf( m_Lists, checkLists[i] ) + 1 );
 				AddHtmlLocalized( 30, 35 + (i * 25), 150, 20, checkLists[i].Number, false, false );
+				*/
+				
+				/*** DEL_END ***/
 			}
 
 			for ( int i = 0; i < m_Lists.Length; ++i )
