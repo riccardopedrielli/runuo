@@ -136,8 +136,10 @@ namespace Server.Spells
 					return true;
 			}
 
-			if( Core.Expansion == Expansion.AOS )
-			{
+            /*** DEL_START ***/ 
+            // nonostante il server sia settato AOS lo vede come false.... -.-
+			//if( Core.Expansion == Expansion.AOS )
+			//{
 				for( int i = 0; i < m.Aggressors.Count; ++i )
 				{
 					AggressorInfo info = m.Aggressors[i];
@@ -145,8 +147,8 @@ namespace Server.Spells
 					if( info.Attacker.Player && (DateTime.Now - info.LastCombatTime) < CombatHeatDelay )
 						return true;
 				}
-			}
-
+			//}
+            /*** DEL_END ***/
 			return false;
 		}
 

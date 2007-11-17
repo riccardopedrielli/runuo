@@ -56,15 +56,13 @@ namespace Server.Spells.Chivalry
 				return false;
 			}
             /*** DEL_START ***/
-            /*
-			else if ( Caster.Criminal )
+            /* else if ( Caster.Criminal )
 			{
 				Caster.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
 				return false;
-			}
-            */
+			}*/
             /*** DEL_END ***/
-			else if ( SpellHelper.CheckCombat( Caster ) )
+            else if ( SpellHelper.CheckCombat( Caster ) )
 			{
 				Caster.SendLocalizedMessage( 1061282 ); // You cannot use the Sacred Journey ability to flee from combat.
 				return false;

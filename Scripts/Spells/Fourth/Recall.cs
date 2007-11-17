@@ -60,16 +60,15 @@ namespace Server.Spells.Fourth
 				Caster.SendLocalizedMessage( 1061632 ); // You can't do that while carrying the sigil.
 				return false;
 			}
-			/*** DEL_START ***/
-            /*
-            else if ( Caster.Criminal )
+            /*** DEL_START ***/
+            /*else if ( Caster.Criminal )
 			{
 				Caster.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
 				return false;
-			}
-            */
+			} */
             /*** DEL_END ***/
-			else if ( SpellHelper.CheckCombat( Caster ) )
+
+            else if ( SpellHelper.CheckCombat( Caster ) )
 			{
 				Caster.SendLocalizedMessage( 1005564, "", 0x22 ); // Wouldst thou flee during the heat of battle??
 				return false;
