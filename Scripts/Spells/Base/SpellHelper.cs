@@ -387,10 +387,13 @@ namespace Server.Spells
 
 			if( to is BaseCreature && !((BaseCreature)to).Controlled && ((BaseCreature)to).InitialInnocent )
 				return true;
+            /*** DEL_START ***/
+            //anche gli innocenti devono essere colpiti
+			/*int noto = Notoriety.Compute( from, to );
 
-			int noto = Notoriety.Compute( from, to );
-
-			return (noto != Notoriety.Innocent || from.Kills >= 5);
+			return (noto != Notoriety.Innocent || from.Kills >= 5);*/
+            /*** DEL_END ***/
+            return true;
 		}
 
 		private static int[] m_Offsets = new int[]

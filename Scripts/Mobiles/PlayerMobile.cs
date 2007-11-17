@@ -2182,7 +2182,10 @@ namespace Server.Mobiles
 				amount = (int)(amount * 1.1);
 				from.Damage( amount, from );
 			}
-
+            /*** ADD_START ***/
+            //quando ricevi danno devi essere disHiddato
+            base.Hidden = false;
+            /*** ADD_END ***/
 			base.Damage( amount, from );
 		}
 
