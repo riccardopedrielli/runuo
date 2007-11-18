@@ -1,8 +1,6 @@
 /**************************************
 *    Killable Guards (GS Versions)    *
 *            Version: 3.0             *
-*                                     *   
-*      Distro files: ArcherGuard.cs   *
 *                                     *
 *        Created by Admin_Shaka       *
 *              07/07/2007             *
@@ -19,22 +17,6 @@
 *  DO NOT REMOVE/CHANGE THIS HEADER!  *
 **************************************/
 
-/// <summary>
-/// Distro ArcherGuard edited by Greystar to make them killable
-/// Without having instakill any longer.
-/// Verion 1.1.0
-/// Date 02/26/2006		Time: 01:54 Central Standard Time
-/// Special Thanks to Shadow1980 and TheN for assistance with 
-/// testing.  Whole bunch of changes to this file to make things 
-/// work correctly.  Added colored items like sashes and boots 
-/// and shirts becuase in the future I'm colorcoding my guards 
-/// by what city/facet they are from.  These guards also only 
-/// have one teleportation thing still uncommented, if you still 
-/// want them to teleport just remove either the double slashes 
-/// from the area or the /**/ from the section you want to work.
-/// Guards now can be random.
-/// </summary>
-
 using System;
 using System.Collections;
 using Server.Misc;
@@ -45,7 +27,7 @@ using Server.Targeting;
 
 namespace Server.Mobiles
 {
-	public class ArcherGuard : BaseGuard
+	public class MageGuard : BaseGuard
 	{
 		private static object[] m_GuardParams = new object[1];
 		private Timer m_AttackTimer, m_IdleTimer;
@@ -53,12 +35,12 @@ namespace Server.Mobiles
 		private Mobile m_Focus;
 
 		[Constructable]
-		public ArcherGuard() : this( null )
+		public MageGuard() : this( null )
 		{
 		}
 
 		[Constructable]
-		public ArcherGuard( Mobile target ) : base( target, AIType.AI_Archer )
+		public MageGuard( Mobile target ) : base( target, AIType.AI_Mage )
 		{
 			// Uses the routine from BaseGuard.cs to get this
 			GenerateBody( Utility.RandomBool(), Utility.RandomBool() );
@@ -67,18 +49,16 @@ namespace Server.Mobiles
 			SetKarmaLevel( Utility.Random(1,5) );
 			Karma *= -1; //this added so that guards have positive Karma
 
-			InitStats( 75, 150, 125 );
+			InitStats( 75, 125, 150 );
 			Title = "the guard";
 
 			SpeechHue = Utility.RandomDyedHue();
-
-			Horse horse = new Horse();
-			horse.Rider = this; 
 
 			int hue = GetRandomHue(); //Insert your hue here
 			AddItem( new FancyShirt( hue ) ); 
 			AddItem( new BodySash( hue ) );
 			AddItem( new Boots( hue ) );
+			AddItem( new Robe( hue ) );
 
 			// Pick some armour
 			switch( Utility.Random(1,2) ) //Could probably change this to a RandomBool somehow
@@ -88,71 +68,87 @@ namespace Server.Mobiles
 					{
 						switch( Utility.Random( 3 ) )
 						{
-							case 0: AddItem( new LeatherSkirt() ); break;
-							case 1: AddItem( new LeatherShorts() ); break;
-							case 2: AddItem( new LeatherLegs() ); break;
+							case 0: AddItem( Rehued ( new LeatherSkirt(), hue ) ); break;
+							case 1: AddItem( Rehued ( new LeatherShorts(), hue ) ); break;
+							case 2: AddItem( Rehued ( new LeatherLegs(), hue ) ); break;
 						}
 
-						AddItem( new FemaleLeatherChest() );
-						AddItem( new LeatherBustierArms() );
+						AddItem( Rehued ( new FemaleLeatherChest(), hue ) );
+						AddItem( Rehued ( new LeatherBustierArms(), hue ) );
 					}
 					else
 					{
-						AddItem( new LeatherChest() );
-						AddItem( new LeatherArms() );
-						AddItem( new LeatherLegs() );
+						AddItem( Rehued ( new LeatherChest(), hue ) );
+						AddItem( Rehued ( new LeatherArms(), hue ) );
+						AddItem( Rehued ( new LeatherLegs(), hue ) );
 					}
-					AddItem( new LeatherGloves() );
-					AddItem( new LeatherGorget() );
+					AddItem( Rehued ( new LeatherGloves(), hue ) );
+					AddItem( Rehued ( new LeatherGorget(), hue ) );
 					break;
 
 				case 2: // Studded Leather
 					if ( Female )
 					{
-						AddItem( new FemaleStuddedChest() );
-						AddItem( new StuddedBustierArms() );
+						AddItem( Rehued ( new FemaleStuddedChest(), hue ) );
+						AddItem( Rehued ( new StuddedBustierArms(), hue ) );
 					}
 					else
 					{
-						AddItem( new StuddedChest() );
-						AddItem( new StuddedArms() );
+						AddItem( Rehued ( new StuddedChest(), hue ) );
+						AddItem( Rehued ( new StuddedArms(), hue ) );
 					}
-					AddItem( new StuddedLegs() );
-					AddItem( new StuddedGloves() );
-					AddItem( new StuddedGorget() );
+					AddItem( Rehued ( new StuddedLegs(), hue ) );
+					AddItem( Rehued ( new StuddedGloves(), hue ) );
+					AddItem( Rehued ( new StuddedGorget(), hue ) );
 					break;
 			}
-
-			Bow bow = new Bow();
-			bow.Movable = false;
-			bow.Crafter = this;
-			bow.Quality = WeaponQuality.Exceptional;
-
-			AddItem( bow );
 
 			Container pack = new Backpack();
 
 			pack.Movable = false;
 
-			pack.DropItem( new Arrow( 250 ) );
+			#region Reagent Section
+			Container bag = new Bag();
+			int count = Utility.RandomMinMax( 10, 20 );
+			for ( int i = 0; i < count; ++i )
+			{
+				Item item = Loot.RandomReagent();
+
+				if ( item == null )
+					continue;
+
+				if ( !bag.TryDropItem( this, item, false ) )
+					item.Delete();
+			}
+			pack.DropItem( Rehued ( bag, hue ) );
+			#endregion
+
 			pack.DropItem( new Gold( 10, 25 ) );
 			pack.DropItem( new Bandage( Utility.RandomMinMax( 10, 20 ) ) );
 
 			AddItem( pack );
 
-			SetSkill( SkillName.Archery, 105.0, 120.0 );
 			SetSkill( SkillName.Tactics, 46.0, 87.0 );
-			SetSkill( SkillName.Anatomy, 46.0, 87.0 );
 			SetSkill( SkillName.DetectHidden, 64.0, 100.0 );
-			SetSkill( SkillName.MagicResist, 60.0, 82.0 );
-			SetSkill( SkillName.Focus, 36.0, 67.0 );
-			SetSkill( SkillName.Wrestling, 25.0, 47.0 );
+			SetSkill( SkillName.Wrestling, 95.1, 105.0 );
+			SetSkill( SkillName.Focus, 90.1, 100.1 );
+			SetSkill( SkillName.Meditation, 120.0 );
+			SetSkill( SkillName.MagicResist, 85.1, 95.0 );
+			SetSkill( SkillName.Magery, 115.1, 120.0 );
+			SetSkill( SkillName.EvalInt, 75.1, 100.0 );
+
+			new Horse().Rider = this;
 
 			this.NextCombatTime = DateTime.Now + TimeSpan.FromSeconds( 0.5 );
 			this.Focus = target;
 		}
 
-		public ArcherGuard( Serial serial ) : base( serial )
+		public override void GenerateLoot()
+		{
+			AddLoot( LootPack.MedScrolls, 1 );
+		}
+
+		public MageGuard( Serial serial ) : base( serial )
 		{
 		}
 
@@ -294,9 +290,9 @@ namespace Server.Mobiles
 		private class AvengeTimer : Timer
 		{
 			private Mobile m_Focus;
-			private ArcherGuard m_Guard;
+			private MageGuard m_Guard;
 
-			public AvengeTimer( ArcherGuard guard ) : base( TimeSpan.FromSeconds( 2.5 ), TimeSpan.FromSeconds( 1.0 ), 3 ) // change this 3 to whatever you want for a backup call for guards 3 = 3 guards called
+			public AvengeTimer( MageGuard guard ) : base( TimeSpan.FromSeconds( 2.5 ), TimeSpan.FromSeconds( 1.0 ), 3 ) // change this 3 to whatever you want for a backup call for guards 3 = 3 guards called
 			{
 				m_Guard = guard;
 				if (guard.Focus != null)
@@ -309,7 +305,7 @@ namespace Server.Mobiles
 			{
 				if ( !m_Guard.BackUP )
 				{
-                    BaseGuard ag = (BaseGuard)Activator.CreateInstance( GuardedRegion.RandomGuard( typeof( ArcherGuard ), ( (GuardedRegion)m_Guard.Region ).UseRandom ), m_GuardParams );
+                    BaseGuard ag = (BaseGuard)Activator.CreateInstance( GuardedRegion.RandomGuard( typeof( MageGuard ), ( (GuardedRegion)m_Guard.Region ).UseRandom ), m_GuardParams );
 					ag.BackUP = true; // this prevents backup from calling backup
 					//Console.WriteLine(" I Am Backup and I am Alive ("+wg.Name+")");
 				}
@@ -325,10 +321,10 @@ namespace Server.Mobiles
 
 		private class AttackTimer : Timer
 		{
-			private ArcherGuard m_Owner;
-			private bool m_Shooting;
+			private MageGuard m_Owner;
+			private bool m_Casting;
 
-			public AttackTimer( ArcherGuard owner ) : base( TimeSpan.FromSeconds( 0.25 ), TimeSpan.FromSeconds( 0.1 ) )
+			public AttackTimer( MageGuard owner ) : base( TimeSpan.FromSeconds( 0.25 ), TimeSpan.FromSeconds( 0.1 ) )
 			{
 				m_Owner = owner;
 			}
@@ -368,17 +364,17 @@ namespace Server.Mobiles
 				}
 				else if ( !m_Owner.InRange( target, 20 ) )
 				{
-					m_Shooting = false;
+					m_Casting = false;
 					m_Owner.Focus = null;
 				}/*
 				else if ( !m_Owner.InLOS( target ) )
 				{
-					m_Shooting = false;
+					m_Casting = false;
 					TeleportTo( target );
 				}*/
 				else if ( !m_Owner.CanSee( target ) )
 				{
-					m_Shooting = false;
+					m_Casting = false;
 
 					/*if ( !m_Owner.InRange( target, 2 ) )
 					{
@@ -393,12 +389,12 @@ namespace Server.Mobiles
 				}
 				else
 				{
-					if ( m_Shooting && (TimeToSpare() || OutOfMaxDistance( target )) )
-						m_Shooting = false;
-					else if ( !m_Shooting && InMinDistance( target ) )
-						m_Shooting = true;
+					if ( m_Casting && (TimeToSpare() || OutOfMaxDistance( target )) )
+						m_Casting = false;
+					else if ( !m_Casting && InMinDistance( target ) )
+						m_Casting = true;
 
-					if ( !m_Shooting )
+					if ( !m_Casting )
 					{
 						/*if ( m_Owner.InRange( target, 1 ) )
 						{
@@ -421,7 +417,7 @@ namespace Server.Mobiles
 
 			private bool OutOfMaxDistance( Mobile target )
 			{
-				return !m_Owner.InRange( target, m_Owner.Weapon.MaxRange );
+				return !m_Owner.InRange( target, 10 );
 			}
 
 			private bool InMinDistance( Mobile target )
@@ -445,10 +441,10 @@ namespace Server.Mobiles
 
 		private class IdleTimer : Timer
 		{
-			private ArcherGuard m_Owner;
+			private MageGuard m_Owner;
 			private int m_Stage;
 
-			public IdleTimer( ArcherGuard owner ) : base( TimeSpan.FromSeconds( 2.0 ), TimeSpan.FromSeconds( 2.5 ) )
+			public IdleTimer( MageGuard owner ) : base( TimeSpan.FromSeconds( 2.0 ), TimeSpan.FromSeconds( 2.5 ) )
 			{
 				m_Owner = owner;
 			}

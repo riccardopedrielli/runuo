@@ -1,3 +1,24 @@
+/**************************************
+*    Killable Guards (GS Versions)    *
+*            Version: 3.0             *
+*                                     *   
+*        Distro files: BaseAI.cs      *
+*                                     *
+*        Created by Admin_Shaka       *
+*              07/07/2007             *
+*                                     *
+*          D I M E N S I O N S        * 
+*          hell is only a word        *
+*                                     *
+*         www.dimensions.com.br       *
+*                                     *
+*      Original Script and Ideas by   *
+*               Greystar              *
+*                                     *
+* Anyone can modify/redistribute this *
+*  DO NOT REMOVE/CHANGE THIS HEADER!  *
+**************************************/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +48,8 @@ namespace Server.Mobiles
 		AI_Mage,
 		AI_Berserk,
 		AI_Predator,
-		AI_Thief
+		AI_Thief,
+		AI_Paladin // Added by 2.0 Shaka큦 GS Killable Guards
 	}
 
 	public enum ActionType
@@ -351,7 +373,11 @@ namespace Server.Mobiles
 				SkillName.Wrestling,
 				SkillName.Lumberjacking,
 				SkillName.Mining,
-				SkillName.Meditation
+				SkillName.Meditation,
+				SkillName.Chivalry, // Added by 2.0 Shaka큦 GS Killable Guards
+				SkillName.Necromancy, // Added by 2.0 Shaka큦 GS Killable Guards
+				SkillName.Bushido, // Added by 2.0 Shaka큦 GS Killable Guards
+				SkillName.Ninjitsu // Added by 2.0 Shaka큦 GS Killable Guards
 			};
 
 		public virtual void OnSpeech( SpeechEventArgs e )
@@ -2440,6 +2466,9 @@ namespace Server.Mobiles
 
 				foreach( Mobile m in eable )
 				{
+                    if (m == null)  // Added by 2.0 Shaka큦 GS Killable Guards
+                        return false; ;  // Added by 2.0 Shaka큦 GS Killable Guards
+
 					if ( m.Deleted || m.Blessed )
 						continue;
 

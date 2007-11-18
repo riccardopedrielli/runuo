@@ -1,3 +1,24 @@
+/**************************************
+*    Killable Guards (GS Versions)    *
+*            Version: 3.0             *
+*                                     *   
+*    Distro files: BaseCreature.cs    *
+*                                     *
+*        Created by Admin_Shaka       *
+*              07/07/2007             *
+*                                     *
+*          D I M E N S I O N S        * 
+*          hell is only a word        *
+*                                     *
+*         www.dimensions.com.br       *
+*                                     *
+*      Original Script and Ideas by   *
+*               Greystar              *
+*                                     *
+* Anyone can modify/redistribute this *
+*  DO NOT REMOVE/CHANGE THIS HEADER!  *
+**************************************/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -239,15 +260,51 @@ namespace Server.Mobiles
 
 		private bool		m_Paragon;
 
+        private bool        m_IsAggressive = false; // Added by 2.0 Shaka큦 GS Killable Guards
+        
+        private bool        m_IsPetSum; // Added by 2.0 Shaka큦 GS Killable Guards
+
 		#endregion
 
 		public virtual InhumanSpeech SpeechType{ get{ return null; } }
 
 		public bool IsStabled
 		{
-			get{ return m_IsStabled; }
-			set{ m_IsStabled = value; }
+            get{ return m_IsStabled; }
+            set{ m_IsStabled = value; }
+        }
+
+        // Aditions by 2.0 Shaka큦 GS Killable Guards starts here!
+        public bool IsAggressive
+        {
+            get
+            {
+                if (m_FightMode == FightMode.Closest && (!m_bSummoned || !m_bControlled))
+                    m_IsAggressive = true;
+
+                return m_IsAggressive;
+            }
+            set { m_IsAggressive = value; }
+
 		}
+        // Aditions by 2.0 Shaka큦 GS Killable Guards ends here!
+
+        // Aditions by 2.0 Shaka큦 GS Killable Guards starts here!
+        public bool IsPetSum
+        {
+            get
+            {
+                if (!m_bSummoned || !m_bControlled)
+                    m_IsPetSum = false;
+
+                if ((m_bSummoned && m_SummonMaster != null) || (m_bControlled && m_ControlMaster != null))
+                    m_IsPetSum = true;
+
+                return m_IsPetSum;
+            }
+            set { m_IsPetSum = value; }
+        }
+        // Aditions by 2.0 Shaka큦 GS Killable Guards ends here!
 
 		protected DateTime SummonEnd
 		{
@@ -739,12 +796,15 @@ namespace Server.Mobiles
 
 		public virtual bool IsEnemy( Mobile m )
 		{
+            if (m == null) // Added by 2.0 Shaka큦 GS Killable Guards
+                return false; // Added by 2.0 Shaka큦 GS Killable Guards
+
 			OppositionGroup g = this.OppositionGroup;
 
 			if ( g != null && g.IsEnemy( this, m ) )
 				return true;
 
-			if ( m is BaseGuard )
+            if (m is BaseGuard || m is BaseVendor || m is PlayerVendor || m is BaseHealer) // Modded by 2.0 Shaka큦 GS Killable Guards
 				return false;
 
 			if ( GetFactionAllegiance( m ) == Allegiance.Ally )
@@ -2000,6 +2060,9 @@ namespace Server.Mobiles
 				case AIType.AI_Thief:
 					m_AI = new ThiefAI(this);
 					break;
+                case AIType.AI_Paladin: // Added by 2.0 Shaka큦 GS Killable Guards
+                    m_AI = new PaladinAI(this); // Added by 2.0 Shaka큦 GS Killable Guards
+                    break; // Added by 2.0 Shaka큦 GS Killable Guards
 			}
 		}
 
@@ -3066,62 +3129,92 @@ namespace Server.Mobiles
 			
 			base.OnLocationChange( oldLocation );
 		}
+        // Modification by 2.0 Shaka큦 GS Killable Guards starts here
+        public override void OnMovement(Mobile m, Point3D oldLocation)
+        {
+            base.OnMovement(m, oldLocation);
 
-		public override void OnMovement( Mobile m, Point3D oldLocation )
-		{
-			base.OnMovement( m, oldLocation );
+            if (ReacquireOnMovement || m_Paragon)
+                ForceReacquire();
 
-			if ( ReacquireOnMovement || m_Paragon )
-				ForceReacquire();
+            InhumanSpeech speechType = this.SpeechType;
 
-			InhumanSpeech speechType = this.SpeechType;
+            if (speechType != null)
+                speechType.OnMovement(this, m, oldLocation);
 
-			if ( speechType != null )
-				speechType.OnMovement( this, m, oldLocation );
+            /* Begin notice sound */
+            if ((!m.Hidden || m.AccessLevel == AccessLevel.Player) && m.Player && m_FightMode != FightMode.Aggressor && m_FightMode != FightMode.None && Combatant == null && !Controlled && !Summoned)
+            {
+                // If this creature defends itself but doesn't actively attack (animal) or
+                // doesn't fight at all (vendor) then no notice sounds are played..
+                // So, players are only notified of aggressive monsters
 
-			/* Begin notice sound */
-			if ( (!m.Hidden || m.AccessLevel == AccessLevel.Player) && m.Player && m_FightMode != FightMode.Aggressor && m_FightMode != FightMode.None && Combatant == null && !Controlled && !Summoned )
-			{
-				// If this creature defends itself but doesn't actively attack (animal) or
-				// doesn't fight at all (vendor) then no notice sounds are played..
-				// So, players are only notified of aggressive monsters
+                // Monsters that are currently fighting are ignored
 
-				// Monsters that are currently fighting are ignored
+                // Controlled or summoned creatures are ignored
 
-				// Controlled or summoned creatures are ignored
+                if (InRange(m.Location, 18) && !InRange(oldLocation, 18))
+                {
+                    if (Body.IsMonster)
+                        Animate(11, 5, 1, true, false, 1);
 
-				if ( InRange( m.Location, 18 ) && !InRange( oldLocation, 18 ) )
-				{
-					if ( Body.IsMonster )
-						Animate( 11, 5, 1, true, false, 1 );
+                    PlaySound(GetAngerSound());
+                }
+            }
+            /* End notice sound */
 
-					PlaySound( GetAngerSound() );
-				}
-			}
-			/* End notice sound */
+            if (m_NoDupeGuards == m)
+                return;
 
-			if ( m_NoDupeGuards == m )
-				return;
+            if (!Body.IsHuman || Kills >= 5 || AlwaysMurderer || AlwaysAttackable || m.Kills < 5 || !m.InRange(Location, 12) || !m.Alive)
+                return;
 
-			if ( !Body.IsHuman || Kills >= 5 || AlwaysMurderer || AlwaysAttackable || m.Kills < 5 || !m.InRange( Location, 12 ) || !m.Alive )
-				return;
+           // GuardedRegion guardedRegion = (GuardedRegion)this.Region.GetRegion(typeof(GuardedRegion));
+           
+            // Modification by 2.0 Shaka큦 GS Killable Guards starts here
+            Region reg = this.Region;
 
-			GuardedRegion guardedRegion = (GuardedRegion) this.Region.GetRegion( typeof( GuardedRegion ) );
+            if (reg != null)
+            {
+                if (reg is GuardedRegion)
+                {
+                    GuardedRegion guardedRegion = (GuardedRegion)reg;
 
-			if ( guardedRegion != null )
-			{
-				if ( !guardedRegion.IsDisabled() && guardedRegion.IsGuardCandidate( m ) && BeginAction( typeof( GuardedRegion ) ) )
-				{
-					Say( 1013037 + Utility.Random( 16 ) );
-					guardedRegion.CallGuards( this.Location );
+                    if (!guardedRegion.IsDisabled() && guardedRegion.IsGuardCandidate(m) && BeginAction(typeof(GuardedRegion)))
+                    {
+                        BaseGuard guard = null;
+                        foreach (Mobile g in Map.GetMobilesInRange(m.Location, 25))
+                        {
+                            if (g is BaseGuard && g.Combatant == null)
+                            {
+                                guard = g as BaseGuard;
 
-					Timer.DelayCall( TimeSpan.FromSeconds( 5.0 ), new TimerCallback( ReleaseGuardLock ) );
+                                if (guard != null && guard.Focus == null)
+                                {
+                                    guard.Focus = m;
+                                    guard.Combatant = m;
+                                }
+                                break;
+                            }
+                        }
 
-					m_NoDupeGuards = m;
-					Timer.DelayCall( TimeSpan.Zero, new TimerCallback( ReleaseGuardDupeLock ) );
-				}
-			}
-		}
+                        if (!guardedRegion.IsDisabled() && guardedRegion.IsGuardCandidate(m) && BeginAction(typeof(GuardedRegion)))
+                        {
+                            Say(1013037 + Utility.Random(16));
+                            guardedRegion.CallGuards(this.Location);
+
+                            Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(ReleaseGuardLock));
+
+                            m_NoDupeGuards = m;
+                            Timer.DelayCall(TimeSpan.Zero, new TimerCallback(ReleaseGuardDupeLock));
+                        }
+                    }
+                }
+            }
+        }
+// Modification by 2.0 Shaka큦 GS Killable Guards ends here
+
+// Modification by 2.0 Shaka큦 GS Killable Guards starts here
 
 
 		public void AddSpellAttack( Type type )

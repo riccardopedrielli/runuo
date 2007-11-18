@@ -16,7 +16,6 @@
 * Anyone can modify/redistribute this *
 *  DO NOT REMOVE/CHANGE THIS HEADER!  *
 **************************************/
-
 using System;
 using System.Collections;
 using Server.Misc;
@@ -27,21 +26,20 @@ using Server.Targeting;
 
 namespace Server.Mobiles
 {
-	public class WarriorGuard : BaseGuard
+	public class PaladinGuard : BaseGuard
 	{
 		private static object[] m_GuardParams = new object[1];
 
 		private Timer m_AttackTimer, m_IdleTimer;
-
+		private PaladinGuard m_Guard;
 		private Mobile m_Focus;
-		private WarriorGuard m_Guard;
 
 		[Constructable]
-		public WarriorGuard() : this(null)
+		public PaladinGuard() : this(null)
 		{
 		}
 
-		public WarriorGuard( Mobile target ) : base( target, AIType.AI_Melee )
+		public PaladinGuard( Mobile target ) : base( target, AIType.AI_Paladin )
 		{
 			GenerateBody( Utility.RandomBool(), Utility.RandomBool() );
 
@@ -49,8 +47,10 @@ namespace Server.Mobiles
 			SetKarmaLevel( Utility.Random(1,5) );
 			Karma *= -1; //this added so that guards have positive Karma
 
-			InitStats( 150, 150, 100 );
+			InitStats( 150, 125, 75 );
 			Title = "the guard";
+
+			SetMana( 600 );
 
 			SpeechHue = Utility.RandomDyedHue();
 
@@ -59,77 +59,99 @@ namespace Server.Mobiles
 			AddItem( new BodySash( hue ) );
 			AddItem( new Boots( hue ) );
 
+			#region Pack And Stuff In Pack
+			Container pack = new Backpack();
+
+			pack.Movable = false;
+
+			pack.DropItem( new Gold( 10, 25 ) );
+			pack.DropItem( new Bandage( Utility.RandomMinMax( 10, 20 ) ) );
+			AddItem( pack );
+
+			// Added for use with Paladin AI
+			Spellbook book = new BookOfChivalry( (ulong)0x3FF );			
+			book.LootType = LootType.Blessed;			
+			PackItem( book );
+			#endregion
+
 			// Pick a random sword
 			switch ( Utility.Random( 7 )) 
 			{ 
 				case 0:
 				{
 					Longsword weapon = new Longsword(); 
+					weapon.Quality = WeaponQuality.Exceptional;
+					PackItem( Resourced(weapon,CraftResource.Valorite) );
 					weapon.Movable = false;
 					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
 
-					AddItem( weapon );
+					AddItem( Resourced(weapon,CraftResource.Valorite) );
 					break;
 				}
 				case 1:
 				{
 					Broadsword weapon = new Broadsword(); 
+					weapon.Quality = WeaponQuality.Exceptional;
+					PackItem( Resourced(weapon,CraftResource.Valorite) );
 					weapon.Movable = false;
 					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
 
-					AddItem( weapon );
+					AddItem( Resourced(weapon,CraftResource.Valorite) );
 					break;
 				}
 				case 2:
 				{
 					VikingSword weapon = new VikingSword(); 
+					weapon.Quality = WeaponQuality.Exceptional;
+					PackItem( Resourced(weapon,CraftResource.Valorite) );
 					weapon.Movable = false;
 					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
 
-					AddItem( weapon );
+					AddItem( Resourced(weapon,CraftResource.Valorite) );
 					break;
 				}
 				case 3:
 				{
 					BattleAxe weapon = new BattleAxe(); 
+					weapon.Quality = WeaponQuality.Exceptional;
+					PackItem( Resourced(weapon,CraftResource.Valorite) );
 					weapon.Movable = false;
 					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
 
-					AddItem( weapon );
+					AddItem( Resourced(weapon,CraftResource.Valorite) );
 					break;
 				}
 				case 4:
 				{
 					TwoHandedAxe weapon = new TwoHandedAxe(); 
+					weapon.Quality = WeaponQuality.Exceptional;
+					PackItem( Resourced(weapon,CraftResource.Valorite) );
 					weapon.Movable = false;
 					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
 
-					AddItem( weapon );
+					AddItem( Resourced(weapon,CraftResource.Valorite) );
 					break;
 				}
 				case 5:
 				{
 					Katana weapon = new Katana(); 
+					weapon.Quality = WeaponQuality.Exceptional;
+					PackItem( Resourced(weapon,CraftResource.Valorite) );
 					weapon.Movable = false;
 					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
 
-					AddItem( weapon );
+					AddItem( Resourced(weapon,CraftResource.Valorite) );
 					break;
 				}
 				default:
 				{
 					Halberd weapon = new Halberd();
+					weapon.Quality = WeaponQuality.Exceptional;
+					PackItem( Resourced(weapon,CraftResource.Valorite) );
 					weapon.Movable = false;
 					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
 
-					AddItem( weapon );
+					AddItem(  Resourced(weapon,CraftResource.Valorite) );
 					break;
 				}
 			} 
@@ -145,110 +167,71 @@ namespace Server.Mobiles
 				// Pick a random shield
 				switch ( Utility.Random( 8 )) 
 				{ 
-					case 0: AddItem( new BronzeShield() ); break; 
-					case 1: AddItem( new HeaterShield() ); break; 
-					case 2: AddItem( new MetalKiteShield() ); break; 
-					case 3: AddItem( new MetalShield() ); break; 
+					case 0: AddItem( Resourced(new BronzeShield(),CraftResource.Valorite) ); break; 
+					case 1: AddItem( Resourced(new HeaterShield(),CraftResource.Valorite) ); break; 
+					case 2: AddItem( Resourced(new MetalKiteShield(),CraftResource.Valorite) ); break; 
+					case 3: AddItem( Resourced(new MetalShield(),CraftResource.Valorite) ); break; 
 					case 4: AddItem( new WoodenKiteShield() ); break; 
 					case 5: AddItem( new WoodenShield() ); break; 
-					case 6: AddItem( new OrderShield() ); break;
-					case 7: AddItem( new ChaosShield() ); break;
+					case 6: AddItem( Resourced(new OrderShield(),CraftResource.Valorite) ); break;
+					case 7: AddItem( Resourced(new ChaosShield(),CraftResource.Valorite) ); break;
 				} 
 			}
-          
+
 			switch( Utility.Random( 5 ) )
 			{
 				case 0: break;
-				case 1: AddItem( new Bascinet() ); break;
-				case 2: AddItem( new CloseHelm() ); break;
-				case 3: AddItem( new NorseHelm() ); break;
-				case 4: AddItem( new Helmet() ); break;
+				case 1: AddItem( Resourced(new Bascinet(),CraftResource.Valorite) ); break;
+				case 2: AddItem( Resourced(new CloseHelm(),CraftResource.Valorite) ); break;
+				case 3: AddItem( Resourced(new NorseHelm(),CraftResource.Valorite) ); break;
+				case 4: AddItem( Resourced(new Helmet(),CraftResource.Valorite) ); break;
 
 			}
 			// Pick some armour
-			switch( Utility.Random( 5 ) )
+			switch( Utility.Random( 3 ) )
 			{
-				case 0: // Leather
+				case 0: // Ringmail
+					AddItem( Resourced(new RingmailChest(),CraftResource.Valorite) );
+					AddItem( Resourced(new RingmailArms(),CraftResource.Valorite) );
+					AddItem( Resourced(new RingmailGloves(),CraftResource.Valorite) );
+					AddItem( Resourced(new RingmailLegs(),CraftResource.Valorite) );
+					break;
+
+				case 1: // Chain
+					AddItem( Resourced(new ChainChest(),CraftResource.Valorite) );
+					AddItem( Resourced(new ChainCoif(),CraftResource.Valorite) );
+					AddItem( Resourced(new ChainLegs(),CraftResource.Valorite) );
+					break;
+
+				case 2: // Plate
 					if ( Female )
 					{
-						switch( Utility.Random( 3 ) )
-						{
-							case 0: AddItem( new LeatherSkirt() ); break;
-							case 1: AddItem( new LeatherShorts() ); break;
-							case 2: AddItem( new LeatherLegs() ); break;
-						}
-
-						AddItem( new FemaleLeatherChest() );
+						AddItem( Resourced(new FemalePlateChest(),CraftResource.Valorite) );
 					}
 					else
 					{
-						AddItem( new LeatherChest() );
-						AddItem( new LeatherLegs() );
+						AddItem( Resourced(new PlateChest(),CraftResource.Valorite) );
 					}
-					AddItem( new LeatherArms() );
-					AddItem( new LeatherGloves() );
-					AddItem( new LeatherGorget() );
-					break;
-
-				case 1: // Studded Leather
-					if ( Female )
-					{
-						AddItem( new FemaleStuddedChest() );
-					}
-					else
-					{
-						AddItem( new StuddedChest() );
-					}
-					AddItem( new StuddedArms() );
-					AddItem( new StuddedLegs() );
-					AddItem( new StuddedGloves() );
-					AddItem( new StuddedGorget() );
-					break;
-
-				case 2: // Ringmail
-					AddItem( new RingmailChest() );
-					AddItem( new RingmailArms() );
-					AddItem( new RingmailGloves() );
-					AddItem( new RingmailLegs() );
-					break;
-
-				case 3: // Chain
-					AddItem( new ChainChest() );
-					AddItem( new ChainCoif() );
-					AddItem( new ChainLegs() );
-					break;
-
-				case 4: // Plate
-					if ( Female )
-					{
-						AddItem( new FemalePlateChest() );
-					}
-					else
-					{
-						AddItem( new PlateChest() );
-					}
-					AddItem( new PlateArms() );
-					AddItem( new PlateLegs() );
-					AddItem( new PlateGloves() );
-					AddItem( new PlateGorget() );
+					AddItem( Resourced(new PlateArms(),CraftResource.Valorite) );
+					AddItem( Resourced(new PlateLegs(),CraftResource.Valorite) );
+					AddItem( Resourced(new PlateGloves(),CraftResource.Valorite) );
+					AddItem( Resourced(new PlateGorget(),CraftResource.Valorite) );
 					break;
 			}
 
-			Container pack = new Backpack();
-
-			pack.Movable = false;
-
-			pack.DropItem( new Gold( 10, 25 ) );
-			pack.DropItem( new Bandage( Utility.RandomMinMax( 10, 20 ) ) );
-			AddItem( pack );
+			// Added for Use with Paladin AI
+			TithingPoints = 0x3E8;
 
 			SetSkill( SkillName.Swords, 105, 120 );
 			SetSkill( SkillName.Tactics, 46, 87 );
 			SetSkill( SkillName.Anatomy, 46, 87 );
 			SetSkill( SkillName.DetectHidden, 64, 100 );
-			SetSkill( SkillName.MagicResist, 60, 82 );
-			SetSkill( SkillName.Focus, 36, 67 );
 			SetSkill( SkillName.Wrestling, 25, 47 );
+			SetSkill( SkillName.Chivalry, 115.1, 120.1 );
+			SetSkill( SkillName.Focus, 90.1, 100.1 );
+			SetSkill( SkillName.Meditation, 120.0 );
+			SetSkill( SkillName.MagicResist, 85.1, 95.0 );
+			SetSkill( SkillName.Magery, 95.1, 100.0 );
 
 			new Horse().Rider = this;
 
@@ -256,7 +239,7 @@ namespace Server.Mobiles
 			this.Focus = target;
 		}
 
-		public WarriorGuard( Serial serial ) : base( serial )
+		public PaladinGuard( Serial serial ) : base( serial )
 		{
 		}
 
@@ -301,7 +284,11 @@ namespace Server.Mobiles
 
 					Combatant = value;
 
+					if ( oldFocus != null && !oldFocus.Alive )
+						Say( "Thou hast suffered thy punishment, scoundrel." );
+
 					if ( value != null )
+						Say( 500131 ); // Thou wilt regret thine actions, swine!
 
 					if ( m_AttackTimer != null )
 					{
@@ -323,8 +310,6 @@ namespace Server.Mobiles
 					}
 					else
 					{
-						if ( oldFocus != null && !oldFocus.Alive )
-							Say( "Thou hast suffered thy punishment, scoundrel." );
 						m_IdleTimer = new IdleTimer( this );
 						m_IdleTimer.Start();
 					}
@@ -396,9 +381,9 @@ namespace Server.Mobiles
 		private class AvengeTimer : Timer
 		{
 			private Mobile m_Focus;
-			private WarriorGuard m_Guard;
+			private PaladinGuard m_Guard;
 
-			public AvengeTimer( WarriorGuard guard ) : base( TimeSpan.FromSeconds( 2.5 ), TimeSpan.FromSeconds( 1.0 ), 3 ) // change this 3 to whatever you want for a backup call for guards 3 = 3 guards called
+			public AvengeTimer( PaladinGuard guard ) : base( TimeSpan.FromSeconds( 2.5 ), TimeSpan.FromSeconds( 1.0 ), 3 ) // change this 3 to whatever you want for a backup call for guards 3 = 3 guards called
 			{
 				m_Guard = guard;
 				if (guard.Focus != null)
@@ -411,9 +396,9 @@ namespace Server.Mobiles
 			{
 				if ( !m_Guard.BackUP )
 				{
-					BaseGuard wg = (BaseGuard)Activator.CreateInstance( GuardedRegion.RandomGuard( typeof (WarriorGuard), ((GuardedRegion)m_Guard.Region).UseRandom ), m_GuardParams );
-					wg.BackUP = true; // this prevents backup from calling backup
-					//Console.WriteLine(" I Am Backup and I am Alive ("+wg.Name+")");
+                    BaseGuard wg = (BaseGuard)Activator.CreateInstance( GuardedRegion.RandomGuard( typeof( PaladinGuard ), ( (GuardedRegion)m_Guard.Region ).UseRandom ), m_GuardParams );
+						wg.BackUP = true; // this prevents backup from calling backup
+						//Console.WriteLine(" I Am Backup and I am Alive ("+wg.Name+")");
 				}
 				/*else
 					Console.WriteLine(" I Am Backup and I died ");*/
@@ -427,9 +412,9 @@ namespace Server.Mobiles
 
 		private class AttackTimer : Timer
 		{
-			private WarriorGuard m_Owner;
+			private PaladinGuard m_Owner;
 
-			public AttackTimer( WarriorGuard owner ) : base( TimeSpan.FromSeconds( 0.25 ), TimeSpan.FromSeconds( 0.1 ) )
+			public AttackTimer( PaladinGuard owner ) : base( TimeSpan.FromSeconds( 0.25 ), TimeSpan.FromSeconds( 0.1 ) )
 			{
 				m_Owner = owner;
 			}
@@ -453,7 +438,7 @@ namespace Server.Mobiles
 
 				Mobile target = m_Owner.Focus;
 
-				if ( target != null && (target.Deleted || !target.Alive || !m_Owner.CanBeHarmful( target )) )
+				if ( target != null && (target.Deleted || !target.Alive || !m_Owner.CanBeHarmful( target )) )	
 				{
 					m_Owner.Focus = null;
 					Stop();
@@ -503,10 +488,10 @@ namespace Server.Mobiles
 
 		private class IdleTimer : Timer
 		{
-			private WarriorGuard m_Owner;
+			private PaladinGuard m_Owner;
 			private int m_Stage;
 
-			public IdleTimer( WarriorGuard owner ) : base( TimeSpan.FromSeconds( 2.0 ), TimeSpan.FromSeconds( 2.5 ) )
+			public IdleTimer( PaladinGuard owner ) : base( TimeSpan.FromSeconds( 2.0 ), TimeSpan.FromSeconds( 2.5 ) )
 			{
 				m_Owner = owner;
 			}
