@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: MessagePump.cs 193 2007-08-08 20:30:14Z mark $
+ *   $Id: MessagePump.cs 265 2007-11-17 07:10:29Z mark $
  *
  ***************************************************************************/
 
@@ -24,9 +24,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using Server;
-using Server.Network;
 using Server.Diagnostics;
+using Server.Network;
 
 namespace Server.Network
 {
@@ -38,9 +39,28 @@ namespace Server.Network
 		private Queue<NetState> m_Throttled;
 		private byte[] m_Peek;
 
-		public MessagePump( Listener l )
+		public MessagePump()
 		{
-			m_Listeners = new Listener[]{ l };
+			IPEndPoint[] ipep = Listener.EndPoints;
+
+			m_Listeners = new Listener[ipep.Length];
+
+			bool success = false;
+
+			do {
+				for ( int i = 0; i < ipep.Length; i++ ) {
+					Listener l = new Listener( ipep[i] );
+					if ( !success && l != null )
+						success = true;
+					m_Listeners[i] = l;
+				}
+
+				if ( !success ) {
+					Console.WriteLine( "Retrying..." );
+					Thread.Sleep( 10000 );
+				}
+			} while ( !success );
+
 			m_Queue = new Queue<NetState>();
 			m_WorkingQueue = new Queue<NetState>();
 			m_Throttled = new Queue<NetState>();

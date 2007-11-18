@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: Main.cs 250 2007-09-14 07:01:31Z mark $
+ *   $Id: Main.cs 265 2007-11-17 07:10:29Z mark $
  *
  ***************************************************************************/
 
@@ -448,7 +448,7 @@ namespace Server
 
 			SocketPool.Create();
 
-			MessagePump ms = m_MessagePump = new MessagePump( new Listener( Listener.Port ) );
+			MessagePump ms = m_MessagePump = new MessagePump();
 
 			timerThread.Start();
 
