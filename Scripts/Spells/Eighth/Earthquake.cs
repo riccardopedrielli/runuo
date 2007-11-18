@@ -54,11 +54,14 @@ namespace Server.Spells.Eighth
 
 					if ( Core.AOS )
 					{
-						damage = m.Hits / 2;
-
-						if ( !m.Player )
+                        /*** MOD_START ***/
+						//damage = m.Hits / 2;
+                        damage = 90 + Utility.RandomMinMax(0, 10);
+                        
+						/*if ( !m.Player )
 							damage = Math.Max( Math.Min( damage, 100 ), 15 );
-							damage += Utility.RandomMinMax( 0, 15 );
+							damage += Utility.RandomMinMax( 0, 15 );*/
+                        /*** MOD_END ***/
 
 					}
 					else
