@@ -1,25 +1,12 @@
 using System;
 using System.Collections;
 using Server;
-using Server.Mobiles;
-using Server.Items;
 
 namespace Server.Mobiles
 {
 	public abstract class BaseMount : BaseCreature, IMount
 	{
-        // Addition by 2.0 Shaka큦 GS Killable Guards starts here -- added to make it possible for guardedregion.cs to check to make sure a mount is already owned
-        
-        private bool m_IsMount;
-        public bool IsMount
-        {
-            get { return m_IsMount; }
-            set { m_IsMount = value; InvalidateProperties(); }
-        }
-        
-        // Addition by 2.0 Shaka큦 GS Killable Guards ends here
-
-        private Mobile m_Rider;
+		private Mobile m_Rider;
 		private Item m_InternalItem;
 		private DateTime m_NextMountAbility;
 
@@ -53,10 +40,10 @@ namespace Server.Mobiles
 		{
 			base.Serialize( writer );
 
-            writer.Write((int)2); // version // Modded by 2.0 Shaka큦 GS Killable Guards - Version increased to save new variable
+			writer.Write( (int) 1 ); // version
 
-            writer.Write((bool)m_IsMount); // Added by 2.0 Shaka큦 GS Killable Guards - New Variable that is checked on in GuardedRegion.cs
 			writer.Write( m_NextMountAbility );
+
 			writer.Write( m_Rider );
 			writer.Write( m_InternalItem );
 		}
@@ -109,17 +96,6 @@ namespace Server.Mobiles
 
 			switch ( version )
 			{
-
-                // Adition by 2.0 Shaka큦 GS Killable Guards starts here
-
-                case 2:
-                    {
-                        m_IsMount = reader.ReadBool(); //Same New Variable for checking GuardedRegion.cs
-                        goto case 1;
-                    }
-
-                // Adition by 2.0 Shaka큦 GS Killable Guards starts here
-
 				case 1:
 				{
 					m_NextMountAbility = reader.ReadDateTime();
@@ -193,10 +169,7 @@ namespace Server.Mobiles
 					if ( this.Poisoned )
 						PrivateOverheadMessage( Network.MessageType.Regular, 0x3B2, 1049692, from.NetState ); // This mount is too ill to ride.
 					else
-                    { // Adition by 2.0 Shaka큦 GS Killable Guards starts here
-                        Rider = from; // <-- was originally right after the else
-                        m_IsMount = true; // Shaka큦 GS Killable Guards for Protection of Mounts from guards
-                    } // Adition by 2.0 Shaka큦 GS Killable Guards ends here
+						Rider = from;
 				}
 				else if ( !Controlled && !Summoned )
 				{

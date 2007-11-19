@@ -239,14 +239,6 @@ namespace Server.Mobiles
 
 		private bool		m_Paragon;
 
-		/*** ADD_START ***/
-
-		private bool        m_IsAggressive = false;
-        
-		private bool        m_IsPetSum;
-
-		/*** ADD_END ***/
-
 		#endregion
 
 		public virtual InhumanSpeech SpeechType{ get{ return null; } }
@@ -256,36 +248,6 @@ namespace Server.Mobiles
 			get{ return m_IsStabled; }
 			set{ m_IsStabled = value; }
 		}
-
-        /*** ADD_START ***/
-        public bool IsAggressive
-        {
-            get
-            {
-                if (m_FightMode == FightMode.Closest && (!m_bSummoned || !m_bControlled))
-                    m_IsAggressive = true;
-
-                return m_IsAggressive;
-            }
-            set { m_IsAggressive = value; }
-
-		}
-        
-        public bool IsPetSum
-        {
-            get
-            {
-                if (!m_bSummoned || !m_bControlled)
-                    m_IsPetSum = false;
-
-                if ((m_bSummoned && m_SummonMaster != null) || (m_bControlled && m_ControlMaster != null))
-                    m_IsPetSum = true;
-
-                return m_IsPetSum;
-            }
-            set { m_IsPetSum = value; }
-        }
-        /*** ADD_END ***/
 
 		protected DateTime SummonEnd
 		{
@@ -2040,9 +2002,9 @@ namespace Server.Mobiles
 					break;
 				
 				/*** ADD_START ***/
-				case AIType.AI_Paladin: // Added by 2.0 Shaka´s GS Killable Guards
-					m_AI = new PaladinAI(this); // Added by 2.0 Shaka´s GS Killable Guards
-					break; // Added by 2.0 Shaka´s GS Killable Guards
+				case AIType.AI_Paladin:
+					m_AI = new PaladinAI(this);
+					break;
             	/*** ADD_END ***/
 			}
 		}
@@ -3150,9 +3112,6 @@ namespace Server.Mobiles
 			if ( !Body.IsHuman || Kills >= 5 || AlwaysMurderer || AlwaysAttackable || m.Kills < 5 || !m.InRange( Location, 12 ) || !m.Alive )
 				return;
 
-			/*** MOD_START ***/
-
-			/*
 			GuardedRegion guardedRegion = (GuardedRegion) this.Region.GetRegion( typeof( GuardedRegion ) );
 
 			if ( guardedRegion != null )
@@ -3168,50 +3127,6 @@ namespace Server.Mobiles
 					Timer.DelayCall( TimeSpan.Zero, new TimerCallback( ReleaseGuardDupeLock ) );
 				}
 			}
-			*/
-
-            Region reg = this.Region;
-
-            if (reg != null)
-            {
-                if (reg is GuardedRegion)
-                {
-                    GuardedRegion guardedRegion = (GuardedRegion)reg;
-
-                    if (!guardedRegion.IsDisabled() && guardedRegion.IsGuardCandidate(m) && BeginAction(typeof(GuardedRegion)))
-                    {
-                        BaseGuard guard = null;
-                        foreach (Mobile g in Map.GetMobilesInRange(m.Location, 25))
-                        {
-                            if (g is BaseGuard && g.Combatant == null)
-                            {
-                                guard = g as BaseGuard;
-
-                                if (guard != null && guard.Focus == null)
-                                {
-                                    guard.Focus = m;
-                                    guard.Combatant = m;
-                                }
-                                break;
-                            }
-                        }
-
-                        if (!guardedRegion.IsDisabled() && guardedRegion.IsGuardCandidate(m) && BeginAction(typeof(GuardedRegion)))
-                        {
-                            Say(1013037 + Utility.Random(16));
-                            guardedRegion.CallGuards(this.Location);
-
-                            Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(ReleaseGuardLock));
-
-                            m_NoDupeGuards = m;
-                            Timer.DelayCall(TimeSpan.Zero, new TimerCallback(ReleaseGuardDupeLock));
-                        }
-                    }
-                }
-            }
-
-            /*** MOD_END ***/
-
 		}
 
 

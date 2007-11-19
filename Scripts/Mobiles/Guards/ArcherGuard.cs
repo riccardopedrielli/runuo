@@ -1,53 +1,13 @@
-/**************************************
-*    Killable Guards (GS Versions)    *
-*            Version: 3.0             *
-*                                     *   
-*      Distro files: ArcherGuard.cs   *
-*                                     *
-*        Created by Admin_Shaka       *
-*              07/07/2007             *
-*                                     *
-*          D I M E N S I O N S        * 
-*          hell is only a word        *
-*                                     *
-*         www.dimensions.com.br       *
-*                                     *
-*      Original Script and Ideas by   *
-*               Greystar              *
-*                                     *
-* Anyone can modify/redistribute this *
-*  DO NOT REMOVE/CHANGE THIS HEADER!  *
-**************************************/
-
-/// <summary>
-/// Distro ArcherGuard edited by Greystar to make them killable
-/// Without having instakill any longer.
-/// Verion 1.1.0
-/// Date 02/26/2006		Time: 01:54 Central Standard Time
-/// Special Thanks to Shadow1980 and TheN for assistance with 
-/// testing.  Whole bunch of changes to this file to make things 
-/// work correctly.  Added colored items like sashes and boots 
-/// and shirts becuase in the future I'm colorcoding my guards 
-/// by what city/facet they are from.  These guards also only 
-/// have one teleportation thing still uncommented, if you still 
-/// want them to teleport just remove either the double slashes 
-/// from the area or the /**/ from the section you want to work.
-/// Guards now can be random.
-/// </summary>
-
 using System;
 using System.Collections;
 using Server.Misc;
 using Server.Items;
-using Server.Regions;
 using Server.Mobiles;
-using Server.Targeting;
 
 namespace Server.Mobiles
 {
 	public class ArcherGuard : BaseGuard
 	{
-		private static object[] m_GuardParams = new object[1];
 		private Timer m_AttackTimer, m_IdleTimer;
 
 		private Mobile m_Focus;
@@ -57,73 +17,38 @@ namespace Server.Mobiles
 		{
 		}
 
-		[Constructable]
-		public ArcherGuard( Mobile target ) : base( target, AIType.AI_Archer )
+		public ArcherGuard( Mobile target ) : base( target )
 		{
-			// Uses the routine from BaseGuard.cs to get this
-			GenerateBody( Utility.RandomBool(), Utility.RandomBool() );
-
-			SetFameLevel( Utility.Random(1,5) );
-			SetKarmaLevel( Utility.Random(1,5) );
-			Karma *= -1; //this added so that guards have positive Karma
-
-			InitStats( 75, 150, 125 );
+			InitStats( 100, 125, 25 );
 			Title = "the guard";
 
 			SpeechHue = Utility.RandomDyedHue();
 
-			Horse horse = new Horse();
-			horse.Rider = this; 
+			Hue = Utility.RandomSkinHue();
 
-			int hue = GetRandomHue(); //Insert your hue here
-			AddItem( new FancyShirt( hue ) ); 
-			AddItem( new BodySash( hue ) );
-			AddItem( new Boots( hue ) );
-
-			// Pick some armour
-			switch( Utility.Random(1,2) ) //Could probably change this to a RandomBool somehow
+			if ( Female = Utility.RandomBool() )
 			{
-				case 1: // Leather
-					if ( Female )
-					{
-						switch( Utility.Random( 3 ) )
-						{
-							case 0: AddItem( new LeatherSkirt() ); break;
-							case 1: AddItem( new LeatherShorts() ); break;
-							case 2: AddItem( new LeatherLegs() ); break;
-						}
-
-						AddItem( new FemaleLeatherChest() );
-						AddItem( new LeatherBustierArms() );
-					}
-					else
-					{
-						AddItem( new LeatherChest() );
-						AddItem( new LeatherArms() );
-						AddItem( new LeatherLegs() );
-					}
-					AddItem( new LeatherGloves() );
-					AddItem( new LeatherGorget() );
-					break;
-
-				case 2: // Studded Leather
-					if ( Female )
-					{
-						AddItem( new FemaleStuddedChest() );
-						AddItem( new StuddedBustierArms() );
-					}
-					else
-					{
-						AddItem( new StuddedChest() );
-						AddItem( new StuddedArms() );
-					}
-					AddItem( new StuddedLegs() );
-					AddItem( new StuddedGloves() );
-					AddItem( new StuddedGorget() );
-					break;
+				Body = 0x191;
+				Name = NameList.RandomName( "female" );
+			}
+			else
+			{
+				Body = 0x190;
+				Name = NameList.RandomName( "male" );
 			}
 
+			new Horse().Rider = this;
+
+			AddItem( new StuddedChest() );
+			AddItem( new StuddedArms() );
+			AddItem( new StuddedGloves() );
+			AddItem( new StuddedGorget() );
+			AddItem( new StuddedLegs() );
+			AddItem( new Boots() );
+			AddItem( new SkullCap() );
+
 			Bow bow = new Bow();
+
 			bow.Movable = false;
 			bow.Crafter = this;
 			bow.Quality = WeaponQuality.Exceptional;
@@ -134,19 +59,20 @@ namespace Server.Mobiles
 
 			pack.Movable = false;
 
-			pack.DropItem( new Arrow( 250 ) );
+			Arrow arrows = new Arrow( 250 );
+
+			arrows.LootType = LootType.Newbied;
+
+			pack.DropItem( arrows );
 			pack.DropItem( new Gold( 10, 25 ) );
-			pack.DropItem( new Bandage( Utility.RandomMinMax( 10, 20 ) ) );
 
 			AddItem( pack );
 
-			SetSkill( SkillName.Archery, 105.0, 120.0 );
-			SetSkill( SkillName.Tactics, 46.0, 87.0 );
-			SetSkill( SkillName.Anatomy, 46.0, 87.0 );
-			SetSkill( SkillName.DetectHidden, 64.0, 100.0 );
-			SetSkill( SkillName.MagicResist, 60.0, 82.0 );
-			SetSkill( SkillName.Focus, 36.0, 67.0 );
-			SetSkill( SkillName.Wrestling, 25.0, 47.0 );
+			Skills[SkillName.Anatomy].Base = 120.0;
+			Skills[SkillName.Tactics].Base = 120.0;
+			Skills[SkillName.Archery].Base = 120.0;
+			Skills[SkillName.MagicResist].Base = 120.0;
+			Skills[SkillName.DetectHidden].Base = 100.0;
 
 			this.NextCombatTime = DateTime.Now + TimeSpan.FromSeconds( 0.5 );
 			this.Focus = target;
@@ -159,7 +85,8 @@ namespace Server.Mobiles
 		public override bool OnBeforeDeath()
 		{
 			if ( m_Focus != null && m_Focus.Alive )
-				new AvengeTimer( this ).Start(); // If a guard dies, three more guards will spawn
+				new AvengeTimer( m_Focus ).Start(); // If a guard dies, three more guards will spawn
+
 			return base.OnBeforeDeath();
 		}
 
@@ -224,17 +151,6 @@ namespace Server.Mobiles
 			}
 		}
 
-		/* /// Left in for debugging purposes can be removed if you like
-		public override void OnDeath( Container c )
-		{
-			base.OnDeath( c );
-			if (this.BackUP)
-				Console.WriteLine(" I Am Backup and I died ("+this.Name+")");
-			else
-				Console.WriteLine(" I Am a Guard and I died ("+this.Name+") after I called backup");
-		}
-		*/
-
 		public override void Serialize( GenericWriter writer )
 		{
 			base.Serialize( writer );
@@ -288,45 +204,26 @@ namespace Server.Mobiles
 
 			base.OnAfterDelete();
 		}
-		
-		// This section of code could probably be cleaned up in the future but it does
-		// what I wanted it to at this time.
+
 		private class AvengeTimer : Timer
 		{
 			private Mobile m_Focus;
-			private ArcherGuard m_Guard;
 
-			public AvengeTimer( ArcherGuard guard ) : base( TimeSpan.FromSeconds( 2.5 ), TimeSpan.FromSeconds( 1.0 ), 3 ) // change this 3 to whatever you want for a backup call for guards 3 = 3 guards called
+			public AvengeTimer( Mobile focus ) : base( TimeSpan.FromSeconds( 2.5 ), TimeSpan.FromSeconds( 1.0 ), 3 ) // After 2.5 seconds, one guard will spawn every 1.0 second, three times
 			{
-				m_Guard = guard;
-				if (guard.Focus != null)
-					m_GuardParams[0] = m_Focus = guard.Focus;
-				else if (guard.Focus == null && guard.Combatant != null)
-					m_GuardParams[0] = m_Focus = guard.Combatant;
-			}
-
-			public void CallBackup( Mobile focus )
-			{
-				if ( !m_Guard.BackUP )
-				{
-                    BaseGuard ag = (BaseGuard)Activator.CreateInstance( GuardedRegion.RandomGuard( typeof( ArcherGuard ), ( (GuardedRegion)m_Guard.Region ).UseRandom ), m_GuardParams );
-					ag.BackUP = true; // this prevents backup from calling backup
-					//Console.WriteLine(" I Am Backup and I am Alive ("+wg.Name+")");
-				}
-				/*else
-					Console.WriteLine(" I Am Backup and I died ");*/
+				m_Focus = focus;
 			}
 
 			protected override void OnTick()
 			{
-				//CallBackup(m_Focus);
+				BaseGuard.Spawn( m_Focus, m_Focus, 1, true );
 			}
 		}
 
 		private class AttackTimer : Timer
 		{
 			private ArcherGuard m_Owner;
-			private bool m_Shooting;
+		//	private bool m_Shooting;
 
 			public AttackTimer( ArcherGuard owner ) : base( TimeSpan.FromSeconds( 0.25 ), TimeSpan.FromSeconds( 0.1 ) )
 			{
@@ -358,6 +255,12 @@ namespace Server.Mobiles
 					Stop();
 					return;
 				}
+				else if ( m_Owner.Weapon is Fists )
+				{
+					m_Owner.Kill();
+					Stop();
+					return;
+				}
 
 				if ( target != null && m_Owner.Combatant != target )
 					m_Owner.Combatant = target;
@@ -366,30 +269,47 @@ namespace Server.Mobiles
 				{
 					Stop();
 				}
-				else if ( !m_Owner.InRange( target, 20 ) )
+				else
+				{// <instakill>
+					TeleportTo( target );
+					target.BoltEffect( 0 );
+
+					if ( target is BaseCreature )
+						((BaseCreature)target).NoKillAwards = true;
+
+					target.Damage( target.HitsMax, m_Owner );
+					target.Kill(); // just in case, maybe Damage is overriden on some shard
+
+					if ( target.Corpse != null && !target.Player )
+						target.Corpse.Delete();
+
+					m_Owner.Focus = null;
+					Stop();
+				}// </instakill>
+				/*else if ( !m_Owner.InRange( target, 20 ) )
 				{
 					m_Shooting = false;
 					m_Owner.Focus = null;
-				}/*
+				}
 				else if ( !m_Owner.InLOS( target ) )
 				{
 					m_Shooting = false;
 					TeleportTo( target );
-				}*/
+				}
 				else if ( !m_Owner.CanSee( target ) )
 				{
 					m_Shooting = false;
 
-					/*if ( !m_Owner.InRange( target, 2 ) )
+					if ( !m_Owner.InRange( target, 2 ) )
 					{
 						if ( !m_Owner.Move( m_Owner.GetDirectionTo( target ) | Direction.Running ) && OutOfMaxDistance( target ) )
 							TeleportTo( target );
 					}
 					else
-					{*/
+					{
 						if ( !m_Owner.UseSkill( SkillName.DetectHidden ) && Utility.Random( 50 ) == 0 )
 							m_Owner.Say( "Reveal!" );
-					//}
+					}
 				}
 				else
 				{
@@ -400,7 +320,7 @@ namespace Server.Mobiles
 
 					if ( !m_Shooting )
 					{
-						/*if ( m_Owner.InRange( target, 1 ) )
+						if ( m_Owner.InRange( target, 1 ) )
 						{
 							if ( !m_Owner.Move( (Direction)(m_Owner.GetDirectionTo( target ) - 4) | Direction.Running ) && OutOfMaxDistance( target ) ) // Too close, move away
 								TeleportTo( target );
@@ -409,9 +329,9 @@ namespace Server.Mobiles
 						{
 							if ( !m_Owner.Move( m_Owner.GetDirectionTo( target ) | Direction.Running ) && OutOfMaxDistance( target ) )
 								TeleportTo( target );
-						}*/
+						}
 					}
-				}
+				}*/
 			}
 
 			private bool TimeToSpare()
@@ -460,8 +380,7 @@ namespace Server.Mobiles
 					Stop();
 					return;
 				}
-				
-				//Not exactly sure what purpose this serves
+
 				if ( (m_Stage++ % 4) == 0 || !m_Owner.Move( m_Owner.Direction ) )
 					m_Owner.Direction = (Direction)Utility.Random( 8 );
 

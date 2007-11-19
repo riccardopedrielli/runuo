@@ -1,256 +1,94 @@
-/**************************************
-*    Killable Guards (GS Versions)    *
-*            Version: 3.0             *
-*                                     *   
-*        Created by Admin_Shaka       *
-*              07/07/2007             *
-*                                     *
-*          D I M E N S I O N S        * 
-*          hell is only a word        *
-*                                     *
-*         www.dimensions.com.br       *
-*                                     *
-*      Original Script and Ideas by   *
-*               Greystar              *
-*                                     *
-* Anyone can modify/redistribute this *
-*  DO NOT REMOVE/CHANGE THIS HEADER!  *
-**************************************/
-
 using System;
 using System.Collections;
 using Server.Misc;
 using Server.Items;
 using Server.Mobiles;
-using Server.Regions;
 using Server.Targeting;
 
 namespace Server.Mobiles
 {
 	public class WarriorGuard : BaseGuard
 	{
-		private static object[] m_GuardParams = new object[1];
-
 		private Timer m_AttackTimer, m_IdleTimer;
 
 		private Mobile m_Focus;
-		private WarriorGuard m_Guard;
 
 		[Constructable]
-		public WarriorGuard() : this(null)
+		public WarriorGuard() : this( null )
 		{
 		}
 
-		public WarriorGuard( Mobile target ) : base( target, AIType.AI_Melee )
+		public WarriorGuard( Mobile target ) : base( target )
 		{
-			GenerateBody( Utility.RandomBool(), Utility.RandomBool() );
-
-			SetFameLevel( Utility.Random(1,5) );
-			SetKarmaLevel( Utility.Random(1,5) );
-			Karma *= -1; //this added so that guards have positive Karma
-
-			InitStats( 150, 150, 100 );
+			InitStats( 1000, 1000, 1000 );
 			Title = "the guard";
 
 			SpeechHue = Utility.RandomDyedHue();
 
-			int hue = GetRandomHue(); //Insert your hue choice here
-			AddItem( new FancyShirt( hue ) ); 
-			AddItem( new BodySash( hue ) );
-			AddItem( new Boots( hue ) );
+			Hue = Utility.RandomSkinHue();
 
-			// Pick a random sword
-			switch ( Utility.Random( 7 )) 
-			{ 
-				case 0:
-				{
-					Longsword weapon = new Longsword(); 
-					weapon.Movable = false;
-					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
-
-					AddItem( weapon );
-					break;
-				}
-				case 1:
-				{
-					Broadsword weapon = new Broadsword(); 
-					weapon.Movable = false;
-					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
-
-					AddItem( weapon );
-					break;
-				}
-				case 2:
-				{
-					VikingSword weapon = new VikingSword(); 
-					weapon.Movable = false;
-					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
-
-					AddItem( weapon );
-					break;
-				}
-				case 3:
-				{
-					BattleAxe weapon = new BattleAxe(); 
-					weapon.Movable = false;
-					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
-
-					AddItem( weapon );
-					break;
-				}
-				case 4:
-				{
-					TwoHandedAxe weapon = new TwoHandedAxe(); 
-					weapon.Movable = false;
-					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
-
-					AddItem( weapon );
-					break;
-				}
-				case 5:
-				{
-					Katana weapon = new Katana(); 
-					weapon.Movable = false;
-					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
-
-					AddItem( weapon );
-					break;
-				}
-				default:
-				{
-					Halberd weapon = new Halberd();
-					weapon.Movable = false;
-					weapon.Crafter = this;
-					weapon.Quality = WeaponQuality.Exceptional;
-
-					AddItem( weapon );
-					break;
-				}
-			} 
-
-			Item handOne = this.FindItemOnLayer( Layer.OneHanded );
-			Item handTwo = this.FindItemOnLayer( Layer.TwoHanded );
-
-			if ( handTwo is BaseWeapon )
-				handOne = handTwo;
-
-			if (handTwo == null)
+			if ( Female = Utility.RandomBool() )
 			{
-				// Pick a random shield
-				switch ( Utility.Random( 8 )) 
-				{ 
-					case 0: AddItem( new BronzeShield() ); break; 
-					case 1: AddItem( new HeaterShield() ); break; 
-					case 2: AddItem( new MetalKiteShield() ); break; 
-					case 3: AddItem( new MetalShield() ); break; 
-					case 4: AddItem( new WoodenKiteShield() ); break; 
-					case 5: AddItem( new WoodenShield() ); break; 
-					case 6: AddItem( new OrderShield() ); break;
-					case 7: AddItem( new ChaosShield() ); break;
-				} 
+				Body = 0x191;
+				Name = NameList.RandomName( "female" );
+
+				switch( Utility.Random( 2 ) )
+				{
+					case 0: AddItem( new LeatherSkirt() ); break;
+					case 1: AddItem( new LeatherShorts() ); break;
+				}
+
+				switch( Utility.Random( 5 ) )
+				{
+					case 0: AddItem( new FemaleLeatherChest() ); break;
+					case 1: AddItem( new FemaleStuddedChest() ); break;
+					case 2: AddItem( new LeatherBustierArms() ); break;
+					case 3: AddItem( new StuddedBustierArms() ); break;
+					case 4: AddItem( new FemalePlateChest() ); break;
+				}
 			}
-          
-			switch( Utility.Random( 5 ) )
+			else
 			{
-				case 0: break;
-				case 1: AddItem( new Bascinet() ); break;
-				case 2: AddItem( new CloseHelm() ); break;
-				case 3: AddItem( new NorseHelm() ); break;
-				case 4: AddItem( new Helmet() ); break;
+				Body = 0x190;
+				Name = NameList.RandomName( "male" );
 
+				AddItem( new PlateChest() );
+				AddItem( new PlateArms() );
+				AddItem( new PlateLegs() );
+
+				switch( Utility.Random( 3 ) )
+				{
+					case 0: AddItem( new Doublet( Utility.RandomNondyedHue() ) ); break;
+					case 1: AddItem( new Tunic( Utility.RandomNondyedHue() ) ); break;
+					case 2: AddItem( new BodySash( Utility.RandomNondyedHue() ) ); break;
+				}
 			}
-			// Pick some armour
-			switch( Utility.Random( 5 ) )
-			{
-				case 0: // Leather
-					if ( Female )
-					{
-						switch( Utility.Random( 3 ) )
-						{
-							case 0: AddItem( new LeatherSkirt() ); break;
-							case 1: AddItem( new LeatherShorts() ); break;
-							case 2: AddItem( new LeatherLegs() ); break;
-						}
+			Utility.AssignRandomHair( this );
 
-						AddItem( new FemaleLeatherChest() );
-					}
-					else
-					{
-						AddItem( new LeatherChest() );
-						AddItem( new LeatherLegs() );
-					}
-					AddItem( new LeatherArms() );
-					AddItem( new LeatherGloves() );
-					AddItem( new LeatherGorget() );
-					break;
+			if( Utility.RandomBool() )
+				Utility.AssignRandomFacialHair( this, HairHue );
 
-				case 1: // Studded Leather
-					if ( Female )
-					{
-						AddItem( new FemaleStuddedChest() );
-					}
-					else
-					{
-						AddItem( new StuddedChest() );
-					}
-					AddItem( new StuddedArms() );
-					AddItem( new StuddedLegs() );
-					AddItem( new StuddedGloves() );
-					AddItem( new StuddedGorget() );
-					break;
+			Halberd weapon = new Halberd();
 
-				case 2: // Ringmail
-					AddItem( new RingmailChest() );
-					AddItem( new RingmailArms() );
-					AddItem( new RingmailGloves() );
-					AddItem( new RingmailLegs() );
-					break;
+			weapon.Movable = false;
+			weapon.Crafter = this;
+			weapon.Quality = WeaponQuality.Exceptional;
 
-				case 3: // Chain
-					AddItem( new ChainChest() );
-					AddItem( new ChainCoif() );
-					AddItem( new ChainLegs() );
-					break;
-
-				case 4: // Plate
-					if ( Female )
-					{
-						AddItem( new FemalePlateChest() );
-					}
-					else
-					{
-						AddItem( new PlateChest() );
-					}
-					AddItem( new PlateArms() );
-					AddItem( new PlateLegs() );
-					AddItem( new PlateGloves() );
-					AddItem( new PlateGorget() );
-					break;
-			}
+			AddItem( weapon );
 
 			Container pack = new Backpack();
 
 			pack.Movable = false;
 
 			pack.DropItem( new Gold( 10, 25 ) );
-			pack.DropItem( new Bandage( Utility.RandomMinMax( 10, 20 ) ) );
+
 			AddItem( pack );
 
-			SetSkill( SkillName.Swords, 105, 120 );
-			SetSkill( SkillName.Tactics, 46, 87 );
-			SetSkill( SkillName.Anatomy, 46, 87 );
-			SetSkill( SkillName.DetectHidden, 64, 100 );
-			SetSkill( SkillName.MagicResist, 60, 82 );
-			SetSkill( SkillName.Focus, 36, 67 );
-			SetSkill( SkillName.Wrestling, 25, 47 );
-
-			new Horse().Rider = this;
+			Skills[SkillName.Anatomy].Base = 120.0;
+			Skills[SkillName.Tactics].Base = 120.0;
+			Skills[SkillName.Swords].Base = 120.0;
+			Skills[SkillName.MagicResist].Base = 120.0;
+			Skills[SkillName.DetectHidden].Base = 100.0;
 
 			this.NextCombatTime = DateTime.Now + TimeSpan.FromSeconds( 0.5 );
 			this.Focus = target;
@@ -263,20 +101,10 @@ namespace Server.Mobiles
 		public override bool OnBeforeDeath()
 		{
 			if ( m_Focus != null && m_Focus.Alive )
-			new AvengeTimer( this ).Start(); // If a guard dies, three more guards will spawn
+				new AvengeTimer( m_Focus ).Start(); // If a guard dies, three more guards will spawn
+
 			return base.OnBeforeDeath();
 		}
-
-		/* /// Left in for debugging purposes can be removed if you like
-		public override void OnDeath( Container c )
-		{
-			base.OnDeath( c );
-			if (this.BackUP)
-				Console.WriteLine(" I Am Backup and I died ("+this.Name+")");
-			else
-				Console.WriteLine(" I Am a Guard and I died ("+this.Name+") after I called backup");
-		}
-		*/
 
 		[CommandProperty( AccessLevel.GameMaster )]
 		public override Mobile Focus
@@ -301,7 +129,11 @@ namespace Server.Mobiles
 
 					Combatant = value;
 
+					if ( oldFocus != null && !oldFocus.Alive )
+						Say( "Thou hast suffered thy punishment, scoundrel." );
+
 					if ( value != null )
+						Say( 500131 ); // Thou wilt regret thine actions, swine!
 
 					if ( m_AttackTimer != null )
 					{
@@ -323,8 +155,6 @@ namespace Server.Mobiles
 					}
 					else
 					{
-						if ( oldFocus != null && !oldFocus.Alive )
-							Say( "Thou hast suffered thy punishment, scoundrel." );
 						m_IdleTimer = new IdleTimer( this );
 						m_IdleTimer.Start();
 					}
@@ -391,37 +221,18 @@ namespace Server.Mobiles
 			base.OnAfterDelete();
 		}
 
-		// This section of code could probably be cleaned up in the future but it does
-		// what I wanted it to at this time.
 		private class AvengeTimer : Timer
 		{
 			private Mobile m_Focus;
-			private WarriorGuard m_Guard;
 
-			public AvengeTimer( WarriorGuard guard ) : base( TimeSpan.FromSeconds( 2.5 ), TimeSpan.FromSeconds( 1.0 ), 3 ) // change this 3 to whatever you want for a backup call for guards 3 = 3 guards called
+			public AvengeTimer( Mobile focus ) : base( TimeSpan.FromSeconds( 2.5 ), TimeSpan.FromSeconds( 1.0 ), 3 )
 			{
-				m_Guard = guard;
-				if (guard.Focus != null)
-					m_GuardParams[0] = m_Focus = guard.Focus;
-				else if (guard.Focus == null && guard.Combatant != null)
-					m_GuardParams[0] = m_Focus = guard.Combatant;
-			}
-
-			public void CallBackup( Mobile focus )
-			{
-				if ( !m_Guard.BackUP )
-				{
-					BaseGuard wg = (BaseGuard)Activator.CreateInstance( GuardedRegion.RandomGuard( typeof (WarriorGuard), ((GuardedRegion)m_Guard.Region).UseRandom ), m_GuardParams );
-					wg.BackUP = true; // this prevents backup from calling backup
-					//Console.WriteLine(" I Am Backup and I am Alive ("+wg.Name+")");
-				}
-				/*else
-					Console.WriteLine(" I Am Backup and I died ");*/
+				m_Focus = focus;
 			}
 
 			protected override void OnTick()
 			{
-				//CallBackup(m_Focus);
+				BaseGuard.Spawn( m_Focus, m_Focus, 1, true );
 			}
 		}
 
@@ -453,9 +264,15 @@ namespace Server.Mobiles
 
 				Mobile target = m_Owner.Focus;
 
-				if ( target != null && (target.Deleted || !target.Alive || !m_Owner.CanBeHarmful( target )) )
+				if ( target != null && (target.Deleted || !target.Alive || !m_Owner.CanBeHarmful( target )) )	
 				{
 					m_Owner.Focus = null;
+					Stop();
+					return;
+				}
+				else if ( m_Owner.Weapon is Fists )
+				{
+					m_Owner.Kill();
 					Stop();
 					return;
 				}
@@ -467,11 +284,28 @@ namespace Server.Mobiles
 				{
 					Stop();
 				}
-				else if ( !m_Owner.InRange( target, 20 ) )
+				else
+				{// <instakill>
+					TeleportTo( target );
+					target.BoltEffect( 0 );
+
+					if ( target is BaseCreature )
+						((BaseCreature)target).NoKillAwards = true;
+
+					target.Damage( target.HitsMax, m_Owner );
+					target.Kill(); // just in case, maybe Damage is overriden on some shard
+
+					if ( target.Corpse != null && !target.Player )
+						target.Corpse.Delete();
+
+					m_Owner.Focus = null;
+					Stop();
+				}// </instakill>
+				/*else if ( !m_Owner.InRange( target, 20 ) )
 				{
 					m_Owner.Focus = null;
 				}
-				/*else if ( !m_Owner.InRange( target, 10 ) || !m_Owner.InLOS( target ) )
+				else if ( !m_Owner.InRange( target, 10 ) || !m_Owner.InLOS( target ) )
 				{
 					TeleportTo( target );
 				}
@@ -479,12 +313,12 @@ namespace Server.Mobiles
 				{
 					if ( !m_Owner.Move( m_Owner.GetDirectionTo( target ) | Direction.Running ) )
 						TeleportTo( target );
-				}*/
+				}
 				else if ( !m_Owner.CanSee( target ) )
 				{
 					if ( !m_Owner.UseSkill( SkillName.DetectHidden ) && Utility.Random( 50 ) == 0 )
 						m_Owner.Say( "Reveal!" );
-				}
+				}*/
 			}
 
 			private void TeleportTo( Mobile target )
@@ -519,7 +353,6 @@ namespace Server.Mobiles
 					return;
 				}
 
-				//Not exactly sure what purpose this serves
 				if ( (m_Stage++ % 4) == 0 || !m_Owner.Move( m_Owner.Direction ) )
 					m_Owner.Direction = (Direction)Utility.Random( 8 );
 
