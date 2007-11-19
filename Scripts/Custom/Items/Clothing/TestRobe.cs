@@ -5,13 +5,13 @@ using Server.Accounting;
 
 namespace Server.Items
 {
-	public class StaffRobe : BaseOuterTorso
+	public class TestRobe : BaseOuterTorso
 	{
 		[Constructable]
-		public StaffRobe() : base( 0x204F )
+		public TestRobe() : base( 0x204F )
 		{
 			Weight = 0.0;
-			Name = "Staff Robe";
+			Name = "Test Robe";
 			Hue=503;
 			Layer = Layer.OuterTorso;
 		}
@@ -42,7 +42,7 @@ namespace Server.Items
 					if( status.AccessLevel != AccessLevel.Player )
 					{
 						m.AccessLevel = status.AccessLevel;
-						Name = "Staff Robe";
+						Name = "Test Robe";
 						ItemID = 0x204F;
 						m.RemoveItem(this);
 						m.EquipItem(this);
@@ -51,7 +51,7 @@ namespace Server.Items
 			}
 		}
 
-		public StaffRobe( Serial serial ) : base( serial )
+		public TestRobe( Serial serial ) : base( serial )
 		{
 		}
 
