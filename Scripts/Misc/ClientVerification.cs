@@ -20,7 +20,16 @@ namespace Server.Misc
 		}
 
 		private static bool m_DetectClientRequirement = true;
+		
+		/*** MOD_START ***/
+		
+		/*
 		private static OldClientResponse m_OldClientResponse = OldClientResponse.LenientKick;
+		*/
+		
+		private static OldClientResponse m_OldClientResponse = OldClientResponse.Kick;
+		
+		/*** MOD_END ***/
 
 		private static ClientVersion m_Required;
 		private static bool m_AllowRegular = true, m_AllowUOTD = true, m_AllowGod = true;
@@ -28,7 +37,15 @@ namespace Server.Misc
 		private static TimeSpan m_AgeLeniency = TimeSpan.FromDays( 10 );
 		private static TimeSpan m_GameTimeLeniency = TimeSpan.FromHours( 25 );
 
+		/*** MOD_START ***/
+		
+		/*
 		private static TimeSpan m_KickDelay = TimeSpan.FromSeconds( 20.0 );
+		*/
+		
+		private static TimeSpan m_KickDelay = TimeSpan.FromSeconds( 10.0 );
+		
+		/*** MOD_END ***/
 
 		public static ClientVersion Required
 		{

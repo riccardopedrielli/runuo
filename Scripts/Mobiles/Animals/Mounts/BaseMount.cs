@@ -1,24 +1,3 @@
-/**************************************
-*    Killable Guards (GS Versions)    *
-*            Version: 3.0             *
-*                                     *   
-*      Distro files: BaseMount.cs     *
-*                                     *
-*        Created by Admin_Shaka       *
-*              07/07/2007             *
-*                                     *
-*          D I M E N S I O N S        * 
-*          hell is only a word        *
-*                                     *
-*         www.dimensions.com.br       *
-*                                     *
-*      Original Script and Ideas by   *
-*               Greystar              *
-*                                     *
-* Anyone can modify/redistribute this *
-*  DO NOT REMOVE/CHANGE THIS HEADER!  *
-**************************************/
-
 using System;
 using System.Collections;
 using Server;
