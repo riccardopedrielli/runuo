@@ -9,21 +9,11 @@ namespace Server.Mobiles
 {
 	public abstract class BaseTownGuard : BaseCreature
 	{
-		private bool m_BackUP = false;
-
-		public virtual bool BackUP{ get{ return m_BackUP; } set{ m_BackUP = value; } }
-		//public override bool ReaquireOnMovement { get { return true; } } //to make guards more annoying uncomment this line.
-
 		//This makes it so that guards will be able to attack Mobiles without crashing anything
 		public override double GetFightModeRanking( Mobile m, FightMode acqType, bool bPlayerOnly )
 		{
 			bPlayerOnly = false;
 			return base.GetFightModeRanking(m, acqType, bPlayerOnly);
-		}
-
-		//This was added for guards that do not need a target.  They will find their own.
-		public BaseTownGuard( AIType AI ): base( AI, FightMode.Closest, 10, 1, 0.1, 4.0 ) 
-		{ 
 		}
 
 		//Because of this section it makes it possible for players to create guards with their own AI's
@@ -37,24 +27,8 @@ namespace Server.Mobiles
 
 				Effects.SendLocationParticles( EffectItem.Create( Location, Map, EffectItem.DefaultDuration ), 0x3728, 10, 10, 5023 );
 			}
-
-			if ( target == null )
-				BackUP = false;
-		}
-
-		//All guards will default to AI_Melee unless you give them an alternate AI
-		public BaseTownGuard( Mobile target ): base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.1, 4.0 ) 
-		{ 
-			if ( target != null )
-			{
-				Location = target.Location;
-				Map = target.Map;
-
-				Effects.SendLocationParticles( EffectItem.Create( Location, Map, EffectItem.DefaultDuration ), 0x3728, 10, 10, 5023 );
-			}
-
-			if ( target == null )
-				BackUP = false;
+			
+			Title = "the guard";
 		}
 
 		public BaseTownGuard( Serial serial ) : base( serial )
@@ -96,10 +70,8 @@ namespace Server.Mobiles
 					if ( c.Criminal || (( c.Kills >= 5 || c.AlwaysMurderer ) && !rgn.AllowReds ) )
 						return true;
 
-					//Console.WriteLine("My target is a creature by the name of "+c.Name);
 					PlayerMobile pc = c.ControlMaster as PlayerMobile; //These added for protection of pets
 					PlayerMobile ps = c.SummonMaster as PlayerMobile; //These added for protection of summoned creatures
-					// screw bard pacified creatures they shouldnt be in town anywayz
 				}
 			}
 
@@ -121,8 +93,6 @@ namespace Server.Mobiles
 		}
 
 		#region Area for Random stuff for guards
-		// If you dont want to use this part of the code you can remove it
-		// but it will still be in all new versions of the code
 		public virtual void GenerateRandomHair()
 		{
 			int hairHue = Utility.RandomHairHue();
@@ -206,95 +176,6 @@ namespace Server.Mobiles
 				case 7: return Utility.RandomMetalHue();
 			}
 		}
-
-		private static Type[] m_StrongPotions = new Type[]
-		{
-			typeof( GreaterHealPotion ), typeof( GreaterHealPotion ), typeof( GreaterHealPotion ),
-			typeof( GreaterCurePotion ), typeof( GreaterCurePotion ), typeof( GreaterCurePotion ),
-			typeof( GreaterStrengthPotion ), typeof( GreaterStrengthPotion ),
-			typeof( GreaterAgilityPotion ), typeof( GreaterAgilityPotion ),
-			typeof( TotalRefreshPotion ), typeof( TotalRefreshPotion ),
-			typeof( GreaterExplosionPotion )
-		};
-
-		private static Type[] m_WeakPotions = new Type[]
-		{
-			typeof( HealPotion ), typeof( HealPotion ), typeof( HealPotion ),
-			typeof( CurePotion ), typeof( CurePotion ), typeof( CurePotion ),
-			typeof( StrengthPotion ), typeof( StrengthPotion ),
-			typeof( AgilityPotion ), typeof( AgilityPotion ),
-			typeof( RefreshPotion ), typeof( RefreshPotion ),
-			typeof( ExplosionPotion )
-		};
-
-		public void PackStrongPotions( int min, int max )
-		{
-			PackStrongPotions( Utility.RandomMinMax( min, max ) );
-		}
-
-		public void PackStrongPotions( int count )
-		{
-			for ( int i = 0; i < count; ++i )
-				PackStrongPotion();
-		}
-
-		public void PackStrongPotion()
-		{
-			PackItem( Loot.Construct( m_StrongPotions ) );
-		}
-
-		public void PackWeakPotions( int min, int max )
-		{
-			PackWeakPotions( Utility.RandomMinMax( min, max ) );
-		}
-
-		public void PackWeakPotions( int count )
-		{
-			for ( int i = 0; i < count; ++i )
-				PackWeakPotion();
-		}
-
-		public void PackWeakPotion()
-		{
-			PackItem( Loot.Construct( m_WeakPotions ) );
-		}
-
-		public Item Immovable( Item item )
-		{
-			item.Movable = false;
-			return item;
-		}
-
-		public Item Newbied( Item item )
-		{
-			item.LootType = LootType.Newbied;
-			return item;
-		}
-
-		public Item Rehued( Item item, int hue )
-		{
-			item.Hue = hue;
-			return item;
-		}
-
-		public Item Layered( Item item, Layer layer )
-		{
-			item.Layer = layer;
-			return item;
-		}
-
-		public Item Resourced( BaseWeapon weapon, CraftResource resource )
-		{
-			weapon.Resource = resource;
-			return weapon;
-		}
-
-		public Item Resourced( BaseArmor armor, CraftResource resource )
-		{
-			armor.Resource = resource;
-			return armor;
-		}
-		// End of removeable code
 		#endregion
 	}
 }
