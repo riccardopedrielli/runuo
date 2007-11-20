@@ -1792,7 +1792,30 @@ namespace Server.Multis
 				m.SendLocalizedMessage( 501722 );//That isn't locked down...
 			}
 		}
-		
+
+        /*** ADD_START ***/
+        public void StealLockedObj(Mobile m, Item item)
+        {
+            if (!IsActive)
+                return;
+
+            if (IsLockedDown(item))
+            {
+                item.PublicOverheadMessage(Server.Network.MessageType.Label, 0x3B2, 501657);//[no longer locked down]
+                SetLockdown(item, false);
+                //TidyItemList( m_LockDowns );
+            }
+            else if (IsSecure(item))
+            {
+                ReleaseSecure(m, item);
+            }
+            else
+            {
+                m.SendLocalizedMessage(501722);//That isn't locked down...
+            }
+        }
+		/*** ADD_END ***/
+
 		public void AddSecure( Mobile m, Item item )
 		{
 			if ( m_Secures == null || !IsOwner( m ) || !IsActive )
@@ -1921,6 +1944,32 @@ namespace Server.Multis
 
 			m.SendLocalizedMessage( 501717 );//This isn't secure...
 		}
+
+        /*** ADD_START ***/
+        public void StealSecure(Mobile m, Item item)
+        {
+            if (m_Secures == null && !IsActive)
+                return;
+
+            for (int i = 0; i < m_Secures.Count; ++i)
+            {
+                SecureInfo info = (SecureInfo)m_Secures[i];
+
+                if (info.Item == item)
+                {
+                    item.IsLockedDown = false;
+                    item.IsSecure = false;
+                    item.Movable = true;
+                    item.SetLastMoved();
+                    item.PublicOverheadMessage(Server.Network.MessageType.Label, 0x3B2, 501656);//[no longer secure]
+                    m_Secures.RemoveAt(i);
+                    return;
+                }
+            }
+
+            m.SendLocalizedMessage(501717);//This isn't secure...
+        }
+        /*** ADD_END ***/
 
 		public override bool Decays
 		{
