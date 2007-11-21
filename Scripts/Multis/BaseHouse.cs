@@ -24,7 +24,7 @@ namespace Server.Multis
 		public const int MaxFriends = 50;
 		public const int MaxBans = 50;
 
-		public const bool DecayEnabled = true;
+		public const bool DecayEnabled = false; /*** MOD_START_END ***/ //le case non devono decadere
 
 		public static void Decay_OnTick()
 		{
@@ -2721,11 +2721,13 @@ namespace Server.Multis
 		{
 			get
 			{
-				return m_Public;
+                return true;//m_Public; /*** MOD_START_END ***/
 			}
 			set
 			{
-				if ( m_Public != value )
+                /*** DEL_START ***/
+                //solo case pubbliche
+				/*if ( m_Public != value )
 				{
 					m_Public = value;
 
@@ -2734,7 +2736,9 @@ namespace Server.Multis
 
 					if ( m_Sign != null )
 						m_Sign.InvalidateProperties();
-				}
+				}*/
+
+                /*** DEL_END ***/
 			}
 		}
 
@@ -3263,35 +3267,38 @@ namespace Server.Multis
 
 		public bool HasAccess( Mobile m )
 		{
-			if ( m == null )
-				return false;
+            /*** DEL_START ***/
+            //le case sono sempre accessibili da tutti
+            /*if (m == null)
+                return false;
 
-			if ( m.AccessLevel > AccessLevel.Player || IsFriend( m ) || ( m_Access != null && m_Access.Contains( m ) ) )
-				return true;
+            if (m.AccessLevel > AccessLevel.Player || IsFriend(m) || (m_Access != null && m_Access.Contains(m)))
+                return true;
 
-			if ( m is BaseCreature )
-			{
-				BaseCreature bc = (BaseCreature)m;
+            if (m is BaseCreature)
+            {
+                BaseCreature bc = (BaseCreature)m;
 
-				if ( bc.NoHouseRestrictions )
-					return true;
+                if (bc.NoHouseRestrictions)
+                    return true;
 
-				if ( bc.Controlled || bc.Summoned )
-				{
-					m = bc.ControlMaster;
+                if (bc.Controlled || bc.Summoned)
+                {
+                    m = bc.ControlMaster;
 
-					if ( m == null )
-						m = bc.SummonMaster;
+                    if (m == null)
+                        m = bc.SummonMaster;
 
-					if ( m == null )
-						return false;
+                    if (m == null)
+                        return false;
 
-					if ( m.AccessLevel > AccessLevel.Player || IsFriend( m ) || ( m_Access != null && m_Access.Contains( m ) ) )
-						return true;
-				}
-			}
-
-			return false;
+                    if (m.AccessLevel > AccessLevel.Player || IsFriend(m) || (m_Access != null && m_Access.Contains(m)))
+                        return true;
+                }
+            }
+            return false;*/
+            /*** DEL_END ***/
+			return true;
 		}
 
 		public new bool IsLockedDown( Item check )
