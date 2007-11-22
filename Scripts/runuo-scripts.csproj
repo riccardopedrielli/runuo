@@ -1,6 +1,6 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E2223892-BDD2-42B8-BC25-9979C1C50440}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -118,8 +118,9 @@
     <Compile Include="Custom\Games\Battle Chess\Pieces\Queen.cs" />
     <Compile Include="Custom\Games\Battle Chess\Pieces\Rook.cs" />
     <Compile Include="Custom\Items\Clothing\TestRobe.cs" />
-	<Compile Include="Custom\Mobiles\Guards\BaseTownGuard.cs" />
-	<Compile Include="Custom\Mobiles\Guards\WarriorTownGuard.cs" />
+    <Compile Include="Custom\Mobiles\Guards\BaseTownGuard.cs" />
+    <Compile Include="Custom\Mobiles\Guards\Britain\BritainWarriorGuard.cs" />
+    <Compile Include="Custom\Mobiles\Guards\WarriorTownGuard.cs" />
     <Compile Include="Engines\AI\AI\AnimalAI.cs" />
     <Compile Include="Engines\AI\AI\ArcherAI.cs" />
     <Compile Include="Engines\AI\AI\BaseAI.cs" />
@@ -2458,5 +2459,21 @@
     <Compile Include="Targets\BladedItemTarget.cs" />
     <Compile Include="Targets\MoveTarget.cs" />
     <Compile Include="Targets\PickMoveTarget.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Custom\Mobiles\Guards\Britain" />
+    <Folder Include="Custom\Mobiles\Guards\Moonglow" />
+    <Folder Include="Custom\Mobiles\Guards\Nujelm" />
+    <Folder Include="Custom\Mobiles\Guards\Magincia" />
+    <Folder Include="Custom\Mobiles\Guards\Vesper" />
+    <Folder Include="Custom\Mobiles\Guards\Cove" />
+    <Folder Include="Custom\Mobiles\Guards\SerpentsHold" />
+    <Folder Include="Custom\Mobiles\Guards\Jhelom" />
+    <Folder Include="Custom\Mobiles\Guards\Yew" />
+    <Folder Include="Custom\Mobiles\Guards\Papua" />
+    <Folder Include="Custom\Mobiles\Guards\Trinsic" />
+    <Folder Include="Custom\Mobiles\Guards\Ocllo" />
+    <Folder Include="Custom\Mobiles\Guards\SkaraBrae" />
+    <Folder Include="Custom\Mobiles\Guards\Minoc" />
   </ItemGroup>
 </Project>

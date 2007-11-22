@@ -9,6 +9,10 @@ namespace Server.Mobiles
 {
 	public abstract class BaseTownGuard : BaseCreature
 	{
+		protected Timer m_AttackTimer, m_IdleTimer;
+
+		protected Mobile m_Focus;
+
 		//This makes it so that guards will be able to attack Mobiles without crashing anything
 		public override double GetFightModeRanking( Mobile m, FightMode acqType, bool bPlayerOnly )
 		{
@@ -16,26 +20,214 @@ namespace Server.Mobiles
 			return base.GetFightModeRanking(m, acqType, bPlayerOnly);
 		}
 
-		//Because of this section it makes it possible for players to create guards with their own AI's
-		//See the included ArcherGuard and WarriorGuard for examples on how to do this.
-		public BaseTownGuard( Mobile target, AIType AI ): base( AI, FightMode.Closest, 10, 1, 0.1, 4.0 ) 
-		{ 
-			if ( target != null )
-			{
-				Location = target.Location;
-				Map = target.Map;
+		public BaseTownGuard( AIType AI ): base( AI, FightMode.Closest, 10, 1, 0.1, 4.0 ) 
+		{
+			Debug = true;
 
-				Effects.SendLocationParticles( EffectItem.Create( Location, Map, EffectItem.DefaultDuration ), 0x3728, 10, 10, 5023 );
-			}
-			
-			Title = "the guard";
+			GenerateBody();
+			GenerateHair();
+			GenerateArmor();
+			GenerateWeapon();
+			GenerateClothes();
+			GenerateMount();
+			SetTitle();
+			SetNoLoot();
+			SetStats();
+			SetSkills();
+			SetKarmaFame();
+			SetSpeechHue();
+			SetSpeeds();
 		}
 
 		public BaseTownGuard( Serial serial ) : base( serial )
 		{
 		}
 
-		public abstract Mobile Focus{ get; set; }
+		protected virtual void GenerateBody()
+		{
+			Hue = Utility.RandomSkinHue();
+
+			if ( Utility.Random( 5 ) == 0 )
+			{
+				Female = true;
+				Body = 0x191;
+				Name = NameList.RandomName( "female" );
+			}
+			else
+			{
+				Female = false;
+				Body = 0x190;
+				Name = NameList.RandomName( "male" );
+			}
+		}
+
+		protected virtual void GenerateHair()
+		{
+			int hairHue = Utility.RandomHairHue();
+
+			if ( Female )
+			{
+				switch ( Utility.Random( 10 ) )
+				{
+					case 0: AddItem( new Afro( hairHue ) ); break;
+					case 1: AddItem( new KrisnaHair( hairHue ) ); break;
+					case 2: AddItem( new PageboyHair( hairHue ) ); break;
+					case 3: AddItem( new PonyTail( hairHue ) ); break;
+					case 4: AddItem( new ReceedingHair( hairHue ) ); break;
+					case 5: AddItem( new TwoPigTails( hairHue ) ); break;
+					case 6: AddItem( new ShortHair( hairHue ) ); break;
+					case 7: AddItem( new LongHair( hairHue ) ); break;
+					case 8: AddItem( new BunsHair( hairHue ) ); break;
+					default: break;
+				}
+			}
+			else
+			{
+				switch ( Utility.Random( 9 ) )
+				{
+					case 0: AddItem( new Afro( hairHue ) ); break;
+					case 1: AddItem( new KrisnaHair( hairHue ) ); break;
+					case 2: AddItem( new PageboyHair( hairHue ) ); break;
+					case 3: AddItem( new PonyTail( hairHue ) ); break;
+					case 4: AddItem( new ReceedingHair( hairHue ) ); break;
+					case 5: AddItem( new TwoPigTails( hairHue ) ); break;
+					case 6: AddItem( new ShortHair( hairHue ) ); break;
+					case 7: AddItem( new LongHair( hairHue ) ); break;
+					default: break;
+				}
+
+				switch ( Utility.Random( 6 ) )
+				{
+					case 0: AddItem( new LongBeard( hairHue ) ); break;
+					case 1: AddItem( new MediumLongBeard( hairHue ) ); break;
+					case 2: AddItem( new Vandyke( hairHue ) ); break;
+					case 3: AddItem( new Mustache( hairHue ) ); break;
+					case 4: AddItem( new Goatee( hairHue ) ); break;
+					default: break;
+				}
+			}
+		}
+
+		protected virtual void GenerateArmor()
+		{
+		}
+
+		protected virtual void GenerateWeapon()
+		{
+		}
+
+		protected virtual void GenerateClothes()
+		{
+		}
+
+		protected virtual void GenerateMount()
+		{
+			new Horse().Rider = this;
+		}
+
+		protected virtual void SetTitle()
+		{
+			Title = "the guard";
+		}
+
+		protected virtual void SetNoLoot()
+		{
+			foreach ( Item item in Items )
+			{
+				item.LootType = LootType.Newbied;
+			}
+		}
+
+		protected virtual void SetStats()
+		{
+		}
+
+		protected virtual void SetSkills()
+		{
+		}
+
+		protected virtual void SetKarmaFame()
+		{
+			Karma = Utility.Random( 0, 5000 );
+			Fame = Utility.Random( 0, 5000 );
+		}
+
+		protected virtual void SetSpeechHue()
+		{
+			SpeechHue = Utility.RandomDyedHue();
+		}
+		
+		protected virtual void SetSpeeds()
+		{
+			ActiveSpeed = -0.2;
+			PassiveSpeed = 1;
+			CurrentSpeed = PassiveSpeed;
+		}
+
+		public override bool OnBeforeDeath()
+		{
+			((BaseMount) Mount).Kill();
+			return base.OnBeforeDeath();
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public Mobile Focus
+		{
+			get
+			{
+				return m_Focus;
+			}
+			set
+			{
+				if ( Deleted )
+					return;
+
+				Mobile oldFocus = m_Focus;
+
+				if ( oldFocus != value )
+				{
+					m_Focus = value;
+
+					if ( value != null )
+						this.AggressiveAction( value );
+
+					Combatant = value;
+
+					if ( value != null )
+
+					if ( m_AttackTimer != null )
+					{
+						m_AttackTimer.Stop();
+						m_AttackTimer = null;
+					}
+
+					if ( m_IdleTimer != null )
+					{
+						m_IdleTimer.Stop();
+						m_IdleTimer = null;
+					}
+
+					if ( m_Focus != null )
+					{
+						m_AttackTimer = new AttackTimer( this );
+						m_AttackTimer.Start();
+						((AttackTimer)m_AttackTimer).DoOnTick();
+					}
+					else
+					{
+						if ( oldFocus != null && !oldFocus.Alive )
+							Say( "Thou hast suffered thy punishment, scoundrel." );
+						m_IdleTimer = new IdleTimer( this );
+						m_IdleTimer.Start();
+					}
+				}
+				else if ( m_Focus == null && m_IdleTimer == null )
+				{
+					m_IdleTimer = new IdleTimer( this );
+					m_IdleTimer.Start();
+				}
+			}
+		}
 
 		/// <summary>
 		/// anything you dont want your guards to attack OR even do want them to attack
@@ -84,98 +276,115 @@ namespace Server.Mobiles
 
 			writer.Write( (int) 0 ); // version
 		}
-
+		
 		public override void Deserialize( GenericReader reader )
 		{
 			base.Deserialize( reader );
 
 			int version = reader.ReadInt();
-		}
 
-		#region Area for Random stuff for guards
-		public virtual void GenerateRandomHair()
-		{
-			int hairHue = Utility.RandomHairHue();
-
-			if ( Female )
+			switch ( version )
 			{
-				switch ( Utility.Random( 10 ) )
+				case 0:
 				{
-					case 0: AddItem( new Afro( hairHue ) ); break;
-					case 1: AddItem( new KrisnaHair( hairHue ) ); break;
-					case 2: AddItem( new PageboyHair( hairHue ) ); break;
-					case 3: AddItem( new PonyTail( hairHue ) ); break;
-					case 4: AddItem( new ReceedingHair( hairHue ) ); break;
-					case 5: AddItem( new TwoPigTails( hairHue ) ); break;
-					case 6: AddItem( new ShortHair( hairHue ) ); break;
-					case 7: AddItem( new LongHair( hairHue ) ); break;
-					case 8: AddItem( new BunsHair( hairHue ) ); break;
-					default: break;
-				}
-			}
-			else
-			{
-				switch ( Utility.Random( 9 ) )
-				{
-					case 0: AddItem( new Afro( hairHue ) ); break;
-					case 1: AddItem( new KrisnaHair( hairHue ) ); break;
-					case 2: AddItem( new PageboyHair( hairHue ) ); break;
-					case 3: AddItem( new PonyTail( hairHue ) ); break;
-					case 4: AddItem( new ReceedingHair( hairHue ) ); break;
-					case 5: AddItem( new TwoPigTails( hairHue ) ); break;
-					case 6: AddItem( new ShortHair( hairHue ) ); break;
-					case 7: AddItem( new LongHair( hairHue ) ); break;
-					default: break;
-				}
-
-				switch ( Utility.Random( 6 ) )
-				{
-					case 0: AddItem( new LongBeard( hairHue ) ); break;
-					case 1: AddItem( new MediumLongBeard( hairHue ) ); break;
-					case 2: AddItem( new Vandyke( hairHue ) ); break;
-					case 3: AddItem( new Mustache( hairHue ) ); break;
-					case 4: AddItem( new Goatee( hairHue ) ); break;
-					default: break;
+					m_IdleTimer = new IdleTimer( this );
+					m_IdleTimer.Start();
+					break;
 				}
 			}
 		}
 
-		public virtual void GenerateBody( bool isFemale, bool randomHair )
+		public override void OnAfterDelete()
 		{
-			Hue = Utility.RandomSkinHue();
-
-			if ( isFemale )
+			if ( m_AttackTimer != null )
 			{
-				Female = true;
-				Body = 0x191;
-				Name = NameList.RandomName( "female" );
-			}
-			else
-			{
-				Female = false;
-				Body = 0x190;
-				Name = NameList.RandomName( "male" );
+				m_AttackTimer.Stop();
+				m_AttackTimer = null;
 			}
 
-			if ( randomHair )
-				GenerateRandomHair();
+			if ( m_IdleTimer != null )
+			{
+				m_IdleTimer.Stop();
+				m_IdleTimer = null;
+			}
+
+			base.OnAfterDelete();
 		}
 
-		public virtual int GetRandomHue()
+		// This section of code could probably be cleaned up in the future but it does
+		// what I wanted it to at this time.
+		protected class AttackTimer : Timer
 		{
-			switch ( Utility.Random( 8 ) )
+			private BaseTownGuard m_Owner;
+
+			public AttackTimer( BaseTownGuard owner ) : base( TimeSpan.FromSeconds( 0.25 ), TimeSpan.FromSeconds( 0.1 ) )
 			{
-				default:
-				case 0: return 0;
-				case 1: return Utility.RandomBlueHue();
-				case 2: return Utility.RandomGreenHue();
-				case 3: return Utility.RandomRedHue();
-				case 4: return Utility.RandomYellowHue();
-				case 5: return Utility.RandomNeutralHue();
-				case 6: return Utility.RandomNondyedHue();
-				case 7: return Utility.RandomMetalHue();
+				m_Owner = owner;
+			}
+
+			public void DoOnTick()
+			{
+				OnTick();
+			}
+
+			protected override void OnTick()
+			{
+				if ( m_Owner.Deleted )
+				{
+					Stop();
+					return;
+				}
+
+				m_Owner.Criminal = false;
+				m_Owner.Kills = 0;
+				m_Owner.Stam = m_Owner.StamMax;
+
+				Mobile target = m_Owner.Focus;
+
+				if ( target != null && (target.Deleted || !target.Alive || !m_Owner.CanBeHarmful( target )) )
+				{
+					m_Owner.Focus = null;
+					Stop();
+					return;
+				}
+
+				if ( target != null && m_Owner.Combatant != target )
+					m_Owner.Combatant = target;
+
+				if ( target == null )
+				{
+					Stop();
+				}
+				else if ( !m_Owner.InRange( target, 20 ) )
+				{
+					m_Owner.Focus = null;
+				}
+				else if ( !m_Owner.CanSee( target ) )
+				{
+					if ( !m_Owner.UseSkill( SkillName.DetectHidden ) && Utility.Random( 50 ) == 0 )
+						m_Owner.Say( "Reveal!" );
+				}
 			}
 		}
-		#endregion
+
+		protected class IdleTimer : Timer
+		{
+			private BaseTownGuard m_Owner;
+			private int m_Stage;
+
+			public IdleTimer( BaseTownGuard owner ) : base( TimeSpan.FromSeconds( 2.0 ), TimeSpan.FromSeconds( 2.5 ) )
+			{
+				m_Owner = owner;
+			}
+
+			protected override void OnTick()
+			{
+				if ( m_Owner.Deleted )
+				{
+					Stop();
+					return;
+				}
+			}
+		}
 	}
 }

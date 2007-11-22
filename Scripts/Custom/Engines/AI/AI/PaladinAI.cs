@@ -72,7 +72,7 @@ namespace Server.Mobiles
 
 		private const double HealChance = 0.25; // 25% chance to heal at gm chivalry, uses close wounds.
 		private const double TeleportChance = 0.05; // 5% chance to teleport ( fake sanctum viatas ) because thats only for recall, and we need to teleport.
-		private const double DispelChance = 0.50; // 75% chance to dispel calculated by chivalry + magery skill
+		private const double DispelChance = 0.75; // 75% chance to dispel calculated by chivalry + magery skill
 
 		public virtual double ScaleByChivalry( double v )
 		{
@@ -142,6 +142,7 @@ namespace Server.Mobiles
 		{
 			if ( !SmartAI )
 			{
+				m_Mobile.DebugSay( "Not smart AI" );
 				if ( !MoveTo( m, true, m_Mobile.RangeFight ) )
 					OnFailedMove();
 
@@ -157,6 +158,8 @@ namespace Server.Mobiles
 			}
 			else
 			{
+				m_Mobile.DebugSay( "Smart AI" );
+
 				if ( !m_Mobile.InRange( m, m_Mobile.RangeFight ) )
 				{
 					if ( !MoveTo( m, true, 1 ) )

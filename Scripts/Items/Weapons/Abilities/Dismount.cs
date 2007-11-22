@@ -22,7 +22,13 @@ namespace Server.Items
 			if ( !base.Validate( from ) )
 				return false;
 
+			/*** MOD_START ***/
+			/*
 			if ( from.Mounted && !(from.Weapon is Lance) )
+			*/
+			
+			if ( from.Mounted )
+			/*** MOD_END ***/
 			{
 				from.SendLocalizedMessage( 1061283 ); // You cannot perform that attack while mounted!
 				return false;
@@ -39,10 +45,24 @@ namespace Server.Items
 			if ( !Validate( attacker ) )
 				return;
 
+			/*** MOD_START ***/
+			/*
 			if ( attacker.Mounted && !(defender.Weapon is Lance) ) // TODO: Should there be a message here?
+			*/
+			
+			if ( attacker.Mounted ) // TODO: Should there be a message here?
+			/*** MOD_END ***/
 				return;
 
 			ClearCurrentAbility( attacker );
+
+			/*** ADD_START ***/
+			if ( defender is BaseTownGuard )
+			{
+				attacker.SendMessage( "You cannot dismount your opponent." );
+				return;
+			}
+			/*** ADD_END ***/
 
 			IMount mount = defender.Mount;
 

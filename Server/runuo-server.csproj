@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{16F42AD6-7673-4AB1-91FB-AEC2012C958F}</ProjectGuid>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{D790EAD7-EB21-4CAF-AA5D-51902127DFC0}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Exe</OutputType>
     <RootNamespace>Server</RootNamespace>
@@ -169,15 +169,5 @@
     <Compile Include="Utility.cs" />
     <Compile Include="VirtueInfo.cs" />
     <Compile Include="World.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ContextMenus" />
-    <Folder Include="Diagnostics" />
-    <Folder Include="Gumps" />
-    <Folder Include="Items" />
-    <Folder Include="Menus" />
-    <Folder Include="Network" />
-    <Folder Include="Persistence" />
-    <Folder Include="Targeting" />
   </ItemGroup>
 </Project>

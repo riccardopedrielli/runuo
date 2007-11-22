@@ -1997,7 +1997,15 @@ namespace Server.Mobiles
 			// This makes them always move one step, never any direction changes
 			m_Mobile.Direction = d;
 
+			/*** MOD_START ***/
+			
+			/*
 			TimeSpan delay = TimeSpan.FromSeconds( TransformMoveDelay( m_Mobile.CurrentSpeed ) );
+			*/
+			
+			TimeSpan delay = TimeSpan.FromSeconds( m_Mobile.CurrentSpeed );
+			
+			/*** MOD_END ***/
 
 			m_NextMove += delay;
 
