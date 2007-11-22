@@ -2184,7 +2184,8 @@ namespace Server.Mobiles
 			}
             /*** ADD_START ***/
             //quando ricevi danno devi essere disHiddato
-            base.Hidden = false;
+            if(base.Hidden)
+                base.RevealingAction();
             /*** ADD_END ***/
 			base.Damage( amount, from );
 		}

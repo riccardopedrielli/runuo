@@ -2035,7 +2035,9 @@ namespace Server.Multis
 
 		public void Kick( Mobile from, Mobile targ )
 		{
-			if ( !IsFriend( from ) || m_Friends == null )
+            /*** DEL_START ***/
+            //non si puo kikkare
+            /*if ( !IsFriend( from ) || m_Friends == null )
 				return;
 
 			if ( targ.AccessLevel > AccessLevel.Player && from.AccessLevel <= targ.AccessLevel )
@@ -2065,8 +2067,10 @@ namespace Server.Multis
 				from.SendLocalizedMessage( 1042840, targ.Name ); // ~1_PLAYER NAME~ has been ejected from this house.
 				targ.SendLocalizedMessage( 501341 ); /* You have been ejected from this house.
 													  * If you persist in entering, you may be banned from the house.
-													  */
-			}
+													  
+			}*/
+            /*** DEL_END ***/
+            return;
 		}
 
 		public void RemoveAccess( Mobile from, Mobile targ )
@@ -2100,10 +2104,12 @@ namespace Server.Multis
 				from.SendLocalizedMessage( 501297 ); // The ban is lifted.
 			}
 		}
-
+        
 		public void Ban( Mobile from, Mobile targ )
 		{
-			if ( !IsFriend( from ) || m_Bans == null )
+			/*** DEL_START ***/
+            //niente ban
+            /*if ( !IsFriend( from ) || m_Bans == null )
 				return;
 
 			if ( targ.AccessLevel > AccessLevel.Player && from.AccessLevel <= targ.AccessLevel )
@@ -2146,12 +2152,16 @@ namespace Server.Multis
 				targ.SendLocalizedMessage( 501340 ); // You have been banned from this house.
 
 				targ.MoveToWorld( BanLocation, Map );
-			}
+			}*/
+            /*** DEL_END ***/
+            return;
 		}
 
 		public void GrantAccess( Mobile from, Mobile targ )
 		{
-			if ( !IsFriend( from ) || m_Access == null )
+            /*** DEL_START ***/
+            //tutti hanno accesso
+            /*if ( !IsFriend( from ) || m_Access == null )
 				return;
 
 			if ( HasAccess( targ ) )
@@ -2171,7 +2181,9 @@ namespace Server.Multis
 				m_Access.Add( targ );
 
 				targ.SendLocalizedMessage( 1060735 ); // You have been granted access to this house.
-			}
+			}*/
+            /*** DEL_END ***/
+            return;
 		}
 
 		public void AddCoOwner( Mobile from, Mobile targ )
