@@ -27,7 +27,7 @@ namespace Server.Mobiles
 		AI_Mage,
 		AI_Berserk,
 		AI_Predator,
-		
+
 		/*** MOD_START ***/
 
 		/*
@@ -35,7 +35,10 @@ namespace Server.Mobiles
 		*/
 
 		AI_Thief,
-		AI_Paladin
+		AI_WarriorGuard,
+		AI_ArcherGuard,
+		AI_MageGuard,
+		AI_PaladinGuard
 
 		/*** MOD_END ***/
 	}
@@ -361,7 +364,17 @@ namespace Server.Mobiles
 				SkillName.Wrestling,
 				SkillName.Lumberjacking,
 				SkillName.Mining,
+				
+				/*** MOD_START ***/
+
+				/*
 				SkillName.Meditation
+				*/
+
+				SkillName.Meditation,
+				SkillName.Chivalry
+
+				/*** MOD_END ***/
 			};
 
 		public virtual void OnSpeech( SpeechEventArgs e )

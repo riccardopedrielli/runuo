@@ -1,20 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////////////////////
-// Custom Paladin AI Prototype
-// Parts of the PaladinAI based on or taken from:
-// RunUO 1.0 RC0 Mage AI Distribution file,
-// Custom Necromancer AI by myself,
-// Custom Necromage AI by myself,
-// Thanks to the Guys at RunUO for RunUO :-)
-// Version: 1.0.9 - Beta 2 Version
-// Coded by: Final Realms
-// Other Scripts by me:
-// Custom Necromancer AI System ( RunUO Forums ):
-// http://www.runuo.com/forum/showthread.php?t=3652
-// Custom Necromage AI System ( RunUO Forums ):
-// http://www.runuo.com/forum/showthread.php?t=37202
-// Please leave this header intact if you want to use the script.
-//////////////////////////////////////////////////////////////////////////////////////////////
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,11 +21,11 @@ using Server.SkillHandlers;
 
 namespace Server.Mobiles
 {
-	public class PaladinAI : BaseAI
+	public class PaladinGuardAI : BaseAI
 	{
 		private DateTime m_NextCastTime;
 
-		public PaladinAI( BaseCreature m ) : base( m )
+		public PaladinGuardAI( BaseCreature m ) : base( m )
 		{
 		}
 

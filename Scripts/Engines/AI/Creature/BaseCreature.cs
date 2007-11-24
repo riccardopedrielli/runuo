@@ -2000,11 +2000,25 @@ namespace Server.Mobiles
 				case AIType.AI_Thief:
 					m_AI = new ThiefAI(this);
 					break;
-				
+
 				/*** ADD_START ***/
-				case AIType.AI_Paladin:
-					m_AI = new PaladinAI(this);
+
+				case AIType.AI_WarriorGuard:
+					m_AI = new WarriorGuardAI(this);
 					break;
+
+				case AIType.AI_ArcherGuard:
+					m_AI = new ArcherGuardAI(this);
+					break;
+
+				case AIType.AI_MageGuard:
+					m_AI = new MageGuardAI(this);
+					break;
+
+				case AIType.AI_PaladinGuard:
+					m_AI = new PaladinGuardAI(this);
+					break;
+
             	/*** ADD_END ***/
 			}
 		}

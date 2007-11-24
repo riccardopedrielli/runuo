@@ -11,7 +11,6 @@ namespace Server.Mobiles
 	public class BritainWarriorGuard : WarriorTownGuard
 	{
 		[Constructable]
-
 		public BritainWarriorGuard()
 		{
 		}

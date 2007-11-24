@@ -3,37 +3,12 @@ using System.Collections;
 using Server.Targeting;
 using Server.Network;
 
-//
-// This is a first simple AI
-//
-//
-
 namespace Server.Mobiles
 {
-	public class MeleeAI : BaseAI
+	public class WarriorGuardAI : MeleeAI
 	{
-		public MeleeAI(BaseCreature m) : base (m)
+		public WarriorGuardAI(BaseCreature m) : base (m)
 		{
-		}
-
-		public override bool DoActionWander()
-		{
-			m_Mobile.DebugSay( "I have no combatant" );
-
-			if ( AcquireFocusMob( m_Mobile.RangePerception, m_Mobile.FightMode, false, false, true ) )
-			{
-				if ( m_Mobile.Debug )
-					m_Mobile.DebugSay( "I have detected {0}, attacking", m_Mobile.FocusMob.Name );
-
-				m_Mobile.Combatant = m_Mobile.FocusMob;
-				Action = ActionType.Combat;
-			}
-			else
-			{
-				base.DoActionWander();
-			}
-
-			return true;
 		}
 
 		public override bool DoActionCombat()
@@ -83,7 +58,7 @@ namespace Server.Mobiles
 				}
 			}*/
 
-			if ( MoveTo( combatant, true, m_Mobile.RangeFight ) )
+			if ( WalkMobileRange(m_Mobile.Combatant, 1, true, m_Mobile.RangeFight, m_Mobile.Weapon.MaxRange) )
 			{
 				m_Mobile.Direction = m_Mobile.GetDirectionTo( combatant );
 			}
@@ -112,7 +87,14 @@ namespace Server.Mobiles
 					m_Mobile.DebugSay( "I should be closer to {0}", combatant.Name );
 			}
 
+			/*** MOD_START ***/
+			/*
 			if ( !m_Mobile.Controlled && !m_Mobile.Summoned && !m_Mobile.IsParagon )
+			*/
+
+			if ( !m_Mobile.Controlled && !m_Mobile.Summoned && !m_Mobile.IsParagon && !(m_Mobile is BaseTownGuard) )
+			/*** MOD_END ***/
+
 			{
 				if ( m_Mobile.Hits < m_Mobile.HitsMax * 20/100 )
 				{
@@ -141,40 +123,6 @@ namespace Server.Mobiles
 						Action = ActionType.Flee;
 					}
 				}
-			}
-
-			return true;
-		}
-
-		public override bool DoActionGuard()
-		{
-			if ( AcquireFocusMob(m_Mobile.RangePerception, m_Mobile.FightMode, false, false, true ) )
-			{
-				if ( m_Mobile.Debug )
-					m_Mobile.DebugSay( "I have detected {0}, attacking", m_Mobile.FocusMob.Name );
-
-				m_Mobile.Combatant = m_Mobile.FocusMob;
-				Action = ActionType.Combat;
-			}
-			else
-			{
-				base.DoActionGuard();
-			}
-
-			return true;
-		}
-
-		public override bool DoActionFlee()
-		{
-			if ( m_Mobile.Hits > m_Mobile.HitsMax/2 )
-			{
-				m_Mobile.DebugSay( "I am stronger now, so I will continue fighting" );
-				Action = ActionType.Combat;
-			}
-			else
-			{
-				m_Mobile.FocusMob = m_Mobile.Combatant;
-				base.DoActionFlee();
 			}
 
 			return true;

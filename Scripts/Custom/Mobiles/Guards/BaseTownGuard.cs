@@ -22,8 +22,6 @@ namespace Server.Mobiles
 
 		public BaseTownGuard( AIType AI ): base( AI, FightMode.Closest, 10, 1, 0.1, 4.0 ) 
 		{
-			Debug = true;
-
 			GenerateBody();
 			GenerateHair();
 			GenerateArmor();
@@ -156,10 +154,10 @@ namespace Server.Mobiles
 		{
 			SpeechHue = Utility.RandomDyedHue();
 		}
-		
+
 		protected virtual void SetSpeeds()
 		{
-			ActiveSpeed = -0.2;
+			ActiveSpeed = 0.08;
 			PassiveSpeed = 1;
 			CurrentSpeed = PassiveSpeed;
 		}

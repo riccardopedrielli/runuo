@@ -10,9 +10,9 @@ namespace Server.Mobiles
 {
 	public abstract class WarriorTownGuard : BaseTownGuard
 	{
-		[Constructable]
+		protected int MeleeSkill = Utility.Random( 8 );
 
-		public WarriorTownGuard() : base( AIType.AI_Paladin )
+		public WarriorTownGuard() : base( AIType.AI_WarriorGuard )
 		{
 		}
 
@@ -47,15 +47,42 @@ namespace Server.Mobiles
 		protected override void GenerateWeapon()
 		{
 			BaseWeapon weapon;
+			
+			switch ( MeleeSkill )
+			{
+				case 0:
+					switch ( Utility.Random( 5 ) ) 
+					{ 
+						case 0: weapon = new WarAxe(); break;
+						case 1: weapon = new Mace(); break;
+						case 2: weapon = new Maul(); break;
+						case 3: weapon = new WarMace(); break;
+						default:weapon = new WarHammer(); break;
+					}
+					break;
 
-			switch ( Utility.Random( 6 ) ) 
-			{ 
-				case 0: weapon = new Longsword(); break;
-				case 1: weapon = new VikingSword(); break;
-				case 2: weapon = new TwoHandedAxe(); break;
-				case 3: weapon = new Katana(); break;
-				case 4: weapon = new Bardiche(); break;
-				default:weapon = new Halberd(); break;
+				case 1:
+				case 2:
+					switch ( Utility.Random( 5 ) ) 
+					{ 
+						case 0: weapon = new ShortSpear(); break;
+						case 1: weapon = new Kryss(); break;
+						case 3: weapon = new WarFork(); break;
+						default:weapon = new Spear(); break;
+					}
+					break;
+
+				default:
+					switch ( Utility.Random( 6 ) ) 
+					{ 
+						case 0: weapon = new Longsword(); break;
+						case 1: weapon = new VikingSword(); break;
+						case 2: weapon = new TwoHandedAxe(); break;
+						case 3: weapon = new Katana(); break;
+						case 4: weapon = new Bardiche(); break;
+						default:weapon = new Halberd(); break;
+					}
+					break;
 			}
 
 			weapon.Movable = false;
@@ -78,7 +105,7 @@ namespace Server.Mobiles
 		protected override void SetStats()
 		{
 			Str = 150;
-			Dex = 150;
+			Dex = 100;
 			Int = 100;
 			Hits = HitsMax;
 			Stam = StamMax;
@@ -87,12 +114,17 @@ namespace Server.Mobiles
 
 		protected override void SetSkills()
 		{
-			SetSkill( SkillName.Swords, 110, 120 );
+			switch ( MeleeSkill )
+			{
+				case 0: SetSkill( SkillName.Macing, 110, 120 ); break;
+				case 1: SetSkill( SkillName.Fencing, 110, 120 ); break;
+				default:SetSkill( SkillName.Swords, 110, 120 ); break;
+			}
 			SetSkill( SkillName.Tactics, 60, 80 );
-			SetSkill( SkillName.Anatomy, 60, 80 );
-			SetSkill( SkillName.DetectHidden, 100, 100 );
+			SetSkill( SkillName.Anatomy, 80, 100 );
+			SetSkill( SkillName.DetectHidden, 90, 100 );
 			SetSkill( SkillName.MagicResist, 80, 100 );
-			SetSkill( SkillName.Focus, 100, 100 );
+			SetSkill( SkillName.Focus, 80, 100 );
 		}
 
 		public override void Serialize( GenericWriter writer )
