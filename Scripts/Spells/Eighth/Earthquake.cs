@@ -57,9 +57,9 @@ namespace Server.Spells.Eighth
                         /*** MOD_START ***/						
                         double magery = Caster.Skills[SkillName.Magery].Base;
                         double evalint = Caster.Skills[SkillName.EvalInt].Base;
-                        double skillBonus = ( magery + evalint ) / 2;
+                        double skillBonusdmg = ( magery + evalint ) / 2;
                         //0,9 costante di danno
-                        damage = Convert.ToInt32((skillBonus * 0.9) + Utility.RandomMinMax(0, 10));
+                        damage = Convert.ToInt32(skillBonus - Utility.RandomMinMax(0, 10));
 
                         /*damage = m.Hits / 2;
 						if ( !m.Player )
