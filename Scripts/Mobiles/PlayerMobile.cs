@@ -463,6 +463,13 @@ namespace Server.Mobiles
 
 		public override int GetMinResistance( ResistanceType type )
 		{
+            /*** ADD_START ***/
+            //la resistenza minima al fisico non deve esistere! le resistenze al fisico si devono
+            //basare solo sulle armor
+            if (type == ResistanceType.Physical)
+                return 0;
+            /*** ADD_END ***/
+
 			int magicResist = (int)(Skills[SkillName.MagicResist].Value * 10);
 			int min = int.MinValue;
 
@@ -1417,10 +1424,13 @@ namespace Server.Mobiles
 
 		private void LeaveHouse()
 		{
-			BaseHouse house = BaseHouse.FindHouseAt( this );
+            /*** DEL_START ***/
+            //non ci si puo uscire dalla casa cosi lamerosamente
+            /*BaseHouse house = BaseHouse.FindHouseAt( this );
 
 			if ( house != null )
-				this.Location = house.BanLocation;
+				this.Location = house.BanLocation;*/
+            /*** DEL_END ***/
 		}
 
 		private delegate void ContextCallback();
@@ -1767,9 +1777,11 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				if( Core.ML && this.Race == Race.Human )
-					return 20.0;
-
+                /*** DEL_START ***/
+                //niente bonus di razza lamereschi
+				/*if( Core.ML && this.Race == Race.Human )
+					return 20.0;*/
+                /*** DEL_END ***/
 				return 0;
 			}
 		}

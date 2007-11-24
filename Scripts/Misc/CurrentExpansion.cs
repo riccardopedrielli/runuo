@@ -13,8 +13,12 @@ namespace Server
 
 			bool Enabled = Core.AOS;
 
-			Mobile.InsuranceEnabled = Enabled;
-			ObjectPropertyList.Enabled = Enabled;
+			/*** MOD_START ***/
+            //cioe ma secondo voi lasciamo anche l'insurance... ma che film avete visto nabbi
+            Mobile.InsuranceEnabled = !Enabled;
+            /*** MOD_END ***/
+			
+            ObjectPropertyList.Enabled = Enabled;
 			Mobile.VisibleDamageType = Enabled ? VisibleDamageType.Related : VisibleDamageType.None;
 			Mobile.GuildClickMessage = !Enabled;
 			Mobile.AsciiClickMessage = !Enabled;

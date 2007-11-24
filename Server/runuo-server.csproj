@@ -1,6 +1,6 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{D790EAD7-EB21-4CAF-AA5D-51902127DFC0}</ProjectGuid>
+    <ProjectGuid>{16F42AD6-7673-4AB1-91FB-AEC2012C958F}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Exe</OutputType>
