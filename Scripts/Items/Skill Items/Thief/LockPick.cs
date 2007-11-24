@@ -105,27 +105,17 @@ namespace Server.Items
                 if (m_Item.Deleted)
                     return;
 
-                if (!(from.Skills[SkillName.Stealing].Base >= 100))
+                Item item = (Item)targeted;
+                from.Direction = from.GetDirectionTo(item);
+
+                if (!(from.Skills[SkillName.Lockpicking].Base >= 90))
                 {
-                    //from.LocalOverheadMessage(MessageType.Spell, 2048, true, "You don't have enough skill in stealing.");
-                    from.SendAsciiMessage(2035, "You don't have enough skill in stealing.");
-                    return;
-                }
-                if (!(from.Skills[SkillName.Lockpicking].Base >= 100))
-                {
-                    from.SendAsciiMessage(2035, "You don't have enough skill in Lockpicking.");
-                    return;
-                }
-                if (!(from.Dex >= 100))
-                {
-                    from.SendAsciiMessage(2035, "You don't have enough Dexterity.");
+                    m_Item.SendLocalizedMessageTo(from, 502072); // You don't see how that lock can be manipulated.
                     return;
                 }
 
                 if (from.BeginAction(typeof(Lockpick)))
-                {
-                    Item item = (Item)targeted;
-                    from.Direction = from.GetDirectionTo(item);
+                {                    
                     BaseHouse house = BaseHouse.FindHouseAt(from);
 
                     if (house.IsLockedDown(item)) // locked down                
@@ -138,8 +128,7 @@ namespace Server.Items
                     }
                 }
                 else
-                {
-                    //from.LocalOverheadMessage(MessageType.Regular, 0x22, 500235); // You must wait 10 seconds before using another healing potion.
+                {                    
                     from.SendLocalizedMessage(500119); // you must wait to perform another action
                 }
             }
@@ -248,7 +237,6 @@ namespace Server.Items
                         m_From.PlaySound(0x3A4);
                         m_Lockpick.Consume();
                     }
-                    m_From.EndAction(typeof(Lockpick));
                 }
 
                 protected override void OnTick()
@@ -256,7 +244,16 @@ namespace Server.Items
                     if (!m_From.InRange(m_Item.GetWorldLocation(), 1) || m_Lockpick.Deleted)
                         return;
 
-                    if (Utility.Random(10) == 5) //probabilità del 10%
+                    double lockpicking = m_From.Skills[SkillName.Lockpicking].Base;
+                    double stealing = m_From.Skills[SkillName.Stealing].Base;                   
+                    int bonus = Convert.ToInt32((lockpicking + stealing + m_From.Dex) / 60);//max 5%
+
+                    if (m_From.CheckTargetSkill(SkillName.Lockpicking, m_Item, 90, 100))
+                    {
+                        bonus += Utility.Random(5);
+                    }
+
+                    if (Utility.Random(100) <= bonus) //probabilità max del 10%
                     {
                         if (m_ToDo == 0)
                         {
@@ -274,6 +271,8 @@ namespace Server.Items
                         m_Item.SendLocalizedMessageTo(m_From, 502075);// You are unable to pick the lock.
                         BrokeLockPickTest();
                     }
+
+                    m_From.EndAction(typeof(Lockpick));
                 }
             }
             /*** ADD_END ***/
