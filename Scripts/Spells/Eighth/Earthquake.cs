@@ -54,18 +54,26 @@ namespace Server.Spells.Eighth
 
 					if ( Core.AOS )
 					{
+<<<<<<< .working
                         /*** MOD_START ***/						
                         double magery = Caster.Skills[SkillName.Magery].Base;
                         double evalint = Caster.Skills[SkillName.EvalInt].Base;
-                        double skillBonusdmg = ( magery + evalint ) / 2;
-                        //0,9 costante di danno
-                        damage = Convert.ToInt32(skillBonus - Utility.RandomMinMax(0, 10));
+                        double bonusdmg = (magery + evalint) / 2;
+                        damage = Convert.ToInt32(bonusdmg - Utility.RandomMinMax(0, Convert.ToInt32(bonusdmg / 10)));
 
                         /*damage = m.Hits / 2;
 						if ( !m.Player )
+=======
+                        /*** MOD_START ***/
+						//damage = m.Hits / 2;
+                        damage = 90 + Utility.RandomMinMax(0, 10);
+                        
+						/*if ( !m.Player )
+>>>>>>> .merge-right.r151
 							damage = Math.Max( Math.Min( damage, 100 ), 15 );
 							damage += Utility.RandomMinMax( 0, 15 );*/
                         /*** MOD_END ***/
+
 					}
 					else
 					{
