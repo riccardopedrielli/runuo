@@ -95,7 +95,7 @@
     <Compile Include="Custom\Engines\AI\AI\ArcherGuardAI.cs" />
     <Compile Include="Custom\Engines\AI\AI\MageGuardAI.cs" />
     <Compile Include="Custom\Engines\AI\AI\PaladinGuardAI.cs" />
-    <Compile Include="Custom\Engines\AI\AI\WarriorGuard.cs" />
+    <Compile Include="Custom\Engines\AI\AI\WarriorGuardAI.cs" />
     <Compile Include="Custom\Games\Battle Chess\BaseChessPiece.cs" />
     <Compile Include="Custom\Games\Battle Chess\Chessboard.cs" />
     <Compile Include="Custom\Games\Battle Chess\ChessConfig.cs" />
