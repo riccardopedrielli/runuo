@@ -60,14 +60,8 @@ namespace Server.Spells.Eighth
                         double bonusdmg = (magery + evalint) / 2;
                         damage = Convert.ToInt32(bonusdmg - Utility.RandomMinMax(0, Convert.ToInt32(bonusdmg / 10)));
 
-                        /*damage = m.Hits / 2;
+						/*damage = m.Hits / 2;                                                 
 						if ( !m.Player )
-
-                        /*** MOD_START ***/
-						//damage = m.Hits / 2;
-                        damage = 90 + Utility.RandomMinMax(0, 10);
-                        
-						/*if ( !m.Player )
 
 							damage = Math.Max( Math.Min( damage, 100 ), 15 );
 							damage += Utility.RandomMinMax( 0, 15 );*/
