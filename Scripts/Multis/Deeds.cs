@@ -73,7 +73,11 @@ namespace Server.Multis.Deeds
 		public HouseDeed( int id, Point3D offset ) : base( 0x14F0 )
 		{
 			Weight = 1.0;
-			LootType = LootType.Newbied;
+			/*** MOD_START ***/
+            //i deed devono essere rubabili
+            //LootType = LootType.Newbied;
+            LootType = LootType.Regular;
+            /*** MOD_END ***/
 
 			m_MultiID = id & 0x3FFF;
 			m_Offset = offset;

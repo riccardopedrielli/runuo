@@ -14,10 +14,9 @@ namespace Server
             /*** MOD_START ***/
             //niente fortuna
 			//if ( !Core.AOS )            
-				return 0;
-            /*** MOD_END ***/
+				return 0;            
 
-			int luck = killer.Luck;
+			/*int luck = killer.Luck;
 
 			PlayerMobile pmKiller = killer as PlayerMobile;
 			if( pmKiller != null && pmKiller.SentHonorContext != null && pmKiller.SentHonorContext.Target == victim )
@@ -29,7 +28,8 @@ namespace Server
 			if ( !Core.SE && luck > 1200 )
 				luck = 1200;
 
-			return (int)(Math.Pow( luck, 1 / 1.8 ) * 100);
+			return (int)(Math.Pow( luck, 1 / 1.8 ) * 100);*/
+            /*** MOD_END ***/
 		}
 
 		public static int GetLuckChanceForKiller( Mobile dead )

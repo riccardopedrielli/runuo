@@ -88,7 +88,10 @@ namespace Server.Gumps
 						return;
 					}
 
-					Item toGive = null;
+                    Item toGive = m_House.GetDeed();
+                    /*** DEL_START ***/
+                    //demolendo si deve droppare solo il deed
+                    /*Item toGive = null;
 
 					if ( m_House.IsAosRules )
 					{
@@ -103,9 +106,37 @@ namespace Server.Gumps
 
 						if ( toGive == null && m_House.Price > 0 )
 							toGive = new BankCheck( m_House.Price );
+					}*/
+                    /*** DEL_END ***/
+
+                    if ( toGive != null )
+					{
+                        Container pack = m_Mobile.Backpack;
+
+                        if (pack != null)
+                            pack.DropItem(toGive);
+                        else
+                            toGive.MoveToWorld(m_Mobile.Location, m_Mobile.Map);
+
+                        if (pack.TryDropItem(m_Mobile, toGive, false))
+						{							
+							m_House.RemoveKeys( m_Mobile );
+							m_House.Delete();
+						}
+						else
+						{
+							toGive.Delete();
+                            m_Mobile.SendLocalizedMessage(1078837);//Your backpack is full! Please make room and try again.
+						}
+					}
+					else
+					{
+						m_Mobile.SendMessage( "Unable to refund house." );
 					}
 
-					if ( toGive != null )
+                    /*** DEL_START ***/
+                    //la roba va nello zaino non in banca niubbo
+					/*if ( toGive != null )
 					{
 						BankBox box = m_Mobile.BankBox;
 
@@ -126,7 +157,8 @@ namespace Server.Gumps
 					else
 					{
 						m_Mobile.SendMessage( "Unable to refund house." );
-					}
+					}*/
+                    /*** DEL_END ***/
 				}
 				else
 				{

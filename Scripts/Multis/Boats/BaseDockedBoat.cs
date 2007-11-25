@@ -24,7 +24,11 @@ namespace Server.Multis
 		public BaseDockedBoat( int id, Point3D offset, BaseBoat boat ) : base( 0x14F4 )
 		{
 			Weight = 1.0;
-			LootType = LootType.Blessed;
+            /*** MOD_START ***/
+            //le statuette delle barche devono essere rubabili
+			//LootType = LootType.Blessed;
+            LootType = LootType.Regular;
+            /*** MOD_END ***/
 
 			m_MultiID = id & 0x3FFF;
 			m_Offset = offset;

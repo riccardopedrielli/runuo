@@ -322,6 +322,12 @@ namespace Server.Multis
 			packKey.MaxRange = 10;
 			bankKey.MaxRange = 10;
 
+            /*** ADD_START ***/
+            //le chiavi devono essere rubabili
+            packKey.LootType = LootType.Regular;
+            bankKey.LootType = LootType.Regular;
+            /*** ADD_END ***/
+
 			packKey.Name = "a ship key";
 			bankKey.Name = "a ship key";
 
