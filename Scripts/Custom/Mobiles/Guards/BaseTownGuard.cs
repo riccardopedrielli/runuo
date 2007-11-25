@@ -162,6 +162,12 @@ namespace Server.Mobiles
 			CurrentSpeed = PassiveSpeed;
 		}
 
+		public override void OnMovement( Mobile m, Point3D oldLocation )
+		{
+			if ( ReacquireOnMovement )
+				ForceReacquire();
+		}
+
 		public override bool OnBeforeDeath()
 		{
 			((BaseMount) Mount).Kill();

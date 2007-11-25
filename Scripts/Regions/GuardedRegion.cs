@@ -303,20 +303,21 @@ namespace Server.Regions
 							}
 						}
 
+						/*** DEL_START ***/
+						/*
 						if ( fakeCall != null )
 						{
 							fakeCall.Say( Utility.RandomList( 1007037, 501603, 1013037, 1013038, 1013039, 1013041, 1013042, 1013043, 1013052 ) );
-							
-							/*** DEL_START ***/
-							/*
+
 							MakeGuard( m );
-							*/
-							/*** DEL_END ***/
-							
+
 							timer.Stop();
 							m_GuardCandidates.Remove( m );
 							m.SendLocalizedMessage( 502276 ); // Guards can no longer be called on you.
 						}
+						*/
+						/*** DEL_END ***/
+
 					}
 				}
 				else
@@ -329,6 +330,8 @@ namespace Server.Regions
 
 		public void CallGuards( Point3D p )
 		{
+			/*** DEL_START ***/
+			/*
 			if ( IsDisabled() )
 				return;
 
@@ -347,11 +350,7 @@ namespace Server.Regions
 						m_GuardCandidates.Remove( m );
 					}
 
-					/*** DEL_START ***/
-					/*
 					MakeGuard( m );
-					*/
-					/*** DEL_END ***/
 
 					m.SendLocalizedMessage( 502276 ); // Guards can no longer be called on you.
 					break;
@@ -359,6 +358,8 @@ namespace Server.Regions
 			}
 
 			eable.Free();
+			*/
+			/*** DEL_END ***/
 		}
 
 		public bool IsGuardCandidate( Mobile m )
