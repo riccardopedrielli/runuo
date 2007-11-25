@@ -7,6 +7,7 @@ namespace Server.Mobiles
 	public class EvilWanderingHealer : BaseHealer
 	{
 		public override bool CanTeach{ get{ return true; } }
+        public override bool IsInvulnerable { get { return true; } }
 
 		public override bool CheckTeach( SkillName skill, Mobile from )
 		{
@@ -38,6 +39,14 @@ namespace Server.Mobiles
 
 		public override bool CheckResurrect( Mobile m )
 		{
+            /*** ADD_START ***/
+            //gli evil healer possono ressare solo i rossi
+            if (m.Kills < 5)
+            {
+                Say("Thou'rt not an evil killer. I shall not resurrect thee"); 
+                return false;
+            }
+            /*** ADD_START ***/
 			return true;
 		}
 
