@@ -190,12 +190,19 @@ namespace Server.Spells.Fourth
 				{
 					m_Caster.DoHarmful( m );
 
-					int damage = m_Damage;
+                    /*** MOD_START ***/
+                    //il muro di fuoco deve togliere max 40
+                    double magery = m_Caster.Skills[SkillName.Magery].Base;
+                    double evalint = m_Caster.Skills[SkillName.EvalInt].Base;
+                    double bonus = ((magery + evalint) / 2) * 0.3;
+                    int damage = Convert.ToInt32(bonus);
+					//int damage = m_Damage;                    
 
 					if ( !Core.AOS && m.CheckSkill( SkillName.MagicResist, 0.0, 30.0 ) )
 					{
-						damage = 1;
-
+                        damage /= 10;
+						//damage = 1;
+                        /*** MOD_END ***/
 						m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
 					}
 
@@ -260,21 +267,29 @@ namespace Server.Spells.Fourth
 
 							while ( m_Queue.Count > 0 )
 							{
-								Mobile m = (Mobile)m_Queue.Dequeue();
+                                Mobile m = (Mobile)m_Queue.Dequeue();
 
-								caster.DoHarmful( m );
+                                caster.DoHarmful(m);
 
-								int damage = m_Item.m_Damage;
+                                /*** MOD_START ***/
+                                //il muro di fuoco deve togliere max 40
+                                double magery = caster.Skills[SkillName.Magery].Base;
+                                double evalint = caster.Skills[SkillName.EvalInt].Base;
+                                double bonus = ((magery + evalint) / 2) * 0.3;
+                                int damage = Convert.ToInt32(bonus);
+                                //int damage = m_Damage;
 
-								if ( !Core.AOS && m.CheckSkill( SkillName.MagicResist, 0.0, 30.0 ) )
-								{
-									damage = 1;
+                                //if (!Core.AOS && m.CheckSkill(SkillName.MagicResist, 0.0, 30.0))
+                                if (!Core.AOS && m.CheckSkill(SkillName.MagicResist, 40.0, 50.0))
+                                {
+                                    damage /= 10;
+                                    //damage = 1;
+                                    /*** MOD_END ***/
+                                    m.SendLocalizedMessage(501783); // You feel yourself resisting magical energy.
+                                }
 
-									m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
-								}
-
-								AOS.Damage( m, caster, damage, 0, 100, 0, 0, 0 );
-								m.PlaySound( 0x208 );
+                                AOS.Damage(m, caster, damage, 0, 100, 0, 0, 0);
+                                m.PlaySound(0x208);
 							}
 						}
 					}
