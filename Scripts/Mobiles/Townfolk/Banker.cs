@@ -268,7 +268,18 @@ namespace Server.Mobiles
                                 }
                                 else if ( amount > 0 )
                                 {
-                                    BankBox box = e.Mobile.FindBankNoCreate();
+                                    if (Withdraw(e.Mobile, amount))
+                                    {
+                                        e.Mobile.AddToBackpack(new Gold(amount));
+
+                                        this.Say(1010005); // Thou hast withdrawn gold from thy account.
+                                    }                                    
+                                    else
+                                    {
+                                        this.Say(500384); // Ah, art thou trying to fool me? Thou hast not so much gold!
+                                    }                                    
+                                    /*** DEL_START ***/
+                                    /*BankBox box = e.Mobile.FindBankNoCreate();
 
                                     if ( box == null || !box.ConsumeTotal( typeof( Gold ), amount ) )
                                     {
@@ -279,7 +290,8 @@ namespace Server.Mobiles
                                         e.Mobile.AddToBackpack( new Gold( amount ) );
 
                                         this.Say( 1010005 ); // Thou hast withdrawn gold from thy account.
-                                    }
+                                    }*/
+                                    /*** DEL_END ***/
                                 }
                             }
 
@@ -298,13 +310,17 @@ namespace Server.Mobiles
 							}*/
                             /*** DEL_END ***/
 
-							BankBox box = e.Mobile.FindBankNoCreate();
+                            this.Say(1042759, Convert.ToString(GetBalance(e.Mobile)));
+                            /*** DEL_START ***/
+                            //no ma gg alla skillezza dei programmatori che fanno le funzioni e non le usano
+                            /*BankBox box = e.Mobile.FindBankNoCreate();
 
 							if ( box != null )
 								this.Say( 1042759, box.TotalGold.ToString() ); // Thy current bank balance is ~1_AMOUNT~ gold.
 							else
 								this.Say( 1042759, "0" ); // Thy current bank balance is ~1_AMOUNT~ gold.
-
+                            */
+                            /*** DEL_END ***/
 							break;
 						}
 						case 0x0002: // *bank*
