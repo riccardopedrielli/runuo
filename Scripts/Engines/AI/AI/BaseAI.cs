@@ -2002,6 +2002,16 @@ namespace Server.Mobiles
 
 		public virtual MoveResult DoMoveImpl( Direction d )
 		{
+			/*** ADD_START ***/
+			GuardedRegion guardedRegion = (GuardedRegion) m_Mobile.Region.GetRegion( typeof( GuardedRegion ) );
+
+			if( m_Mobile is BaseTownGuard && Action == ActionType.Combat && guardedRegion == null)
+			{
+				Action = ActionType.Wander;
+				m_Mobile.Say( "Run! Run away... fucking faggot!" );
+			}
+			/*** ADD_END ***/
+
 			if( m_Mobile.Deleted || m_Mobile.Frozen || m_Mobile.Paralyzed || (m_Mobile.Spell != null && m_Mobile.Spell.IsCasting) || m_Mobile.DisallowAllMoves )
 				return MoveResult.BadState;
 			else if( !CheckMove() )
