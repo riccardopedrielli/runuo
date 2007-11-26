@@ -56,6 +56,11 @@ namespace Server.Mobiles
 	public abstract class BaseAI
 	{
 		public Timer m_Timer;
+
+		/*** ADD_START ***/
+		public Timer m_TeleportTimer;
+		/*** ADD_END ***/
+
 		protected ActionType m_Action;
 		private DateTime m_NextStopGuard;
 
@@ -66,6 +71,10 @@ namespace Server.Mobiles
 			m_Mobile = m;
 
 			m_Timer = new AITimer( this );
+
+			/*** ADD_START ***/
+			m_TeleportTimer = new TeleportTimer( this );
+			/*** ADD_END ***/
 
 			bool activate;
 
@@ -2005,10 +2014,13 @@ namespace Server.Mobiles
 			/*** ADD_START ***/
 			GuardedRegion guardedRegion = (GuardedRegion) m_Mobile.Region.GetRegion( typeof( GuardedRegion ) );
 
-			if( m_Mobile is BaseTownGuard && Action == ActionType.Combat && guardedRegion == null)
+			if( m_Mobile is BaseTownGuard && Action == ActionType.Combat && guardedRegion == null && !m_TeleportTimer.Running )
 			{
-				Action = ActionType.Wander;
-				m_Mobile.Say( "Run! Run away... fucking faggot!" );
+				m_TeleportTimer.Start();
+			}
+			else if ( m_Mobile is BaseTownGuard && guardedRegion != null && !m_TeleportTimer.Running )
+			{
+				m_TeleportTimer.Stop();
 			}
 			/*** ADD_END ***/
 
@@ -2681,6 +2693,35 @@ namespace Server.Mobiles
 		private DateTime m_NextDetectHidden;
 
 		public virtual bool CanDetectHidden { get { return m_Mobile.Skills[SkillName.DetectHidden].Value > 0; } }
+
+		/*** ADD_START ***/
+		private class TeleportTimer : Timer
+		{
+			private BaseAI m_Owner;
+
+			public TeleportTimer( BaseAI owner ) : base( TimeSpan.FromSeconds( 3 ) )
+			{
+				m_Owner = owner;
+
+				Priority = TimerPriority.FiftyMS;
+			}
+
+			protected override void OnTick()
+			{
+				Point3D from = m_Owner.m_Mobile.Location;
+				Point3D to = m_Owner.m_Mobile.Home;
+
+				m_Owner.m_Mobile.Location = to;
+
+				Effects.SendLocationParticles( EffectItem.Create( from, m_Owner.m_Mobile.Map, EffectItem.DefaultDuration ), 0x3728, 10, 10, 2023 );
+				Effects.SendLocationParticles( EffectItem.Create(   to, m_Owner.m_Mobile.Map, EffectItem.DefaultDuration ), 0x3728, 10, 10, 5023 );
+
+				m_Owner.m_Mobile.PlaySound( 0x1FE );
+				
+				Stop();
+			}
+		}
+		/*** ADD_END ***/
 
 		/*
 		 *  The Timer object

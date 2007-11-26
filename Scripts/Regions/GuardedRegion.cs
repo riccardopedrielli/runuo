@@ -330,6 +330,7 @@ namespace Server.Regions
 
 		public void CallGuards( Point3D p )
 		{
+			
 			/*** DEL_START ***/
 			/*
 			if ( IsDisabled() )
