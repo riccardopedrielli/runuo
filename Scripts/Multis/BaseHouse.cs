@@ -24,7 +24,15 @@ namespace Server.Multis
 		public const int MaxFriends = 50;
 		public const int MaxBans = 50;
 
-		public const bool DecayEnabled = false; /*** MOD_START_END ***/ //le case non devono decadere
+		/*** MOD_START ***/
+		
+		/*
+		public const bool DecayEnabled = true;
+		*/
+		
+		public const bool DecayEnabled = false;
+		
+		/*** MOD_END ***/
 
 		public static void Decay_OnTick()
 		{
@@ -1012,8 +1020,6 @@ namespace Server.Multis
 			else if ( item is TreasureMap )
 				return true;
 			else if ( item is Clock )
-				return true;
-			else if ( item is BaseBook )
 				return true;
 			else if ( item is BaseInstrument )
 				return true;
@@ -2035,9 +2041,10 @@ namespace Server.Multis
 
 		public void Kick( Mobile from, Mobile targ )
 		{
-            /*** DEL_START ***/
-            //non si puo kikkare
-            /*if ( !IsFriend( from ) || m_Friends == null )
+			/*** DEL_START ***/
+			//non si puo kikkare
+			/*
+			if ( !IsFriend( from ) || m_Friends == null )
 				return;
 
 			if ( targ.AccessLevel > AccessLevel.Player && from.AccessLevel <= targ.AccessLevel )
@@ -2067,10 +2074,14 @@ namespace Server.Multis
 				from.SendLocalizedMessage( 1042840, targ.Name ); // ~1_PLAYER NAME~ has been ejected from this house.
 				targ.SendLocalizedMessage( 501341 ); /* You have been ejected from this house.
 													  * If you persist in entering, you may be banned from the house.
-													  
-			}*/
+
+			}
+			*/
             /*** DEL_END ***/
+
+            /*** ADD_START ***/
             return;
+            /*** ADD_END ***/
 		}
 
 		public void RemoveAccess( Mobile from, Mobile targ )
@@ -2104,12 +2115,13 @@ namespace Server.Multis
 				from.SendLocalizedMessage( 501297 ); // The ban is lifted.
 			}
 		}
-        
+
 		public void Ban( Mobile from, Mobile targ )
 		{
 			/*** DEL_START ***/
             //niente ban
-            /*if ( !IsFriend( from ) || m_Bans == null )
+            /*
+			if ( !IsFriend( from ) || m_Bans == null )
 				return;
 
 			if ( targ.AccessLevel > AccessLevel.Player && from.AccessLevel <= targ.AccessLevel )
@@ -2152,16 +2164,21 @@ namespace Server.Multis
 				targ.SendLocalizedMessage( 501340 ); // You have been banned from this house.
 
 				targ.MoveToWorld( BanLocation, Map );
-			}*/
+			}
+			*/
             /*** DEL_END ***/
+
+            /*** ADD_START ***/
             return;
+            /*** ADD_END ***/
 		}
 
 		public void GrantAccess( Mobile from, Mobile targ )
 		{
-            /*** DEL_START ***/
+			/*** DEL_START ***/
             //tutti hanno accesso
-            /*if ( !IsFriend( from ) || m_Access == null )
+            /*
+			if ( !IsFriend( from ) || m_Access == null )
 				return;
 
 			if ( HasAccess( targ ) )
@@ -2181,9 +2198,13 @@ namespace Server.Multis
 				m_Access.Add( targ );
 
 				targ.SendLocalizedMessage( 1060735 ); // You have been granted access to this house.
-			}*/
+			}
+			*/
             /*** DEL_END ***/
+
+            /*** ADD_START ***/
             return;
+            /*** ADD_END ***/
 		}
 
 		public void AddCoOwner( Mobile from, Mobile targ )
@@ -2733,13 +2754,20 @@ namespace Server.Multis
 		{
 			get
 			{
-                return true;//m_Public; /*** MOD_START_END ***/
+				/*** MOD_START ***/
+				/*
+				return m_Public;
+				*/
+				
+				return true;
+				/*** MOD_END ***/
 			}
 			set
 			{
-                /*** DEL_START ***/
+				/*** DEL_START ***/
                 //solo case pubbliche
-				/*if ( m_Public != value )
+				/*
+				if ( m_Public != value )
 				{
 					m_Public = value;
 
@@ -2748,9 +2776,9 @@ namespace Server.Multis
 
 					if ( m_Sign != null )
 						m_Sign.InvalidateProperties();
-				}*/
-
-                /*** DEL_END ***/
+				}
+				*/
+				/*** DEL_END ***/
 			}
 		}
 
@@ -3279,38 +3307,44 @@ namespace Server.Multis
 
 		public bool HasAccess( Mobile m )
 		{
-            /*** DEL_START ***/
+			/*** DEL_START ***/
             //le case sono sempre accessibili da tutti
-            /*if (m == null)
-                return false;
+            /*
+			if ( m == null )
+				return false;
 
-            if (m.AccessLevel > AccessLevel.Player || IsFriend(m) || (m_Access != null && m_Access.Contains(m)))
-                return true;
+			if ( m.AccessLevel > AccessLevel.Player || IsFriend( m ) || ( m_Access != null && m_Access.Contains( m ) ) )
+				return true;
 
-            if (m is BaseCreature)
-            {
-                BaseCreature bc = (BaseCreature)m;
+			if ( m is BaseCreature )
+			{
+				BaseCreature bc = (BaseCreature)m;
 
-                if (bc.NoHouseRestrictions)
-                    return true;
+				if ( bc.NoHouseRestrictions )
+					return true;
 
-                if (bc.Controlled || bc.Summoned)
-                {
-                    m = bc.ControlMaster;
+				if ( bc.Controlled || bc.Summoned )
+				{
+					m = bc.ControlMaster;
 
-                    if (m == null)
-                        m = bc.SummonMaster;
+					if ( m == null )
+						m = bc.SummonMaster;
 
-                    if (m == null)
-                        return false;
+					if ( m == null )
+						return false;
 
-                    if (m.AccessLevel > AccessLevel.Player || IsFriend(m) || (m_Access != null && m_Access.Contains(m)))
-                        return true;
-                }
-            }
-            return false;*/
+					if ( m.AccessLevel > AccessLevel.Player || IsFriend( m ) || ( m_Access != null && m_Access.Contains( m ) ) )
+						return true;
+				}
+			}
+
+			return false;
+			*/
             /*** DEL_END ***/
+
+            /*** ADD_START ***/
 			return true;
+			/*** ADD_END ***/
 		}
 
 		public new bool IsLockedDown( Item check )

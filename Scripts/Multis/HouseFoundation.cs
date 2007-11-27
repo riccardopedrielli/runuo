@@ -913,7 +913,7 @@ namespace Server.Multis
                 }
                 else if ( cost < 0 )
                 {
-                    if ( Banker.Deposit( from, -cost ) )
+					if ( Banker.Deposit( from, -cost ) )
                         from.SendLocalizedMessage( 1060397, ( -cost ).ToString() ); // ~1_AMOUNT~ gold has been deposited into your bank box.
                     else
                         return;

@@ -75,7 +75,9 @@ namespace Server.Multis.Deeds
 			Weight = 1.0;
 			/*** MOD_START ***/
             //i deed devono essere rubabili
-            //LootType = LootType.Newbied;
+            /*
+			LootType = LootType.Newbied;
+            */
             LootType = LootType.Regular;
             /*** MOD_END ***/
 
