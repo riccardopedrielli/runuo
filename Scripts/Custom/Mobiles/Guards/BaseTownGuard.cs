@@ -22,6 +22,8 @@ namespace Server.Mobiles
 
 		public BaseTownGuard( AIType AI ): base( AI, FightMode.Closest, 10, 1, 0.1, 4.0 ) 
 		{
+			Debug = true;
+
 			GenerateBody();
 			GenerateHair();
 			GenerateArmor();
@@ -162,11 +164,7 @@ namespace Server.Mobiles
 			CurrentSpeed = PassiveSpeed;
 		}
 
-		public override void OnMovement( Mobile m, Point3D oldLocation )
-		{
-			if ( ReacquireOnMovement )
-				ForceReacquire();
-		}
+		public override TimeSpan ReacquireDelay{ get{ return TimeSpan.FromSeconds( 5.0 ); } }
 
 		public override bool OnBeforeDeath()
 		{

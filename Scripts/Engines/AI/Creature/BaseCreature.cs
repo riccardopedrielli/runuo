@@ -3130,12 +3130,32 @@ namespace Server.Mobiles
 
 			if ( guardedRegion != null )
 			{
-				if ( !guardedRegion.IsDisabled() && guardedRegion.IsGuardCandidate( m ) && BeginAction( typeof( GuardedRegion ) ) )
+				/*** MOD_START ***/
+				/*
+				if ( !guardedRegion.IsDisabled() && guardedRegion.IsGuardCandidate( m ) && BeginAction( typeof( GuardedRegion ) ) && )
+				*/
+
+				if ( !guardedRegion.IsDisabled() && guardedRegion.IsGuardCandidate( m ) && BeginAction( typeof( GuardedRegion ) ) && !( this is BaseTownGuard ) )
+				/*** MOD_END ***/
+
 				{
 					Say( 1013037 + Utility.Random( 16 ) );
-					guardedRegion.CallGuards( this.Location );
 
+					/*** MOD_START ***/
+
+					/*
+					guardedRegion.CallGuards( this.Location );
+					*/
+
+					guardedRegion.CallGuards( this );
+
+					/*
 					Timer.DelayCall( TimeSpan.FromSeconds( 5.0 ), new TimerCallback( ReleaseGuardLock ) );
+					*/
+
+					Timer.DelayCall( TimeSpan.FromSeconds( 10.0 ), new TimerCallback( ReleaseGuardLock ) );
+
+					/*** MOD_START ***/
 
 					m_NoDupeGuards = m;
 					Timer.DelayCall( TimeSpan.Zero, new TimerCallback( ReleaseGuardDupeLock ) );

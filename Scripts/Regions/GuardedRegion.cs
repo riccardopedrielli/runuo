@@ -230,7 +230,14 @@ namespace Server.Regions
 				return;
 
 			if ( args.Mobile.Alive && args.HasKeyword( 0x0007 ) ) // *guards*
+
+				/*** MOD_START ***/
+				/*
 				CallGuards( args.Mobile.Location );
+				*/
+				
+				CallGuards( args.Mobile );
+				/*** MOD_END ***/
 		}
 
 		public override void OnAggressed( Mobile aggressor, Mobile aggressed, bool criminal )
@@ -328,11 +335,10 @@ namespace Server.Regions
 			}
 		}
 
+		/*** DEL_START ***/
+		/*
 		public void CallGuards( Point3D p )
 		{
-			
-			/*** DEL_START ***/
-			/*
 			if ( IsDisabled() )
 				return;
 
@@ -359,9 +365,36 @@ namespace Server.Regions
 			}
 
 			eable.Free();
-			*/
-			/*** DEL_END ***/
 		}
+		*/
+		/*** DEL_END ***/
+		
+		/*** ADD_START ***/
+		public void CallGuards( Mobile caller )
+		{
+			if ( IsDisabled() )
+				return;
+			
+			BaseTownGuard guard = null;
+
+			foreach ( Mobile g in Map.GetMobilesInRange( caller.Location, 12 ) )
+			{
+				if ( g is BaseTownGuard )
+				{
+					guard = g as BaseTownGuard;
+					if ( guard.Focus == null && guard.Combatant == null )
+					{
+						guard.ForceReacquire();
+						caller.SendMessage("A Guard is moving to assist.");
+					}
+					else
+					{
+						caller.SendMessage("A Guard is already in range but is busy, You better keep running!");
+					}
+				}
+			}
+		}
+		/*** ADD_END ***/
 
 		public bool IsGuardCandidate( Mobile m )
 		{
