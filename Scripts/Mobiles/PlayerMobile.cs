@@ -1230,15 +1230,21 @@ namespace Server.Mobiles
 					if ( Alive && house.InternalizedVendors.Count > 0 && house.IsOwner( this ) )
 						list.Add( new CallbackEntry( 6204, new ContextCallback( GetVendor ) ) );
 
-					if ( house.IsAosRules )
-						list.Add( new CallbackEntry( 6207, new ContextCallback( LeaveHouse ) ) );
+                    /*** DEL_START ***/
+                    //no leave house
+					/*if ( house.IsAosRules )
+						list.Add( new CallbackEntry( 6207, new ContextCallback( LeaveHouse ) ) );*/
+                    /*** DEL_END ***/
 				}
 
 				if ( m_JusticeProtectors.Count > 0 )
 					list.Add( new CallbackEntry( 6157, new ContextCallback( CancelProtection ) ) );
 
-				if( Alive )
-					list.Add( new CallbackEntry( 6210, new ContextCallback( ToggleChampionTitleDisplay ) ) );
+                /*** DEL_START ***/
+                //non serve
+				/*if( Alive )
+					list.Add( new CallbackEntry( 6210, new ContextCallback( ToggleChampionTitleDisplay ) ) );*/
+                /*** DEL_END ***/
 			}
 		}
 

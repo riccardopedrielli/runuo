@@ -24,14 +24,11 @@ namespace Server.Multis
 		public const int MaxFriends = 50;
 		public const int MaxBans = 50;
 
-		/*** MOD_START ***/
-		
+		/*** MOD_START ***/		
 		/*
 		public const bool DecayEnabled = true;
 		*/
-		
-		public const bool DecayEnabled = false;
-		
+		public const bool DecayEnabled = false;		
 		/*** MOD_END ***/
 
 		public static void Decay_OnTick()
