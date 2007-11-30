@@ -3761,10 +3761,14 @@ namespace Server.Mobiles
 
 		public void PackNecroReg()
 		{
-			if ( !Core.AOS )
+            /*** MOD_START ***/
+            //no roba necro
+			/*if ( !Core.AOS )
 				return;
 
-			PackItem( Loot.RandomNecromancyReagent() );
+			PackItem( Loot.RandomNecromancyReagent() );*/
+            /*** MOD_END ***/
+            return;
 		}
 
 		public void PackReg( int min, int max )

@@ -55,8 +55,11 @@ namespace Server.Mobiles
 				case 6: PackItem( new Jug( BeverageType.Cider ) ); break;
 			}
 
-			if ( Core.AOS )
-				PackItem( Loot.RandomNecromancyReagent() );
+            /*** DEL_START ***/
+            //no roba necro
+			/*if ( Core.AOS )
+				PackItem( Loot.RandomNecromancyReagent() );*/
+            /*** DEL_END ***/
 		}
 
 		public override void GenerateLoot()

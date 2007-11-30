@@ -844,8 +844,11 @@ namespace Server
 			if ( index == 0 )
 				scrollCount += m_BlankTypes.Length;
 
-			if ( Core.AOS )
-				scrollCount += m_NecroTypes[index].Length;
+            /*** DEL_START ***/
+            //no roba necro
+			/*if ( Core.AOS )
+				scrollCount += m_NecroTypes[index].Length;*/
+            /*** DEL_END ***/
 
 			int rnd = Utility.Random( scrollCount );
 
@@ -854,10 +857,13 @@ namespace Server
 			else if ( index == 0 )
 				rnd -= m_BlankTypes.Length;
 
-			if ( Core.AOS && rnd < m_NecroTypes.Length )
+            /*** DEL_START ***/
+            //no roba necro
+			/*if ( Core.AOS && rnd < m_NecroTypes.Length )
 				return Loot.Construct( m_NecroTypes[index] );
 			else if ( Core.AOS )
-				rnd -= m_NecroTypes[index].Length;
+				rnd -= m_NecroTypes[index].Length;*/
+            /*** DEL_END ***/
 
 			return Loot.RandomScroll( minCircle * 8, (maxCircle * 8) + 7, SpellbookType.Regular );
 		}
