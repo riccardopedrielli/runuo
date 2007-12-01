@@ -100,6 +100,8 @@ namespace Server.Engines.Craft
 			if ( Core.AOS )
 				AddCraft( typeof( FlowerGarland ), 1011375, 1028965, 10.0, 35.0, typeof( Cloth ), 1044286, 5, 1044287 );
 
+			/*** DEL_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( ClothNinjaHood ), 1011375, 1030202, 80.0, 105.0, typeof( Cloth ), 1044286, 13, 1044287 );
@@ -108,6 +110,8 @@ namespace Server.Engines.Craft
 				index = AddCraft( typeof( Kasa ), 1011375, 1030211, 60.0, 85.0, typeof( Cloth ), 1044286, 12, 1044287 );	
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 			#endregion
 
 			#region Shirts
@@ -129,6 +133,8 @@ namespace Server.Engines.Craft
 				AddCraft( typeof( FormalShirt ), 1015269, 1028975, 26.0, 51.0, typeof( Cloth ), 1044286, 16, 1044287 );
 			}
 
+			/*** MOD_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( ClothNinjaJacket ), 1015269, 1030207, 75.0, 100.0, typeof( Cloth ), 1044286, 12, 1044287 );
@@ -144,6 +150,8 @@ namespace Server.Engines.Craft
 				index = AddCraft( typeof( JinBaori ), 1015269, 1030220, 30.0, 55.0, typeof( Cloth ), 1044286, 12, 1044287 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** MOD_END ***/
 
 			// Pants
 			#endregion
@@ -157,6 +165,8 @@ namespace Server.Engines.Craft
 			if ( Core.AOS )
 				AddCraft( typeof( FurSarong ), 1015279, 1028971, 35.0, 60.0, typeof( Cloth ), 1044286, 12, 1044287 );
 
+			/*** MOD_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( Hakama ), 1015279, 1030213, 50.0, 75.0, typeof( Cloth ), 1044286, 16, 1044287 );
@@ -164,6 +174,8 @@ namespace Server.Engines.Craft
 				index = AddCraft( typeof( TattsukeHakama ), 1015279, 1030214, 50.0, 75.0, typeof( Cloth ), 1044286, 16, 1044287 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** MOD_END ***/
 
 			#endregion
 
@@ -172,14 +184,20 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( HalfApron ), 1015283, 1025435, 20.7, 45.7, typeof( Cloth ), 1044286, 6, 1044287 );
 			AddCraft( typeof( FullApron ), 1015283, 1025437, 29.0, 54.0, typeof( Cloth ), 1044286, 10, 1044287 );
 
+			/*** MOD_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( Obi ), 1015283, 1030219, 20.0, 45.0, typeof( Cloth ), 1044286, 6, 1044287 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** MOD_END ***/
 
 			AddCraft( typeof( OilCloth ), 1015283, 1041498, 74.6, 99.6, typeof( Cloth ), 1044286, 1, 1044287 );
 
+			/*** MOD_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( GozaMatEastDeed ), 1015283, 1030404, 55.0, 80.0, typeof( Cloth ), 1044286, 25, 1044287 );
@@ -199,6 +217,8 @@ namespace Server.Engines.Craft
 				index = AddCraft( typeof( BrocadeSquareGozaMatSouthDeed ), 1015283, 1030410, 55.0, 80.0, typeof( Cloth ), 1044286, 25, 1044287 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** MOD_END ***/
 
 			#endregion
 
@@ -206,6 +226,8 @@ namespace Server.Engines.Craft
 			if ( Core.AOS )
 				AddCraft( typeof( FurBoots ), 1015288, 1028967, 50.0, 75.0, typeof( Cloth ), 1044286, 12, 1044287 );
 
+			/*** MOD_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( NinjaTabi ), 1015288, 1030210, 70.0, 95.0, typeof( Cloth ), 1044286, 10, 1044287 );
@@ -213,6 +235,8 @@ namespace Server.Engines.Craft
 				index = AddCraft( typeof( SamuraiTabi ), 1015288, 1030209, 20.0, 45.0, typeof( Cloth ), 1044286, 6, 1044287 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** MOD_END ***/
 
 			AddCraft( typeof( Sandals ), 1015288, 1025901, 12.4, 37.4, typeof( Leather ), 1044462, 4, 1044463 );
 			AddCraft( typeof( Shoes ), 1015288, 1025904, 16.5, 41.5, typeof( Leather ), 1044462, 6, 1044463 );
@@ -229,6 +253,8 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( LeatherLegs ), 1015293, 1025067, 66.3, 91.3, typeof( Leather ), 1044462, 10, 1044463 );
 			AddCraft( typeof( LeatherChest ), 1015293, 1025068, 70.5, 95.5, typeof( Leather ), 1044462, 12, 1044463 );
 
+			/*** MOD_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( LeatherJingasa ), 1015293, 1030177, 45.0, 70.0, typeof( Leather ), 1044462, 4, 1044463 );
@@ -254,6 +280,8 @@ namespace Server.Engines.Craft
 				index = AddCraft( typeof( LeatherNinjaHood ), 1015293, 1030201, 90.0, 115.0, typeof( Leather ), 1044462, 14, 1044463 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** MOD_END ***/
 
 			#endregion
 
@@ -264,6 +292,8 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( StuddedLegs ), 1015300, 1025082, 91.2, 116.2, typeof( Leather ), 1044462, 12, 1044463 );
 			AddCraft( typeof( StuddedChest ), 1015300, 1025083, 94.0, 119.0, typeof( Leather ), 1044462, 14, 1044463 );
 
+			/*** MOD_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( StuddedMempo ), 1015300, 1030216, 80.0, 105.0, typeof( Leather ), 1044462, 8, 1044463 );
@@ -277,6 +307,8 @@ namespace Server.Engines.Craft
 				index = AddCraft( typeof( StuddedHaidate ), 1015300, 1030198, 92.0, 117.0, typeof( Leather ), 1044462, 14, 1044463 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			/
+			/*** MOD_END ***/
 
 			#endregion
 
