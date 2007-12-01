@@ -102,12 +102,16 @@ namespace Server.Engines.Craft
 			AddRes( index, typeof( Feather ), 1044562, 1, 1044563 );
 			SetUseAllRes( index, true );
 
+			/*** DEL_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( FukiyaDarts ), 1044565, 1030246, 50.0, 90.0, typeof( Log ), 1044041, 1, 1044351 );
 				SetUseAllRes( index, true );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 
 			// Weapons
 			AddCraft( typeof( Bow ), 1044566, 1025042, 30.0, 70.0, typeof( Log ), 1044041, 7, 1044351 );
@@ -120,11 +124,15 @@ namespace Server.Engines.Craft
 				AddCraft( typeof( RepeatingCrossbow ), 1044566, 1029923, 90.0, 130.0, typeof( Log ), 1044041, 10, 1044351 );
 			}
 
+			/*** DEL_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( Yumi ), 1044566, 1030224, 90.0, 130.0, typeof( Log ), 1044041, 10, 1044351 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 
 			MarkOption = true;
 			Repair = Core.AOS;
