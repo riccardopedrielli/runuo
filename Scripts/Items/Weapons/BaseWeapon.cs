@@ -2090,6 +2090,7 @@ namespace Server.Items
 				case WeaponDamageLevel.Power:	bonus += 30; break;
 				case WeaponDamageLevel.Vanq:	bonus += 35; break;
 				*/
+				/*** MOD_END ***/
 
 				case WeaponDamageLevel.Ruin:	bonus += 20; break;
 				case WeaponDamageLevel.Might:	bonus += 25; break;
@@ -2100,9 +2101,11 @@ namespace Server.Items
 
 			/*** ADD_START ***/
 			CraftResourceInfo resInfo = CraftResources.GetInfo( m_Resource );
+			
 			CraftAttributeInfo attrInfo = resInfo.AttributeInfo;
 
-			bonus += attrInfo.WeaponResourceDamageBonus;
+			if( attrInfo.WeaponResourceDamageBonus != null )
+				bonus += attrInfo.WeaponResourceDamageBonus;
 			/*** ADD_START ***/
 
 			return bonus;
