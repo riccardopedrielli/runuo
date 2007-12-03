@@ -48,6 +48,10 @@ namespace Server.Items
 		private int m_WeaponGoldIncrease;
 		private int m_WeaponLowerRequirements;
 
+		/*** ADD_START ***/
+		private int m_WeaponResourceDamageBonus;
+		/*** ADD_END ***/
+
 		private int m_ArmorPhysicalResist;
 		private int m_ArmorFireResist;
 		private int m_ArmorColdResist;
@@ -71,6 +75,10 @@ namespace Server.Items
 		public int WeaponLuck{ get{ return m_WeaponLuck; } set{ m_WeaponLuck = value; } }
 		public int WeaponGoldIncrease{ get{ return m_WeaponGoldIncrease; } set{ m_WeaponGoldIncrease = value; } }
 		public int WeaponLowerRequirements{ get{ return m_WeaponLowerRequirements; } set{ m_WeaponLowerRequirements = value; } }
+
+		/*** ADD_START ***/
+		public int WeaponResourceDamageBonus{ get{ return m_WeaponResourceDamageBonus; } set{ m_WeaponResourceDamageBonus = value; } }
+		/*** ADD_END ***/
 
 		public int ArmorPhysicalResist{ get{ return m_ArmorPhysicalResist; } set{ m_ArmorPhysicalResist = value; } }
 		public int ArmorFireResist{ get{ return m_ArmorFireResist; } set{ m_ArmorFireResist = value; } }
@@ -107,6 +115,11 @@ namespace Server.Items
 			dullCopper.ArmorLowerRequirements = 20;
 			dullCopper.WeaponDurability = 100;
 			dullCopper.WeaponLowerRequirements = 50;
+
+			/*** ADD_START ***/
+			dullCopper.WeaponResourceDamageBonus = 4;
+			/*** ADD_END ***/
+
 			dullCopper.RunicMinAttributes = 1;
 			dullCopper.RunicMaxAttributes = 2;
 			dullCopper.RunicMinIntensity = 10;
@@ -118,8 +131,19 @@ namespace Server.Items
 			shadowIron.ArmorFireResist = 1;
 			shadowIron.ArmorEnergyResist = 5;
 			shadowIron.ArmorDurability = 100;
+
+			/*** DEL_START ***/
+			/*
 			shadowIron.WeaponColdDamage = 20;
+			*/
+			/*** DEL_END ***/
+
 			shadowIron.WeaponDurability = 50;
+
+			/*** ADD_START ***/
+			shadowIron.WeaponResourceDamageBonus = 8;
+			/*** ADD_END ***/
+
 			shadowIron.RunicMinAttributes = 2;
 			shadowIron.RunicMaxAttributes = 2;
 			shadowIron.RunicMinIntensity = 20;
@@ -131,8 +155,18 @@ namespace Server.Items
 			copper.ArmorFireResist = 1;
 			copper.ArmorPoisonResist = 5;
 			copper.ArmorEnergyResist = 2;
+
+			/*** DEL_START ***/
+			/*
 			copper.WeaponPoisonDamage = 10;
 			copper.WeaponEnergyDamage = 20;
+			*/
+			/*** DEL_END ***/
+
+			/*** ADD_START ***/
+			copper.WeaponResourceDamageBonus = 12;
+			/*** ADD_END ***/
+
 			copper.RunicMinAttributes = 2;
 			copper.RunicMaxAttributes = 3;
 			copper.RunicMinIntensity = 25;
@@ -144,7 +178,17 @@ namespace Server.Items
 			bronze.ArmorColdResist = 5;
 			bronze.ArmorPoisonResist = 1;
 			bronze.ArmorEnergyResist = 1;
+
+			/*** DEL_START ***/
+			/*
 			bronze.WeaponFireDamage = 40;
+			*/
+			/*** DEL_END ***/
+
+			/*** ADD_START ***/
+			bronze.WeaponResourceDamageBonus = 16;
+			/*** ADD_END ***/
+
 			bronze.RunicMinAttributes = 3;
 			bronze.RunicMaxAttributes = 3;
 			bronze.RunicMinIntensity = 30;
@@ -156,10 +200,27 @@ namespace Server.Items
 			golden.ArmorFireResist = 1;
 			golden.ArmorColdResist = 2;
 			golden.ArmorEnergyResist = 2;
+
+			/*** DEL_START ***/
+			/*
 			golden.ArmorLuck = 40;
+			*/
+			/*** DEL_END ***/
+
 			golden.ArmorLowerRequirements = 30;
+
+			/*** DEL_START ***/
+			/*
 			golden.WeaponLuck = 40;
+			*/
+			/*** DEL_END ***/
+
 			golden.WeaponLowerRequirements = 50;
+
+			/*** ADD_START ***/
+			golden.WeaponResourceDamageBonus = 20;
+			/*** ADD_END ***/
+
 			golden.RunicMinAttributes = 3;
 			golden.RunicMaxAttributes = 4;
 			golden.RunicMinIntensity = 35;
@@ -172,8 +233,18 @@ namespace Server.Items
 			agapite.ArmorColdResist = 2;
 			agapite.ArmorPoisonResist = 2;
 			agapite.ArmorEnergyResist = 2;
+
+			/*** DEL_START ***/
+			/*
 			agapite.WeaponColdDamage = 30;
 			agapite.WeaponEnergyDamage = 20;
+			*/
+			/*** DEL_END ***/
+
+			/*** ADD_START ***/
+			agapite.WeaponResourceDamageBonus = 24;
+			/*** ADD_END ***/
+
 			agapite.RunicMinAttributes = 4;
 			agapite.RunicMaxAttributes = 4;
 			agapite.RunicMinIntensity = 40;
@@ -186,8 +257,18 @@ namespace Server.Items
 			verite.ArmorColdResist = 2;
 			verite.ArmorPoisonResist = 3;
 			verite.ArmorEnergyResist = 1;
+
+			/*** DEL_START ***/
+			/*
 			verite.WeaponPoisonDamage = 40;
 			verite.WeaponEnergyDamage = 20;
+			*/
+			/*** DEL_END ***/
+
+			/*** ADD_START ***/
+			verite.WeaponResourceDamageBonus = 28;
+			/*** ADD_END ***/
+
 			verite.RunicMinAttributes = 4;
 			verite.RunicMaxAttributes = 5;
 			verite.RunicMinIntensity = 45;
@@ -200,10 +281,20 @@ namespace Server.Items
 			valorite.ArmorPoisonResist = 3;
 			valorite.ArmorEnergyResist = 3;
 			valorite.ArmorDurability = 50;
+
+			/*** DEL_START ***/
+			/*
 			valorite.WeaponFireDamage = 10;
 			valorite.WeaponColdDamage = 20;
 			valorite.WeaponPoisonDamage = 10;
 			valorite.WeaponEnergyDamage = 20;
+			*/
+			/*** DEL_END ***/
+
+			/*** ADD_START ***/
+			valorite.WeaponResourceDamageBonus = 32;
+			/*** ADD_END ***/
+
 			valorite.RunicMinAttributes = 5;
 			valorite.RunicMaxAttributes = 5;
 			valorite.RunicMinIntensity = 50;
@@ -212,7 +303,13 @@ namespace Server.Items
 			CraftAttributeInfo spined = Spined = new CraftAttributeInfo();
 
 			spined.ArmorPhysicalResist = 5;
+
+			/*** DEL_START ***/
+			/*
 			spined.ArmorLuck = 40;
+			*/
+			/*** DEL_END ***/
+
 			spined.RunicMinAttributes = 1;
 			spined.RunicMaxAttributes = 3;
 			spined.RunicMinIntensity = 20;
@@ -250,7 +347,12 @@ namespace Server.Items
 			CraftAttributeInfo yellow = YellowScales = new CraftAttributeInfo();
 
 			yellow.ArmorPhysicalResist = -3;
+
+			/*** DEL_START ***/
+			/*
 			yellow.ArmorLuck = 20;
+			*/
+			/*** DEL_END ***/
 
 			CraftAttributeInfo black = BlackScales = new CraftAttributeInfo();
 

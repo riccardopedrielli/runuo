@@ -99,7 +99,7 @@ namespace Server.Items
 
         /*** ADD_START ***/
         //percentuale danno
-        public virtual int BonusDmg { get { return 30; } }
+        public virtual int BonusDmg { get { return 0; } }
         /*** ADD_END ***/
 
 		public virtual WeaponAbility PrimaryAbility{ get{ return null; } }
@@ -2082,12 +2082,28 @@ namespace Server.Items
 
 			switch ( m_DamageLevel )
 			{
+				/*** MOD_START ***/
+				/*
 				case WeaponDamageLevel.Ruin:	bonus += 15; break;
 				case WeaponDamageLevel.Might:	bonus += 20; break;
 				case WeaponDamageLevel.Force:	bonus += 25; break;
 				case WeaponDamageLevel.Power:	bonus += 30; break;
 				case WeaponDamageLevel.Vanq:	bonus += 35; break;
+				*/
+
+				case WeaponDamageLevel.Ruin:	bonus += 20; break;
+				case WeaponDamageLevel.Might:	bonus += 25; break;
+				case WeaponDamageLevel.Force:	bonus += 30; break;
+				case WeaponDamageLevel.Power:	bonus += 35; break;
+				case WeaponDamageLevel.Vanq:	bonus += 40; break;
 			}
+
+			/*** ADD_START ***/
+			CraftResourceInfo resInfo = CraftResources.GetInfo( m_Resource );
+			CraftAttributeInfo attrInfo = resInfo.AttributeInfo;
+
+			bonus += attrInfo.WeaponResourceDamageBonus;
+			/*** ADD_START ***/
 
 			return bonus;
 		}
