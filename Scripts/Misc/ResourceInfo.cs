@@ -117,7 +117,7 @@ namespace Server.Items
 			dullCopper.WeaponLowerRequirements = 50;
 
 			/*** ADD_START ***/
-			dullCopper.WeaponResourceDamageBonus = 4;
+			dullCopper.WeaponResourceDamageBonus = 3;
 			/*** ADD_END ***/
 
 			dullCopper.RunicMinAttributes = 1;
@@ -141,7 +141,7 @@ namespace Server.Items
 			shadowIron.WeaponDurability = 50;
 
 			/*** ADD_START ***/
-			shadowIron.WeaponResourceDamageBonus = 8;
+			shadowIron.WeaponResourceDamageBonus = 6;
 			/*** ADD_END ***/
 
 			shadowIron.RunicMinAttributes = 2;
@@ -164,7 +164,7 @@ namespace Server.Items
 			/*** DEL_END ***/
 
 			/*** ADD_START ***/
-			copper.WeaponResourceDamageBonus = 12;
+			copper.WeaponResourceDamageBonus = 9;
 			/*** ADD_END ***/
 
 			copper.RunicMinAttributes = 2;
@@ -186,7 +186,7 @@ namespace Server.Items
 			/*** DEL_END ***/
 
 			/*** ADD_START ***/
-			bronze.WeaponResourceDamageBonus = 16;
+			bronze.WeaponResourceDamageBonus = 12;
 			/*** ADD_END ***/
 
 			bronze.RunicMinAttributes = 3;
@@ -218,7 +218,7 @@ namespace Server.Items
 			golden.WeaponLowerRequirements = 50;
 
 			/*** ADD_START ***/
-			golden.WeaponResourceDamageBonus = 20;
+			golden.WeaponResourceDamageBonus = 15;
 			/*** ADD_END ***/
 
 			golden.RunicMinAttributes = 3;
@@ -242,7 +242,7 @@ namespace Server.Items
 			/*** DEL_END ***/
 
 			/*** ADD_START ***/
-			agapite.WeaponResourceDamageBonus = 24;
+			agapite.WeaponResourceDamageBonus = 18;
 			/*** ADD_END ***/
 
 			agapite.RunicMinAttributes = 4;
@@ -266,7 +266,7 @@ namespace Server.Items
 			/*** DEL_END ***/
 
 			/*** ADD_START ***/
-			verite.WeaponResourceDamageBonus = 28;
+			verite.WeaponResourceDamageBonus = 21;
 			/*** ADD_END ***/
 
 			verite.RunicMinAttributes = 4;
@@ -292,7 +292,7 @@ namespace Server.Items
 			/*** DEL_END ***/
 
 			/*** ADD_START ***/
-			valorite.WeaponResourceDamageBonus = 32;
+			valorite.WeaponResourceDamageBonus = 24;
 			/*** ADD_END ***/
 
 			valorite.RunicMinAttributes = 5;
