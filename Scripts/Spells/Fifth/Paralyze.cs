@@ -32,8 +32,11 @@ namespace Server.Spells.Fifth
 			{
 				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
 			}
-			else if ( Core.AOS && (m.Frozen || m.Paralyzed || (m.Spell != null && m.Spell.IsCasting)) )
+            /*** MOD_START ***/
+            //si deve poter frizzare uno che casta
+			else if ( Core.AOS && (m.Frozen || m.Paralyzed))// || (m.Spell != null && m.Spell.IsCasting)) )
 			{
+                /*** MOD_START ***/
 				Caster.SendLocalizedMessage( 1061923 ); // The target is already frozen.
 			}
 			else if ( CheckHSequence( m ) )
@@ -48,8 +51,10 @@ namespace Server.Spells.Fifth
 				{
 					int secs = (int)((GetDamageSkill( Caster ) / 10) - (GetResistSkill( m ) / 10));
 					
-					if( !Core.SE )
-						secs += 2;
+                    /*** DEL_START ***/
+					//if( !Core.SE )
+                    /*** DEL_END ***/
+					secs += 2;
 
 					if ( !m.Player )
 						secs *= 3;
