@@ -37,13 +37,9 @@ namespace Server.Regions
 		public HouseRegion( BaseHouse house ) : base( null, house.Map, HousePriority, GetArea( house ) )
 		{
 			m_House = house;
+			Point3D ban = house.RelativeBanLocation;
 
-            /*** DEL_START ***/
-            //niente ban
-			/*Point3D ban = house.RelativeBanLocation;
-
-			this.GoLocation = new Point3D( house.X + ban.X, house.Y + ban.Y, house.Z + ban.Z );*/
-            /*** DEL_END ***/
+			this.GoLocation = new Point3D( house.X + ban.X, house.Y + ban.Y, house.Z + ban.Z );           
 		}
 
 		private static Rectangle3D[] GetArea( BaseHouse house )

@@ -2464,19 +2464,21 @@
     <Compile Include="Targets\PickMoveTarget.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Custom\Mobiles\Guards\Britain" />
-    <Folder Include="Custom\Mobiles\Guards\Moonglow" />
-    <Folder Include="Custom\Mobiles\Guards\Nujelm" />
-    <Folder Include="Custom\Mobiles\Guards\Magincia" />
-    <Folder Include="Custom\Mobiles\Guards\Vesper" />
-    <Folder Include="Custom\Mobiles\Guards\Cove" />
-    <Folder Include="Custom\Mobiles\Guards\SerpentsHold" />
-    <Folder Include="Custom\Mobiles\Guards\Jhelom" />
-    <Folder Include="Custom\Mobiles\Guards\Yew" />
-    <Folder Include="Custom\Mobiles\Guards\Papua" />
-    <Folder Include="Custom\Mobiles\Guards\Trinsic" />
-    <Folder Include="Custom\Mobiles\Guards\Ocllo" />
-    <Folder Include="Custom\Mobiles\Guards\SkaraBrae" />
-    <Folder Include="Custom\Mobiles\Guards\Minoc" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Custom\Mobiles\Guards\Cove\" />
+    <Folder Include="Custom\Mobiles\Guards\Jhelom\" />
+    <Folder Include="Custom\Mobiles\Guards\Magincia\" />
+    <Folder Include="Custom\Mobiles\Guards\Minoc\" />
+    <Folder Include="Custom\Mobiles\Guards\Moonglow\" />
+    <Folder Include="Custom\Mobiles\Guards\Nujelm\" />
+    <Folder Include="Custom\Mobiles\Guards\Ocllo\" />
+    <Folder Include="Custom\Mobiles\Guards\Papua\" />
+    <Folder Include="Custom\Mobiles\Guards\SerpentsHold\" />
+    <Folder Include="Custom\Mobiles\Guards\SkaraBrae\" />
+    <Folder Include="Custom\Mobiles\Guards\Trinsic\" />
+    <Folder Include="Custom\Mobiles\Guards\Vesper\" />
+    <Folder Include="Custom\Mobiles\Guards\Yew\" />
   </ItemGroup>
 </Project>

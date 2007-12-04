@@ -102,14 +102,17 @@ namespace Server.Spells.Fourth
 			{
 				Caster.SendLocalizedMessage( 1049543 ); // You decide against traveling to Felucca while you are still young.
 			}
-			else if ( Caster.Kills >= 5 && map != Map.Felucca )
+            /*** DEL_START ***/
+            // diocane ma sapete programmare dioporc?
+			/*else if ( Caster.Kills >= 5 && map != Map.Felucca )
 			{
 				Caster.SendLocalizedMessage( 1019004 ); // You are not allowed to travel there.
 			}
 			else if ( Caster.Criminal )
 			{
 				Caster.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
-			}
+			}*/
+            /*** DEL_END ***/
 			else if ( SpellHelper.CheckCombat( Caster ) )
 			{
 				Caster.SendLocalizedMessage( 1005564, "", 0x22 ); // Wouldst thou flee during the heat of battle??
