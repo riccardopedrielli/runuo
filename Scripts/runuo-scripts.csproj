@@ -2464,9 +2464,6 @@
     <Compile Include="Targets\PickMoveTarget.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Custom\Mobiles\Guards\Cove\" />
     <Folder Include="Custom\Mobiles\Guards\Jhelom\" />
     <Folder Include="Custom\Mobiles\Guards\Magincia\" />

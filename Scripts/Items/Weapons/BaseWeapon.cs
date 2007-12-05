@@ -819,7 +819,7 @@ namespace Server.Items
 				theirValue = (defValue + 50.0);
 			}
 
-			double chance = ourValue / (theirValue * 2.0);
+			double chance = ourValue / (theirValue * 1.53);
 
 			chance *= 1.0 + ((double)bonus / 100);
 
