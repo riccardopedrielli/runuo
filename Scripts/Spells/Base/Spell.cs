@@ -614,7 +614,10 @@ namespace Server.Spells
 
 		public virtual TimeSpan GetCastRecovery()
 		{
-			if ( !Core.AOS )
+            return TimeSpan.Zero;
+            /*** DEL_END ***/
+            //no delay tra le magie
+			/*if ( !Core.AOS )
 				return NextSpellDelay;
 
 			int fcr = AosAttributes.GetValue( m_Caster, AosAttribute.CastRecovery );
@@ -628,7 +631,8 @@ namespace Server.Spells
 			if ( delay < CastRecoveryMinimum )
 				delay = CastRecoveryMinimum;
 
-			return TimeSpan.FromSeconds( (double)delay / CastRecoveryPerSecond );
+			return TimeSpan.FromSeconds( (double)delay / CastRecoveryPerSecond );*/
+            /*** DEL_END ***/
 		}
 
 

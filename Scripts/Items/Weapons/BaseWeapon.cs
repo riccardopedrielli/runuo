@@ -819,7 +819,11 @@ namespace Server.Items
 				theirValue = (defValue + 50.0);
 			}
 
-			double chance = ourValue / (theirValue * 1.53);
+            /*** MOD_START ***/
+            //se chi viene attacca ha un arma in mano, aumenta la possibilita' di essere colpito
+            double chance = ourValue / (theirValue * (atkWeapon is Fists || defWeapon is Fists ? 2.0 : 1.53));            
+            //double chance = ourValue / (theirValue * 2.0);
+            /*** MOD_END ***/
 
 			chance *= 1.0 + ((double)bonus / 100);
 
