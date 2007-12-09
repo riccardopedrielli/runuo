@@ -25,20 +25,24 @@ namespace Server.Spells.Fifth
 
 		public override bool CheckCast()
 		{
-			if ( Core.AOS )
-				return true;
+            /*** DEL_START ***/
+			/*if ( Core.AOS )
+				return true;*/
+            /*** DEL_END ***/
 
 			if ( Caster.MagicDamageAbsorb > 0 )
 			{
 				Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
 				return false;
 			}
-			else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
+            /*** DEL_START ***/
+            //via sta merda
+			/*else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
 			{
 				Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
 				return false;
-			}
-
+			}*/
+            /*** DEL_END ***/
 			return true;
 		}
 
@@ -47,8 +51,8 @@ namespace Server.Spells.Fifth
 		public override void OnCast()
 		{
 			if ( Core.AOS )
-			{
-				/* The magic reflection spell decreases the caster's physical resistance, while increasing the caster's elemental resistances.
+			{ 
+                /* The magic reflection spell decreases the caster's physical resistance, while increasing the caster's elemental resistances.
 				 * Physical decrease = 25 - (Inscription/20).
 				 * Elemental resistance = +10 (-20 physical, +10 elemental at GM Inscription)
 				 * The magic reflection spell has an indefinite duration, becoming active when cast, and deactivated when re-cast.
@@ -57,8 +61,18 @@ namespace Server.Spells.Fifth
 
 				if ( CheckSequence() )
 				{
-					Mobile targ = Caster;
+                    /*** ADD_START ***/
+                    //old style reflect
+                    Caster.MagicDamageAbsorb = 15;
 
+				    Caster.FixedParticles( 0x375A, 10, 15, 5037, EffectLayer.Waist );
+				    Caster.PlaySound( 0x1E9 );
+			        /*** ADD_START ***/
+
+                    /*** DEL_START ***/
+                    //via sta merda
+					/*Mobile targ = Caster;
+                    
 					ResistanceMod[] mods = (ResistanceMod[])m_Table[targ];
 
 					if ( mods == null )
@@ -99,39 +113,43 @@ namespace Server.Spells.Fifth
 
 						BuffInfo.RemoveBuff( targ, BuffIcon.MagicReflection );
 					}
-				}
-
+				}*/
+               /*** DEL_END ***/
 				FinishSequence();
 			}
-			else
-			{
-				if ( Caster.MagicDamageAbsorb > 0 )
-				{
-					Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
-				}
-				else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
-				{
-					Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
-				}
-				else if ( CheckSequence() )
-				{
-					if ( Caster.BeginAction( typeof( DefensiveSpell ) ) )
-					{
-						int value = (int)(Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.Inscribe].Value);
-						value = (int)(8 + (value/200)*7.0);//absorb from 8 to 15 "circles"
+            /*** DEL_START ***/
+            /*else
+            {
+                if ( Caster.MagicDamageAbsorb > 0 )
+                {
+                    Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
+                }
+                else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
+                {
+                    Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
+                }
+                else if ( CheckSequence() )
+                {
+                    if ( Caster.BeginAction( typeof( DefensiveSpell ) ) )
+                    {
+                        int value = (int)(Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.Inscribe].Value);
+                        value = (int)(8 + (value/200)*7.0);//absorb from 8 to 15 "circles"
 
-						Caster.MagicDamageAbsorb = value;
+                        Caster.MagicDamageAbsorb = value;
 
-						Caster.FixedParticles( 0x375A, 10, 15, 5037, EffectLayer.Waist );
-						Caster.PlaySound( 0x1E9 );
-					}
-					else
-					{
-						Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
-					}
-				}
+                        Caster.MagicDamageAbsorb = 15;
 
-				FinishSequence();
+                        Caster.FixedParticles( 0x375A, 10, 15, 5037, EffectLayer.Waist );
+                        Caster.PlaySound( 0x1E9 );
+                    }
+                    else
+                    {
+                        Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
+                    }               
+                }
+
+				FinishSequence(); */
+                /*** DEL_END ***/
 			}
 		}
 	}
