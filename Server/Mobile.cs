@@ -1065,6 +1065,16 @@ namespace Server
 					suffix = String.Format( "[{0}]", Utility.FixHtml( guild.Abbreviation ) );
 			}
 
+            /*** ADD_START ***/
+            if (GuildAbbMod != null)
+            {
+                if (GuildAbbMod != " ")
+                    suffix = "[" + GuildAbbMod + "]";
+                else
+                    suffix = "";
+            }
+            /*** ADD_END ***/
+
 			suffix = ApplyNameSuffix( suffix );
 
 			list.Add( 1050045, "{0} \t{1}\t {2}", prefix, name, suffix ); // ~1_PREFIX~~2_NAME~~3_SUFFIX~
@@ -1078,23 +1088,49 @@ namespace Server
 				else
 					type = "";
 
-				string title = GuildTitle;
+                /*** MOD_START ***/
+                //string title = GuildTitle;
+                string title;
+                                
+                if (GuildTitleMod != null)
+                    title = GuildTitleMod;
+                else
+                    title = Utility.FixHtml(GuildTitle);                
+                /*** MOD_END ***/
 
 				if( title == null )
 					title = "";
 				else
 					title = title.Trim();
 
+                /*** ADD_START ***/
+                string guildname;
+                
+                if(GuildNameMod != null)
+                    guildname = GuildNameMod;
+                else
+                    guildname = Utility.FixHtml(guild.Name);
+                /*** ADD_END ***/
+
 				if( NewGuildDisplay && title.Length > 0 )
 				{
-					list.Add( "{0}, {1}", Utility.FixHtml( title ), Utility.FixHtml( guild.Name ) );
+                    /*** MOD_START ***/
+					//list.Add( "{0}, {1}", Utility.FixHtml( title ), Utility.FixHtml( guild.Name ) );
+                    list.Add("{0}, {1}", title, guildname);
+                    /*** MOD_END ***/
 				}
 				else
 				{
-					if( title.Length > 0 )
+                    /*** MOD_START ***/
+					/*if( title.Length > 0 )
 						list.Add( "{0}, {1} Guild{2}", Utility.FixHtml( title ), Utility.FixHtml( guild.Name ), type );
 					else
-						list.Add( Utility.FixHtml( guild.Name ) );
+						list.Add( Utility.FixHtml( guild.Name ) );*/
+                    if (title.Length > 0)
+                        list.Add("{0}, {1} Guild{2}", title, guildname, type);
+                    else
+                        list.Add(guildname);
+                    /*** MOD_END ***/
 				}
 			}
 		}
@@ -8102,6 +8138,64 @@ namespace Server
 			}
 		}
 
+        private string m_GuildAbbMod;
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public string GuildAbbMod
+        {
+            get
+            {
+                return m_GuildAbbMod;
+            }
+            set
+            {
+                if (m_GuildAbbMod != value)
+                {
+                    m_GuildAbbMod = value;                    
+                    InvalidateProperties();
+                }
+            }
+        }
+
+        private string m_GuildTitleMod;
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public string GuildTitleMod
+        {
+            get
+            {
+                return m_GuildTitleMod;
+            }
+            set
+            {
+                if (m_GuildTitleMod != value)
+                {
+                    m_GuildTitleMod = value;                    
+                    InvalidateProperties();
+                }
+            }
+        }
+
+        private string m_GuildNameMod;
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public string GuildNameMod
+        {
+            get
+            {
+                return m_GuildNameMod;
+            }
+            set
+            {
+                if (m_GuildNameMod != value)
+                {
+                    m_GuildNameMod = value;                   
+                    InvalidateProperties();
+                }
+            }
+        }
+
+
 		private bool m_YellowHealthbar;
 
 		[CommandProperty( AccessLevel.GameMaster )]
@@ -10611,7 +10705,10 @@ namespace Server
 		public static bool GuildClickMessage { get { return m_GuildClickMessage; } set { m_GuildClickMessage = value; } }
 		public static bool OldPropertyTitles { get { return m_OldPropertyTitles; } set { m_OldPropertyTitles = value; } }
 
-		public virtual bool ShowFameTitle { get { return true; } }//(m_Player || m_Body.IsHuman) && m_Fame >= 10000; } 
+        /*** MOD_START ***/
+		//public virtual bool ShowFameTitle { get { return true; } }//(m_Player || m_Body.IsHuman) && m_Fame >= 10000; } 
+        public virtual bool ShowFameTitle { get { return ((m_Player || m_Body.IsHuman) && BodyMod == 0); } }
+        /*** MOD_END ***/
 
 		/// <summary>
 		/// Overridable. Event invoked when the Mobile is single clicked.
