@@ -45,8 +45,24 @@ namespace Server.Gumps
 			m_Y = Y;
 		}
 
-        public string Name { get { return m_Name; } }
-		public int ArtID { get { return m_Art; } }
+        public string Name { 
+            get 
+            {                
+                switch (m_Name)
+                {
+                    case "a lizardman":
+                        return NameList.RandomName("lizardman");
+                    case "an orc":
+                        return NameList.RandomName("orc");
+                    case "a daemon":
+                        return NameList.RandomName("daemon");
+                    default:
+                        return m_Name; 
+                }               
+            } 
+        }
+		
+        public int ArtID { get { return m_Art; } }
 		public int BodyID { get { return m_Body; } }
 		public int LocNumber{ get { return m_Num; } }
 		public int X{ get{ return m_X; } }
