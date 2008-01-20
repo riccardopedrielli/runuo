@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: Mobile.cs 258 2007-09-15 21:17:08Z mark $
+ *   $Id: Mobile.cs 274 2007-12-17 20:41:34Z mark $
  *
  ***************************************************************************/
 
@@ -498,6 +498,7 @@ namespace Server
 	/// </summary>
 	public class Mobile : IEntity, IHued, IComparable<Mobile>, ISerializable
 	{
+		#region CompareTo(...)
 		public int CompareTo( IEntity other )
 		{
 			if( other == null )
@@ -518,6 +519,7 @@ namespace Server
 
 			throw new ArgumentException();
 		}
+		#endregion
 
 		private static bool m_DragEffects = true;
 
@@ -1089,7 +1091,9 @@ namespace Server
 					type = "";
 
                 /*** MOD_START ***/
-                //string title = GuildTitle;
+                /*
+				string title = GuildTitle;
+                */
                 string title;
                                 
                 if (GuildTitleMod != null)
@@ -1115,17 +1119,22 @@ namespace Server
 				if( NewGuildDisplay && title.Length > 0 )
 				{
                     /*** MOD_START ***/
-					//list.Add( "{0}, {1}", Utility.FixHtml( title ), Utility.FixHtml( guild.Name ) );
+                    /*
+					list.Add( "{0}, {1}", Utility.FixHtml( title ), Utility.FixHtml( guild.Name ) );
+					*/
+					
                     list.Add("{0}, {1}", title, guildname);
                     /*** MOD_END ***/
 				}
 				else
 				{
                     /*** MOD_START ***/
-					/*if( title.Length > 0 )
+					/*
+					if( title.Length > 0 )
 						list.Add( "{0}, {1} Guild{2}", Utility.FixHtml( title ), Utility.FixHtml( guild.Name ), type );
 					else
-						list.Add( Utility.FixHtml( guild.Name ) );*/
+						list.Add( Utility.FixHtml( guild.Name ) );
+					*/
                     if (title.Length > 0)
                         list.Add("{0}, {1} Guild{2}", title, guildname, type);
                     else
@@ -4016,6 +4025,8 @@ namespace Server
 			}
 		}
 
+		#region Get*Sound
+
 		public virtual int GetAngerSound()
 		{
 			if( m_BaseSoundID != 0 )
@@ -4063,6 +4074,8 @@ namespace Server
 				return -1;
 			}
 		}
+
+		#endregion
 
 		private static char[] m_GhostChars = new char[2] { 'o', 'O' };
 
@@ -4633,6 +4646,8 @@ namespace Server
 			}
 		}
 
+		#region Get*InRange
+
 		public IPooledEnumerable GetItemsInRange( int range )
 		{
 			Map map = m_Map;
@@ -4672,6 +4687,8 @@ namespace Server
 
 			return map.GetClientsInRange( m_Location, range );
 		}
+
+		#endregion
 
 		private static List<Mobile> m_Hears;
 		private static ArrayList m_OnSpeech;
@@ -6519,6 +6536,8 @@ namespace Server
 			}
 		}
 
+		#region Gumps/Menus
+
 		public bool SendHuePicker( HuePicker p ) {
 			return SendHuePicker( p, false );
 		}
@@ -6639,6 +6658,8 @@ namespace Server
 				return false;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// Overridable. Event invoked before the Mobile says something.
@@ -6824,6 +6845,8 @@ namespace Server
 		{
 		}
 
+		#region Beneficial Checks/Actions
+
 		public virtual bool CanBeBeneficial( Mobile target )
 		{
 			return CanBeBeneficial( target, true, false );
@@ -6905,6 +6928,10 @@ namespace Server
 
 			return false;
 		}
+		
+		#endregion
+
+		#region Harmful Checks/Actions
 
 		public virtual bool CanBeHarmful( Mobile target )
 		{
@@ -6942,11 +6969,6 @@ namespace Server
 			}
 
 			return true;
-		}
-
-		public virtual int Luck
-		{
-			get { return 0; }
 		}
 
 		public virtual bool IsHarmfulCriminal( Mobile target )
@@ -7005,6 +7027,8 @@ namespace Server
 
 			return false;
 		}
+
+		#endregion
 
 		#region Stats
 
@@ -7577,7 +7601,12 @@ namespace Server
 		}
 
 		#endregion
-
+		
+		public virtual int Luck
+		{
+			get { return 0; }
+		}
+		
 		public virtual int HuedItemID
 		{
 			get
@@ -8138,6 +8167,7 @@ namespace Server
 			}
 		}
 
+		/*** ADD_START ***/
         private string m_GuildAbbMod;
 
         [CommandProperty(AccessLevel.GameMaster)]
@@ -8194,6 +8224,7 @@ namespace Server
                 }
             }
         }
+        /*** ADD_END ***/
 
 
 		private bool m_YellowHealthbar;
@@ -8329,6 +8360,8 @@ namespace Server
 		public virtual void OnGuildChange( BaseGuild oldGuild )
 		{
 		}
+
+		#region Poison/Curing
 
 		public Timer PoisonTimer
 		{
@@ -8529,6 +8562,8 @@ namespace Server
 			return false;
 		}
 
+		#endregion
+
 		private ISpawner m_Spawner;
 
 		public ISpawner Spawner { get { return m_Spawner; } set { m_Spawner = value; } }
@@ -8665,6 +8700,7 @@ namespace Server
 			}
 		}
 
+		[CommandProperty( AccessLevel.Counselor, AccessLevel.GameMaster )]
 		public Point3D LogoutLocation
 		{
 			get
@@ -8677,6 +8713,7 @@ namespace Server
 			}
 		}
 
+		[CommandProperty( AccessLevel.Counselor, AccessLevel.GameMaster )]
 		public Map LogoutMap
 		{
 			get
@@ -9052,6 +9089,7 @@ namespace Server
 		{
 		}
 
+		#region Hair
 
 		private HairInfo m_Hair;
 		private FacialHairInfo m_FacialHair;
@@ -9146,6 +9184,8 @@ namespace Server
 				}
 			}
 		}
+
+		#endregion
 
 		public bool HasFreeHand()
 		{
@@ -9696,6 +9736,8 @@ namespace Server
 			Core.Set();
 		}
 
+		#region GetDirectionTo[..]
+
 		public Direction GetDirectionTo( int x, int y )
 		{
 			int dx = m_Location.m_X - x;
@@ -9742,6 +9784,8 @@ namespace Server
 
 			return GetDirectionTo( p.X, p.Y );
 		}
+
+		#endregion
 
 		public virtual void ProcessDelta()
 		{
@@ -10494,6 +10538,7 @@ namespace Server
 
 		#endregion
 
+		#region InRange
 		public bool InRange( Point2D p, int range )
 		{
 			return (p.m_X >= (m_Location.m_X - range))
@@ -10517,6 +10562,7 @@ namespace Server
 				&& (p.Y >= (m_Location.m_Y - range))
 				&& (p.Y <= (m_Location.m_Y + range));
 		}
+		#endregion
 
 		public void InitStats( int str, int dex, int intel )
 		{
@@ -10539,6 +10585,8 @@ namespace Server
 		private static bool m_DisableDismountInWarmode;
 
 		public static bool DisableDismountInWarmode { get { return m_DisableDismountInWarmode; } set { m_DisableDismountInWarmode = value; } }
+		
+		#region OnDoubleClick[..]
 
 		/// <summary>
 		/// Overridable. Event invoked when the Mobile is double clicked. By default, this method can either dismount or open the paperdoll.
@@ -10587,6 +10635,8 @@ namespace Server
 			if( CanPaperdollBeOpenedBy( from ) )
 				DisplayPaperdollTo( from );
 		}
+
+		#endregion
 
 		/// <summary>
 		/// Overridable. Event invoked when the Mobile requests to open his own paperdoll via the 'Open Paperdoll' macro.
@@ -10706,10 +10756,12 @@ namespace Server
 		public static bool OldPropertyTitles { get { return m_OldPropertyTitles; } set { m_OldPropertyTitles = value; } }
 
         /*** MOD_START ***/
-		//public virtual bool ShowFameTitle { get { return true; } }//(m_Player || m_Body.IsHuman) && m_Fame >= 10000; } 
+		/*
+		public virtual bool ShowFameTitle { get { return true; } }//(m_Player || m_Body.IsHuman) && m_Fame >= 10000; } 
+		*/ 
         public virtual bool ShowFameTitle { get { return ((m_Player || m_Body.IsHuman) && BodyMod == 0); } }
         /*** MOD_END ***/
-
+        
 		/// <summary>
 		/// Overridable. Event invoked when the Mobile is single clicked.
 		/// </summary>

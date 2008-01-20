@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: Attributes.cs 245 2007-09-14 05:55:06Z mark $
+ *   $Id: Attributes.cs 274 2007-12-17 20:41:34Z mark $
  *
  ***************************************************************************/
 
@@ -179,6 +179,7 @@ namespace Server
 	public class CommandPropertyAttribute : Attribute
 	{
 		private AccessLevel m_ReadLevel, m_WriteLevel;
+		private bool m_ReadOnly;
 
 		public AccessLevel ReadLevel
 		{
@@ -194,6 +195,20 @@ namespace Server
 			{
 				return m_WriteLevel;
 			}
+		}
+
+		public bool ReadOnly
+		{
+			get
+			{
+				return m_ReadOnly;
+			}
+		}
+
+		public CommandPropertyAttribute( AccessLevel level, bool readOnly )
+		{
+			m_ReadLevel = level;
+			m_ReadOnly = readOnly;
 		}
 
 		public CommandPropertyAttribute( AccessLevel level ) : this( level, level )

@@ -332,6 +332,7 @@
     <Compile Include="Engines\Factions\Mobiles\Vendors\FactionHorseVendor.cs" />
     <Compile Include="Engines\Factions\Mobiles\Vendors\FactionOreVendor.cs" />
     <Compile Include="Engines\Factions\Mobiles\Vendors\FactionReagentVendor.cs" />
+    <Compile Include="Engines\Harvest\Core\BonusHarvestResource.cs" />
     <Compile Include="Engines\Harvest\Core\HarvestBank.cs" />
     <Compile Include="Engines\Harvest\Core\HarvestDefinition.cs" />
     <Compile Include="Engines\Harvest\Core\HarvestResource.cs" />
