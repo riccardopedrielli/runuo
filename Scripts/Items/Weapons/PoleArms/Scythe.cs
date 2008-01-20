@@ -12,8 +12,8 @@ namespace Server.Items
 		public override WeaponAbility SecondaryAbility{ get{ return WeaponAbility.ParalyzingBlow; } }
 
 		public override int AosStrengthReq{ get{ return 45; } }
-        public override int AosMinDamage { get { return Convert.ToInt32(15 * (100 + BonusDmg) / 100); } }
-        public override int AosMaxDamage { get { return Convert.ToInt32(18 * (100 + BonusDmg) / 100); } }
+		public override int AosMinDamage{ get{ return 15; } }
+		public override int AosMaxDamage{ get{ return 18; } }
 		public override int AosSpeed{ get{ return 32; } }
 
 		public override int OldStrengthReq{ get{ return 45; } }

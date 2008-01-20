@@ -47,6 +47,23 @@ namespace Server.Items
 						Spell sp = attacker.Spell as Spell;
 
 						canSwing = ( sp == null || !sp.IsCasting || !sp.BlocksMovement );
+						
+						/*** ADD_START ***/
+						if ( canSwing )
+						{
+							foreach ( Item item in attacker.Items )
+							{
+								if ( item is BaseArmor )
+								{
+									if ( ((BaseArmor) item).MaterialType == ArmorMaterialType.Plate || ((BaseArmor) item).MaterialType == ArmorMaterialType.Dragon )
+									{
+										attacker.SendMessage( "You are wearing a {0} armor and cannot shoot.", ((BaseArmor) item).MaterialType.ToString());
+										canSwing = false;
+									}
+								}
+							}
+						}
+						/*** ADD_END ***/
 					}
 				}
 
