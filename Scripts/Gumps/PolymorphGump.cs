@@ -8,10 +8,11 @@ using Server.Spells.Seventh;
 namespace Server.Gumps
 {
 	public class PolymorphEntry
-	{
+    {   /*** MOD_START ***/
+        //modificati i PolymorphEntry aggiungendo il nome della trasformazione
 		public static readonly PolymorphEntry Chicken =		new PolymorphEntry( "a chicken", 8401, 0xD0, 1015236, 15, 10 );
 		public static readonly PolymorphEntry Dog =			new PolymorphEntry( "a dog", 8405, 0xD9, 1015237, 17, 10 );
-        public static readonly PolymorphEntry Pig =         new PolymorphEntry( "a pig", 8449, 0xCB, 1018266, 6, 6 ); /*** ADD_START_END ***/
+        public static readonly PolymorphEntry Pig =         new PolymorphEntry( "a pig", 8449, 0xCB, 1018266, 6, 6 ); 
 		public static readonly PolymorphEntry Wolf =		new PolymorphEntry( "a wolf", 8426, 0xE1, 1015238, 18, 10 );
 		public static readonly PolymorphEntry Panther =		new PolymorphEntry( "a panther", 8473, 0xD6, 1015239, 20, 14 );
 		public static readonly PolymorphEntry Gorilla =		new PolymorphEntry( "a gorilla", 8437, 0x1D, 1015240, 23, 10 );
@@ -23,7 +24,7 @@ namespace Server.Gumps
 		public static readonly PolymorphEntry Slime =		new PolymorphEntry( "a slime", 8424, 0x33, 1015246, 5, 10 );
 		public static readonly PolymorphEntry Orc =			new PolymorphEntry( "an orc", 8416, 0x11, 1015247, 29, 10 );
 		public static readonly PolymorphEntry LizardMan =	new PolymorphEntry( "a lizardman", 8414, 0x21, 1015248, 26, 10 );
-        public static readonly PolymorphEntry Skeleton =    new PolymorphEntry( "a skeletal knight", 8423, 0x39, 1029661, 26, 10 ); /*** ADD_START_END ***/
+        public static readonly PolymorphEntry Skeleton =    new PolymorphEntry( "a skeletal knight", 8423, 0x39, 1029661, 26, 10 ); 
 		public static readonly PolymorphEntry Gargoyle =	new PolymorphEntry( "a gargoyle", 8409, 0x04, 1015249, 22, 10 );
 		public static readonly PolymorphEntry Ogre =		new PolymorphEntry( "an ogre", 8415, 0x01, 1015250, 24, 9 );
 		public static readonly PolymorphEntry Troll =		new PolymorphEntry( "a troll", 8425, 0x36, 1015251, 25, 9 );
@@ -31,7 +32,7 @@ namespace Server.Gumps
         public static readonly PolymorphEntry Daemon =      new PolymorphEntry( "a daemon", 8403, 0x09, 1015253, 25, 8 );
 
 
-
+        //aggiunta la variabile m_Name che prima non esisteva
         private int m_Art, m_Body, m_Num, m_X, m_Y;
         private string m_Name;
 
@@ -47,7 +48,9 @@ namespace Server.Gumps
 
         public string Name { 
             get 
-            {                
+            {   
+                //il calcolo dei nomi random va messo qui perche se no 
+                //li genera soltanto una volta per tutti e rimane quello fino al riavvio del server
                 switch (m_Name)
                 {
                     case "a lizardman":
@@ -61,6 +64,7 @@ namespace Server.Gumps
                 }               
             } 
         }
+        /*** MOD_END ***/
 		
         public int ArtID { get { return m_Art; } }
 		public int BodyID { get { return m_Body; } }
@@ -87,33 +91,35 @@ namespace Server.Gumps
 			public int LocNumber{ get { return m_Num; } }
 		}
 
+        /*** ADD_START ***/
+        //le voci con "new" come commento sono le trasformazioni aggiunte a quelle di def
 		private static PolymorphCategory[] Categories = new PolymorphCategory[]
 			{
 				new PolymorphCategory( 1015235, // Animals
 					PolymorphEntry.Chicken,
 					PolymorphEntry.Dog,
-                    PolymorphEntry.Pig, /*** ADD_START_END ***/
+                    PolymorphEntry.Pig, //new
 					PolymorphEntry.Wolf,
 					PolymorphEntry.Panther,
 					PolymorphEntry.Gorilla,
 					PolymorphEntry.BlackBear,
 					PolymorphEntry.GrizzlyBear,
 					PolymorphEntry.PolarBear ),
-					//PolymorphEntry.HumanMale ),
+					//PolymorphEntry.HumanMale ), // rimosso perche il mago non puo trasformarsi in umani
 
 				new PolymorphCategory( 1015245, // Monsters
 					PolymorphEntry.Slime,
 					PolymorphEntry.Orc,
 					PolymorphEntry.LizardMan,
-                    PolymorphEntry.Skeleton,/*** ADD_START_END ***/
+                    PolymorphEntry.Skeleton, //new
 					PolymorphEntry.Gargoyle,
 					PolymorphEntry.Ogre,
 					PolymorphEntry.Troll,
 					PolymorphEntry.Ettin,
 					PolymorphEntry.Daemon )
-					//PolymorphEntry.HumanFemale )
+					//PolymorphEntry.HumanFemale ) // rimosso perche il mago non puo trasformarsi in umani
 			};
-
+        /*** ADD_END ***/
 
 		private Mobile m_Caster;
 		private Item m_Scroll;
@@ -183,30 +189,32 @@ namespace Server.Gumps
 
 	public class NewPolymorphGump : Gump
 	{
+        /*** ADD_START ***/
+        //le voci con "new" come commento sono le trasformazioni aggiunte a quelle di def
 		private static readonly PolymorphEntry[] m_Entries = new PolymorphEntry[]
 			{
 				PolymorphEntry.Chicken,
 				PolymorphEntry.Dog,
-                PolymorphEntry.Pig,  /*** ADD_START_END ***/
+                PolymorphEntry.Pig,  //new
 				PolymorphEntry.Wolf,
 				PolymorphEntry.Panther,
 				PolymorphEntry.Gorilla,
 				PolymorphEntry.BlackBear,
 				PolymorphEntry.GrizzlyBear,
 				PolymorphEntry.PolarBear,
-				//PolymorphEntry.HumanMale,
-				//PolymorphEntry.HumanFemale,
+				//PolymorphEntry.HumanMale, // rimosso perche il mago non puo trasformarsi in umani
+				//PolymorphEntry.HumanFemale, // rimosso perche il mago non puo trasformarsi in umani
 				PolymorphEntry.Slime,
 				PolymorphEntry.Orc,
 				PolymorphEntry.LizardMan,
-                PolymorphEntry.Skeleton,/*** ADD_START_END ***/
+                PolymorphEntry.Skeleton, //new
 				PolymorphEntry.Gargoyle,
 				PolymorphEntry.Ogre,
 				PolymorphEntry.Troll,
 				PolymorphEntry.Ettin,
 				PolymorphEntry.Daemon
 			};
-
+        /*** ADD_END ***/
 
 		private Mobile m_Caster;
 		private Item m_Scroll;

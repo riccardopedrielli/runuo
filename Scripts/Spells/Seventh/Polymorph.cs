@@ -24,12 +24,14 @@ namespace Server.Spells.Seventh
 		private int m_NewBody;
         private string m_NewName;
 
+        /*** MOD_START ***/
+        //aggiunto il nome come parametro per permetterne la modifica
 		public PolymorphSpell( Mobile caster, Item scroll, int body, string name) : base( caster, scroll, m_Info )
 		{
 			m_NewBody = body;
             m_NewName = name;
 		}
-
+        /*** MOD_END ***/
 		public PolymorphSpell( Mobile caster, Item scroll ) : this(caster,scroll,0,null)
 		{
 		}
