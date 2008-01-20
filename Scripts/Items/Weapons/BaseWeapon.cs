@@ -97,11 +97,6 @@ namespace Server.Items
 
 		#region Virtual Properties
 
-        /*** ADD_START ***/
-        //percentuale danno
-        public virtual int BonusDmg { get { return 0; } }
-        /*** ADD_END ***/
-
 		public virtual WeaponAbility PrimaryAbility{ get{ return null; } }
 		public virtual WeaponAbility SecondaryAbility{ get{ return null; } }
 
