@@ -4,13 +4,22 @@ using Server.Items;
 namespace Server.Items
 {
 	[FlipableAttribute( 0x13eb, 0x13f2 )]
+	/*** MOD_START ***/
+	/*
 	public class RingmailGloves : BaseArmor
+	*/
+	public class RingmailGloves : BaseRingArmor
+	/*** MOD_END ***/
 	{
+		/*** DEL_START ***/
+		/*
 		public override int BasePhysicalResistance{ get{ return 3; } }
 		public override int BaseFireResistance{ get{ return 3; } }
 		public override int BaseColdResistance{ get{ return 1; } }
 		public override int BasePoisonResistance{ get{ return 5; } }
 		public override int BaseEnergyResistance{ get{ return 3; } }
+		*/
+		/*** DEL_END ***/
 
 		public override int InitMinHits{ get{ return 40; } }
 		public override int InitMaxHits{ get{ return 50; } }

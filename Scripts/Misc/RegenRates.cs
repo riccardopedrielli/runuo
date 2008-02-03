@@ -209,7 +209,11 @@ namespace Server.Misc
 			{
 				default:
 				case ArmorMeditationAllowance.None: return ar.BaseArmorRatingScaled;
+				/*** DEL_START ***/
+				/*
 				case ArmorMeditationAllowance.Half: return ar.BaseArmorRatingScaled / 2.0;
+				*/
+				/*** DEL_END ***/
 				case ArmorMeditationAllowance.All:  return 0.0;
 			}
 		}

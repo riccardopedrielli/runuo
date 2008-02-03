@@ -785,10 +785,12 @@
     <Compile Include="Items\Armor\Artifacts\TunicOfFire.cs" />
     <Compile Include="Items\Armor\Artifacts\VoiceOfTheFallenKing.cs" />
     <Compile Include="Items\Armor\BaseArmor.cs" />
+    <Compile Include="Items\Armor\Bone\BaseBoneArmor.cs" />
     <Compile Include="Items\Armor\Bone\BoneArms.cs" />
     <Compile Include="Items\Armor\Bone\BoneChest.cs" />
     <Compile Include="Items\Armor\Bone\BoneGloves.cs" />
     <Compile Include="Items\Armor\Bone\BoneLegs.cs" />
+    <Compile Include="Items\Armor\Chain\BaseChainArmor.cs" />
     <Compile Include="Items\Armor\Chain\ChainChest.cs" />
     <Compile Include="Items\Armor\Chain\ChainHatsuburi.cs" />
     <Compile Include="Items\Armor\Chain\ChainLegs.cs" />
@@ -796,6 +798,7 @@
     <Compile Include="Items\Armor\DaemonBone\DaemonChest.cs" />
     <Compile Include="Items\Armor\DaemonBone\DaemonGloves.cs" />
     <Compile Include="Items\Armor\DaemonBone\DaemonLegs.cs" />
+    <Compile Include="Items\Armor\Dragon\BaseDragonArmor.cs" />
     <Compile Include="Items\Armor\Dragon\DragonArms.cs" />
     <Compile Include="Items\Armor\Dragon\DragonChest.cs" />
     <Compile Include="Items\Armor\Dragon\DragonGloves.cs" />
@@ -817,6 +820,7 @@
     <Compile Include="Items\Armor\Helmets\RoyalCirclet.cs" />
     <Compile Include="Items\Armor\Helmets\VultureHelm.cs" />
     <Compile Include="Items\Armor\Helmets\WingedHelm.cs" />
+    <Compile Include="Items\Armor\Leather\BaseLeatherArmor.cs" />
     <Compile Include="Items\Armor\Leather\FemaleLeafChest.cs" />
     <Compile Include="Items\Armor\Leather\FemaleLeatherChest.cs" />
     <Compile Include="Items\Armor\Leather\LeafArms.cs" />
@@ -843,6 +847,7 @@
     <Compile Include="Items\Armor\Leather\LeatherShorts.cs" />
     <Compile Include="Items\Armor\Leather\LeatherSkirt.cs" />
     <Compile Include="Items\Armor\Leather\LeatherSuneate.cs" />
+    <Compile Include="Items\Armor\Plate\BasePlateArmor.cs" />
     <Compile Include="Items\Armor\Plate\DecorativePlateKabuto.cs" />
     <Compile Include="Items\Armor\Plate\FemalePlateChest.cs" />
     <Compile Include="Items\Armor\Plate\FemaleWoodlandChest.cs" />
@@ -872,10 +877,12 @@
     <Compile Include="Items\Armor\Ranger\RangerGloves.cs" />
     <Compile Include="Items\Armor\Ranger\RangerGorget.cs" />
     <Compile Include="Items\Armor\Ranger\RangerLegs.cs" />
+    <Compile Include="Items\Armor\Ring\BaseRingArmor.cs" />
     <Compile Include="Items\Armor\Ring\RingmailArms.cs" />
     <Compile Include="Items\Armor\Ring\RingmailChest.cs" />
     <Compile Include="Items\Armor\Ring\RingmailGloves.cs" />
     <Compile Include="Items\Armor\Ring\RingmailLegs.cs" />
+    <Compile Include="Items\Armor\Studded\BaseStuddedArmor.cs" />
     <Compile Include="Items\Armor\Studded\FemaleStuddedChest.cs" />
     <Compile Include="Items\Armor\Studded\HideChest.cs" />
     <Compile Include="Items\Armor\Studded\HideFemaleChest.cs" />

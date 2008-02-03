@@ -25,7 +25,11 @@ namespace Server.Items
 		public override ArmorMaterialType MaterialType{ get{ return ArmorMaterialType.Studded; } }
 		public override CraftResource DefaultResource{ get{ return CraftResource.RegularLeather; } }
 
+		/*** DEL_START ***/
+		/*
 		public override ArmorMeditationAllowance DefMedAllowance{ get{ return ArmorMeditationAllowance.Half; } }
+		*/
+		/*** DEL_END ***/
 
 		[Constructable]
 		public HideChest() : base( 0x2B74 )

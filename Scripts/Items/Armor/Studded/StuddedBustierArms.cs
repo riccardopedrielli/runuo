@@ -4,13 +4,22 @@ using Server.Items;
 namespace Server.Items
 {
 	[FlipableAttribute( 0x1c0c, 0x1c0d )]
+	/*** MOD_START ***/
+	/*
 	public class StuddedBustierArms : BaseArmor
+	*/
+	public class StuddedBustierArms : BaseStuddedArmor
+	/*** MOD_END ***/
 	{
+		/*** DEL_START ***/
+		/*
 		public override int BasePhysicalResistance{ get{ return 2; } }
 		public override int BaseFireResistance{ get{ return 4; } }
 		public override int BaseColdResistance{ get{ return 3; } }
 		public override int BasePoisonResistance{ get{ return 3; } }
 		public override int BaseEnergyResistance{ get{ return 4; } }
+		*/
+		/*** DEL_END ***/
 
 		public override int InitMinHits{ get{ return 35; } }
 		public override int InitMaxHits{ get{ return 45; } }
@@ -23,7 +32,11 @@ namespace Server.Items
 		public override ArmorMaterialType MaterialType{ get{ return ArmorMaterialType.Studded; } }
 		public override CraftResource DefaultResource{ get{ return CraftResource.RegularLeather; } }
 
+		/*** DEL_START ***/
+		/*
 		public override ArmorMeditationAllowance DefMedAllowance{ get{ return ArmorMeditationAllowance.Half; } }
+		*/
+		/*** DEL_END ***/
 
 		public override bool AllowMaleWearer{ get{ return false; } }
 

@@ -58,7 +58,7 @@ namespace Server.Items
 		private int m_WeaponLowerRequirements;
 
 		/*** ADD_START ***/
-		private int m_WeaponResourceDamageBonus;
+		private int m_WeaponMatherialDamageBonus;
 		/*** ADD_END ***/
 
 		private int m_ArmorPhysicalResist;
@@ -86,7 +86,7 @@ namespace Server.Items
 		public int WeaponLowerRequirements{ get{ return m_WeaponLowerRequirements; } set{ m_WeaponLowerRequirements = value; } }
 
 		/*** ADD_START ***/
-		public int WeaponResourceDamageBonus{ get{ return m_WeaponResourceDamageBonus; } set{ m_WeaponResourceDamageBonus = value; } }
+		public int WeaponMatherialDamageBonus{ get{ return m_WeaponMatherialDamageBonus; } set{ m_WeaponMatherialDamageBonus = value; } }
 		/*** ADD_END ***/
 
 		public int ArmorPhysicalResist{ get{ return m_ArmorPhysicalResist; } set{ m_ArmorPhysicalResist = value; } }
@@ -120,213 +120,215 @@ namespace Server.Items
 
 			CraftAttributeInfo dullCopper = DullCopper = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			dullCopper.ArmorPhysicalResist = 6;
 			dullCopper.ArmorDurability = 50;
 			dullCopper.ArmorLowerRequirements = 20;
 			dullCopper.WeaponDurability = 100;
 			dullCopper.WeaponLowerRequirements = 50;
-
-			/*** ADD_START ***/
-			dullCopper.WeaponResourceDamageBonus = 3;
-			/*** ADD_END ***/
-
 			dullCopper.RunicMinAttributes = 1;
 			dullCopper.RunicMaxAttributes = 2;
 			dullCopper.RunicMinIntensity = 10;
 			dullCopper.RunicMaxIntensity = 35;
+			*/
+			dullCopper.ArmorPhysicalResist = 1;
+			dullCopper.ArmorFireResist = 0;
+			dullCopper.ArmorColdResist = 0;
+			dullCopper.ArmorPoisonResist = 3;
+			dullCopper.ArmorEnergyResist = 1;
+			dullCopper.WeaponMatherialDamageBonus = 3;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo shadowIron = ShadowIron = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			shadowIron.ArmorPhysicalResist = 2;
 			shadowIron.ArmorFireResist = 1;
 			shadowIron.ArmorEnergyResist = 5;
 			shadowIron.ArmorDurability = 100;
-
-			/*** DEL_START ***/
-			/*
 			shadowIron.WeaponColdDamage = 20;
-			*/
-			/*** DEL_END ***/
-
 			shadowIron.WeaponDurability = 50;
-
-			/*** ADD_START ***/
-			shadowIron.WeaponResourceDamageBonus = 6;
-			/*** ADD_END ***/
-
 			shadowIron.RunicMinAttributes = 2;
 			shadowIron.RunicMaxAttributes = 2;
 			shadowIron.RunicMinIntensity = 20;
 			shadowIron.RunicMaxIntensity = 45;
+			*/
+			shadowIron.ArmorPhysicalResist = 1;
+			shadowIron.ArmorFireResist = 1;
+			shadowIron.ArmorColdResist = 0;
+			shadowIron.ArmorPoisonResist = 0;
+			shadowIron.ArmorEnergyResist = 5;
+			shadowIron.WeaponMatherialDamageBonus = 6;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo copper = Copper = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			copper.ArmorPhysicalResist = 1;
 			copper.ArmorFireResist = 1;
 			copper.ArmorPoisonResist = 5;
 			copper.ArmorEnergyResist = 2;
-
-			/*** DEL_START ***/
-			/*
 			copper.WeaponPoisonDamage = 10;
 			copper.WeaponEnergyDamage = 20;
-			*/
-			/*** DEL_END ***/
-
-			/*** ADD_START ***/
-			copper.WeaponResourceDamageBonus = 9;
-			/*** ADD_END ***/
-
 			copper.RunicMinAttributes = 2;
 			copper.RunicMaxAttributes = 3;
 			copper.RunicMinIntensity = 25;
 			copper.RunicMaxIntensity = 50;
+			*/
+			copper.ArmorPhysicalResist = 1;
+			copper.ArmorFireResist = 1;
+			copper.ArmorColdResist = 0;
+			copper.ArmorPoisonResist = 5;
+			copper.ArmorEnergyResist = 2;
+			copper.WeaponMatherialDamageBonus = 9;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo bronze = Bronze = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			bronze.ArmorPhysicalResist = 3;
 			bronze.ArmorColdResist = 5;
 			bronze.ArmorPoisonResist = 1;
 			bronze.ArmorEnergyResist = 1;
-
-			/*** DEL_START ***/
-			/*
 			bronze.WeaponFireDamage = 40;
-			*/
-			/*** DEL_END ***/
-
-			/*** ADD_START ***/
-			bronze.WeaponResourceDamageBonus = 12;
-			/*** ADD_END ***/
-
 			bronze.RunicMinAttributes = 3;
 			bronze.RunicMaxAttributes = 3;
 			bronze.RunicMinIntensity = 30;
 			bronze.RunicMaxIntensity = 65;
+			*/
+			bronze.ArmorPhysicalResist = 2;
+			bronze.ArmorFireResist = 1;
+			bronze.ArmorColdResist = 6;
+			bronze.ArmorPoisonResist = 2;
+			bronze.ArmorEnergyResist = 2;
+			bronze.WeaponMatherialDamageBonus = 12;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo golden = Golden = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			golden.ArmorPhysicalResist = 1;
 			golden.ArmorFireResist = 1;
 			golden.ArmorColdResist = 2;
 			golden.ArmorEnergyResist = 2;
-
-			/*** DEL_START ***/
-			/*
 			golden.ArmorLuck = 40;
-			*/
-			/*** DEL_END ***/
-
 			golden.ArmorLowerRequirements = 30;
-
-			/*** DEL_START ***/
-			/*
 			golden.WeaponLuck = 40;
-			*/
-			/*** DEL_END ***/
-
 			golden.WeaponLowerRequirements = 50;
-
-			/*** ADD_START ***/
-			golden.WeaponResourceDamageBonus = 15;
-			/*** ADD_END ***/
-
 			golden.RunicMinAttributes = 3;
 			golden.RunicMaxAttributes = 4;
 			golden.RunicMinIntensity = 35;
 			golden.RunicMaxIntensity = 75;
+			*/
+			golden.ArmorPhysicalResist = 2;
+			golden.ArmorFireResist = 3;
+			golden.ArmorColdResist = 4;
+			golden.ArmorPoisonResist = 2;
+			golden.ArmorEnergyResist = 4;
+			golden.WeaponMatherialDamageBonus = 15;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo agapite = Agapite = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			agapite.ArmorPhysicalResist = 2;
 			agapite.ArmorFireResist = 3;
 			agapite.ArmorColdResist = 2;
 			agapite.ArmorPoisonResist = 2;
 			agapite.ArmorEnergyResist = 2;
-
-			/*** DEL_START ***/
-			/*
 			agapite.WeaponColdDamage = 30;
 			agapite.WeaponEnergyDamage = 20;
-			*/
-			/*** DEL_END ***/
-
-			/*** ADD_START ***/
-			agapite.WeaponResourceDamageBonus = 18;
-			/*** ADD_END ***/
-
 			agapite.RunicMinAttributes = 4;
 			agapite.RunicMaxAttributes = 4;
 			agapite.RunicMinIntensity = 40;
 			agapite.RunicMaxIntensity = 80;
+			*/
+			agapite.ArmorPhysicalResist = 2;
+			agapite.ArmorFireResist = 5;
+			agapite.ArmorColdResist = 4;
+			agapite.ArmorPoisonResist = 4;
+			agapite.ArmorEnergyResist = 4;
+			agapite.WeaponMatherialDamageBonus = 18;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo verite = Verite = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			verite.ArmorPhysicalResist = 3;
 			verite.ArmorFireResist = 3;
 			verite.ArmorColdResist = 2;
 			verite.ArmorPoisonResist = 3;
 			verite.ArmorEnergyResist = 1;
-
-			/*** DEL_START ***/
-			/*
 			verite.WeaponPoisonDamage = 40;
 			verite.WeaponEnergyDamage = 20;
-			*/
-			/*** DEL_END ***/
-
-			/*** ADD_START ***/
-			verite.WeaponResourceDamageBonus = 21;
-			/*** ADD_END ***/
-
 			verite.RunicMinAttributes = 4;
 			verite.RunicMaxAttributes = 5;
 			verite.RunicMinIntensity = 45;
 			verite.RunicMaxIntensity = 90;
+			*/
+			verite.ArmorPhysicalResist = 3;
+			verite.ArmorFireResist = 6;
+			verite.ArmorColdResist = 5;
+			verite.ArmorPoisonResist = 6;
+			verite.ArmorEnergyResist = 4;
+			verite.WeaponMatherialDamageBonus = 21;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo valorite = Valorite = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			valorite.ArmorPhysicalResist = 4;
 			valorite.ArmorColdResist = 3;
 			valorite.ArmorPoisonResist = 3;
 			valorite.ArmorEnergyResist = 3;
 			valorite.ArmorDurability = 50;
-
-			/*** DEL_START ***/
-			/*
 			valorite.WeaponFireDamage = 10;
 			valorite.WeaponColdDamage = 20;
 			valorite.WeaponPoisonDamage = 10;
 			valorite.WeaponEnergyDamage = 20;
-			*/
-			/*** DEL_END ***/
-
-			/*** ADD_START ***/
-			valorite.WeaponResourceDamageBonus = 24;
-			/*** ADD_END ***/
-
 			valorite.RunicMinAttributes = 5;
 			valorite.RunicMaxAttributes = 5;
 			valorite.RunicMinIntensity = 50;
 			valorite.RunicMaxIntensity = 100;
+			*/
+			valorite.ArmorPhysicalResist = 3;
+			valorite.ArmorFireResist = 4;
+			valorite.ArmorColdResist = 6;
+			valorite.ArmorPoisonResist = 6;
+			valorite.ArmorEnergyResist = 7;
+			valorite.WeaponMatherialDamageBonus = 24;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo spined = Spined = new CraftAttributeInfo();
 
-			spined.ArmorPhysicalResist = 5;
-
-			/*** DEL_START ***/
+			/*** MOD_START ***/
 			/*
+			spined.ArmorPhysicalResist = 5;
 			spined.ArmorLuck = 40;
-			*/
-			/*** DEL_END ***/
-
 			spined.RunicMinAttributes = 1;
 			spined.RunicMaxAttributes = 3;
 			spined.RunicMinIntensity = 20;
 			spined.RunicMaxIntensity = 40;
+			*/
+			spined.ArmorPhysicalResist = 5;
+			spined.ArmorFireResist = 1;
+			spined.ArmorColdResist = 1;
+			spined.ArmorPoisonResist = 2;
+			spined.ArmorEnergyResist = 2;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo horned = Horned = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			horned.ArmorPhysicalResist = 2;
 			horned.ArmorFireResist = 3;
 			horned.ArmorColdResist = 2;
@@ -336,9 +338,18 @@ namespace Server.Items
 			horned.RunicMaxAttributes = 4;
 			horned.RunicMinIntensity = 30;
 			horned.RunicMaxIntensity = 70;
+			*/
+			horned.ArmorPhysicalResist = 4;
+			horned.ArmorFireResist = 5;
+			horned.ArmorColdResist = 3;
+			horned.ArmorPoisonResist = 3;
+			horned.ArmorEnergyResist = 4;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo barbed = Barbed = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			barbed.ArmorPhysicalResist = 2;
 			barbed.ArmorFireResist = 1;
 			barbed.ArmorColdResist = 2;
@@ -348,55 +359,135 @@ namespace Server.Items
 			barbed.RunicMaxAttributes = 5;
 			barbed.RunicMinIntensity = 40;
 			barbed.RunicMaxIntensity = 100;
+			*/
+			barbed.ArmorPhysicalResist = 3;
+			barbed.ArmorFireResist = 5;
+			barbed.ArmorColdResist = 4;
+			barbed.ArmorPoisonResist = 5;
+			barbed.ArmorEnergyResist = 5;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo red = RedScales = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			red.ArmorFireResist = 10;
 			red.ArmorColdResist = -3;
+			*/
+			red.ArmorPhysicalResist = 2;
+			red.ArmorFireResist = 5;
+			red.ArmorColdResist = 1;
+			red.ArmorPoisonResist = 1;
+			red.ArmorEnergyResist = 1;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo yellow = YellowScales = new CraftAttributeInfo();
 
-			yellow.ArmorPhysicalResist = -3;
-
-			/*** DEL_START ***/
+			/*** MOD_START ***/
 			/*
+			yellow.ArmorPhysicalResist = -3;
 			yellow.ArmorLuck = 20;
 			*/
-			/*** DEL_END ***/
+			yellow.ArmorPhysicalResist = 2;
+			yellow.ArmorFireResist = 1;
+			yellow.ArmorColdResist = 2;
+			yellow.ArmorPoisonResist = 2;
+			yellow.ArmorEnergyResist = 2;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo black = BlackScales = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			black.ArmorPhysicalResist = 10;
 			black.ArmorEnergyResist = -3;
+			*/
+			black.ArmorPhysicalResist = 5;
+			black.ArmorFireResist = 3;
+			black.ArmorColdResist = 3;
+			black.ArmorPoisonResist = 4;
+			black.ArmorEnergyResist = 2;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo green = GreenScales = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			green.ArmorFireResist = -3;
 			green.ArmorPoisonResist = 10;
+			*/
+			green.ArmorPhysicalResist = 4;
+			green.ArmorFireResist = 2;
+			green.ArmorColdResist = 2;
+			green.ArmorPoisonResist = 5;
+			green.ArmorEnergyResist = 1;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo white = WhiteScales = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			white.ArmorPhysicalResist = -3;
 			white.ArmorColdResist = 10;
+			*/
+			white.ArmorPhysicalResist = 4;
+			white.ArmorFireResist = 3;
+			white.ArmorColdResist = 5;
+			white.ArmorPoisonResist = 3;
+			white.ArmorEnergyResist = 2;
+			/*** MOD_END ***/
 
 			CraftAttributeInfo blue = BlueScales = new CraftAttributeInfo();
 
+			/*** MOD_START ***/
+			/*
 			blue.ArmorPoisonResist = -3;
 			blue.ArmorEnergyResist = 10;
+			*/
+			blue.ArmorPhysicalResist = 3;
+			blue.ArmorFireResist = 1;
+			blue.ArmorColdResist = 2;
+			blue.ArmorPoisonResist = 1;
+			blue.ArmorEnergyResist = 5;
+			/*** MOD_END ***/
 
 			//public static readonly CraftAttributeInfo OakWood, AshWood, YewWood, Heartwood, Bloodwood, Frostwood;
 
 			CraftAttributeInfo oak = OakWood = new CraftAttributeInfo();
+			
+			/*** ADD_START ***/
+			valorite.WeaponMatherialDamageBonus = 4;
+			/*** ADD_END **/
 
 			CraftAttributeInfo ash = AshWood = new CraftAttributeInfo();
+			
+			/*** ADD_START ***/
+			valorite.WeaponMatherialDamageBonus = 8;
+			/*** ADD_END **/
 
 			CraftAttributeInfo yew = YewWood = new CraftAttributeInfo();
+			
+			/*** ADD_START ***/
+			valorite.WeaponMatherialDamageBonus = 12;
+			/*** ADD_END **/
 
 			CraftAttributeInfo heart = Heartwood = new CraftAttributeInfo();
+			
+			/*** ADD_START ***/
+			valorite.WeaponMatherialDamageBonus = 16;
+			/*** ADD_END **/
 
 			CraftAttributeInfo blood = Bloodwood = new CraftAttributeInfo();
+			
+			/*** ADD_START ***/
+			valorite.WeaponMatherialDamageBonus = 20;
+			/*** ADD_END **/
 
 			CraftAttributeInfo frost = Frostwood = new CraftAttributeInfo();
+			
+			/*** ADD_START ***/
+			valorite.WeaponMatherialDamageBonus = 24;
+			/*** ADD_END **/
 		}
 	}
 

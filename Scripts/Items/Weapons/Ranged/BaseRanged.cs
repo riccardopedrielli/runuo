@@ -59,6 +59,7 @@ namespace Server.Items
 									{
 										attacker.SendMessage( "You are wearing a {0} armor and cannot shoot.", ((BaseArmor) item).MaterialType.ToString());
 										canSwing = false;
+										break;
 									}
 								}
 							}

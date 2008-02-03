@@ -4,13 +4,22 @@ using Server.Items;
 namespace Server.Items
 {
 	[FlipableAttribute( 0x13be, 0x13c3 )]
+	/*** MOD_START ***/
+	/*
 	public class ChainLegs : BaseArmor
+	*/
+	public class ChainLegs : BaseChainArmor
+	/*** MOD_END ***/
 	{
+		/*** DEL_START ***/
+		/*
 		public override int BasePhysicalResistance{ get{ return 4; } }
 		public override int BaseFireResistance{ get{ return 4; } }
 		public override int BaseColdResistance{ get{ return 4; } }
 		public override int BasePoisonResistance{ get{ return 1; } }
 		public override int BaseEnergyResistance{ get{ return 2; } }
+		*/
+		/*** DEL_END ***/
 
 		public override int InitMinHits{ get{ return 45; } }
 		public override int InitMaxHits{ get{ return 60; } }

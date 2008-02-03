@@ -2107,8 +2107,8 @@ namespace Server.Items
 				{
 					CraftAttributeInfo attrInfo = resInfo.AttributeInfo;
 	
-					if( attrInfo != null && attrInfo.WeaponResourceDamageBonus != null )
-						bonus += attrInfo.WeaponResourceDamageBonus;
+					if( attrInfo != null && attrInfo.WeaponMatherialDamageBonus != null )
+						bonus += attrInfo.WeaponMatherialDamageBonus;
 				}
 			}
 			/*** ADD_START ***/
