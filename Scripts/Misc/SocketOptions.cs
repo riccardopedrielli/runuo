@@ -15,7 +15,7 @@ namespace Server
 		private const int PooledSockets = 32; // The number of sockets to initially pool. Ideal value is expected client count. 
 
 		private static IPEndPoint[] m_ListenerEndPoints = new IPEndPoint[] {
-			new IPEndPoint( IPAddress.Any, 2594 ), // Default: Listen on port 2593 on all IP addresses
+			new IPEndPoint( IPAddress.Any, 2593 ), // Default: Listen on port 2593 on all IP addresses
 			
 			// Examples:
 			// new IPEndPoint( IPAddress.Any, 80 ), // Listen on port 80 on all IP addresses

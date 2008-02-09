@@ -9,9 +9,19 @@ namespace Server.Misc
 {
 	public class AutoRestart : Timer
 	{
+		/*** MOD_START ***/
+		/*
 		public static bool Enabled = false; // is the script enabled?
+		*/
+		public static bool Enabled = true; // is the script enabled?
+		/*** MOD_END ***/
 
+		/*** MOD_START ***/
+		/*
 		private static TimeSpan RestartTime = TimeSpan.FromHours( 2.0 ); // time of day at which to restart
+		*/
+		private static TimeSpan RestartTime = TimeSpan.FromHours( 6.0 ); // time of day at which to restart
+		/*** MOD_END ***/
 		private static TimeSpan RestartDelay = TimeSpan.Zero; // how long the server should remain active before restart (period of 'server wars')
 
 		private static TimeSpan WarningDelay = TimeSpan.FromMinutes( 1.0 ); // at what interval should the shutdown message be displayed?

@@ -38,7 +38,7 @@ namespace Server.Misc
 		 */
 
 		public static readonly string Address = null;
-		public static readonly string ServerName = "Vortex RunUO";
+		public static readonly string ServerName = "Nuovo Mondo";
 
 		public static readonly bool AutoDetect = true;
 
