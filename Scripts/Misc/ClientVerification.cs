@@ -20,8 +20,13 @@ namespace Server.Misc
 		}
 
 		private static bool m_DetectClientRequirement = true;
-
+		
+		/*** MOD_START ***
+		/*
 		private static OldClientResponse m_OldClientResponse = OldClientResponse.LenientKick;
+		*/
+		private static OldClientResponse m_OldClientResponse = OldClientResponse.Ignore;
+		/*** MOD_END ***/
 
 		private static ClientVersion m_Required;
 		private static bool m_AllowRegular = true, m_AllowUOTD = true, m_AllowGod = true;

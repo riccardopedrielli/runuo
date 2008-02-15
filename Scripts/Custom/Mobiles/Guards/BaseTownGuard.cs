@@ -22,8 +22,6 @@ namespace Server.Mobiles
 
 		public BaseTownGuard( AIType AI ): base( AI, FightMode.Closest, 10, 1, 0.1, 4.0 ) 
 		{
-			Debug = true;
-
 			GenerateBody();
 			GenerateHair();
 			GenerateArmor();

@@ -10,7 +10,11 @@ namespace Server
 	{
 		public static void Initialize()
 		{
+			/*** DEL_START ***/
+			/*
 			CommandSystem.Register( "VendorGen", AccessLevel.Administrator, new CommandEventHandler( VendorGenerator.VendorGen_OnCommand ) );
+			*/
+			/*** DEL_END ***/
 		}
 
 		private static Rectangle2D[] m_BritRegions = new Rectangle2D[]

@@ -74,6 +74,8 @@ namespace Server.Commands
 					SignEntry e = list[i];
 					Map[] maps = null;
 
+					/*** MOD_START ***/
+					/*
 					switch ( e.m_Map )
 					{
 						case 0: maps = brit; break; // Trammel and Felucca
@@ -86,6 +88,12 @@ namespace Server.Commands
 
 					for ( int j = 0; maps != null && j < maps.Length; ++j )
 						Add_Static( e.m_ItemID, e.m_Location, maps[j], e.m_Text );
+					*/
+					
+					if ( e.m_Map == 0 || e.m_Map == 1 )
+						Add_Static( e.m_ItemID, e.m_Location, Map.Felucca, e.m_Text );
+					
+					/*** MOD_END ***/
 				}
 
 				from.SendMessage( "Sign generating complete." );

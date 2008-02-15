@@ -1104,7 +1104,12 @@ namespace Server.Accounting
 		/// </summary>
 		public int Limit
 		{
+			/*** MOD_START **/
+			/*
 			get { return ( Core.AOS ? 6 : 5 ); }
+			*/
+			get { return ( 2 ); }
+			/*** MOD_END ***/
 		}
 
 		/// <summary>

@@ -111,11 +111,19 @@ namespace Server.Items
 
 			int count = 0;
 
+			/*** DEL_START ***/
+			/*
 			count += MoonGen( PMList.Trammel );
+			*/
+			/*** DEL_END ***/
 			count += MoonGen( PMList.Felucca );
+			/*** DEL_START ***/
+			/*
 			count += MoonGen( PMList.Ilshenar );
 			count += MoonGen( PMList.Malas );
 			count += MoonGen( PMList.Tokuno );
+			*/
+			/*** DEL_END ***/
 
 			World.Broadcast( 0x35, true, "{0} moongates generated.", count );
 		}

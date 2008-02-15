@@ -353,6 +353,8 @@ namespace Server
 			Network.NetState.FlushAll();
 			Network.NetState.Pause();
 
+			/*** MOD_START ***/
+			/*
 			m_Map = Map.Trammel;
 			m_Count = 0;
 
@@ -388,6 +390,21 @@ namespace Server
 			Network.NetState.Resume();
 
 			World.Broadcast( 0x35, true, "Door generation complete. Trammel: {0}; Felucca: {1}; Ilshenar: {2}; Malas: {3};", trammelCount, feluccaCount, ilshenarCount, malasCount );
+			*/
+			
+			m_Map = Map.Felucca;
+			m_Count = 0;
+
+			for ( int i = 0; i < m_BritRegions.Length; ++i )
+				Generate( m_BritRegions[i] );
+
+			int feluccaCount = m_Count;
+			
+			Network.NetState.Resume();
+			
+			World.Broadcast( 0x35, true, "Door generation complete: {0} doors generated.", feluccaCount);
+			
+			/*** MOD_END ***/
 		}
 
 		public static bool IsFrame( int id, int[] list )

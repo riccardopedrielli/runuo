@@ -368,8 +368,12 @@ namespace Server.Gumps
 					AddButtonLabeled( 20, 175, GetButtonID( 3, 101 ), "Teleporters" );
 					AddButtonLabeled( 220, 175, GetButtonID( 3, 102 ), "Moongates" );
 
+					/*** DEL_START ***/
+					/*
 					AddButtonLabeled( 20, 200, GetButtonID( 3, 103 ), "Vendors" );
 					AddButtonLabeled( 220, 200, GetButtonID( 3, 106 ), "Decoration" );
+					*/
+					/*** DEL_END ***/
 
 					AddButtonLabeled( 20, 225, GetButtonID( 3, 104 ), "Doors" );
 					AddButtonLabeled( 220, 225, GetButtonID( 3, 105 ), "Signs" );

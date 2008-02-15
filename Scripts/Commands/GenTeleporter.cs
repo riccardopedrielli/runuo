@@ -17,7 +17,12 @@ namespace Server.Commands
 		}
 
 		[Usage( "TelGen" )]
+		/*** MOD_START ***/
+		/*
 		[Description( "Generates world/dungeon teleporters for all facets." )]
+		*/
+		[Description( "Generates world/dungeon teleporters." )]
+		/*** MOD_END ***/
 		public static void GenTeleporter_OnCommand( CommandEventArgs e )
 		{
 			e.Mobile.SendMessage( "Generating teleporters, please wait." );
@@ -1037,12 +1042,20 @@ namespace Server.Commands
 			public int CreateTeleporters()
 			{
 				CreateTeleportersMap( Map.Felucca );
+				/*** DEL_START ***/
+				/*
 				CreateTeleportersMap( Map.Trammel );
 				CreateTeleportersTrammel( Map.Trammel );
+				*/
+				/*** DEL_END ***/
 				CreateTeleportersFelucca( Map.Felucca );
+				/*** DEL_START ***/
+				/*
 				CreateTeleportersMap2( Map.Ilshenar );
 				CreateTeleportersMap3( Map.Malas );
 				CreateTeleportersMap4( Map.Tokuno );
+				*/
+				/*** DEL_END ***/
 				return m_Count;
 			}
 		}

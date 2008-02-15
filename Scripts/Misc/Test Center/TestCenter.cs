@@ -194,7 +194,12 @@ namespace Server.Misc
 				{
 					case 1: // RunUO.com
 					{
+						/*** MOD_START ***/
+						/*
 						sender.LaunchBrowser( "http://www.RunUO.com" );
+						*/
+						sender.LaunchBrowser( "http://uonm.altervista.org" );
+						/*** MOD_END ***/
 						break;
 					}
 					case 2: // List of skills

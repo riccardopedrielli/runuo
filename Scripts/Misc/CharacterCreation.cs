@@ -631,10 +631,15 @@ namespace Server.Misc
 			newChar.Female = args.Female;
 			//newChar.Body = newChar.Female ? 0x191 : 0x190;
 
+			/*** MOD_START ***/
+			/*
 			if( Core.Expansion >= args.Race.RequiredExpansion )
 				newChar.Race = args.Race;	//Sets body
 			else
 				newChar.Race = Race.DefaultRace;
+			*/
+			newChar.Race = Race.Human;
+			/*** MOD_END ***/
 
 			//newChar.Hue = Utility.ClipSkinHue( args.Hue & 0x3FFF ) | 0x8000;
 			newChar.Hue = newChar.Race.ClipSkinHue( args.Hue & 0x3FFF ) | 0x8000;
@@ -649,8 +654,12 @@ namespace Server.Misc
 
 				pm.Profession = args.Profession;
 
+				/*** DEL_START ***/
+				/*
 				if ( pm.AccessLevel == AccessLevel.Player && ((Account)pm.Account).Young )
 					young = pm.Young = true;
+				*/
+				/*** DEL_END ***/
 			}
 
 			SetName( newChar, args.Name );
@@ -691,8 +700,13 @@ namespace Server.Misc
 				newChar.BankBox.DropItem( ticket );
 			}
 
+			/*** MOD_START ***/
+			/*
 			CityInfo city = GetStartLocation( args, young );
 			//CityInfo city = new CityInfo( "Britain", "Sweet Dreams Inn", 1496, 1628, 10, Map.Felucca );
+			*/
+			CityInfo city = new CityInfo( "Britain", "Sweet Dreams Inn", 1496, 1628, 10, Map.Felucca );
+			/*** MOD_END ***/
 
 			newChar.MoveToWorld( city.Location, city.Map );
 
