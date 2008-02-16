@@ -495,18 +495,12 @@ namespace Server
 
 		public delegate void Callback();
 
-		/*** DEL_START ***/
-
-		/*
 		private static bool GenericComparator( Type type, object obj )
 		{
 			return ( type.IsGenericType )
 			&& ( type.GetGenericTypeDefinition() == typeof( IComparable<> ) )
 			&& ( type.GetGenericArguments()[0].IsAssignableFrom( obj as Type ) );
 		}
-		*/
-
-		/*** DEL_END ***/
 
 		public bool CompareTo( int sign, Callback argGenerator )
 		{
@@ -538,21 +532,7 @@ namespace Server
 				 * 
 				 * Bleh.
 				 */
-
-				/*** MOD_START ***/
-
-				/*
-				Type[] ifaces = active.FindInterfaces( GenericComparator, active );
-				*/
-
-				Type[] ifaces = active.FindInterfaces( delegate( Type type, object obj )
-				{
-					return ( type.IsGenericType )
-						&& ( type.GetGenericTypeDefinition() == typeof( IComparable<> ) )
-						&& ( type.GetGenericArguments()[0].IsAssignableFrom( active ) );
-				}, null );
-
-				/*** MOD_END ***/
+				Type[] ifaces = active.FindInterfaces( GenericComparator, active );
 
 				if ( ifaces.Length > 0 )
 				{

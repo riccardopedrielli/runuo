@@ -86,18 +86,11 @@ namespace Server.Commands.Generic
 			for ( int i = 0; i < this.Count; ++i )
 				this[i].Filter( list );
 		}
-		
-		/*** DEL_START ***/
 
-		/*
 		public static int SortFunc(BaseExtension a, BaseExtension b)
 		{
 		    return ( a.Order - b.Order );
 		}
-		*/
-
-		/*** DEL_END ***/
-
 		public static Extensions Parse( Mobile from, ref string[] args )
 		{
 			Extensions parsed = new Extensions();
@@ -128,18 +121,7 @@ namespace Server.Commands.Generic
 				size = i;
 			}
 
-			/*** MOD_START ***/
-
-			/*
 			parsed.Sort( SortFunc );
-			*/
-
-			parsed.Sort( delegate( BaseExtension a, BaseExtension b )
-			{
-				return ( a.Order - b.Order );
-			} );
-
-			/*** MOD_END ***/
 
 			AssemblyEmitter emitter = null;
 
