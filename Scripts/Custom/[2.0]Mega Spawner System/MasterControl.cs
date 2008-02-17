@@ -252,7 +252,18 @@ namespace Server.MegaSpawnerSystem
 		
 		// ****** Data Paths ***********
 		
+		/*** MOD_START ***/
+		/*
 		private static string SavePath = "Data\\Mega Spawner System";
+		*/
+		
+		if ( Core.Unix )
+			private static string SavePath = "Data/Mega Spawner System";
+		else
+			private static string SavePath = "Data\\Mega Spawner System";
+		
+		/*** MOD_END ***/
+		
 		private static string m_SaveDirectory = Path.Combine( Core.BaseDirectory, SavePath );
 		private static string m_PersonalConfigsDirectory = Path.Combine( SaveDirectory, "Personal Configs" );
 		private static string m_SpawnerExportsDirectory = Path.Combine( SaveDirectory, "Spawner Exports" );
