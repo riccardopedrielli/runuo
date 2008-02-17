@@ -257,10 +257,11 @@ namespace Server.MegaSpawnerSystem
 		private static string SavePath = "Data\\Mega Spawner System";
 		*/
 		
-		if ( Core.Unix )
+		#if MONO
 			private static string SavePath = "Data/Mega Spawner System";
-		else
+		#else
 			private static string SavePath = "Data\\Mega Spawner System";
+		#endif
 		
 		/*** MOD_END ***/
 		
