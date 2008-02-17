@@ -1,3 +1,4 @@
+//06FEB2008 Update for Linux - seirge
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,181 +6,190 @@ using System.Text;
 
 namespace Server.Commands.Generic
 {
-	public delegate BaseExtension ExtensionConstructor();
+    public delegate BaseExtension ExtensionConstructor();
 
-	public sealed class ExtensionInfo
-	{
-		private static Dictionary<string, ExtensionInfo> m_Table = new Dictionary<string, ExtensionInfo>( StringComparer.InvariantCultureIgnoreCase );
+    public sealed class ExtensionInfo
+    {
+        private static Dictionary<string, ExtensionInfo> m_Table = new Dictionary<string, ExtensionInfo>(StringComparer.InvariantCultureIgnoreCase);
 
-		public static Dictionary<string, ExtensionInfo> Table
-		{
-			get { return m_Table; }
-		}
+        public static Dictionary<string, ExtensionInfo> Table
+        {
+            get { return m_Table; }
+        }
 
-		public static void Register( ExtensionInfo ext )
-		{
-			m_Table[ext.m_Name] = ext;
-		}
+        public static void Register(ExtensionInfo ext)
+        {
+            m_Table[ext.m_Name] = ext;
+        }
 
-		private int m_Order;
+        private int m_Order;
 
-		private string m_Name;
-		private int m_Size;
+        private string m_Name;
+        private int m_Size;
 
-		private ExtensionConstructor m_Constructor;
+        private ExtensionConstructor m_Constructor;
 
-		public int Order
-		{
-			get { return m_Order; }
-		}
+        public int Order
+        {
+            get { return m_Order; }
+        }
 
-		public string Name
-		{
-			get { return m_Name; }
-		}
+        public string Name
+        {
+            get { return m_Name; }
+        }
 
-		public int Size
-		{
-			get { return m_Size; }
-		}
+        public int Size
+        {
+            get { return m_Size; }
+        }
 
-		public bool IsFixedSize
-		{
-			get { return ( m_Size >= 0 ); }
-		}
+        public bool IsFixedSize
+        {
+            get { return (m_Size >= 0); }
+        }
 
-		public ExtensionConstructor Constructor
-		{
-			get { return m_Constructor; }
-		}
+        public ExtensionConstructor Constructor
+        {
+            get { return m_Constructor; }
+        }
 
-		public ExtensionInfo( int order, string name, int size, ExtensionConstructor constructor )
-		{
-			m_Name = name;
-			m_Size = size;
+        public ExtensionInfo(int order, string name, int size, ExtensionConstructor constructor)
+        {
+            m_Name = name;
+            m_Size = size;
 
-			m_Order = order;
+            m_Order = order;
 
-			m_Constructor = constructor;
-		}
-	}
+            m_Constructor = constructor;
+        }
+    }
 
-	public sealed class Extensions : List<BaseExtension>
-	{
-		public Extensions()
-		{
-		}
+    public sealed class Extensions : List<BaseExtension>
+    {
+        public Extensions()
+        {
+        }
 
-		public bool IsValid( object obj )
-		{
-			for ( int i = 0; i < this.Count; ++i )
-			{
-				if ( !this[i].IsValid( obj ) )
-					return false;
-			}
+        public bool IsValid(object obj)
+        {
+            for (int i = 0; i < this.Count; ++i)
+            {
+                if (!this[i].IsValid(obj))
+                    return false;
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		public void Filter( ArrayList list )
-		{
-			for ( int i = 0; i < this.Count; ++i )
-				this[i].Filter( list );
-		}
+        public void Filter(ArrayList list)
+        {
+            for (int i = 0; i < this.Count; ++i)
+                this[i].Filter(list);
+        }
 
-		public static int SortFunc(BaseExtension a, BaseExtension b)
-		{
-		    return ( a.Order - b.Order );
-		}
-		public static Extensions Parse( Mobile from, ref string[] args )
-		{
-			Extensions parsed = new Extensions();
+#if MONO
+        public static int SortFunc(BaseExtension a, BaseExtension b)
+        {
+            return (a.Order - b.Order);
+        }
+#endif
 
-			int size = args.Length;
+        public static Extensions Parse(Mobile from, ref string[] args)
+        {
+            Extensions parsed = new Extensions();
 
-			Type baseType = null;
+            int size = args.Length;
 
-			for ( int i = args.Length - 1; i >= 0; --i )
-			{
-				ExtensionInfo extInfo = null;
+            Type baseType = null;
 
-				if ( !ExtensionInfo.Table.TryGetValue( args[i], out extInfo ) )
-					continue;
+            for (int i = args.Length - 1; i >= 0; --i)
+            {
+                ExtensionInfo extInfo = null;
 
-				if ( extInfo.IsFixedSize && i != ( size - extInfo.Size - 1 ) )
-					throw new Exception( "Invalid extended argument count." );
+                if (!ExtensionInfo.Table.TryGetValue(args[i], out extInfo))
+                    continue;
 
-				BaseExtension ext = extInfo.Constructor();
+                if (extInfo.IsFixedSize && i != (size - extInfo.Size - 1))
+                    throw new Exception("Invalid extended argument count.");
 
-				ext.Parse( from, args, i + 1, size - i - 1 );
+                BaseExtension ext = extInfo.Constructor();
 
-				if ( ext is WhereExtension )
-					baseType = ( ext as WhereExtension ).Conditional.Type;
+                ext.Parse(from, args, i + 1, size - i - 1);
 
-				parsed.Add( ext );
+                if (ext is WhereExtension)
+                    baseType = (ext as WhereExtension).Conditional.Type;
 
-				size = i;
-			}
+                parsed.Add(ext);
 
-			parsed.Sort( SortFunc );
+                size = i;
+            }
+#if MONO
+            parsed.Sort(SortFunc);
+#else
+            parsed.Sort(delegate(BaseExtension a, BaseExtension b)
+            {
+                return (a.Order - b.Order);
+            });
+#endif
 
-			AssemblyEmitter emitter = null;
+            AssemblyEmitter emitter = null;
 
-			foreach ( BaseExtension update in parsed )
-				update.Optimize( from, baseType, ref emitter );
+            foreach (BaseExtension update in parsed)
+                update.Optimize(from, baseType, ref emitter);
 
-			if ( size != args.Length )
-			{
-				string[] old = args;
-				args = new string[size];
+            if (size != args.Length)
+            {
+                string[] old = args;
+                args = new string[size];
 
-				for ( int i = 0; i < args.Length; ++i )
-					args[i] = old[i];
-			}
+                for (int i = 0; i < args.Length; ++i)
+                    args[i] = old[i];
+            }
 
-			return parsed;
-		}
-	}
+            return parsed;
+        }
+    }
 
-	public abstract class BaseExtension
-	{
-		public abstract ExtensionInfo Info { get; }
+    public abstract class BaseExtension
+    {
+        public abstract ExtensionInfo Info { get; }
 
-		public string Name
-		{
-			get { return Info.Name; }
-		}
+        public string Name
+        {
+            get { return Info.Name; }
+        }
 
-		public int Size
-		{
-			get { return Info.Size; }
-		}
+        public int Size
+        {
+            get { return Info.Size; }
+        }
 
-		public bool IsFixedSize
-		{
-			get { return Info.IsFixedSize; }
-		}
+        public bool IsFixedSize
+        {
+            get { return Info.IsFixedSize; }
+        }
 
-		public int Order
-		{
-			get { return Info.Order; }
-		}
+        public int Order
+        {
+            get { return Info.Order; }
+        }
 
-		public virtual void Optimize( Mobile from, Type baseType, ref AssemblyEmitter assembly )
-		{
-		}
+        public virtual void Optimize(Mobile from, Type baseType, ref AssemblyEmitter assembly)
+        {
+        }
 
-		public virtual void Parse( Mobile from, string[] arguments, int offset, int size )
-		{
-		}
+        public virtual void Parse(Mobile from, string[] arguments, int offset, int size)
+        {
+        }
 
-		public virtual bool IsValid( object obj )
-		{
-			return true;
-		}
+        public virtual bool IsValid(object obj)
+        {
+            return true;
+        }
 
-		public virtual void Filter( ArrayList list )
-		{
-		}
-	}
+        public virtual void Filter(ArrayList list)
+        {
+        }
+    }
 }
