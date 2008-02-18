@@ -1600,6 +1600,8 @@ namespace Server.Items
 
 			if( Quality == ArmorQuality.Exceptional )
 			{
+				/*** MOD_START ***/
+				/*
 				DistributeBonuses( (tool is BaseRunicTool ? 6 : Core.SE ? 15 : 14) ); // Not sure since when, but right now 15 points are added, not 14.
 
 				if( Core.ML && !(this is BaseShield) )
@@ -1619,7 +1621,11 @@ namespace Server.Items
 					}
 
 					from.CheckSkill( SkillName.ArmsLore, 0, 100 );
-				}
+				}*/
+				
+				DistributeBonuses( (int)(from.Skills.ArmsLore.Value / 10) );
+				
+				/*** MOD_END ***/
 			}
 
 			if ( Core.AOS && tool is BaseRunicTool )

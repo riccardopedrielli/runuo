@@ -807,11 +807,28 @@ namespace Server.Engines.Craft
 			switch ( system.ECA )
 			{
 				default:
+				/*** MOD_START ***/
+				/*
 				case CraftECA.ChanceMinusSixty: return chance - 0.6;
+				*/
+				case CraftECA.ChanceMinusSixty: return (chance - 0.6) * from.Skills[SkillName.ArmsLore].Value;
+				/*** MOD_END ***/
+				
+				/*** MOD_START ***/
+				/*
 				case CraftECA.FiftyPercentChanceMinusTenPercent: return (chance * 0.5) - 0.1;
+				*/
+				case CraftECA.FiftyPercentChanceMinusTenPercent: return ((chance * 0.5) - 0.1) * from.Skills[SkillName.ArmsLore].Value;
+				/*** MOD_END ***/
+				
 				case CraftECA.ChanceMinusSixtyToFourtyFive:
 				{
+					/*** MOD_START ***/
+					/*
 					double offset = 0.60 - ((from.Skills[system.MainSkill].Value - 95.0) * 0.03);
+					*/
+					double offset = 0.60 - ((from.Skills[SkillName.ArmsLore].Value - 95.0) * 0.03);
+					/*** MOD_END ***/
 
 					if ( offset < 0.45 )
 						offset = 0.45;

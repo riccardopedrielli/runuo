@@ -436,8 +436,12 @@ namespace Server.Items
 		{
 			int bonus = 0;
 
+			/*** DEL_START ***/
+			/*
 			if ( m_Quality == WeaponQuality.Exceptional )
 				bonus += 20;
+			*/
+			/*** DEL_END ***/
 
 			switch ( m_DurabilityLevel )
 			{
@@ -3373,14 +3377,23 @@ namespace Server.Items
 
 				if ( Quality == WeaponQuality.Exceptional )
 				{
+					/*** DEL_START ***/
+					/*
 					if ( Attributes.WeaponDamage > 35 )
 						Attributes.WeaponDamage -= 20;
 					else
 						Attributes.WeaponDamage = 15;
+					*/
+					/*** DEL_END ***/
 
 					if( Core.ML )
 					{
+						/*** MOD_START ***/
+						/*
 						Attributes.WeaponDamage += (int)(from.Skills.ArmsLore.Value / 20);
+						*/
+						Attributes.WeaponDamage += (int)(from.Skills.ArmsLore.Value / 3);
+						/*** MOD_END ***/
 						from.CheckSkill( SkillName.ArmsLore, 0, 100 );
 					}
 				}
