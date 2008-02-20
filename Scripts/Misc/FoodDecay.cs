@@ -100,7 +100,7 @@ namespace Server.Misc
 
         public static void HungerDecay(Mobile m)
         {
-            if (m != null && m.Alive)
+            if (m != null && m.Alive && m.AccessLevel == AccessLevel.Player)
             {
                 int DOT = 0;
                 
@@ -133,21 +133,21 @@ namespace Server.Misc
 
         public static void ThirstDecay(Mobile m)
         {
-            if (m != null && m.Stam > 0 && m.Alive)
+            if (m != null && m.Stam > 0 && m.Alive && m.AccessLevel == AccessLevel.Player)
             {
                 switch (m.Thirst)
                 {
                     case 4:
-                        m.Stam -= Convert.ToInt16((m.Dex * 3) / 100);
-                        break;
-                    case 3:
                         m.Stam -= Convert.ToInt16((m.Dex * 6) / 100);
                         break;
-                    case 2:
+                    case 3:
                         m.Stam -= Convert.ToInt16((m.Dex * 9) / 100);
                         break;
-                    case 1:
+                    case 2:
                         m.Stam -= Convert.ToInt16((m.Dex * 12) / 100);
+                        break;
+                    case 1:
+                        m.Stam -= Convert.ToInt16((m.Dex * 15) / 100);
                         break;                    
                 }
             }
