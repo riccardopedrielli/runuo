@@ -955,6 +955,7 @@ namespace Server.Items
                 if (from.Thirst >= 20)
                 {
                     from.SendMessage("You are simply too full to drink any more!");
+                    return;
                 }
                 else
                 {
