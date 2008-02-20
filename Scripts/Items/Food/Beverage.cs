@@ -947,29 +947,70 @@ namespace Server.Items
 				}
 			}
 			else if ( from == targ )
-			{
-				if ( from.Thirst < 20 )
-					from.Thirst += 1;
+			{               
+                /*** MOD_START ***/
+                //if (from.Thirst < 20)                
+                //  from.Thirst += 1;
 
-				if ( ContainsAlchohol )
-				{
-					int bac = 0;
+                if (from.Thirst >= 20)
+                {
+                    from.SendMessage("You are simply too full to drink any more!");
+                }
+                else
+                {
 
-					switch ( this.Content )
-					{
-						case BeverageType.Ale: bac = 1; break;
-						case BeverageType.Wine: bac = 2; break;
-						case BeverageType.Cider: bac = 3; break;
-						case BeverageType.Liquor: bac = 4; break;
-					}
+                    switch (this.Content)
+                    {
+                        case BeverageType.Ale:
+                            from.Thirst += 1;
+                            break;
+                        case BeverageType.Cider:
+                            from.Thirst += 3;
+                            break;
+                        case BeverageType.Liquor:
+                            from.Thirst += 1;
+                            break;
+                        case BeverageType.Milk:
+                            from.Thirst += 4;
+                            break;
+                        case BeverageType.Wine:
+                            from.Thirst += 2;
+                            break;
+                        case BeverageType.Water:
+                            from.Thirst += 4;
+                            break;
+                    }
 
-					from.BAC += bac;
+                    if (from.Thirst < 5)
+                        from.SendMessage("You drink, but are still extremely Thirsty.");
+                    else if (from.Thirst < 10)
+                        from.SendMessage("You drink, and begin to feel more refreshed.");
+                    else if (from.Thirst < 15)
+                        from.SendMessage("After drink, you feel much less Thirsty.");
+                    else
+                        from.SendMessage("You feel quite full after drink.");
+                }
+                /*** MOD_END ***/
 
-					if ( from.BAC > 60 )
-						from.BAC = 60;
+                if (ContainsAlchohol)
+                {
+                    int bac = 0;
 
-					CheckHeaveTimer( from );
-				}
+                    switch (this.Content)
+                    {
+                        case BeverageType.Ale: bac = 1; break;
+                        case BeverageType.Wine: bac = 2; break;
+                        case BeverageType.Cider: bac = 3; break;
+                        case BeverageType.Liquor: bac = 4; break;
+                    }
+
+                    from.BAC += bac;
+
+                    if (from.BAC > 60)
+                        from.BAC = 60;
+
+                    CheckHeaveTimer(from);
+                }
 
 				from.PlaySound( Utility.RandomList( 0x30, 0x2D6 ) );
 

@@ -61,9 +61,13 @@ namespace Server.Mobiles
 
 		public override bool HasBreath{ get{ return true; } }
 		public override int TreasureMapLevel{ get{ return 2; } }
-
-		public override int Hides{ get{ return 10; } }
+        /*** MOD_START ***/
+        //deve droppare meno pelli e horned
+        //public override int Hides { get { return 10; } }
+        //public override HideType HideType { get { return HideType.Horned; } }
+		public override int Hides{ get{ return 5; } }
 		public override HideType HideType{ get{ return HideType.Horned; } }
+        /*** MOD_END ***/
 		public override int Scales{ get{ return 8; } }
 		public override ScaleType ScaleType{ get{ return ScaleType.Blue; } }
 

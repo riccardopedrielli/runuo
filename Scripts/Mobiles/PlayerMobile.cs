@@ -470,21 +470,29 @@ namespace Server.Mobiles
                 return 0;
             /*** ADD_END ***/
 
-			int magicResist = (int)(Skills[SkillName.MagicResist].Value * 10);
+            
+            /*** DEL_START ***/
+			/*int magicResist = (int)(Skills[SkillName.MagicResist].Value * 10);
 			int min = int.MinValue;
 
 			if ( magicResist >= 1000 )
 				min = 40 + ((magicResist - 1000) / 50);
 			else if ( magicResist >= 400 )
-				min = (magicResist - 400) / 15;
+				min = (magicResist - 400) / 15;*/
+            /*** DEL_END ***/
 
-			if ( min > MaxPlayerResistance )
-				min = MaxPlayerResistance;
+            /*** ADD_START ***/ //la resistenza magica deve essere skill/3
+            int magicResist = Convert.ToInt32(Skills[SkillName.MagicResist].Base);
+            int min = magicResist / 3;
+            /*** ADD_END ***/
+
+            if ( min > MaxPlayerResistance )
+				min = MaxPlayerResistance;                        
 
 			int baseMin = base.GetMinResistance( type );
-
+                        
 			if ( min < baseMin )
-				min = baseMin;
+				min = baseMin;            
 
 			return min;
 		}
