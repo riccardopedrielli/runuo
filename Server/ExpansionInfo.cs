@@ -74,9 +74,16 @@ namespace Server
 		private static ExpansionInfo[] m_Table = new ExpansionInfo[]
 			{
 				new ExpansionInfo( 0, "None"			, 0x00,								0x0003, 0x008, 0x00 ),
+				/*** MOD_START ***/
+				/*
 				new ExpansionInfo( 1, "Age of Shadows"	, 0x08,								0x801F, 0x028, 0x20 ),
 				new ExpansionInfo( 2, "Samurai Empire"	, 0x10,								0x805F, 0x0A8, 0x60 ),	//0x40 | 0x20 = 0x60
 				new ExpansionInfo( 3, "Mondain's Legacy", new ClientVersion( "5.0.0a" ),	0x82DF, 0x1A8, 0x2E0 )	//0x280 | 0x60 = 0x2E0
+				*/
+				new ExpansionInfo( 1, "Age of Shadows"	, 0x08,								0x0003, 0x028, 0x20 ),
+				new ExpansionInfo( 2, "Samurai Empire"	, 0x10,								0x0003, 0x0A8, 0x60 ),	//0x40 | 0x20 = 0x60
+				new ExpansionInfo( 3, "Mondain's Legacy", new ClientVersion( "5.0.0a" ),	0x0003, 0x1A8, 0x2E0 )	//0x280 | 0x60 = 0x2E0
+				/*** MOD_END ***/
 
 				//0x200 + 0x400 for KR?
 			};
