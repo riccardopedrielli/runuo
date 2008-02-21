@@ -436,12 +436,8 @@ namespace Server.Items
 		{
 			int bonus = 0;
 
-			/*** DEL_START ***/
-			/*
 			if ( m_Quality == WeaponQuality.Exceptional )
 				bonus += 20;
-			*/
-			/*** DEL_END ***/
 
 			switch ( m_DurabilityLevel )
 			{
@@ -2077,11 +2073,15 @@ namespace Server.Items
 		{
 			int bonus = VirtualDamageBonus;
 
+			/*** DEL_START ***/
+			/*
 			switch ( m_Quality )
 			{
 				case WeaponQuality.Low:			bonus -= 20; break;
 				case WeaponQuality.Exceptional:	bonus += 20; break;
 			}
+			*/
+			/*** DEL_END ***/
 
 			switch ( m_DamageLevel )
 			{

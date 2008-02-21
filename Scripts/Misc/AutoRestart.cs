@@ -20,7 +20,7 @@ namespace Server.Misc
 		/*
 		private static TimeSpan RestartTime = TimeSpan.FromHours( 2.0 ); // time of day at which to restart
 		*/
-		private static TimeSpan RestartTime = TimeSpan.FromHours( 6.0 ); // time of day at which to restart
+		private static TimeSpan RestartTime = TimeSpan.FromHours( 8.0 ); // time of day at which to restart
 		/*** MOD_END ***/
 		private static TimeSpan RestartDelay = TimeSpan.Zero; // how long the server should remain active before restart (period of 'server wars')
 
