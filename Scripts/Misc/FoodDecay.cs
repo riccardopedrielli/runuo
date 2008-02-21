@@ -40,10 +40,22 @@ namespace Server.Misc
                 if(m.Hunger >= 1 )
                     m.Hunger -= 1;
 
-                if (m.Hunger == 0)
+                switch (m.Hunger)
                 {
-                    m.Kill();
-                    m.Hunger = 5;
+                    case 3:
+                        m.SendMessage(133, "You become hungry.");
+                        break;
+                    case 2:
+                        m.SendMessage(133, "You are very hungry.");
+                        break;
+                    case 1:
+                        m.SendMessage(133, "You are extremely hungry!!!");
+                        break;
+                    case 0:
+                        m.Kill();
+                        m.SendMessage(133, "You are dead by hunger!!!");
+                        m.Hunger = 5;
+                        break;
                 }
             }
             /*** MOD_END ***/
@@ -59,10 +71,22 @@ namespace Server.Misc
                 if (m.Thirst >= 1)
                     m.Thirst -= 1;
 
-                if (m.Thirst == 0)
+                switch (m.Thirst)
                 {
-                    m.Kill();
-                    m.Thirst = 5;
+                    case 3:
+                        m.SendMessage(133, "You become thirsty.");
+                        break;
+                    case 2:
+                        m.SendMessage(133, "You are very thirsty.");
+                        break;
+                    case 1:
+                        m.SendMessage(133, "You are extremely thirsty!!!");
+                        break;
+                    case 0:
+                        m.Kill();
+                        m.SendMessage(133, "You are dead by thirst!!!");
+                        m.Hunger = 5;
+                        break;
                 }
             }
             /*** MOD_END ***/
@@ -106,9 +130,9 @@ namespace Server.Misc
                 
                 switch (m.Hunger)
                 {
-                    case 4:
-                        DOT = Convert.ToInt16((m.Str * 1) / 100);
-                        break;
+                    //case 4:
+                    //    DOT = Convert.ToInt16((m.Str * 1) / 100);
+                    //    break;
                     case 3:
                         DOT = Convert.ToInt16((m.Str * 3) / 100);
                         break;
@@ -124,6 +148,7 @@ namespace Server.Misc
                 {
                     m.Hits = 0;
                     m.Kill();
+                    m.SendMessage(133, "You are dead by hunger!!!");
                     m.Hunger = 5;
                 }
                 
@@ -137,9 +162,9 @@ namespace Server.Misc
             {
                 switch (m.Thirst)
                 {
-                    case 4:
-                        m.Stam -= Convert.ToInt16((m.Dex * 6) / 100);
-                        break;
+                    //case 4:
+                    //    m.Stam -= Convert.ToInt16((m.Dex * 6) / 100);
+                    //    break;
                     case 3:
                         m.Stam -= Convert.ToInt16((m.Dex * 9) / 100);
                         break;

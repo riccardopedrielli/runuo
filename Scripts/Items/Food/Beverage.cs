@@ -983,11 +983,11 @@ namespace Server.Items
                     }
 
                     if (from.Thirst < 5)
-                        from.SendMessage("You drink, but are still extremely Thirsty.");
+                        from.SendMessage("You drink, but are still extremely thirsty.");
                     else if (from.Thirst < 10)
                         from.SendMessage("You drink, and begin to feel more refreshed.");
                     else if (from.Thirst < 15)
-                        from.SendMessage("After drink, you feel much less Thirsty.");
+                        from.SendMessage("After drink, you feel much less thirsty.");
                     else
                         from.SendMessage("You feel quite full after drink.");
                 }
