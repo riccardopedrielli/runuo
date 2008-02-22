@@ -67,8 +67,11 @@ namespace Server.Misc
 				points += from.Skills[SkillName.Ninjitsu].Fixed / 300;
 			//TODO: What's the new increased rate?
 
-			if( Core.ML && from.Race == Race.Human )	//Is this affected by the cap?
-				points += 2;
+            /*** DEL_START ***/
+            //no bonus regen agli umani
+			/*if( Core.ML && from.Race == Race.Human )	//Is this affected by the cap?
+				points += 2;*/
+            /*** DEL_END ***/
 
 			if ( points < 0 )
 				points = 0;

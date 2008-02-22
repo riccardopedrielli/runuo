@@ -173,7 +173,12 @@ namespace Server.Engines.Harvest
 							int racialAmount = (int)Math.Ceiling( amount * 1.1 );
 							int feluccaRacialAmount = (int)Math.Ceiling( feluccaAmount * 1.1 );
 
-							bool eligableForRacialBonus = ( def.RaceBonus && from.Race == Race.Human );
+                            /*** MOD_START ***/
+                            //no bonus razziali
+							//bool eligableForRacialBonus = ( def.RaceBonus && from.Race == Race.Human );
+                            bool eligableForRacialBonus = false;
+                            /*** MOD_END ***/
+
 							bool inFelucca = (map == Map.Felucca);
 
 							if( eligableForRacialBonus && inFelucca && bank.Current >= feluccaRacialAmount )

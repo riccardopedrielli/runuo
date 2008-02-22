@@ -415,7 +415,10 @@ namespace Server.Mobiles
 			UpdateResistances();
 		}
 
-		public override int MaxWeight { get { return (((Core.ML && this.Race == Race.Human) ? 100 : 40) + (int)(3.5 * this.Str)); } }
+        /*** DEL_START ***/
+        //niente bonus sul peso agli umani
+		//public override int MaxWeight { get { return (((Core.ML && this.Race == Race.Human) ? 100 : 40) + (int)(3.5 * this.Str)); } }
+        /*** DEL_START ***/
 
 		private int m_LastGlobalLight = -1, m_LastPersonalLight = -1;
 

@@ -1205,10 +1205,13 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				if( Core.ML && from.Race == Race.Human )
+                /*** DEL_START ***/
+                //no bonus razziali agli umani nel raccogliere pelli
+				/*if( Core.ML && from.Race == Race.Human )
 				{
 					hides = (int)Math.Ceiling( hides * 1.1 );	//10% Bonus Only applies to Hides, Ore & Logs
-				}
+				}*/
+                /*** DEL_END ***/
 
 				if ( corpse.Map == Map.Felucca )
 				{
