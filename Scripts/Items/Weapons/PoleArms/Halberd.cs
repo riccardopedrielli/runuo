@@ -10,7 +10,12 @@ namespace Server.Items
 		public override WeaponAbility PrimaryAbility{ get{ return WeaponAbility.WhirlwindAttack; } }
 		public override WeaponAbility SecondaryAbility{ get{ return WeaponAbility.ConcussionBlow; } }
 
+		/*** MOD_START ***/
+		/*
 		public override int AosStrengthReq{ get{ return 95; } }
+		*/
+		public override int AosStrengthReq{ get{ return 90; } }
+		/*** MOD_END ***/
 		public override int AosMinDamage{ get{ return 18; } }
 		public override int AosMaxDamage{ get{ return 19; } }
 		public override int AosSpeed{ get{ return 25; } }
