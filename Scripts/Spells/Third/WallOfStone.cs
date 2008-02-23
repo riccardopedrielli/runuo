@@ -109,13 +109,17 @@ namespace Server.Spells.Third
 
 				MoveToWorld( loc, map );
 
-				if ( caster.InLOS( this ) )
+                /*** DEL_START ***/
+                //si puo castare anche se non si e' in LOS
+				/*if ( caster.InLOS( this ) )
 					Visible = true;
 				else
 					Delete();
 
 				if ( Deleted )
-					return;
+					return;*/
+                /*** DEL_END ***/
+
                 /*** MOD_START ***/
                 //durata del wall of stone settata a 120sec invece che 10
 				m_Timer = new InternalTimer( this, TimeSpan.FromSeconds( 120.0 ) );
