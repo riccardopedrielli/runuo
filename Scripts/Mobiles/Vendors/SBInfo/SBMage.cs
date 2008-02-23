@@ -21,10 +21,13 @@ namespace Server.Mobiles
 			public InternalBuyInfo()
 			{
 				Add( new GenericBuyInfo( typeof( Spellbook ), 18, 10, 0xEFA, 0 ) );
-				
-				if ( Core.AOS )
-					Add( new GenericBuyInfo( typeof( NecromancerSpellbook ), 115, 10, 0x2253, 0 ) );
-				
+
+                /*** DEL_START ***/
+                //no libro necro
+				/*if ( Core.AOS )
+					Add( new GenericBuyInfo( typeof( NecromancerSpellbook ), 115, 10, 0x2253, 0 ) );*/
+                /*** DEL_END ***/
+
 				Add( new GenericBuyInfo( typeof( ScribesPen ), 8, 10, 0xFBF, 0 ) );
 
 				Add( new GenericBuyInfo( typeof( BlankScroll ), 5, 20, 0x0E34, 0 ) );
@@ -51,14 +54,17 @@ namespace Server.Mobiles
 				Add( new GenericBuyInfo( typeof( SpidersSilk ), 3, 20, 0xF8D, 0 ) );
 				Add( new GenericBuyInfo( typeof( SulfurousAsh ), 3, 20, 0xF8C, 0 ) );
 
-				if ( Core.AOS )
+                /*** DEL_START ***/
+                //no reagenti necro
+				/*if ( Core.AOS )
 				{
 					Add( new GenericBuyInfo( typeof( BatWing ), 3, 999, 0xF78, 0 ) );
 					Add( new GenericBuyInfo( typeof( DaemonBlood ), 6, 999, 0xF7D, 0 ) );
 					Add( new GenericBuyInfo( typeof( PigIron ), 5, 999, 0xF8A, 0 ) );
 					Add( new GenericBuyInfo( typeof( NoxCrystal ), 6, 999, 0xF8E, 0 ) );
 					Add( new GenericBuyInfo( typeof( GraveDust ), 3, 999, 0xF8F, 0 ) );
-				}
+				}*/
+                /*** DEL_END ***/
 
 				Type[] types = Loot.RegularScrollTypes;
 
