@@ -40,9 +40,16 @@ namespace Server.Spells.Eighth
 				Map map = Caster.Map;
 
 				if ( map != null )
-					foreach ( Mobile m in Caster.GetMobilesInRange( 1 + (int)(Caster.Skills[SkillName.Magery].Value / 15.0) ) )
-						if ( Caster != m && SpellHelper.ValidIndirectTarget( Caster, m ) && Caster.CanBeHarmful( m, false ) && (!Core.AOS || Caster.InLOS( m )) )
-							targets.Add( m );
+                    foreach (Mobile m in Caster.GetMobilesInRange(1 + (int)(Caster.Skills[SkillName.Magery].Value / 15.0)))
+                    {
+                        /*** MOD_START ***/                    
+                        //if ( Caster != m && SpellHelper.ValidIndirectTarget( Caster, m ) && Caster.CanBeHarmful( m, false ) && (!Core.AOS || Caster.InLOS( m )) )
+                        //al massimo si colpisce con 9 di differenza sull'asse Z cosi si puo beccare il piano terra nelle case
+                        int zdif = m.Z < Caster.Z ? Caster.Z - m.Z : m.Z - Caster.Z;
+                        if (Caster != m && SpellHelper.ValidIndirectTarget(Caster, m) && Caster.CanBeHarmful(m, false) && Core.AOS && zdif < 10)
+                            targets.Add(m);
+                        /*** MOD_END ***/
+                    }                        
 
 				Caster.PlaySound( 0x2F3 );
 
