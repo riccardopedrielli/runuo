@@ -104,7 +104,10 @@ namespace Server.Spells.Third
 
 			public InternalItem( Point3D loc, Map map, Mobile caster ) : base( 0x80 )
 			{
-				Visible = false;
+                /*** DEL_START ***/
+                //i muri devono essere visibili
+				//Visible = false;
+                /*** DEL_END ***/
 				Movable = false;
 
 				MoveToWorld( loc, map );
