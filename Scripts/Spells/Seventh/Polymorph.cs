@@ -142,7 +142,7 @@ namespace Server.Spells.Seventh
                         if(m_NewName != null)
                             Caster.NameMod = m_NewName;
 
-                        Caster.GuildAbbMod = " ";                        
+                        Caster.GuildAbbMod = " ";
                         //GuildTitleMod
                         //GuildNameMod
                         /*** ADD_END ***/

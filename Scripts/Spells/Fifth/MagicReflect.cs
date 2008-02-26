@@ -27,15 +27,14 @@ namespace Server.Spells.Fifth
 		{
             /*** DEL_START ***/
 			/*if ( Core.AOS )
-				return true;*/
-            /*** DEL_END ***/
+				return true;            
 
 			if ( Caster.MagicDamageAbsorb > 0 )
 			{
 				Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
 				return false;
 			}
-            /*** DEL_START ***/
+            
             //via sta merda
 			/*else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
 			{

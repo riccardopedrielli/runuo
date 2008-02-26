@@ -183,26 +183,26 @@ namespace Server.Spells.Fourth
 				if( version < 2 )
 					m_Damage = 2;
 			}
-
-			public override bool OnMoveOver( Mobile m )
+                        
+		    public override bool OnMoveOver( Mobile m )
 			{
 				if ( Visible && m_Caster != null && (!Core.AOS || m != m_Caster) && SpellHelper.ValidIndirectTarget( m_Caster, m ) && m_Caster.CanBeHarmful( m, false ) )
 				{
 					m_Caster.DoHarmful( m );
 
                     /*** MOD_START ***/
-                    //il muro di fuoco deve togliere max 40
+                    //il muro di fuoco
                     double magery = m_Caster.Skills[SkillName.Magery].Base;
                     double evalint = m_Caster.Skills[SkillName.EvalInt].Base;
-                    double bonus = ((magery + evalint) / 2) * 0.3;
+                    double bonus = ((magery + evalint) / 2) * 0.05;
                     int damage = Convert.ToInt32(bonus);
-					//int damage = m_Damage;                    
+					//int damage = m_Damage;
 
-					if ( !Core.AOS && m.CheckSkill( SkillName.MagicResist, 0.0, 30.0 ) )
+					if ( !Core.AOS && m.CheckSkill( SkillName.MagicResist, 20.0, 40.0 ) )
 					{
                         damage /= 10;
 						//damage = 1;
-                        /*** MOD_END ***/
+                        /*** MOD_END ***/   
 						m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
 					}
 
@@ -272,15 +272,15 @@ namespace Server.Spells.Fourth
                                 caster.DoHarmful(m);
 
                                 /*** MOD_START ***/
-                                //il muro di fuoco deve togliere max 40
+                                //il muro di fuoco deve togliere
                                 double magery = caster.Skills[SkillName.Magery].Base;
                                 double evalint = caster.Skills[SkillName.EvalInt].Base;
                                 double bonus = ((magery + evalint) / 2) * 0.3;
                                 int damage = Convert.ToInt32(bonus);
                                 //int damage = m_Damage;
-
+                                                                
                                 //if (!Core.AOS && m.CheckSkill(SkillName.MagicResist, 0.0, 30.0))
-                                if (!Core.AOS && m.CheckSkill(SkillName.MagicResist, 40.0, 50.0))
+                                if (!Core.AOS && m.CheckSkill(SkillName.MagicResist, 20.0, 40.0))
                                 {
                                     damage /= 10;
                                     //damage = 1;
