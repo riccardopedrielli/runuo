@@ -1,0 +1,228 @@
+Ecco la lista delle modifiche effettuate dalla versione base del RunUO fino ad ora:
+
+----------------------------------------------------------------------------------------------------
+
+Mob
+
+    * Eliminato il drop di ring e bracelet con bonus.
+    * Impostato il drop di item magici a Pre-AOS.
+    * Impostato drop pelli del DeepSeaSerpent a 10 barbed.
+    * Impostato drop pelli del SeaSerpent a 10 horned.
+
+
+Skills
+
+    * Resisting spells non da bonus al fisico
+    * bonus Evalint+Anatomy abbassato a 100 pari a wrestling
+    * Magic Reflect impostato a pre-aos (riflette una magia)
+    * Resisting Spells impostata con resistenze minime a Skill / 3
+
+
+Case
+
+    * Tolto il bonus di detecting hidden all’interno.
+    * Gli items “secure” e “locked” all’interno delle case sono “rubabili” con skill lockpicking a 100 (dex e stealing danno bonus) probabilita’ massima 10%
+    * impostato il delay a 5sec per rubare in casa
+    * Le case non decadono col tempo
+    * Tutte le case sono accessibili a chiunque, anche ai mob
+    * Rimosse le voci inutilizzate dal gump delle case
+    * Rimossa la possibilita’ di BAN e KICK delle case.
+    * Eliminato il leave house.
+    * Modificata l’opzione di demolizione in modo che il ticket non venga spedito in banca ma nello zaino e che non sia blessed.
+
+
+Guardie
+
+    * Non possono essere disarmate.
+    * Non possono essere disarcionate.
+    * Quando muoiono perdono tutti gli item e muore il cavallo.
+    * Non scompaiono dopo pochi secondi ma rimangono fino alla morte.
+    * Hanno una buona velocità.
+    * Non scappano quando hanno poca vita.
+    * Sistemata l’animazione della corsa.
+    * Non spammano “guards” durante il combattimento.
+    * Se lasciano la zona di protezione delle guardie per 3 secondi, si teleportano allo spawn point.
+    * Rispondono al “guard”.
+
+
+Spells
+
+    * Aumentato il danno dell’Earthquake
+    * Aumentata durata del Wall of Stone a 120 sec e lunghezza a 5 tile.
+    * Tutte le spells si possono castare in città, compresi summon e area.
+    * I cast ad area colpiscono anche gli innocenti.
+    * Impossibile castare Gate Travel, Recall e Sacred Journey durante pvp.
+    * Potenziato il muro di fuoco.
+    * Durata minima del paralize settata a 2 sec
+    * Ora e’ possibile paralizzare uno che sta castando
+    * rimosso delay tra un cast e l’altro
+    * La spell polimorph modifica il nome e rimuove il tag di gilda.
+    * La spell earthquake ora colpisce anche se il target non e' in LOS e su un range dell'asse Z minore di 10
+    * il Wall of Stone crea i singoli pezzi anche se non si e' in LOS
+    * La spell magic reflect ora si puo castare sempre anche se gia attiva
+
+
+Gates (public & cast)
+
+    * Nessun warning.
+    * Teleportano senza delay.
+    * Accessibili durante il combat
+    * Non si possono castare durante il combat
+
+
+Moongates
+
+    * Hanno destinazioni solo sulla mappa in cui ci si trova.
+    * Inacessibli durante il combat.
+
+
+Items
+
+    * Rimossa la possibilita’ di fare l’insure sugli item
+    * Tutti i tipi di deed sono lootabili (case,barche,decorazioni..)
+    * Le chiavi delle barche e i modellini dockati sono lootabili
+    * Rimossi reagenti spellbook e oggetti aos da dropp e treasure
+
+
+Craft
+
+    * Eliminati craft SE e ML da Blacksmithy.
+    * Eliminati craft SE e ML da Bowcraft.
+    * Bonus al danno delle armi exceptional: Arms Lore / 3
+    * Bonus alla resistenza delle armature exceptional: Arms Lore / 10
+    * Probabilità di craftare item exceptional basata su Arms Lore
+
+
+Armi
+
+    * Archi e balestre non possono essere usati con armature plate o dragon
+    * Aumentata la chance di hit tra guerrieri a pari skill del 15% (ora 65%)
+
+
+Armature
+
+    * Str minima per PlateChest e FemalePlateChest impostata a 90.
+
+
+Account
+
+    * Limite a 2 pg
+    * Eliminato il warning in caso di client obsoleti (provvisorio)
+
+
+PG
+
+    * Se subiscono danni vengono dishiddati.
+    * Eliminati i bonus della razza umana (riferimenti su stratics).
+    * Rimossa la Luck (fortuna)
+    * Eliminato lo young status
+    * Creazione alla locanda di Britain (provvisorio)
+    * Disabilitate features non volute alla creazione del pg (razza elfica, paladino, necromante, ninja, samurai e skill correlate)
+    * I pg affamati perderanno lentamente HP fino alla sopportazione massima che portera' alla morte inevitabile
+    * I pg assetati perderanno lentamente stamina fino alla sopportazione massima che portera' alla morte inevitabile
+    * Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
+
+
+NPC
+
+    * ActiveSpeed e PassiveSpeed ora sono delay reali e costanti. Non vengono più influenzati dalla stamina o da altri fattori.
+    * Anche i criminali possono usare la banca.
+    * Fixato il bug che non contava nel balance anche i check
+    * Gli healer normali ressano anche i criminali ma non i rossi
+    * Gli evil healer ressano solo i rossi e non i blu
+    * Rimossi reagenti e book dei necro e pala
+    * Eliminati training skill SE e ML da npc
+
+
+BOD
+
+    * Rimossi i Runic Hammer e i Runic Sewing Kit.
+
+
+Nuovi engines
+
+    * Gioco Battle Chess (scacchi giganti)
+
+
+Nuovi items
+
+    * Aggiunti dungeon chest
+
+
+Staff related
+
+    * Sync with RunUO-svn: 286
+    * Patch RunUO-linux 20080207
+    * xmlSpawner 3.24
+    * Impostata la stagione 0 (primavera) su Felucca.
+    * TestRobe: toggle AccessLevel Player/Account con doppio click.
+    * Eliminati comandi decorate e vendorgen
+    * Generazione porte, sign, moongates e teleporter solo su Felucca
+
+	
+Mob
+
+    * Impostato drop pelli del DeepSeaSerpent a 10 barbed.
+    * Impostato drop pelli del SeaSerpent a 10 horned.
+
+
+Skills
+
+    * Resisting Spells impostata con resistenze minime a Skill / 3
+
+
+Pg
+
+    * I pg affamati perderanno lentamente HP fino alla sopportazione massima che portera' alla morte inevitabile
+    * I pg assetati perderanno lentamente stamina fino alla sopportazione massima che portera' alla morte inevitabile
+
+	
+Sync with RunUO-svn: 286
+
+    * Migliorato il save
+
+
+PG
+
+    * Eliminato lo young status
+    * Creazione alla locanda di Britain (provvisorio)
+    * Disabilitate features non volute alla creazione del pg (razza elfica, paladino, necromante, ninja, samurai e skill correlate)
+
+
+Account
+
+    * Limite a 2 pg
+    * Eliminato il warning in caso di client obsoleti (provvisorio)
+
+
+Craft
+
+    * Bonus al danno delle armi exceptional: Arms Lore / 3
+    * Bonus alla resistenza delle armature exceptional: Arms Lore / 10
+    * Probabilità di craftare item exceptional basata su Arms Lore
+
+
+Nuovi items
+
+    * Aggiunti dungeon chest
+	
+Pg
+
+    * Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
+	
+	
+Spells
+
+    * La spell earthquake ora colpisce anche se il target non e' in LOS e su un range dell'asse Z minore di 10
+    * il Wall of Stone crea i singoli pezzi anche se non si e' in LOS
+
+
+Npc
+
+    * Rimossi reagenti e book dei necro e pala
+    * Eliminati training skill SE e ML da npc
+
+	
+Spells
+
+    * La spell magic reflect ora si puo castare sempre anche se gia attiva
