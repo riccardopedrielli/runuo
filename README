@@ -1,0 +1,29 @@
+
+Installare mono:
+	apt-get install mono-runtime mono-gmcs libmono-winforms2.0-cil
+
+	
+	
+
+Compilare il server:
+	cd Server
+	gmcs -optimize -unsafe -t:exe -out:RunUO.exe -win32icon:runuo.ico -d:MONO -recurse:*.cs
+	mv RunUo.exe ..
+
+	
+
+NB. perche il server non crashi quando fa save o apre gump bisogna:
+	WINDOWS:
+		scaricare la libreria zlib32.dll (ora gia presente nel repo) e affiancarla all'eseguibile del server
+		
+	LINUX:
+		nano /etc/mono/config   
+		
+		aggiungere le seguenti righe al file di configurazione:
+			<dllmap dll="libz.so" target="libz.so.1" />
+			<dllmap dll="zlib32" target="libz.so" os="!windows" />
+			<dllmap dll="zlib32.dll" target="libz.so" os="!windows" />
+		
+		sudo ln -s /usr/lib/libz.so.1 /usr/lib/libz.so
+	
+
