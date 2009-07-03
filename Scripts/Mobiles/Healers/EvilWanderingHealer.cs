@@ -7,7 +7,7 @@ namespace Server.Mobiles
 	public class EvilWanderingHealer : BaseHealer
 	{
 		public override bool CanTeach{ get{ return true; } }
-        public override bool IsInvulnerable { get { return true; } }
+        //public override bool IsInvulnerable { get { return true; } }
 
 		public override bool CheckTeach( SkillName skill, Mobile from )
 		{

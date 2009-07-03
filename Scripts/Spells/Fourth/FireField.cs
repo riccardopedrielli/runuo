@@ -183,8 +183,8 @@ namespace Server.Spells.Fourth
 				if( version < 2 )
 					m_Damage = 2;
 			}
-                        
-		    public override bool OnMoveOver( Mobile m )
+
+			public override bool OnMoveOver( Mobile m )
 			{
 				if ( Visible && m_Caster != null && (!Core.AOS || m != m_Caster) && SpellHelper.ValidIndirectTarget( m_Caster, m ) && m_Caster.CanBeHarmful( m, false ) )
 				{
@@ -288,8 +288,8 @@ namespace Server.Spells.Fourth
                                     m.SendLocalizedMessage(501783); // You feel yourself resisting magical energy.
                                 }
 
-                                AOS.Damage(m, caster, damage, 0, 100, 0, 0, 0);
-                                m.PlaySound(0x208);
+								AOS.Damage( m, caster, damage, 0, 100, 0, 0, 0 );
+								m.PlaySound( 0x208 );
 							}
 						}
 					}

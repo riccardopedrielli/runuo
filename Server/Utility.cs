@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: Utility.cs 234 2007-09-08 07:31:38Z mark $
+ *   $Id: Utility.cs 312 2009-02-21 21:58:45Z mark $
  *
  ***************************************************************************/
 
@@ -1247,10 +1247,17 @@ namespace Server
 				m.FacialHairHue = m.Race.RandomHairHue();
 		}
 
+#if MONO
+		public static List<TOutput> CastConvertList<TInput, TOutput>( List<TInput> list ) where TInput : class where TOutput : class
+		{
+			return list.ConvertAll<TOutput>( new  Converter<TInput, TOutput>( delegate( TInput value ) { return value as TOutput; } ) );
+		}
+#else
 		public static List<TOutput> CastConvertList<TInput, TOutput>( List<TInput> list ) where TOutput : TInput
 		{
 			return list.ConvertAll<TOutput>( new Converter<TInput, TOutput>( delegate( TInput value ) { return (TOutput)value; } ) );
 		}
+#endif
 
 		public static List<TOutput> SafeConvertList<TInput, TOutput>( List<TInput> list ) where TOutput : class
 		{

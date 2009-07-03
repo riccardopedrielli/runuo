@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: SecureTrade.cs 197 2007-08-12 07:19:44Z mark $
+ *   $Id: SecureTrade.cs 304 2009-01-30 23:12:13Z mark $
  *
  ***************************************************************************/
 
@@ -113,8 +113,8 @@ namespace Server
 			if ( ns != null )
 				ns.RemoveTrade( this );
 
-			m_From.Container.Delete();
-			m_To.Container.Delete();
+			Timer.DelayCall( TimeSpan.Zero, delegate{ m_From.Container.Delete(); } );
+			Timer.DelayCall( TimeSpan.Zero, delegate{ m_To.Container.Delete(); } );
 		}
 
 		public void Update()

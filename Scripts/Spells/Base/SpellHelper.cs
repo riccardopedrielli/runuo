@@ -9,6 +9,7 @@ using Server.Targeting;
 using Server.Engines.PartySystem;
 using Server.Misc;
 using Server.Spells.Bushido;
+using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using System.Collections.Generic;
 using Server.Spells.Seventh;
@@ -588,6 +589,12 @@ namespace Server.Spells
 				return false;
 			}
 
+			if( caster != null && caster.AccessLevel == AccessLevel.Player && caster.Region.IsPartOf( typeof( Regions.Jail ) ) )
+			{
+				caster.SendLocalizedMessage( 1042632 ); // You'll need a better jailbreak plan then that!
+				return false;
+			}
+
 			m_TravelCaster = caster;
 			m_TravelType = type;
 
@@ -794,12 +801,12 @@ namespace Server.Spells
 		{
 			if( target.MagicDamageAbsorb > 0 )
 			{
-				/*++circle;
+				++circle;
 
 				target.MagicDamageAbsorb -= circle;
 
 				// This order isn't very intuitive, but you have to nullify reflect before target gets switched
-                */
+
 				bool reflect = (target.MagicDamageAbsorb >= 0);
 
 				if( target is BaseCreature )
@@ -815,9 +822,6 @@ namespace Server.Spells
 				{
 					target.FixedEffect( 0x37B9, 10, 5 );
 
-                    target.MagicDamageAbsorb = 0;
-                    DefensiveSpell.Nullify(target);
-
 					Mobile temp = caster;
 					caster = target;
 					target = temp;
@@ -832,9 +836,6 @@ namespace Server.Spells
 				if( reflect )
 				{
 					target.FixedEffect( 0x37B9, 10, 5 );
-
-                    target.MagicDamageAbsorb = 0;
-                    DefensiveSpell.Nullify(target);
 
 					Mobile temp = caster;
 					caster = target;
@@ -925,7 +926,10 @@ namespace Server.Spells
 					((BaseCreature)target).AlterSpellDamageFrom( from, ref iDamage );
 
 				WeightOverloading.DFA = dfa;
-				AOS.Damage( target, from, iDamage, phys, fire, cold, pois, nrgy );
+
+				int damageGiven = AOS.Damage( target, from, iDamage, phys, fire, cold, pois, nrgy );
+				DoLeech( damageGiven, from, target );
+
 				WeightOverloading.DFA = DFAlgorithm.Standard;
 			}
 			else
@@ -935,6 +939,24 @@ namespace Server.Spells
 
 			if( target is BaseCreature && from != null && delay == TimeSpan.Zero )
 				((BaseCreature)target).OnDamagedBySpell( from );
+		}
+
+		public static void DoLeech( int damageGiven, Mobile from, Mobile target )
+		{
+			TransformContext context = TransformationSpellHelper.GetContext( from );
+			if ( context != null && context.Type == typeof( WraithFormSpell ) )
+			{
+				int wraithLeech = ( 5 + (int)( ( 15 * from.Skills.SpiritSpeak.Value ) / 100 ) ); // Wraith form gives 5-20% mana leech
+				int manaLeech = AOS.Scale( damageGiven, wraithLeech );
+				if ( manaLeech != 0 )
+				{
+					// Mana leeched by the Wraith Form spell is actually stolen, not just leeched.
+					target.Mana -= manaLeech;
+					from.Mana += manaLeech;
+					from.PlaySound( 0x44D );
+					//from.SendMessage(String.Format("You Leeched {0} Mana", manaLeech));
+				}
+			}
 		}
 
 		public static void Heal( int amount, Mobile target, Mobile from )
@@ -1017,7 +1039,10 @@ namespace Server.Spells
 					((BaseCreature)m_Target).AlterSpellDamageFrom( m_From, ref m_Damage );
 
 				WeightOverloading.DFA = m_DFA;
-				AOS.Damage( m_Target, m_From, m_Damage, m_Phys, m_Fire, m_Cold, m_Pois, m_Nrgy );
+
+				int damageGiven = AOS.Damage( m_Target, m_From, m_Damage, m_Phys, m_Fire, m_Cold, m_Pois, m_Nrgy );
+				DoLeech( damageGiven, m_From, m_Target );
+
 				WeightOverloading.DFA = DFAlgorithm.Standard;
 
 				if( m_Target is BaseCreature && m_From != null )

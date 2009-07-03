@@ -37,9 +37,10 @@ namespace Server.Regions
 		public HouseRegion( BaseHouse house ) : base( null, house.Map, HousePriority, GetArea( house ) )
 		{
 			m_House = house;
+
 			Point3D ban = house.RelativeBanLocation;
 
-			this.GoLocation = new Point3D( house.X + ban.X, house.Y + ban.Y, house.Z + ban.Z );           
+			this.GoLocation = new Point3D( house.X + ban.X, house.Y + ban.Y, house.Z + ban.Z );
 		}
 
 		private static Rectangle3D[] GetArea( BaseHouse house )
@@ -226,7 +227,7 @@ namespace Server.Regions
 		public override void OnSpeech( SpeechEventArgs e )
 		{
 			base.OnSpeech( e );
-           
+
 			Mobile from = e.Mobile;
 
 			if ( !from.Alive || !m_House.IsInside( from ) || !m_House.IsActive )
@@ -360,9 +361,9 @@ namespace Server.Regions
 				{
 					from.SendLocalizedMessage( 502094 ); // You must be in your house to do this.
 				}
-			}            
-		}        
-        
+			}
+		}
+
 		public override bool OnDoubleClick( Mobile from, object o )
 		{
 			if ( o is Container )

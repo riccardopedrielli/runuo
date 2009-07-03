@@ -205,9 +205,14 @@ namespace Server.Multis
 			if ( Deleted )
 				return;
 
+			if ( Core.ML )
+				new TempNoHousingRegion( this );
+
 			KillVendors();
 			Delete();
 		}
+
+		public virtual TimeSpan RestrictedPlacingTime { get { return TimeSpan.FromHours( 1.0 ); } }
 
 		[CommandProperty( AccessLevel.GameMaster )]
 		public virtual double BonusStorageScalar { get { return (Core.ML ? 1.2 : 1.0); } }
@@ -1603,10 +1608,14 @@ namespace Server.Multis
 
 			public override void OnSecureTrade( Mobile from, Mobile to, Mobile newOwner, bool accepted )
 			{
-				if ( Deleted || m_House == null || m_House.Deleted || !m_House.IsOwner( from ) || !from.CheckAlive() || !to.CheckAlive() )
+				if ( Deleted )
 					return;
 
 				Delete();
+
+				if ( m_House == null || m_House.Deleted || !m_House.IsOwner( from ) || !from.CheckAlive() || !to.CheckAlive() )
+					return;
+				
 
 				if ( !accepted )
 					return;
@@ -2916,20 +2925,6 @@ namespace Server.Multis
 
 		public override void OnDelete()
 		{
-			/*Map map = this.Map;
-
-			if ( map != null )
-			{
-				MultiComponentList mcl = Components;
-				IPooledEnumerable eable = map.GetItemsInBounds( new Rectangle2D( X + mcl.Min.X, Y + mcl.Min.Y, mcl.Width, mcl.Height ) );
-
-				foreach ( Item item in eable )
-					if ( item is Guildstone && Contains( item ) )
-						item.Delete();
-				
-				eable.Free();
-			}*/
-
 			RestoreRelocatedEntities();
 
 			new FixColumnTimer( this ).Start();
@@ -3481,6 +3476,8 @@ namespace Server.Multis
 		}
 	}
 
+	#region Targets
+
 	public class LockdownTarget : Target
 	{
 		private bool m_Release;
@@ -3745,6 +3742,8 @@ namespace Server.Multis
 		}
 	}
 
+	#endregion
+
 	public class SetSecureLevelEntry : ContextMenuEntry
 	{
 		private Item m_Item;
@@ -3808,6 +3807,22 @@ namespace Server.Multis
 
 			if ( sec != null )
 				Owner.From.SendGump( new SetSecureLevelGump( Owner.From, sec, BaseHouse.FindHouseAt( m_Item ) ) );
+		}
+	}
+
+	public class TempNoHousingRegion : BaseRegion
+	{
+		public TempNoHousingRegion( BaseHouse house )
+			: base( null, house.Map, Region.DefaultPriority, house.Region.Area )
+		{
+			Register();
+
+			Timer.DelayCall( house.RestrictedPlacingTime, Unregister );
+		}
+
+		public override bool AllowHousing( Mobile from, Point3D p )
+		{
+			return false;
 		}
 	}
 }

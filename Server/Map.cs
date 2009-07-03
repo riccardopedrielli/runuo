@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: Map.cs 159 2007-02-11 22:15:14Z asayre $
+ *   $Id: Map.cs 304 2009-01-30 23:12:13Z mark $
  *
  ***************************************************************************/
 
@@ -1245,7 +1245,16 @@ namespace Server
 				{
 					if ( m_Enumerator.MoveNext() )
 					{
-						object o = m_Enumerator.Current;
+						object o;
+
+						try
+						{
+							o = m_Enumerator.Current;
+						}
+						catch
+						{
+							continue;
+						}
 
 						if ( o is Mobile )
 						{
@@ -1503,7 +1512,16 @@ namespace Server
 				{
 					if ( m_Enumerator.MoveNext() )
 					{
-						object o = m_Enumerator.Current;
+						object o;
+
+						try
+						{
+							o = m_Enumerator.Current;
+						}
+						catch
+						{
+							continue;
+						}
 
 						if ( o is Mobile )
 						{

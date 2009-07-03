@@ -414,6 +414,19 @@ namespace Server.Items
 
 		#endregion
 
+		public override void OnAfterDuped( Item newItem )
+		{
+			BaseWeapon weap = newItem as BaseWeapon;
+
+			if ( weap == null )
+				return;
+
+			weap.m_AosAttributes = new AosAttributes( newItem, m_AosAttributes );
+			weap.m_AosElementDamages = new AosElementAttributes( newItem, m_AosElementDamages );
+			weap.m_AosSkillBonuses = new AosSkillBonuses( newItem, m_AosSkillBonuses );
+			weap.m_AosWeaponAttributes = new AosWeaponAttributes( newItem, m_AosWeaponAttributes );
+		}
+
 		public virtual void UnscaleDurability()
 		{
 			int scale = 100 + GetDurabilityBonus();
@@ -2102,20 +2115,15 @@ namespace Server.Items
 				/*** MOD_END ***/
 			}
 
-			/*** ADD_START ***/
-			if( m_Resource != null )
+			/*** ADD_START ***/			
+			CraftResourceInfo resInfo = CraftResources.GetInfo( m_Resource );
+			
+			if ( resInfo != null)
 			{
-				CraftResourceInfo resInfo = CraftResources.GetInfo( m_Resource );
-				
-				if ( resInfo != null)
-				{
-					CraftAttributeInfo attrInfo = resInfo.AttributeInfo;
-	
-					if( attrInfo != null && attrInfo.WeaponMatherialDamageBonus != null )
-						bonus += attrInfo.WeaponMatherialDamageBonus;
-				}
-			}
-			/*** ADD_START ***/
+				CraftAttributeInfo attrInfo = resInfo.AttributeInfo;
+				bonus += attrInfo.WeaponMatherialDamageBonus;
+			}			
+			/*** ADD_END ***/
 
 			return bonus;
 		}

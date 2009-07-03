@@ -72,23 +72,23 @@ namespace Server.Commands
 				for ( int i = 0; i < list.Count; ++i )
 				{
 					SignEntry e = list[i];
-					Map[] maps = null;
+                    /*** MOD_START ***/
+                    /*
+                    Map[] maps = null;
+                    					
+                    switch ( e.m_Map )
+                    {
+                        case 0: maps = brit; break; // Trammel and Felucca
+                        case 1: maps = fel; break;  // Felucca
+                        case 2: maps = tram; break; // Trammel
+                        case 3: maps = ilsh; break; // Ilshenar
+                        case 4: maps = malas; break; // Malas
+                        case 5: maps = tokuno; break; // Tokuno Islands
+                    }
 
-					/*** MOD_START ***/
-					/*
-					switch ( e.m_Map )
-					{
-						case 0: maps = brit; break; // Trammel and Felucca
-						case 1: maps = fel; break;  // Felucca
-						case 2: maps = tram; break; // Trammel
-						case 3: maps = ilsh; break; // Ilshenar
-						case 4: maps = malas; break; // Malas
-						case 5: maps = tokuno; break; // Tokuno Islands
-					}
-
-					for ( int j = 0; maps != null && j < maps.Length; ++j )
-						Add_Static( e.m_ItemID, e.m_Location, maps[j], e.m_Text );
-					*/
+                    for ( int j = 0; maps != null && j < maps.Length; ++j )
+                        Add_Static( e.m_ItemID, e.m_Location, maps[j], e.m_Text );
+                    */
 					
 					if ( e.m_Map == 0 || e.m_Map == 1 )
 						Add_Static( e.m_ItemID, e.m_Location, Map.Felucca, e.m_Text );

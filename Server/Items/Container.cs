@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: Container.cs 241 2007-09-13 19:37:44Z mark $
+ *   $Id: Container.cs 331 2009-06-28 03:34:19Z mark $
  *
  ***************************************************************************/
 
@@ -100,7 +100,7 @@ namespace Server.Items
 		public int MaxItems
 		{
 			get{ return ( m_MaxItems == -1 ? DefaultMaxItems : m_MaxItems ); }
-			set{ m_MaxItems = value; }
+			set{ m_MaxItems = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty( AccessLevel.GameMaster )]
@@ -108,21 +108,14 @@ namespace Server.Items
 		{
 			get
 			{
-				int maxWeight;
-
-				if ( Parent is Container )
+				if ( Parent is Container && ((Container)Parent).MaxWeight == 0 )
 				{
-					maxWeight = ((Container)Parent).MaxWeight;
-
-					if ( maxWeight > 0 )
-						maxWeight = Math.Max( maxWeight, DefaultMaxWeight );
+					return 0;
 				}
 				else
 				{
-					maxWeight = DefaultMaxWeight;
+					return DefaultMaxWeight;
 				}
-
-				return maxWeight;
 			}
 		}
 

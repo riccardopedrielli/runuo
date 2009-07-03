@@ -65,17 +65,18 @@ namespace Server.Misc
 			if( from == null || target == null || from.AccessLevel > AccessLevel.Player || target.AccessLevel > AccessLevel.Player )
 				return true;
 
+			Map map = from.Map;
+
 			#region Factions
 			Faction targetFaction = Faction.Find( target, true );
 
-			if( targetFaction != null )
+			if( (!Core.ML || map == Faction.Facet) && targetFaction != null )
 			{
 				if( Faction.Find( from, true ) != targetFaction )
 					return false;
 			}
 			#endregion
-
-			Map map = from.Map;
+			
 
 			if( map != null && (map.Rules & MapRules.BeneficialRestrictions) == 0 )
 				return true; // In felucca, anything goes
@@ -108,7 +109,9 @@ namespace Server.Misc
 			if( map != null && (map.Rules & MapRules.HarmfulRestrictions) == 0 )
 				return true; // In felucca, anything goes
 
-			if( !from.Player && !(from is BaseCreature && (((BaseCreature)from).Controlled || ((BaseCreature)from).Summoned)) )
+			BaseCreature bc = from as BaseCreature;
+
+			if( !from.Player && !(bc != null && bc.GetMaster() != null && bc.GetMaster().AccessLevel == AccessLevel.Player ) )
 			{
 				if( !CheckAggressor( from.Aggressors, target ) && !CheckAggressed( from.Aggressed, target ) && target is PlayerMobile && ((PlayerMobile)target).CheckYoungProtection( from ) )
 					return false;
@@ -272,6 +275,11 @@ namespace Server.Misc
 			if( source.Player && !target.Player && source is PlayerMobile && target is BaseCreature )
 			{
 				BaseCreature bc = (BaseCreature)target;
+
+				Mobile master = bc.GetMaster();
+
+				if ( master != null && master.AccessLevel > AccessLevel.Player )
+					return Notoriety.CanBeAttacked;
 
 				if( !bc.Summoned && !bc.Controlled && ((PlayerMobile)source).EnemyOfOneType == target.GetType() )
 					return Notoriety.Enemy;
