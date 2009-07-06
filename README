@@ -1,6 +1,6 @@
 
 Installare mono:
-	apt-get install mono-runtime mono-gmcs libmono-winforms2.0-cil
+	apt-get install mono-runtime mono-gmcs libmono-winforms2.0-cil mono-devel
 
 	
 	
