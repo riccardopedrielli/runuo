@@ -20,5 +20,7 @@ NB. perche il server non crashi quando fa save o apre gump bisogna:
 		cercare la libreria libz.so.1 e linkarla come segue
 		
 		sudo ln -s /usr/lib/libz.so.1 /usr/lib/libz.so
+		
+		rinominare RunUO.exe.config.bak in RunUO.exe.config
 	
 
