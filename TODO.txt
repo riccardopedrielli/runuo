@@ -16,17 +16,17 @@ Items
     * Eliminare craft SE e ML da Tailoring.
     * Bonus di alchemy sul danno delle pozioni explosion -50%.
     * Potenziare il disguise kit in maniera da potersi scegliere il nome oppure copiare aspetto, nome e tag di gilda del target selezionato.
-
+	* togliere i check da blessed
 	
 Mob
     * Modificare livelli di drop armi e armor
 
-	
+
 Account
 
 
 PG
-
+	* togliere la finestrella di accettazione resurrect e fare in modo che ressi solo se sei in war
 
 Skills
 
