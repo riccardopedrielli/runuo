@@ -801,12 +801,12 @@ namespace Server.Spells
 		{
 			if( target.MagicDamageAbsorb > 0 )
 			{
-				++circle;
+				/*++circle;
 
 				target.MagicDamageAbsorb -= circle;
 
 				// This order isn't very intuitive, but you have to nullify reflect before target gets switched
-
+                */
 				bool reflect = (target.MagicDamageAbsorb >= 0);
 
 				if( target is BaseCreature )
@@ -822,6 +822,9 @@ namespace Server.Spells
 				{
 					target.FixedEffect( 0x37B9, 10, 5 );
 
+                    target.MagicDamageAbsorb = 0;
+                    DefensiveSpell.Nullify(target);
+
 					Mobile temp = caster;
 					caster = target;
 					target = temp;
@@ -836,6 +839,9 @@ namespace Server.Spells
 				if( reflect )
 				{
 					target.FixedEffect( 0x37B9, 10, 5 );
+
+                    target.MagicDamageAbsorb = 0;
+                    DefensiveSpell.Nullify(target);
 
 					Mobile temp = caster;
 					caster = target;

@@ -11,9 +11,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>.\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -2567,15 +2568,6 @@
     <Compile Include="Targets\PickMoveTarget.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Custom\XmlSpawner2\" />
-    <Folder Include="Custom\XmlSpawner2\XmlAttach\" />
-    <Folder Include="Custom\XmlSpawner2\XmlAttachments\" />
-    <Folder Include="Custom\XmlSpawner2\XmlItems\" />
-    <Folder Include="Custom\XmlSpawner2\XmlMobiles\" />
-    <Folder Include="Custom\XmlSpawner2\XmlPropsGumps\" />
-    <Folder Include="Custom\XmlSpawner2\XmlQuest\" />
-    <Folder Include="Custom\XmlSpawner2\XmlUtils\" />
-    <Folder Include="Custom\Chests-osi\" />
     <Folder Include="Custom\Mobiles\Guards\Cove\" />
     <Folder Include="Custom\Mobiles\Guards\Jhelom\" />
     <Folder Include="Custom\Mobiles\Guards\Magincia\" />
