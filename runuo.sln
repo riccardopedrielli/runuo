@@ -1,7 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-# SharpDevelop 2.2.1.2648
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "runuo-server", "Server\runuo-server.csproj", "{16F42AD6-7673-4AB1-91FB-AEC2012C958F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "runuo-scripts", "Scripts\runuo-scripts.csproj", "{E2223892-BDD2-42B8-BC25-9979C1C50440}"
@@ -12,21 +11,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B6CEB6D5-88F2-4F07-8343-C668B20D9A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6CEB6D5-88F2-4F07-8343-C668B20D9A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6CEB6D5-88F2-4F07-8343-C668B20D9A31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6CEB6D5-88F2-4F07-8343-C668B20D9A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16F42AD6-7673-4AB1-91FB-AEC2012C958F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16F42AD6-7673-4AB1-91FB-AEC2012C958F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16F42AD6-7673-4AB1-91FB-AEC2012C958F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16F42AD6-7673-4AB1-91FB-AEC2012C958F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16F42AD6-7673-4AB1-91FB-AEC2012C958F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2223892-BDD2-42B8-BC25-9979C1C50440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16F42AD6-7673-4AB1-91FB-AEC2012C958F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E2223892-BDD2-42B8-BC25-9979C1C50440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2223892-BDD2-42B8-BC25-9979C1C50440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2223892-BDD2-42B8-BC25-9979C1C50440}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2223892-BDD2-42B8-BC25-9979C1C50440}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		D71889F0-3118-40AB-BCF6-B8EC140C3138.Debug|Any CPU.Build.0 = Debug|Any CPU
-		D71889F0-3118-40AB-BCF6-B8EC140C3138.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		D71889F0-3118-40AB-BCF6-B8EC140C3138.Release|Any CPU.Build.0 = Release|Any CPU
-		D71889F0-3118-40AB-BCF6-B8EC140C3138.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2223892-BDD2-42B8-BC25-9979C1C50440}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
