@@ -21,6 +21,8 @@ Items
 Mob
     * Modificare livelli di drop armi e armor
 
+Code Review
+	* mettere i commenti nel polimorph;
 
 Account
 

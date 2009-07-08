@@ -144,15 +144,15 @@ namespace Server.Misc
                         break;                    
                 }
 
-                if (m.Hits < DOT)
+                if (m.Hits < DOT) //questo controllo serve per sapere se il pg deve morire perche solo decrementando gli hp non si crepa
                 {
                     m.Hits = 0;
                     m.Kill();
                     m.SendMessage(133, "You are dead by hunger!!!");
                     m.Hunger = 5;
                 }
-                
-                m.Hits -= DOT; //se hits va in negativo viene impostato a 0
+                else                
+                    m.Hits -= DOT; //se hits va in negativo viene impostato a 0 nel set della proprietà
             }
         }
 

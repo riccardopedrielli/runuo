@@ -5,16 +5,15 @@ Mob
 
     Eliminato il drop di ring e bracelet con bonus.
     Impostato il drop di item magici a Pre-AOS.
-    Impostato drop pelli del DeepSeaSerpent a 10 barbed.
-    Impostato drop pelli del SeaSerpent a 10 horned.
+    * Impostato drop pelli del DeepSeaSerpent a 10 barbed.
+    * Impostato drop pelli del SeaSerpent a 10 horned.
 
 
 Skills
 
-    Resisting spells non da bonus al fisico
-    bonus Evalint+Anatomy abbassato a 100 pari a wrestling
-    Magic Reflect impostato a pre-aos (riflette una magia)
-    Resisting Spells impostata con resistenze minime a Skill / 3
+    * Resisting spells non da bonus al fisico
+    * bonus Evalint+Anatomy abbassato a 100 pari a wrestling    
+    * Resisting Spells impostata con resistenze minime a Skill / 3
 
 
 Case
@@ -32,54 +31,54 @@ Case
 
 Guardie
 
-    Non possono essere disarmate.
-    Non possono essere disarcionate.
-    Quando muoiono perdono tutti gli item e muore il cavallo.
-    Non scompaiono dopo pochi secondi ma rimangono fino alla morte.
-    Hanno una buona velocità.
-    Non scappano quando hanno poca vita.
-    Sistemata l’animazione della corsa.
-    Non spammano “guards” durante il combattimento.
-    Se lasciano la zona di protezione delle guardie per 3 secondi, si teleportano allo spawn point.
-    Rispondono al “guard”.
+    * Non possono essere disarmate.
+    * Non possono essere disarcionate.
+    * Quando muoiono perdono tutti gli item e muore il cavallo.
+    * Non scompaiono dopo pochi secondi ma rimangono fino alla morte.
+    * Hanno una buona velocità.
+    * Non scappano quando hanno poca vita.
+    * Sistemata l’animazione della corsa.
+    * Non spammano “guards” durante il combattimento.
+    * Se lasciano la zona di protezione delle guardie per 3 secondi, si teleportano allo spawn point.
+    * Rispondono al “guard”.
 
 
 Spells
 
-    Aumentato il danno dell’Earthquake
-    Aumentata durata del Wall of Stone a 120 sec e lunghezza a 5 tile.
-    Tutte le spells si possono castare in città, compresi summon e area.
-    I cast ad area colpiscono anche gli innocenti.
-    Impossibile castare Gate Travel, Recall e Sacred Journey durante pvp.
-    Potenziato il muro di fuoco.
-    Durata minima del paralize settata a 2 sec
-    Ora e’ possibile paralizzare uno che sta castando
-    rimosso delay tra un cast e l’altro
-    La spell polimorph modifica il nome e rimuove il tag di gilda.
-    La spell earthquake ora colpisce anche se il target non e' in LOS e su un range dell'asse Z minore di 10
-    il Wall of Stone crea i singoli pezzi anche se non si e' in LOS
-    La spell magic reflect ora si puo castare sempre anche se gia attiva
-
+    * Aumentato il danno dell’Earthquake
+    * Aumentata durata del Wall of Stone a 120 sec e lunghezza a 5 tile.
+    * Tutte le spells si possono castare in città, compresi summon e area.
+    * I cast ad area colpiscono anche gli innocenti.
+    * Impossibile castare Gate Travel, Recall e Sacred Journey durante pvp.
+    * Potenziato il muro di fuoco.
+    * Durata minima del paralize settata a 2 sec
+    * Ora e’ possibile paralizzare uno che sta castando
+    * rimosso delay tra un cast e l’altro
+    * La spell polimorph modifica il nome e rimuove il tag di gilda.
+    * La spell earthquake ora colpisce anche se il target non e' in LOS e su un range dell'asse Z minore di 10
+    * il Wall of Stone crea i singoli pezzi anche se non si e' in LOS
+    * La spell magic reflect ora si puo castare sempre anche se gia attiva
+	* Magic Reflect impostato a pre-aos (riflette una magia)
 
 Gates (public & cast)
 
-    Nessun warning.
-    Teleportano senza delay.
-    Accessibili durante il combat
-    Non si possono castare durante il combat
+    * Nessun warning.
+    * Teleportano senza delay.
+    * Accessibili durante il combat
+    * Non si possono castare durante il combat
 
 
 Moongates
 
-    Hanno destinazioni solo sulla mappa in cui ci si trova.
-    Inacessibli durante il combat.
+    * Hanno destinazioni solo sulla mappa in cui ci si trova.
+    * Inacessibli durante il combat.
 
 
 Items
 
-    Rimossa la possibilita’ di fare l’insure sugli item
-    Tutti i tipi di deed sono lootabili (case,barche,decorazioni..)
-    Le chiavi delle barche e i modellini dockati sono lootabili
+    * Rimossa la possibilita’ di fare l’insure sugli item
+    * Tutti i tipi di deed sono lootabili (case,barche,decorazioni..)
+    * Le chiavi delle barche e i modellini dockati sono lootabili
     Rimossi reagenti spellbook e oggetti aos da dropp e treasure
 
 
@@ -94,13 +93,13 @@ Craft
 
 Armi
 
-    Archi e balestre non possono essere usati con armature plate o dragon
+    * Archi e balestre non possono essere usati con armature plate o dragon
     Aumentata la chance di hit tra guerrieri a pari skill del 15% (ora 65%)
 
 
 Armature
 
-    Str minima per PlateChest e FemalePlateChest impostata a 90.
+    * Str minima per PlateChest e FemalePlateChest impostata a 90.
 
 
 Account
@@ -111,20 +110,20 @@ Account
 
 PG
 
-    Se subiscono danni vengono dishiddati.
+    * Se subiscono danni vengono dishiddati.
     Eliminati i bonus della razza umana (riferimenti su stratics).
     Rimossa la Luck (fortuna)
-    Eliminato lo young status
-    Creazione alla locanda di Britain (provvisorio)
+    * Eliminato lo young status
+    * Creazione alla locanda di Britain (provvisorio)
     Disabilitate features non volute alla creazione del pg (razza elfica, paladino, necromante, ninja, samurai e skill correlate)
-    I pg affamati perderanno lentamente HP fino alla sopportazione massima che portera' alla morte inevitabile
-    I pg assetati perderanno lentamente stamina fino alla sopportazione massima che portera' alla morte inevitabile
-    Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
+    * I pg affamati perderanno lentamente HP fino alla sopportazione massima che portera' alla morte inevitabile
+    * I pg assetati perderanno lentamente stamina fino alla sopportazione massima che portera' alla morte inevitabile
+    * Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
 
 
 NPC
 
-    ActiveSpeed e PassiveSpeed ora sono delay reali e costanti. Non vengono più influenzati dalla stamina o da altri fattori.
+    * ActiveSpeed e PassiveSpeed ora sono delay reali e costanti. Non vengono più influenzati dalla stamina o da altri fattori.
     * Anche i criminali possono usare la banca.
     * Fixato il bug che non contava nel balance anche i check
     * Gli healer normali ressano anche i criminali ma non i rossi
