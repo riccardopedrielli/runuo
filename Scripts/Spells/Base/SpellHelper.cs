@@ -811,11 +811,15 @@ namespace Server.Spells
 		{
 			if( target.MagicDamageAbsorb > 0 )
 			{
+				/*** DEL_START ***/
+				/*
 				++circle;
 
 				target.MagicDamageAbsorb -= circle;
 
-				// This order isn't very intuitive, but you have to nullify reflect before target gets switched
+				// This order isn't very intuitive, but you have to nullify reflect before target gets switched 
+				*/
+				/*** DEL_END ***/
 
 				bool reflect = (target.MagicDamageAbsorb >= 0);
 
@@ -831,7 +835,12 @@ namespace Server.Spells
 				if( reflect )
 				{
 					target.FixedEffect( 0x37B9, 10, 5 );
-
+					
+					/*** ADD_START ***/
+                    target.MagicDamageAbsorb = 0;
+                    DefensiveSpell.Nullify(target);
+					/*** ADD_END ***/
+					
 					Mobile temp = caster;
 					caster = target;
 					target = temp;
@@ -846,6 +855,11 @@ namespace Server.Spells
 				if( reflect )
 				{
 					target.FixedEffect( 0x37B9, 10, 5 );
+					
+					/*** ADD_START ***/
+					target.MagicDamageAbsorb = 0;
+                    DefensiveSpell.Nullify(target);
+					/*** ADD_END ***/
 
 					Mobile temp = caster;
 					caster = target;
