@@ -32,19 +32,20 @@ namespace Server.Mobiles
 	public enum PlayerFlag // First 16 bits are reserved for default-distro use, start custom flags at 0x00010000
 	{
 		None				= 0x00000000,
-		Glassblowing		= 0x00000001,
+		Glassblowing			= 0x00000001,
 		Masonry				= 0x00000002,
 		SandMining			= 0x00000004,
 		StoneMining			= 0x00000008,
-		ToggleMiningStone	= 0x00000010,
+		ToggleMiningStone		= 0x00000010,
 		KarmaLocked			= 0x00000020,
-		AutoRenewInsurance	= 0x00000040,
-		UseOwnFilter		= 0x00000080,
-		PublicMyRunUO		= 0x00000100,
-		PagingSquelched		= 0x00000200,
+		AutoRenewInsurance		= 0x00000040,
+		UseOwnFilter			= 0x00000080,
+		PublicMyRunUO			= 0x00000100,
+		PagingSquelched			= 0x00000200,
 		Young				= 0x00000400,
-		AcceptGuildInvites	= 0x00000800,
-		DisplayChampionTitle= 0x00001000
+		AcceptGuildInvites		= 0x00000800,
+		DisplayChampionTitle		= 0x00001000,
+		HasStatReward			= 0x00002000
 	}
 
 	public enum NpcGuild
@@ -105,7 +106,22 @@ namespace Server.Mobiles
 
 		private int m_GuildMessageHue, m_AllianceMessageHue;
 
+		private List<Mobile> m_AutoStabled;
+		private List<Mobile> m_AllFollowers;
+
 		#region Getters & Setters
+		public List<Mobile> AutoStabled { get { return m_AutoStabled; } }
+
+		public List<Mobile> AllFollowers
+		{ 
+			get
+			{
+				if( m_AllFollowers == null )
+					m_AllFollowers = new List<Mobile>();; 
+				return m_AllFollowers;
+			} 
+		}
+
 		public Server.Guilds.RankDefinition GuildRank
 		{
 			get
@@ -276,8 +292,23 @@ namespace Server.Mobiles
 			get{ return GetFlag( PlayerFlag.AcceptGuildInvites ); }
 			set{ SetFlag( PlayerFlag.AcceptGuildInvites, value ); }
 		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public bool HasStatReward
+		{
+			get{ return GetFlag( PlayerFlag.HasStatReward ); }
+			set{ SetFlag( PlayerFlag.HasStatReward, value ); }
+		}
 		#endregion
 
+		private DateTime m_AnkhNextUse;
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public DateTime AnkhNextUse
+		{
+			get{ return m_AnkhNextUse; }
+			set{ m_AnkhNextUse = value; }
+		}
 
 		public static Direction GetDirection4( Point3D from, Point3D to )
 		{
@@ -418,11 +449,13 @@ namespace Server.Mobiles
 			UpdateResistances();
 		}
 
-        /*** DEL_START ***/
+        /*** MOD_START ***/
         //niente bonus sul peso agli umani
-		//public override int MaxWeight { get { return (((Core.ML && this.Race == Race.Human) ? 100 : 40) + (int)(3.5 * this.Str)); } }
+		/*
+		public override int MaxWeight { get { return (((Core.ML && this.Race == Race.Human) ? 100 : 40) + (int)(3.5 * this.Str)); } }
+		*/
         public override int MaxWeight { get { return (40 + (int)(3.5 * this.Str)); } }
-        /*** DEL_START ***/
+        /*** MOD_START ***/
 
 		private int m_LastGlobalLight = -1, m_LastPersonalLight = -1;
 
@@ -479,13 +512,15 @@ namespace Server.Mobiles
 
             
             /*** DEL_START ***/
-			/*int magicResist = (int)(Skills[SkillName.MagicResist].Value * 10);
+			/*
+			int magicResist = (int)(Skills[SkillName.MagicResist].Value * 10);
 			int min = int.MinValue;
 
 			if ( magicResist >= 1000 )
 				min = 40 + ((magicResist - 1000) / 50);
 			else if ( magicResist >= 400 )
-				min = (magicResist - 400) / 15;*/
+				min = (magicResist - 400) / 15;
+			*/
             /*** DEL_END ***/
 
             /*** ADD_START ***/ //la resistenza magica deve essere skill/3
@@ -493,13 +528,13 @@ namespace Server.Mobiles
             int min = magicResist / 3;
             /*** ADD_END ***/
 
-            if ( min > MaxPlayerResistance )
-				min = MaxPlayerResistance;                        
+			if ( min > MaxPlayerResistance )
+				min = MaxPlayerResistance;
 
 			int baseMin = base.GetMinResistance( type );
-                        
+
 			if ( min < baseMin )
-				min = baseMin;            
+				min = baseMin;
 
 			return min;
 		}
@@ -535,7 +570,11 @@ namespace Server.Mobiles
 				}
 
 				from.SendGump( new NoticeGump( 1060637, 30720, notice, 0xFFC000, 300, 140, null, null ) );
+				return;
 			}
+
+			if( from is PlayerMobile )
+				((PlayerMobile)from).ClaimAutoStabledPets();
 		}
 
 		private bool m_NoDeltaRecursion;
@@ -787,6 +826,8 @@ namespace Server.Mobiles
 
 		private static void OnLogout( LogoutEventArgs e )
 		{
+			if( e.Mobile is PlayerMobile )
+				((PlayerMobile)e.Mobile).AutoStablePets();
 		}
 
 		private static void EventSink_Connected( ConnectedEventArgs e )
@@ -1007,6 +1048,9 @@ namespace Server.Mobiles
 				{
 					strBase = this.Str;	//this.Str already includes GetStatOffset/str
 					strOffs = AosAttributes.GetValue( this, AosAttribute.BonusHits );
+
+					if ( Core.ML && strOffs > 25 && AccessLevel <= AccessLevel.Player )
+						strOffs = 25;
 
 					if ( AnimalForm.UnderTransformation( this, typeof( BakeKitsune ) ) || AnimalForm.UnderTransformation( this, typeof( GreyWolf ) ) )
 						strOffs += 20;
@@ -1247,8 +1291,10 @@ namespace Server.Mobiles
 
                     /*** DEL_START ***/
                     //no leave house
-					/*if ( house.IsAosRules )
-						list.Add( new CallbackEntry( 6207, new ContextCallback( LeaveHouse ) ) );*/
+					/*
+					if ( house.IsAosRules )
+						list.Add( new CallbackEntry( 6207, new ContextCallback( LeaveHouse ) ) );
+					*/
                     /*** DEL_END ***/
 				}
 
@@ -1257,8 +1303,10 @@ namespace Server.Mobiles
 
                 /*** DEL_START ***/
                 //non serve
-				/*if( Alive )
-					list.Add( new CallbackEntry( 6210, new ContextCallback( ToggleChampionTitleDisplay ) ) );*/
+				/*
+				if( Alive )
+					list.Add( new CallbackEntry( 6210, new ContextCallback( ToggleChampionTitleDisplay ) ) );
+				*/
                 /*** DEL_END ***/
 			}
 		}
@@ -1446,11 +1494,13 @@ namespace Server.Mobiles
 		private void LeaveHouse()
 		{
             /*** DEL_START ***/
-            //non ci si puo uscire dalla casa cosi lamerosamente
-            /*BaseHouse house = BaseHouse.FindHouseAt( this );
+            //non ci si puo uscire dalla casa cosi lamerosamente <- go buy skill in writing
+            /*
+			BaseHouse house = BaseHouse.FindHouseAt( this );
 
 			if ( house != null )
-				this.Location = house.BanLocation;*/
+				this.Location = house.BanLocation;
+			*/
             /*** DEL_END ***/
 		}
 
@@ -1800,9 +1850,12 @@ namespace Server.Mobiles
 			{
                 /*** DEL_START ***/
                 //niente bonus di razza lamereschi
-				/*if( Core.ML && this.Race == Race.Human )
-					return 20.0;*/
+				/*
+				if( Core.ML && this.Race == Race.Human )
+					return 20.0;
+				*/
                 /*** DEL_END ***/
+
 				return 0;
 			}
 		}
@@ -2028,6 +2081,7 @@ namespace Server.Mobiles
 		private TimeSpan m_LongTermElapse;
 		private DateTime m_SessionStart;
 		private DateTime m_LastEscortTime;
+		private DateTime m_LastPetBallTime;
 		private DateTime m_NextSmithBulkOrder;
 		private DateTime m_NextTailorBulkOrder;
 		private DateTime m_SavagePaintExpiration;
@@ -2102,8 +2156,17 @@ namespace Server.Mobiles
 			set{ m_LastEscortTime = value; }
 		}
 
+		[CommandProperty( AccessLevel.GameMaster )]
+		public DateTime LastPetBallTime
+		{
+			get{ return m_LastPetBallTime; }
+			set{ m_LastPetBallTime = value; }
+		}
+
 		public PlayerMobile()
 		{
+			m_AutoStabled = new List<Mobile>();
+
 			m_VisList = new List<Mobile>();
 			m_PermaFlags = new List<Mobile>();
 			m_AntiMacroTable = new Hashtable();
@@ -2125,6 +2188,9 @@ namespace Server.Mobiles
 		public override bool MutateSpeech( List<Mobile> hears, ref string text, ref object context )
 		{
 			if ( Alive )
+				return false;
+
+			if ( Core.ML && Skills[SkillName.SpiritSpeak].Value >= 100.0 )
 				return false;
 
 			if ( Core.AOS )
@@ -2215,6 +2281,7 @@ namespace Server.Mobiles
 				amount = (int)(amount * 1.1);
 				from.Damage( amount, from );
 			}
+
             /*** ADD_START ***/
             //quando ricevi danno devi essere disHiddato
             if(base.Hidden)
@@ -2291,6 +2358,9 @@ namespace Server.Mobiles
 			if ( target is BaseCreature && ((BaseCreature)target).InitialInnocent && !((BaseCreature)target).Controlled )
 				return false;
 
+			if ( Core.ML && target is BaseCreature && ((BaseCreature)target).Controlled && this == ((BaseCreature)target).ControlMaster )
+				return false;
+
 			return base.IsHarmfulCriminal( target );
 		}
 
@@ -2350,6 +2420,18 @@ namespace Server.Mobiles
 
 			switch ( version )
 			{
+				case 27: 
+				{
+					m_AnkhNextUse = reader.ReadDateTime();
+
+					goto case 26;
+				}
+				case 26: 
+				{
+					m_AutoStabled = reader.ReadStrongMobileList();
+
+					goto case 25;
+				}
 				case 25:
 				{
 					int recipeCount = reader.ReadInt();
@@ -2551,6 +2633,8 @@ namespace Server.Mobiles
 				}
 				case 0:
 				{
+					if( version < 26 )
+						m_AutoStabled = new List<Mobile>();
 					break;
 				}
 			}
@@ -2629,7 +2713,10 @@ namespace Server.Mobiles
 
 			base.Serialize( writer );
 			
-			writer.Write( (int) 25 ); // version
+			writer.Write( (int) 27 ); // version
+
+			writer.Write( (DateTime) m_AnkhNextUse );
+			writer.Write( m_AutoStabled, true );
 
 			if( m_AcquiredRecipes == null )
 			{
@@ -2770,6 +2857,9 @@ namespace Server.Mobiles
 
 		public override bool CanSee( Mobile m )
 		{
+			if ( m is CharacterStatue )
+				((CharacterStatue) m).OnRequestedAnimation( this );
+
 			if ( m is PlayerMobile && ((PlayerMobile)m).m_VisList.Contains( this ) )
 				return true;
 
@@ -3886,5 +3976,99 @@ namespace Server.Mobiles
 				m_BuffTable = null;
 		}
 		#endregion
+
+		public void AutoStablePets()
+		{
+			if ( Core.SE && AllFollowers.Count > 0 )
+			{
+				for ( int i = 0; i < m_AllFollowers.Count; ++i )
+				{
+					BaseCreature pet = AllFollowers[i] as BaseCreature;
+
+					if ( pet == null || pet.ControlMaster == null || ( pet.Summoned && !Core.ML ) )
+						continue;
+
+					if ( pet is IMount && ((IMount)pet).Rider != null )
+						continue;
+
+					if ( (pet is PackLlama || pet is PackHorse || pet is Beetle || pet is HordeMinionFamiliar) && (pet.Backpack != null && pet.Backpack.Items.Count > 0) )
+						continue;
+
+					if ( !pet.Summoned && !pet.IsBonded )
+						continue;
+
+					pet.ControlTarget = null;
+					pet.ControlOrder = OrderType.Stay;
+					pet.Internalize();
+
+					pet.SetControlMaster( null );
+					pet.SummonMaster = null;
+
+					pet.IsStabled = true;
+
+					pet.Loyalty = BaseCreature.MaxLoyalty; // Wonderfully happy
+
+					Stabled.Add( pet );
+					m_AutoStabled.Add( pet );
+					--i;
+				}
+			}
+		}
+
+		public void ClaimAutoStabledPets()
+		{
+			if( !Core.SE || m_AutoStabled.Count <= 0 )
+				return;
+
+			if( !Alive )
+			{
+				SendLocalizedMessage( 1076251 ); // Your pet was unable to join you while you are a ghost.  Please re-login once you have ressurected to claim your pets.				
+				return;
+			}
+
+			for ( int i = 0; i < m_AutoStabled.Count; ++i )
+			{
+				BaseCreature pet = m_AutoStabled[i] as BaseCreature;
+
+				if ( pet == null || pet.Deleted )
+				{
+					pet.IsStabled = false;
+					m_AutoStabled.RemoveAt( i );
+					if( Stabled.Contains( pet ) )
+						Stabled.Remove( pet );
+					--i;
+					continue;
+				}
+
+				if ( (Followers + pet.ControlSlots) <= FollowersMax )
+				{
+					m_AutoStabled.RemoveAt( i );
+					--i;
+
+					pet.SetControlMaster( this );
+
+					if ( pet.Summoned )
+						pet.SummonMaster = this;
+
+					pet.ControlTarget = this;
+					pet.ControlOrder = OrderType.Follow;
+
+					pet.MoveToWorld( Location, Map );
+
+					pet.IsStabled = false;
+
+					pet.Loyalty = BaseCreature.MaxLoyalty; // Wonderfully Happy
+
+					if( Stabled.Contains( pet ) )
+						Stabled.Remove( pet );
+				}
+				else
+				{
+					SendMessage( 1049612, pet.Name ); // ~1_NAME~ remained in the stables because you have too many followers.
+				}
+			}
+
+			m_AutoStabled.Clear();
+		}
 	}
 }

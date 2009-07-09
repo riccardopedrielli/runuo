@@ -55,11 +55,15 @@ namespace Server.Spells.Chivalry
 				Caster.SendLocalizedMessage( 1061632 ); // You can't do that while carrying the sigil.
 				return false;
 			}
+			/*** DEL_START ***/
+			/*
 			else if ( Caster.Criminal )
 			{
 				Caster.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
 				return false;
 			}
+			*/
+			/*** DEL_END ***/
 			else if ( SpellHelper.CheckCombat( Caster ) )
 			{
 				Caster.SendLocalizedMessage( 1061282 ); // You cannot use the Sacred Journey ability to flee from combat.

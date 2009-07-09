@@ -12,7 +12,13 @@ namespace Server.Spells.Third
 				"Wall of Stone", "In Sanct Ylem",
 				227,
 				9011,
-				true, /*** MOD_START_END ***/ //parametro che permette di castare in citta
+				/*** MOD_START ***/
+				//parametro che permette di castare in citta
+				/*
+				false,
+				*/
+				true,
+				/*** MOD_END ***/
 				Reagent.Bloodmoss,
 				Reagent.Garlic
 			);
@@ -34,12 +40,14 @@ namespace Server.Spells.Third
 			{
 				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
 			}
-            /*** MOD_START ***/
-            //si deve poter castare in citta'
-            //else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+			/*** MOD_START ***/
+			//si deve poter castare in citta'
+			/*
+			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+			*/
 			else if ( CheckSequence() )
+			/*** MOD_END ***/
 			{
-                /*** MOD_END ***/
 				SpellHelper.Turn( Caster, p );
 
 				SpellHelper.GetSurfaceTop( ref p );
@@ -70,11 +78,14 @@ namespace Server.Spells.Third
 
 				Effects.PlaySound( p, Caster.Map, 0x1F6 );
 
-                /*** MOD_START ***/
-                // setto il muro di dimensione 5 tile
-                //for ( int i = -1; i <= 1; ++i )
+				/*** MOD_START ***/
+				// setto il muro di dimensione 5 tile
+				/*
+				for ( int i = -1; i <= 1; ++i )
+				*/
 				for ( int i = -2; i <= 2; ++i )
-                {/*** MOD_END ***/
+				/*** MOD_END ***/
+				{
 					Point3D loc = new Point3D( eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z );
 					bool canFit = SpellHelper.AdjustField( ref loc, Caster.Map, 22, true );
 
@@ -104,32 +115,42 @@ namespace Server.Spells.Third
 
 			public InternalItem( Point3D loc, Map map, Mobile caster ) : base( 0x80 )
 			{
-                /*** DEL_START ***/
-                //i muri devono essere visibili
-				//Visible = false;
-                /*** DEL_END ***/
+				/*** DEL_START ***/
+				//i muri devono essere visibili
+				/*
+				Visible = false;
+				*/
+				/*** DEL_END ***/
 				Movable = false;
 
 				MoveToWorld( loc, map );
 
-                /*** DEL_START ***/
-                //si puo castare anche se non si e' in LOS
-				/*if ( caster.InLOS( this ) )
+				/*** DEL_START ***/
+				//si puo castare anche se non si e' in LOS
+				/*
+				if ( caster.InLOS( this ) )
 					Visible = true;
 				else
 					Delete();
 
 				if ( Deleted )
-					return;*/
-                /*** DEL_END ***/
+					return;
+				*/
+				/*** DEL_END ***/
 
-                /*** MOD_START ***/
-                //durata del wall of stone settata a 120sec invece che 10
+				/*** MOD_START ***/
+				//durata del wall of stone settata a 120sec invece che 10
+				/*
+				m_Timer = new InternalTimer( this, TimeSpan.FromSeconds( 10.0 ) );
+				m_Timer.Start();
+
+				m_End = DateTime.Now + TimeSpan.FromSeconds( 10.0 );
+				*/
 				m_Timer = new InternalTimer( this, TimeSpan.FromSeconds( 120.0 ) );
 				m_Timer.Start();
 
 				m_End = DateTime.Now + TimeSpan.FromSeconds( 120.0 );
-                /*** MOD_END ***/
+				/*** MOD_END ***/
 			}
 
 			public InternalItem( Serial serial ) : base( serial )

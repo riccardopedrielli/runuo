@@ -114,13 +114,13 @@ namespace Server.Engines.Harvest
 			{
 				oreAndStone.BonusResources = new BonusHarvestResource[]
 				{
-					new BonusHarvestResource( 0, 99.8998, null, null ),	//Nothing	//Note: Rounded the below to .0167 instead of 1/6th of a %.  Close enough
-					new BonusHarvestResource( 100, .0167, 1072562, typeof( BlueDiamond ) ),
-					new BonusHarvestResource( 100, .0167, 1072567, typeof( DarkSapphire ) ),
-					new BonusHarvestResource( 100, .0167, 1072570, typeof( EcruCitrine ) ),
-					new BonusHarvestResource( 100, .0167, 1072564, typeof( FireRuby ) ),
-					new BonusHarvestResource( 100, .0167, 1072566, typeof( PerfectEmerald ) ),
-					new BonusHarvestResource( 100, .0167, 1072568, typeof( Turquoise ) )
+					new BonusHarvestResource( 0, 99.4, null, null ),	//Nothing
+					new BonusHarvestResource( 100, .1, 1072562, typeof( BlueDiamond ) ),
+					new BonusHarvestResource( 100, .1, 1072567, typeof( DarkSapphire ) ),
+					new BonusHarvestResource( 100, .1, 1072570, typeof( EcruCitrine ) ),
+					new BonusHarvestResource( 100, .1, 1072564, typeof( FireRuby ) ),
+					new BonusHarvestResource( 100, .1, 1072566, typeof( PerfectEmerald ) ),
+					new BonusHarvestResource( 100, .1, 1072568, typeof( Turquoise ) )
 				};
 			}
 
@@ -308,6 +308,7 @@ namespace Server.Engines.Harvest
 
 								if ( map.CanSpawnMobile( x, y, from.Z ) )
 								{
+									spawned.OnBeforeSpawn( new Point3D( x, y, from.Z ), map );
 									spawned.MoveToWorld( new Point3D( x, y, from.Z ), map );
 									spawned.Combatant = from;
 									return;
@@ -318,6 +319,7 @@ namespace Server.Engines.Harvest
 
 									if ( map.CanSpawnMobile( x, y, z ) )
 									{
+										spawned.OnBeforeSpawn( new Point3D( x, y, z ), map );
 										spawned.MoveToWorld( new Point3D( x, y, z ), map );
 										spawned.Combatant = from;
 										return;
@@ -325,6 +327,7 @@ namespace Server.Engines.Harvest
 								}
 							}
 
+							spawned.OnBeforeSpawn( from.Location, from.Map );
 							spawned.MoveToWorld( from.Location, from.Map );
 							spawned.Combatant = from;
 						}

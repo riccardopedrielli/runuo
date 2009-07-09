@@ -2,9 +2,6 @@ using System;
 using Server.Network;
 using Server.Targeting;
 using Server.Items;
-/*** ADD_START ***/
-using Server.Multis;
-/*** ADD_END ***/
 
 namespace Server.Items
 {
@@ -99,41 +96,6 @@ namespace Server.Items
 				}
 			}
 
-            /*** ADD_START ***/
-            protected override void OnTargetNotAccessible(Mobile from, object targeted)
-            {
-                if (m_Item.Deleted)
-                    return;
-
-                Item item = (Item)targeted;
-                from.Direction = from.GetDirectionTo(item);
-
-                if (!(from.Skills[SkillName.Lockpicking].Base >= 90))
-                {
-                    m_Item.SendLocalizedMessageTo(from, 502072); // You don't see how that lock can be manipulated.
-                    return;
-                }
-
-                if (from.BeginAction(typeof(Lockpick)))
-                {                    
-                    BaseHouse house = BaseHouse.FindHouseAt(from);
-
-                    if (house.IsLockedDown(item)) // locked down                
-                    {
-                        new StealingTimer(from, item, m_Item, 1, house).Start();
-                    }
-                    else if (item is Container)
-                    {
-                        new StealingTimer(from, item, m_Item, 0, house).Start();
-                    }
-                }
-                else
-                {                    
-                    from.SendLocalizedMessage(500119); // you must wait to perform another action
-                }
-            }
-            /*** ADD_END***/
-
 			private class InternalTimer : Timer
 			{
 				private Mobile m_From;
@@ -204,78 +166,6 @@ namespace Server.Items
 					}
 				}
 			}
-
-            public class StealingTimer : Timer
-            {
-                private Mobile m_From;
-                private Item m_Item;
-                private Lockpick m_Lockpick;
-                private int m_ToDo;
-                private BaseHouse m_house;
-
-                //se ToDO = 1 unlock ToDo = 0 unsecure
-                public StealingTimer(Mobile from, Item item, Lockpick lockpick, int ToDo, BaseHouse house)
-                    : base(TimeSpan.FromSeconds(5.0))
-                {
-                    m_From = from;
-                    m_Item = item;
-                    m_Lockpick = lockpick;
-                    m_ToDo = ToDo;
-                    m_house = house;
-                    from.PlaySound(0x241); //suono lockpick
-                    Priority = TimerPriority.TwoFiftyMS;
-                }
-
-                protected void BrokeLockPickTest()
-                {
-                    // When failed, a 25% chance to break the lockpick
-                    if (Utility.Random(4) == 0)
-                    {
-                        // You broke the lockpick.
-                        m_Item.SendLocalizedMessageTo(m_From, 502074);
-
-                        m_From.PlaySound(0x3A4);
-                        m_Lockpick.Consume();
-                    }
-                }
-
-                protected override void OnTick()
-                {
-                    if (!m_From.InRange(m_Item.GetWorldLocation(), 1) || m_Lockpick.Deleted)
-                        return;
-
-                    double lockpicking = m_From.Skills[SkillName.Lockpicking].Base;
-                    double stealing = m_From.Skills[SkillName.Stealing].Base;                   
-                    int bonus = Convert.ToInt32((lockpicking + stealing + m_From.Dex) / 60);//max 5%
-
-                    if (m_From.CheckTargetSkill(SkillName.Lockpicking, m_Item, 90, 100))
-                    {
-                        bonus += Utility.Random(5);
-                    }
-
-                    if (Utility.Random(100) <= bonus) //probabilità max del 10%
-                    {
-                        if (m_ToDo == 0)
-                        {
-                            m_house.StealSecure(m_From, m_Item); //unsecure
-                        }
-                        else
-                        {
-                            m_house.StealLockedObj(m_From, m_Item); //unlock
-                        }
-                        m_From.PlaySound(0x4A);// Success! Pick the lock!
-                    }
-                    else
-                    {
-                        // The player failed to pick the lock
-                        m_Item.SendLocalizedMessageTo(m_From, 502075);// You are unable to pick the lock.
-                        BrokeLockPickTest();
-                    }
-
-                    m_From.EndAction(typeof(Lockpick));
-                }
-            }
-            /*** ADD_END ***/
 		}
 	}
 }

@@ -257,7 +257,8 @@ namespace Server.Gumps
 
             /*** DEL_START ***/
             //le case sono sempre accessibili al pubblico
-			/*if ( house.Public )
+			/*
+			if ( house.Public )
 			{
 				AddButtonLabeled( 10, 390, GetButtonID( 0, 0 ), 1060674 ); // Banish
 				AddButtonLabeled( 10, 410, GetButtonID( 0, 1 ), 1011261 ); // Lift a Ban
@@ -266,7 +267,8 @@ namespace Server.Gumps
 			{
 				AddButtonLabeled( 10, 390, GetButtonID( 0, 2 ), 1060676 ); // Grant Access
 				AddButtonLabeled( 10, 410, GetButtonID( 0, 3 ), 1060677 ); // Revoke Access
-			}*/
+			}
+			*/
             /*** DEL_END ***/
 
 			AddPageButton( 150, 10, GetButtonID( 1, 0 ), 1060668, HouseGumpPageAOS.Information );
@@ -287,7 +289,9 @@ namespace Server.Gumps
 					AddHtmlLocalized( 20, 210, 380, 20, (house is HouseFoundation) ? 1060681 : 1060680, SelectedColor, false, false ); // This is a (pre | custom)-built house.
 					/*** DEL_START ***/
                     //le case sono sempre accessibili a tutti e non hanno decay
-                    /*AddHtmlLocalized( 20, 230, 380, 20, house.Public ? 1060678 : 1060679, SelectedColor, false, false ); // This house is (private | open to the public).                    
+                    /*
+					AddHtmlLocalized( 20, 230, 380, 20, house.Public ? 1060678 : 1060679, SelectedColor, false, false ); // This house is (private | open to the public).
+
 					switch ( house.DecayType )
 					{
 						case DecayType.Ageless:
@@ -306,8 +310,10 @@ namespace Server.Gumps
 							AddHtmlLocalized( 20, 250, 380, 20, 1062207, WarningColor, false, false ); // This house is <a href = "?ForceTopic97">Condemned</a>.
 							break;
 						}
-					}*/
+					}
+					*/
                     /*** DEL_END ***/
+
 					AddHtmlLocalized( 20, 290, 200, 20, 1060692, SelectedColor, false, false ); // Built On:
 					AddLabel( 250, 290, LabelHue, GetDateTime( house.BuiltOn ) );
 
@@ -318,9 +324,12 @@ namespace Server.Gumps
 					AddLabel( 250, 330, LabelHue, house.Price.ToString() );
 
                     /*** DEL_START ***/
-					/*AddHtmlLocalized( 20, 360, 300, 20, 1011241, SelectedColor, false, false ); // Number of visits this building has had: 
-					AddLabel( 350, 360, LabelHue, house.Visits.ToString() );*/
+					/*
+					AddHtmlLocalized( 20, 360, 300, 20, 1011241, SelectedColor, false, false ); // Number of visits this building has had: 
+					AddLabel( 350, 360, LabelHue, house.Visits.ToString() );
+					*/
                     /*** DEL_END ***/
+
 					break;
 				}
 				case HouseGumpPageAOS.Security:
@@ -337,7 +346,8 @@ namespace Server.Gumps
 
                     /*** DEL_START ***/
                     //le case sono sempre pubbliche
-					/*if ( house.Public )
+					/*
+					if ( house.Public )
 					{
 						AddButtonLabeled( 10, 310, GetButtonID( 3, 8 ), 1011260 ); // View Ban List
 						AddButtonLabeled( 10, 330, GetButtonID( 3, 9 ), 1060698 ); // Clear Ban List
@@ -354,8 +364,10 @@ namespace Server.Gumps
 						AddHtmlLocalized( 245, 130, 240, 20, 1060695, SelectedColor, false, false ); // Change to Private
 
 						AddButtonLabeled( 210, 150, GetButtonID( 3, 13 ), 1060694, isOwner ); // Change to Public
-					}*/
-                    /*** DEL_END ***/                     
+					}
+					*/
+                    /*** DEL_END ***/
+
 					break;
 				}
 				case HouseGumpPageAOS.Storage:
@@ -538,7 +550,8 @@ namespace Server.Gumps
 				}
 				/*** DEL_START ***/
                 //non si puo bannare e impedire l'accesso
-                /*case HouseGumpPageAOS.RemoveBan:
+                /*
+				case HouseGumpPageAOS.RemoveBan:
 				{
 					AddHtmlLocalized( 10, 120, 400, 20, 1060733, LabelColor, false, false ); // <CENTER>BAN LIST</CENTER>
 					AddList( house.Bans, 12, true, true, from );
@@ -561,7 +574,8 @@ namespace Server.Gumps
 					AddHtmlLocalized( 10, 120, 400, 20, 1060732, LabelColor, false, false ); // <CENTER>ACCESS LIST</CENTER>
 					AddList( house.Access, -1, false, true, from );
 					break;
-				}*/
+				}
+				*/
                 /*** DEL_END ***/
 				case HouseGumpPageAOS.ChangePost:
 				{
@@ -642,7 +656,8 @@ namespace Server.Gumps
 
 		/*** DEL_START ***/
         //niente ban e niente lista accessi
-        /*public static void ClearBans_Callback( Mobile from, bool okay, object state )
+        /*
+		public static void ClearBans_Callback( Mobile from, bool okay, object state )
 		{
 			BaseHouse house = (BaseHouse) state;
 
@@ -689,8 +704,10 @@ namespace Server.Gumps
 			}
 
 			from.SendGump( new HouseGumpAOS( HouseGumpPageAOS.Security, from, house ) );
-		}*/
+		}
+		*/
         /*** DEL_END ***/
+
 		public static void ConvertHouse_Callback( Mobile from, bool okay, object state )
 		{
 			BaseHouse house = (BaseHouse) state;
@@ -872,7 +889,8 @@ namespace Server.Gumps
 				{
                     /*** DEL_START ***/
                     //niente ban niente accessi
-					/*switch ( index )
+					/*
+					switch ( index )
 					{
 						case 0: // Banish
 						{
@@ -908,8 +926,10 @@ namespace Server.Gumps
 
 							break;
 						}
-					}*/
+					}
+					*/
                     /*** DEL_END ***/
+
 					break;
 				}
 				case 1:
@@ -996,7 +1016,8 @@ namespace Server.Gumps
 						}
 						/*** DEL_START ***/
                         //niente ban niente accessi niente case private
-                        /*case 8: // View Ban List
+                        /*
+						case 8: // View Ban List
 						{
 							from.SendGump( new HouseGumpAOS( HouseGumpPageAOS.ListBan, from, m_House ) );
 
@@ -1089,9 +1110,10 @@ namespace Server.Gumps
 										m.Location = m_House.BanLocation;
 								}
 							}
-                            
+
 							break;
-						}*/
+						}
+						*/
                         /*** DEL_END ***/
 					}
 
@@ -1360,36 +1382,38 @@ namespace Server.Gumps
 				}
 				/*** DEL_START ***/
                 //niente ban niente accessi
-            /*case 12:
-            {
-                if ( m_List != null && index >= 0 && index < m_List.Count )
-                {
-                    m_House.RemoveBan( from, (Mobile)m_List[index] );
+            	/*
+				case 12:
+				{
+					if ( m_List != null && index >= 0 && index < m_List.Count )
+					{
+						m_House.RemoveBan( from, (Mobile)m_List[index] );
 
-                    if ( m_House.Bans.Count > 0 )
-                        from.SendGump( new HouseGumpAOS( HouseGumpPageAOS.RemoveBan, from, m_House ) );
-                    else
-                        from.SendGump( new HouseGumpAOS( HouseGumpPageAOS.Security, from, m_House ) );
-                }
+						if ( m_House.Bans.Count > 0 )
+							from.SendGump( new HouseGumpAOS( HouseGumpPageAOS.RemoveBan, from, m_House ) );
+						else
+							from.SendGump( new HouseGumpAOS( HouseGumpPageAOS.Security, from, m_House ) );
+					}
 
-                break;
-            }                
-            case 13:
-            {
-                if ( m_List != null && index >= 0 && index < m_List.Count )
-                {
-                    m_House.RemoveAccess( from, (Mobile)m_List[index] );
+					break;
+				}
+				case 13:
+				{
+					if ( m_List != null && index >= 0 && index < m_List.Count )
+					{
+						m_House.RemoveAccess( from, (Mobile)m_List[index] );
 
-                    if ( m_House.Access.Count > 0 )
-                        from.SendGump( new HouseGumpAOS( HouseGumpPageAOS.RemoveAccess, from, m_House ) );
-                    else
-                        from.SendGump( new HouseGumpAOS( HouseGumpPageAOS.Security, from, m_House ) );
-                }
+						if ( m_House.Access.Count > 0 )
+							from.SendGump( new HouseGumpAOS( HouseGumpPageAOS.RemoveAccess, from, m_House ) );
+						else
+							from.SendGump( new HouseGumpAOS( HouseGumpPageAOS.Security, from, m_House ) );
+					}
 
-                break;
-            }*/
-            /*** DEL_END ***/
-            case 14:
+					break;
+				}
+				*/
+		        /*** DEL_END ***/
+				case 14:
 				{
 					if ( isOwner && isCustomizable && index >= 0 && index < m_PostNumbers.Length )
 					{

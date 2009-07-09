@@ -8,33 +8,67 @@ using Server.Spells.Seventh;
 namespace Server.Gumps
 {
 	public class PolymorphEntry
-    {   /*** MOD_START ***/
-        //modificati i PolymorphEntry aggiungendo il nome della trasformazione
+	{
+		/*** MOD_START ***/
+		//modificati i PolymorphEntry aggiungendo il nome della trasformazione
+		/*
+		public static readonly PolymorphEntry Chicken =		new PolymorphEntry( 8401, 0xD0, 1015236, 15, 10 );
+		public static readonly PolymorphEntry Dog =			new PolymorphEntry( 8405, 0xD9, 1015237, 17, 10 );
+		public static readonly PolymorphEntry Wolf =		new PolymorphEntry( 8426, 0xE1, 1015238, 18, 10 );
+		public static readonly PolymorphEntry Panther =		new PolymorphEntry( 8473, 0xD6, 1015239, 20, 14 );
+		public static readonly PolymorphEntry Gorilla =		new PolymorphEntry( 8437, 0x1D, 1015240, 23, 10 );
+		public static readonly PolymorphEntry BlackBear =	new PolymorphEntry( 8399, 0xD3, 1015241, 22, 10 );
+		public static readonly PolymorphEntry GrizzlyBear =	new PolymorphEntry( 8411, 0xD4, 1015242, 22, 12 );
+		public static readonly PolymorphEntry PolarBear =	new PolymorphEntry( 8417, 0xD5, 1015243, 26, 10 );
+		public static readonly PolymorphEntry HumanMale =	new PolymorphEntry( 8397, 0x190, 1015244, 29, 8 );
+		public static readonly PolymorphEntry HumanFemale =	new PolymorphEntry( 8398, 0x191, 1015254, 29, 10 );
+		public static readonly PolymorphEntry Slime =		new PolymorphEntry( 8424, 0x33, 1015246, 5, 10 );
+		public static readonly PolymorphEntry Orc =			new PolymorphEntry( 8416, 0x11, 1015247, 29, 10 );
+		public static readonly PolymorphEntry LizardMan =	new PolymorphEntry( 8414, 0x21, 1015248, 26, 10 );
+		public static readonly PolymorphEntry Gargoyle =	new PolymorphEntry( 8409, 0x04, 1015249, 22, 10 );
+		public static readonly PolymorphEntry Ogre =		new PolymorphEntry( 8415, 0x01, 1015250, 24, 9 );
+		public static readonly PolymorphEntry Troll =		new PolymorphEntry( 8425, 0x36, 1015251, 25, 9 );
+		public static readonly PolymorphEntry Ettin =		new PolymorphEntry( 8408, 0x02, 1015252, 25, 8 );
+		public static readonly PolymorphEntry Daemon =		new PolymorphEntry( 8403, 0x09, 1015253, 25, 8 );
+		*/
 		public static readonly PolymorphEntry Chicken =		new PolymorphEntry( "a chicken", 8401, 0xD0, 1015236, 15, 10 );
 		public static readonly PolymorphEntry Dog =			new PolymorphEntry( "a dog", 8405, 0xD9, 1015237, 17, 10 );
-        public static readonly PolymorphEntry Pig =         new PolymorphEntry( "a pig", 8449, 0xCB, 1018266, 6, 6 ); 
+		public static readonly PolymorphEntry Pig =         new PolymorphEntry( "a pig", 8449, 0xCB, 1018266, 6, 6 ); 
 		public static readonly PolymorphEntry Wolf =		new PolymorphEntry( "a wolf", 8426, 0xE1, 1015238, 18, 10 );
 		public static readonly PolymorphEntry Panther =		new PolymorphEntry( "a panther", 8473, 0xD6, 1015239, 20, 14 );
 		public static readonly PolymorphEntry Gorilla =		new PolymorphEntry( "a gorilla", 8437, 0x1D, 1015240, 23, 10 );
 		public static readonly PolymorphEntry BlackBear =	new PolymorphEntry( "a black bear", 8399, 0xD3, 1015241, 22, 10 );
 		public static readonly PolymorphEntry GrizzlyBear =	new PolymorphEntry( "a grizzly bear", 8411, 0xD4, 1015242, 22, 12 );
 		public static readonly PolymorphEntry PolarBear =	new PolymorphEntry( "a polar bear", 8417, 0xD5, 1015243, 26, 10 );
-        //public static readonly PolymorphEntry HumanMale =	new PolymorphEntry( null, 8397, 0x190, 1015244, 29, 8 );
-        //public static readonly PolymorphEntry HumanFemale =	new PolymorphEntry( null, 8398, 0x191, 1015254, 29, 10 );
 		public static readonly PolymorphEntry Slime =		new PolymorphEntry( "a slime", 8424, 0x33, 1015246, 5, 10 );
 		public static readonly PolymorphEntry Orc =			new PolymorphEntry( "an orc", 8416, 0x11, 1015247, 29, 10 );
 		public static readonly PolymorphEntry LizardMan =	new PolymorphEntry( "a lizardman", 8414, 0x21, 1015248, 26, 10 );
-        public static readonly PolymorphEntry Skeleton =    new PolymorphEntry( "a skeletal knight", 8423, 0x39, 1029661, 26, 10 ); 
+		public static readonly PolymorphEntry Skeleton =	new PolymorphEntry( "a skeletal knight", 8423, 0x39, 1029661, 26, 10 ); 
 		public static readonly PolymorphEntry Gargoyle =	new PolymorphEntry( "a gargoyle", 8409, 0x04, 1015249, 22, 10 );
 		public static readonly PolymorphEntry Ogre =		new PolymorphEntry( "an ogre", 8415, 0x01, 1015250, 24, 9 );
 		public static readonly PolymorphEntry Troll =		new PolymorphEntry( "a troll", 8425, 0x36, 1015251, 25, 9 );
 		public static readonly PolymorphEntry Ettin =		new PolymorphEntry( "an ettin", 8408, 0x02, 1015252, 25, 8 );
-        public static readonly PolymorphEntry Daemon =      new PolymorphEntry( "a daemon", 8403, 0x09, 1015253, 25, 8 );
+		public static readonly PolymorphEntry Daemon =		new PolymorphEntry( "a daemon", 8403, 0x09, 1015253, 25, 8 );
+		/*** MOD_END ***/
 
 
-        //aggiunta la variabile m_Name che prima non esisteva
-        private int m_Art, m_Body, m_Num, m_X, m_Y;
+		private int m_Art, m_Body, m_Num, m_X, m_Y;
+
+		/*** ADD_START ***/
         private string m_Name;
+		/*** ADD_END ***/
+
+		/*** MOD_START ***/
+		/*
+		private PolymorphEntry( int Art, int Body, int LocNum, int X, int Y )
+		{
+			m_Art = Art;
+			m_Body = Body;
+			m_Num = LocNum;
+			m_X = X;
+			m_Y = Y;
+		}
+		*/
 
 		private PolymorphEntry( string Name, int Art, int Body, int LocNum, int X, int Y )
 		{
@@ -45,28 +79,30 @@ namespace Server.Gumps
 			m_X = X;
 			m_Y = Y;
 		}
+		/*** MOD_END ***/
 
-        public string Name { 
-            get 
-            {   
-                //il calcolo dei nomi random va messo qui perche se no 
-                //li genera soltanto una volta per tutti e rimane quello fino al riavvio del server
-                switch (m_Name)
-                {
-                    case "a lizardman":
-                        return NameList.RandomName("lizardman");
-                    case "an orc":
-                        return NameList.RandomName("orc");
-                    case "a daemon":
-                        return NameList.RandomName("daemon");
-                    default:
-                        return m_Name; 
-                }               
-            } 
-        }
-        /*** MOD_END ***/
-		
-        public int ArtID { get { return m_Art; } }
+		/*** ADD_START ***/
+		public string Name { 
+			get 
+			{   
+				//il calcolo dei nomi random va messo qui perche se no 
+				//li genera soltanto una volta per tutti e rimane quello fino al riavvio del server
+				switch (m_Name)
+				{
+					case "a lizardman":
+						return NameList.RandomName("lizardman");
+					case "an orc":
+						return NameList.RandomName("orc");
+					case "a daemon":
+						return NameList.RandomName("daemon");
+					default:
+						return m_Name;
+				}
+			} 
+		}
+		/*** ADD_END ***/
+
+		public int ArtID { get { return m_Art; } }
 		public int BodyID { get { return m_Body; } }
 		public int LocNumber{ get { return m_Num; } }
 		public int X{ get{ return m_X; } }
@@ -91,35 +127,47 @@ namespace Server.Gumps
 			public int LocNumber{ get { return m_Num; } }
 		}
 
-        /*** ADD_START ***/
-        //le voci con "new" come commento sono le trasformazioni aggiunte a quelle di def
 		private static PolymorphCategory[] Categories = new PolymorphCategory[]
 			{
 				new PolymorphCategory( 1015235, // Animals
 					PolymorphEntry.Chicken,
 					PolymorphEntry.Dog,
-                    PolymorphEntry.Pig, //new
+					/*** ADD_START ***/
+                    PolymorphEntry.Pig,
+					/*** ADD_END ***/
 					PolymorphEntry.Wolf,
 					PolymorphEntry.Panther,
 					PolymorphEntry.Gorilla,
 					PolymorphEntry.BlackBear,
 					PolymorphEntry.GrizzlyBear,
+					/*** MOD_START ***/
+					/*
+					PolymorphEntry.PolarBear,
+					PolymorphEntry.HumanMale ),
+					*/
 					PolymorphEntry.PolarBear ),
-					//PolymorphEntry.HumanMale ), // rimosso perche il mago non puo trasformarsi in umani
+					/*** MOD_END ***/
 
 				new PolymorphCategory( 1015245, // Monsters
 					PolymorphEntry.Slime,
 					PolymorphEntry.Orc,
 					PolymorphEntry.LizardMan,
-                    PolymorphEntry.Skeleton, //new
+					/*** ADD_START ***/
+                    PolymorphEntry.Skeleton,
+					/*** ADD_END ***/
 					PolymorphEntry.Gargoyle,
 					PolymorphEntry.Ogre,
 					PolymorphEntry.Troll,
 					PolymorphEntry.Ettin,
+					/*** MOD_START ***/
+					/*
+					PolymorphEntry.Daemon,
+					PolymorphEntry.HumanFemale )
+					*/
 					PolymorphEntry.Daemon )
-					//PolymorphEntry.HumanFemale ) // rimosso perche il mago non puo trasformarsi in umani
+					/*** MOD_END ***/
 			};
-        /*** ADD_END ***/
+
 
 		private Mobile m_Caster;
 		private Item m_Scroll;
@@ -178,7 +226,12 @@ namespace Server.Gumps
 				{
 					if ( ent >= 0 && ent < Categories[cat].Entries.Length )
 					{
-                        Spell spell = new PolymorphSpell(m_Caster, m_Scroll, Categories[cat].Entries[ent].BodyID, Categories[cat].Entries[ent].Name);
+						/*** MOD_START ***/
+						/*
+						Spell spell = new PolymorphSpell( m_Caster, m_Scroll, Categories[cat].Entries[ent].BodyID );
+						*/
+						Spell spell = new PolymorphSpell( m_Caster, m_Scroll, Categories[cat].Entries[ent].BodyID, Categories[cat].Entries[ent].Name );
+						/*** MOD_END ***/
 						spell.Cast();
 					}
 				}
@@ -186,35 +239,39 @@ namespace Server.Gumps
 		}
 	}
 
-
 	public class NewPolymorphGump : Gump
 	{
-        /*** ADD_START ***/
-        //le voci con "new" come commento sono le trasformazioni aggiunte a quelle di def
 		private static readonly PolymorphEntry[] m_Entries = new PolymorphEntry[]
 			{
 				PolymorphEntry.Chicken,
 				PolymorphEntry.Dog,
-                PolymorphEntry.Pig,  //new
+		        /*** ADD_START ***/
+                PolymorphEntry.Pig,
+		        /*** ADD_END ***/
 				PolymorphEntry.Wolf,
 				PolymorphEntry.Panther,
 				PolymorphEntry.Gorilla,
 				PolymorphEntry.BlackBear,
 				PolymorphEntry.GrizzlyBear,
 				PolymorphEntry.PolarBear,
-				//PolymorphEntry.HumanMale, // rimosso perche il mago non puo trasformarsi in umani
-				//PolymorphEntry.HumanFemale, // rimosso perche il mago non puo trasformarsi in umani
+		        /*** DEL_START ***/
+				/*
+				PolymorphEntry.HumanMale,
+				PolymorphEntry.HumanFemale,
+				*/
+				/*** ADD_START ***/
 				PolymorphEntry.Slime,
 				PolymorphEntry.Orc,
 				PolymorphEntry.LizardMan,
-                PolymorphEntry.Skeleton, //new
+		        /*** ADD_START ***/
+                PolymorphEntry.Skeleton,
+		        /*** ADD_END ***/
 				PolymorphEntry.Gargoyle,
 				PolymorphEntry.Ogre,
 				PolymorphEntry.Troll,
 				PolymorphEntry.Ettin,
 				PolymorphEntry.Daemon
 			};
-        /*** ADD_END ***/
 
 		private Mobile m_Caster;
 		private Item m_Scroll;
@@ -276,7 +333,12 @@ namespace Server.Gumps
 			if ( idx < 0 || idx >= m_Entries.Length )
 				return;
 
-            Spell spell = new PolymorphSpell(m_Caster, m_Scroll, m_Entries[idx].BodyID, m_Entries[idx].Name);
+			/*** MOD_START ***/
+			/*
+			Spell spell = new PolymorphSpell( m_Caster, m_Scroll, m_Entries[idx].BodyID );
+			*/
+			Spell spell = new PolymorphSpell( m_Caster, m_Scroll, m_Entries[idx].BodyID, m_Entries[idx].Name );
+			/*** MOD_END ***/
 			spell.Cast();
 		}
 	}

@@ -25,23 +25,24 @@ namespace Server.Spells.Fifth
 
 		public override bool CheckCast()
 		{
-            /*** DEL_START ***/
-			/*if ( Core.AOS )
-				return true;            
+			/*** DEL_START ***/
+			/*
+			if ( Core.AOS )
+				return true;
 
 			if ( Caster.MagicDamageAbsorb > 0 )
 			{
 				Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
 				return false;
 			}
-            
-            //via sta merda
-			/*else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
+			else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
 			{
 				Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
 				return false;
-			}*/
-            /*** DEL_END ***/
+			}
+			*/
+			/*** DEL_END ***/
+
 			return true;
 		}
 
@@ -50,8 +51,8 @@ namespace Server.Spells.Fifth
 		public override void OnCast()
 		{
 			if ( Core.AOS )
-			{ 
-                /* The magic reflection spell decreases the caster's physical resistance, while increasing the caster's elemental resistances.
+			{
+				/* The magic reflection spell decreases the caster's physical resistance, while increasing the caster's elemental resistances.
 				 * Physical decrease = 25 - (Inscription/20).
 				 * Elemental resistance = +10 (-20 physical, +10 elemental at GM Inscription)
 				 * The magic reflection spell has an indefinite duration, becoming active when cast, and deactivated when re-cast.
@@ -60,18 +61,19 @@ namespace Server.Spells.Fifth
 
 				if ( CheckSequence() )
 				{
-                    /*** ADD_START ***/
-                    //old style reflect
-                    Caster.MagicDamageAbsorb = 15;
+					/*** ADD_START ***/
+					//old style reflect
+					Caster.MagicDamageAbsorb = 15;
 
 				    Caster.FixedParticles( 0x375A, 10, 15, 5037, EffectLayer.Waist );
 				    Caster.PlaySound( 0x1E9 );
-			        /*** ADD_START ***/
+					/*** ADD_END ***/
 
-                    /*** DEL_START ***/
-                    //via sta merda
-					/*Mobile targ = Caster;
-                    
+					/*** DEL_START ***/
+					//via sta merda
+					/*
+					Mobile targ = Caster;
+
 					ResistanceMod[] mods = (ResistanceMod[])m_Table[targ];
 
 					if ( mods == null )
@@ -112,12 +114,15 @@ namespace Server.Spells.Fifth
 
 						BuffInfo.RemoveBuff( targ, BuffIcon.MagicReflection );
 					}
-				}*/
-               /*** DEL_END ***/
+					*/
+					/*** DEL_END ***/
+				}
+
 				FinishSequence();
 			}
-            /*** DEL_START ***/
-            /*else
+			/*** DEL_START ***/
+			/*
+			else
 			{
 				if ( Caster.MagicDamageAbsorb > 0 )
 				{
@@ -145,9 +150,10 @@ namespace Server.Spells.Fifth
 					}
 				}
 
-				FinishSequence(); */
-                /*** DEL_END ***/
+				FinishSequence();
 			}
+			*/
+			/*** DEL_END ***/
 		}
 	}
 }

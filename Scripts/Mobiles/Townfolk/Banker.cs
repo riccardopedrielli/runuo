@@ -238,89 +238,99 @@ namespace Server.Mobiles
 						{
 							e.Handled = true;
 
-                            /*** DEL_START ***/
-                            //anche i criminali possono usare la banca
-                            /*if ( e.Mobile.Criminal )
-                            {
-                                this.Say( 500389 ); // I will not do business with a criminal!
-                                break;
-                            }*/
-                            /*** DEL_END ***/
-
-                            string[] split = e.Speech.Split( ' ' );
-
-                            if ( split.Length >= 2 )
-                            {
-                                int amount;
-
-                                try
-                                {
-                                    amount = Convert.ToInt32( split[1] );
-                                }
-                                catch
-                                {
-                                    break;
-                                }
-
-                                if ( amount > 5000 )
-                                {
-                                    this.Say( 500381 ); // Thou canst not withdraw so much at one time!
-                                }
-                                else if ( amount > 0 )
-                                {
-                                    if (Withdraw(e.Mobile, amount))
-                                    {
-                                        e.Mobile.AddToBackpack(new Gold(amount));
-
-                                        this.Say(1010005); // Thou hast withdrawn gold from thy account.
-                                    }                                    
-                                    else
-                                    {
-                                        this.Say(500384); // Ah, art thou trying to fool me? Thou hast not so much gold!
-                                    }                                    
-                                    /*** DEL_START ***/
-                                    /*BankBox box = e.Mobile.FindBankNoCreate();
-
-                                    if ( box == null || !box.ConsumeTotal( typeof( Gold ), amount ) )
-                                    {
-                                        this.Say( 500384 ); // Ah, art thou trying to fool me? Thou hast not so much gold!
-                                    }
-                                    else
-                                    {
-                                        e.Mobile.AddToBackpack( new Gold( amount ) );
-
-                                        this.Say( 1010005 ); // Thou hast withdrawn gold from thy account.
-                                    }*/
-                                    /*** DEL_END ***/
-                                }
-                            }
-
-                            break;
-                        }
-                        case 0x0001: // *balance*
-                        {
-                            e.Handled = true;
-
-                            /*** DEL_START ***/
-                            //anche i criminali possono usare la banca
-							/*if ( e.Mobile.Criminal )
+							/*** DEL_START ***/
+							//anche i criminali possono usare la banca
+							/*
+							if ( e.Mobile.Criminal )
 							{
 								this.Say( 500389 ); // I will not do business with a criminal!
 								break;
-							}*/
-                            /*** DEL_END ***/
+							}
+							*/
+							/*** DEL_END ***/
 
-                            this.Say(1042759, Convert.ToString(GetBalance(e.Mobile)));
-                            /*** DEL_START ***/
-                            //no ma gg alla skillezza dei programmatori che fanno le funzioni e non le usano
-                            /*BankBox box = e.Mobile.FindBankNoCreate();
+							string[] split = e.Speech.Split( ' ' );
+
+							if ( split.Length >= 2 )
+							{
+								int amount;
+
+								try
+								{
+									amount = Convert.ToInt32( split[1] );
+								}
+								catch
+								{
+									break;
+								}
+
+								if ( amount > 5000 )
+								{
+									this.Say( 500381 ); // Thou canst not withdraw so much at one time!
+								}
+								else if ( amount > 0 )
+								{
+									/*** MOD_START ***/
+									/*
+									BankBox box = e.Mobile.FindBankNoCreate();
+
+									if ( box == null || !box.ConsumeTotal( typeof( Gold ), amount ) )
+									{
+										this.Say( 500384 ); // Ah, art thou trying to fool me? Thou hast not so much gold!
+									}
+									else
+									{
+										e.Mobile.AddToBackpack( new Gold( amount ) );
+
+										this.Say( 1010005 ); // Thou hast withdrawn gold from thy account.
+									}
+									*/
+
+									if (Withdraw(e.Mobile, amount))
+									{
+										e.Mobile.AddToBackpack(new Gold(amount));
+
+										this.Say(1010005); // Thou hast withdrawn gold from thy account.
+									}                                    
+									else
+									{
+										this.Say(500384); // Ah, art thou trying to fool me? Thou hast not so much gold!
+									}
+									/*** MOD_END ***/
+								}
+							}
+
+							break;
+						}
+						case 0x0001: // *balance*
+						{
+							e.Handled = true;
+
+							/*** DEL_START ***/
+							//anche i criminali possono usare la banca
+							/*
+							if ( e.Mobile.Criminal )
+							{
+								this.Say( 500389 ); // I will not do business with a criminal!
+								break;
+							}
+							*/
+							/*** DEL_END ***/
+
+							/*** DEL_START ***/
+							//no ma gg alla skillezza dei programmatori che fanno le funzioni e non le usano
+							/*
+
+							BankBox box = e.Mobile.FindBankNoCreate();
 
 							if ( box != null )
 								this.Say( 1042759, box.TotalGold.ToString() ); // Thy current bank balance is ~1_AMOUNT~ gold.
 							else
 								this.Say( 1042759, "0" ); // Thy current bank balance is ~1_AMOUNT~ gold.
-                            */
-                            /*** DEL_END ***/
+							*/
+							this.Say(1042759, Convert.ToString(GetBalance(e.Mobile)));
+							/*** DEL_END ***/
+
 							break;
 						}
 						case 0x0002: // *bank*
@@ -328,13 +338,15 @@ namespace Server.Mobiles
 							e.Handled = true;
 
 							/*** DEL_START ***/
-                            //anche i criminali possono usare la banca
-							/*if ( e.Mobile.Criminal )
+							//anche i criminali possono usare la banca
+							/*
+							if ( e.Mobile.Criminal )
 							{
 								this.Say( 500378 ); // Thou art a criminal and cannot access thy bank box.
 								break;
-							}*/
-                            /*** DEL_END ***/
+							}
+							*/
+							/*** DEL_END ***/
 
 							e.Mobile.BankBox.Open();
 
@@ -345,13 +357,15 @@ namespace Server.Mobiles
 							e.Handled = true;
 
 							/*** DEL_START ***/
-                            //anche i criminali possono usare la banca
-							/*if ( e.Mobile.Criminal )
+							//anche i criminali possono usare la banca
+							/*
+							if ( e.Mobile.Criminal )
 							{
 								this.Say( 500389 ); // I will not do business with a criminal!
 								break;
-							}*/
-                            /*** DEL_END ***/
+							}
+							*/
+							/*** DEL_END ***/
 
 							string[] split = e.Speech.Split( ' ' );
 

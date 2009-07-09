@@ -47,14 +47,16 @@ namespace Server.Spells.Seventh
 			{
 				Caster.SendLocalizedMessage( 1061632 ); // You can't do that while carrying the sigil.
 				return false;
-            }
-            /*** DEL_START ***/
-            /* else if ( Caster.Criminal )
+			}
+			/*** DEL_START ***/
+			/* 
+			else if ( Caster.Criminal )
 			{
 				Caster.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
 				return false;
-			}*/
-            /*** DEL_END ***/
+			}
+			*/
+			/*** DEL_END ***/
 			else if ( SpellHelper.CheckCombat( Caster ) )
 			{
 				Caster.SendLocalizedMessage( 1005564, "", 0x22 ); // Wouldst thou flee during the heat of battle??
@@ -62,6 +64,24 @@ namespace Server.Spells.Seventh
 			}
 
 			return SpellHelper.CheckTravel( Caster, TravelCheckType.GateFrom );
+		}
+
+		private bool GateExistsAt(Map map, Point3D loc )
+		{
+			bool _gateFound = false;
+
+			IPooledEnumerable eable = map.GetItemsInRange( loc, 0 );
+			foreach ( Item item in eable )
+			{
+				if ( item is Moongate || item is PublicMoongate )
+				{
+					_gateFound = true;
+					break;
+				}
+			}
+			eable.Free();
+
+			return _gateFound;
 		}
 
 		public void Effect( Point3D loc, Map map, bool checkMulti )
@@ -103,6 +123,10 @@ namespace Server.Spells.Seventh
 			else if ( (checkMulti && SpellHelper.CheckMulti( loc, map )) )
 			{
 				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
+			}
+			else if ( Core.SE && ( GateExistsAt( map, loc ) || GateExistsAt( Caster.Map, Caster.Location ) ) ) // SE restricted stacking gates
+			{
+				Caster.SendLocalizedMessage( 1071242 ); // There is already a gate there.
 			}
 			else if ( CheckSequence() )
 			{

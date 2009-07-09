@@ -129,8 +129,16 @@ namespace Server.Items
 			dullCopper.WeaponLowerRequirements = 50;
 			dullCopper.RunicMinAttributes = 1;
 			dullCopper.RunicMaxAttributes = 2;
-			dullCopper.RunicMinIntensity = 10;
-			dullCopper.RunicMaxIntensity = 35;
+			if ( Core.ML )
+			{
+				dullCopper.RunicMinIntensity = 40;
+				dullCopper.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				dullCopper.RunicMinIntensity = 10;
+				dullCopper.RunicMaxIntensity = 35;
+			}
 			*/
 			dullCopper.ArmorPhysicalResist = 1;
 			dullCopper.ArmorFireResist = 0;
@@ -152,8 +160,16 @@ namespace Server.Items
 			shadowIron.WeaponDurability = 50;
 			shadowIron.RunicMinAttributes = 2;
 			shadowIron.RunicMaxAttributes = 2;
-			shadowIron.RunicMinIntensity = 20;
-			shadowIron.RunicMaxIntensity = 45;
+			if ( Core.ML )
+			{
+				shadowIron.RunicMinIntensity = 45;
+				shadowIron.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				shadowIron.RunicMinIntensity = 20;
+				shadowIron.RunicMaxIntensity = 45;
+			}
 			*/
 			shadowIron.ArmorPhysicalResist = 1;
 			shadowIron.ArmorFireResist = 1;
@@ -175,8 +191,16 @@ namespace Server.Items
 			copper.WeaponEnergyDamage = 20;
 			copper.RunicMinAttributes = 2;
 			copper.RunicMaxAttributes = 3;
-			copper.RunicMinIntensity = 25;
-			copper.RunicMaxIntensity = 50;
+			if ( Core.ML )
+			{
+				copper.RunicMinIntensity = 50;
+				copper.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				copper.RunicMinIntensity = 25;
+				copper.RunicMaxIntensity = 50;
+			}
 			*/
 			copper.ArmorPhysicalResist = 1;
 			copper.ArmorFireResist = 1;
@@ -197,8 +221,16 @@ namespace Server.Items
 			bronze.WeaponFireDamage = 40;
 			bronze.RunicMinAttributes = 3;
 			bronze.RunicMaxAttributes = 3;
-			bronze.RunicMinIntensity = 30;
-			bronze.RunicMaxIntensity = 65;
+			if ( Core.ML )
+			{
+				bronze.RunicMinIntensity = 55;
+				bronze.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				bronze.RunicMinIntensity = 30;
+				bronze.RunicMaxIntensity = 65;
+			}
 			*/
 			bronze.ArmorPhysicalResist = 2;
 			bronze.ArmorFireResist = 1;
@@ -222,8 +254,16 @@ namespace Server.Items
 			golden.WeaponLowerRequirements = 50;
 			golden.RunicMinAttributes = 3;
 			golden.RunicMaxAttributes = 4;
-			golden.RunicMinIntensity = 35;
-			golden.RunicMaxIntensity = 75;
+			if ( Core.ML )
+			{
+				golden.RunicMinIntensity = 60;
+				golden.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				golden.RunicMinIntensity = 35;
+				golden.RunicMaxIntensity = 75;
+			}
 			*/
 			golden.ArmorPhysicalResist = 2;
 			golden.ArmorFireResist = 3;
@@ -246,8 +286,16 @@ namespace Server.Items
 			agapite.WeaponEnergyDamage = 20;
 			agapite.RunicMinAttributes = 4;
 			agapite.RunicMaxAttributes = 4;
-			agapite.RunicMinIntensity = 40;
-			agapite.RunicMaxIntensity = 80;
+			if ( Core.ML )
+			{
+				agapite.RunicMinIntensity = 65;
+				agapite.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				agapite.RunicMinIntensity = 40;
+				agapite.RunicMaxIntensity = 80;
+			}
 			*/
 			agapite.ArmorPhysicalResist = 2;
 			agapite.ArmorFireResist = 5;
@@ -270,8 +318,16 @@ namespace Server.Items
 			verite.WeaponEnergyDamage = 20;
 			verite.RunicMinAttributes = 4;
 			verite.RunicMaxAttributes = 5;
-			verite.RunicMinIntensity = 45;
-			verite.RunicMaxIntensity = 90;
+			if ( Core.ML )
+			{
+				verite.RunicMinIntensity = 70;
+				verite.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				verite.RunicMinIntensity = 45;
+				verite.RunicMaxIntensity = 90;
+			}
 			*/
 			verite.ArmorPhysicalResist = 3;
 			verite.ArmorFireResist = 6;
@@ -296,8 +352,16 @@ namespace Server.Items
 			valorite.WeaponEnergyDamage = 20;
 			valorite.RunicMinAttributes = 5;
 			valorite.RunicMaxAttributes = 5;
-			valorite.RunicMinIntensity = 50;
-			valorite.RunicMaxIntensity = 100;
+			if ( Core.ML )
+			{
+				valorite.RunicMinIntensity = 85;
+				valorite.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				valorite.RunicMinIntensity = 50;
+				valorite.RunicMaxIntensity = 100;
+			}
 			*/
 			valorite.ArmorPhysicalResist = 3;
 			valorite.ArmorFireResist = 4;
@@ -315,8 +379,16 @@ namespace Server.Items
 			spined.ArmorLuck = 40;
 			spined.RunicMinAttributes = 1;
 			spined.RunicMaxAttributes = 3;
-			spined.RunicMinIntensity = 20;
-			spined.RunicMaxIntensity = 40;
+			if ( Core.ML )
+			{
+				spined.RunicMinIntensity = 40;
+				spined.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				spined.RunicMinIntensity = 20;
+				spined.RunicMaxIntensity = 40;
+			}
 			*/
 			spined.ArmorPhysicalResist = 5;
 			spined.ArmorFireResist = 1;
@@ -336,8 +408,16 @@ namespace Server.Items
 			horned.ArmorEnergyResist = 2;
 			horned.RunicMinAttributes = 3;
 			horned.RunicMaxAttributes = 4;
-			horned.RunicMinIntensity = 30;
-			horned.RunicMaxIntensity = 70;
+			if ( Core.ML )
+			{
+				horned.RunicMinIntensity = 45;
+				horned.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				horned.RunicMinIntensity = 30;
+				horned.RunicMaxIntensity = 70;
+			}
 			*/
 			horned.ArmorPhysicalResist = 4;
 			horned.ArmorFireResist = 5;
@@ -357,8 +437,16 @@ namespace Server.Items
 			barbed.ArmorEnergyResist = 4;
 			barbed.RunicMinAttributes = 4;
 			barbed.RunicMaxAttributes = 5;
-			barbed.RunicMinIntensity = 40;
-			barbed.RunicMaxIntensity = 100;
+			if ( Core.ML )
+			{
+				barbed.RunicMinIntensity = 50;
+				barbed.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				barbed.RunicMinIntensity = 40;
+				barbed.RunicMaxIntensity = 100;
+			}
 			*/
 			barbed.ArmorPhysicalResist = 3;
 			barbed.ArmorFireResist = 5;

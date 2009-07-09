@@ -22,19 +22,34 @@ namespace Server.Spells.Seventh
 		public override SpellCircle Circle { get { return SpellCircle.Seventh; } }
 
 		private int m_NewBody;
-        private string m_NewName;
 
-        /*** MOD_START ***/
-        //aggiunto il nome come parametro per permetterne la modifica
+		/*** ADD_START ***/
+		private string m_NewName;
+		/*** ADD_END ***/
+
+		/*** MOD_START ***/
+		//aggiunto il nome come parametro per permetterne la modifica
+		/*
+		public PolymorphSpell( Mobile caster, Item scroll, int body ) : base( caster, scroll, m_Info )
+		{
+			m_NewBody = body;
+		}
+
+		public PolymorphSpell( Mobile caster, Item scroll ) : this(caster,scroll,0)
+		{
+		}
+		*/
+
 		public PolymorphSpell( Mobile caster, Item scroll, int body, string name) : base( caster, scroll, m_Info )
 		{
 			m_NewBody = body;
-            m_NewName = name;
+			m_NewName = name;
 		}
-        /*** MOD_END ***/
+
 		public PolymorphSpell( Mobile caster, Item scroll ) : this(caster,scroll,0,null)
 		{
 		}
+		/*** MOD_END ***/
 
 		public override bool CheckCast()
 		{
@@ -136,16 +151,16 @@ namespace Server.Spells.Seventh
 						}
 
 						Caster.BodyMod = m_NewBody;
-                        
-                        /*** ADD_START ***/
-                        //modifico il nome e rimuovo tag gilda
-                        if(m_NewName != null)
-                            Caster.NameMod = m_NewName;
 
-                        Caster.GuildAbbMod = " ";
-                        //GuildTitleMod
-                        //GuildNameMod
-                        /*** ADD_END ***/
+						/*** ADD_START ***/
+						//modifico il nome e rimuovo tag gilda
+						if(m_NewName != null)
+							Caster.NameMod = m_NewName;
+
+						Caster.GuildAbbMod = " ";
+						//GuildTitleMod
+						//GuildNameMod
+						/*** ADD_END ***/
 
 						if ( m_NewBody == 400 || m_NewBody == 401 )
 							Caster.HueMod = Utility.RandomSkinHue();
@@ -196,8 +211,10 @@ namespace Server.Spells.Seventh
 			if( !m.CanBeginAction( typeof( PolymorphSpell ) ) )
 			{
 				m.BodyMod = 0;
-                m.NameMod = null;
-                m.GuildAbbMod = null;                
+				/*** ADD_START ***/
+				m.NameMod = null;
+				m.GuildAbbMod = null;                
+				/*** ADD_END ***/
 				m.HueMod = -1;
 				m.EndAction( typeof( PolymorphSpell ) );
 

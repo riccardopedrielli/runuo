@@ -42,7 +42,7 @@ namespace Server.Spells.Necromancy
 				{
 					List<Mobile> targets = new List<Mobile>();
 
-					foreach ( Mobile m in Caster.GetMobilesInRange( 5 ) )
+					foreach ( Mobile m in Caster.GetMobilesInRange( Core.ML ? 4 : 5 ) )
 						if ( Caster != m && Caster.InLOS( m ) && SpellHelper.ValidIndirectTarget( Caster, m ) && Caster.CanBeHarmful( m, false ) )
 							targets.Add( m );
 
@@ -61,6 +61,15 @@ namespace Server.Spells.Necromancy
 
 						damage *= (300 + (m.Karma / 100) + (GetDamageSkill( Caster ) * 10));
 						damage /= 1000;
+
+						int sdiBonus = AosAttributes.GetValue( Caster, AosAttribute.SpellDamage );
+						
+						// PvP spell damage increase cap of 15% from an item’s magic property in Publish 33(SE)
+						if ( Core.SE && m.Player && Caster.Player && sdiBonus > 15 )
+							sdiBonus = 15;
+						
+						damage *= ( 100 + sdiBonus );
+						damage /= 100;
 
 						// TODO: cap?
 						//if ( damage > 40 )

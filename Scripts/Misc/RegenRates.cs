@@ -67,11 +67,13 @@ namespace Server.Misc
 				points += from.Skills[SkillName.Ninjitsu].Fixed / 300;
 			//TODO: What's the new increased rate?
 
-            /*** DEL_START ***/
-            //no bonus regen agli umani
-			/*if( Core.ML && from.Race == Race.Human )	//Is this affected by the cap?
-				points += 2;*/
-            /*** DEL_END ***/
+			/*** DEL_START ***/
+			//no bonus regen agli umani
+			/*
+			if( Core.ML && from.Race == Race.Human )	//Is this affected by the cap?
+				points += 2;
+			*/
+			/*** DEL_END ***/
 
 			if ( points < 0 )
 				points = 0;
@@ -132,7 +134,7 @@ namespace Server.Misc
 
 				CheckBonusSkill( from, from.Mana, from.ManaMax, SkillName.Focus );
 
-				double focusPoints = (int)(from.Skills[SkillName.Focus].Value * 0.05);
+				double focusPoints = (from.Skills[SkillName.Focus].Value * 0.05);
 
 				if ( armorPenalty > 0 )
 					medPoints = 0; // In AOS, wearing any meditation-blocking armor completely removes meditation bonus
@@ -157,7 +159,10 @@ namespace Server.Misc
 				if ( totalPoints < -1 )
 					totalPoints = -1;
 
-				rate = 1.0 / (0.1 * (2 + (int)totalPoints));
+				if ( Core.ML )
+					totalPoints = Math.Floor( totalPoints );
+
+				rate = 1.0 / (0.1 * (2 + totalPoints));
 			}
 			else
 			{

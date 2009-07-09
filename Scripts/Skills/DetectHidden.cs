@@ -5,7 +5,6 @@ using Server.Mobiles;
 using Server.Multis;
 using Server.Targeting;
 using Server.Regions;
-using Server.Factions;
 
 namespace Server.SkillHandlers
 {
@@ -54,11 +53,13 @@ namespace Server.SkillHandlers
 
 				bool inHouse = ( house != null && house.IsFriend( src ) );
 
-                /*** MOD_START ***/
-                //in casa i pg non devono avere bonus sulla skill
-				/*if ( inHouse )
-					range = 22;*/
-                /*** MOD_END ***/
+				/*** MOD_START ***/
+				//in casa i pg non devono avere bonus sulla skill
+				/*
+				if ( inHouse )
+					range = 22;
+				*/
+				/*** MOD_END ***/
 
 				if ( range > 0 )
 				{
@@ -71,13 +72,15 @@ namespace Server.SkillHandlers
 							double ss = srcSkill + Utility.Random( 21 ) - 10;
 							double ts = trg.Skills[SkillName.Hiding].Value + Utility.Random( 21 ) - 10;
 
-                            /*** MOD_START ***/
-                            //in casa i pg non devono avere bonus sulla skill
-							//if ( src.AccessLevel >= trg.AccessLevel && ( ss >= ts || ( inHouse && house.IsInside( trg ) ) ) )                            
+							/*** MOD_START ***/
+							//in casa i pg non devono avere bonus sulla skill
+							/*
+							if ( src.AccessLevel >= trg.AccessLevel && ( ss >= ts || ( inHouse && house.IsInside( trg ) ) ) )
+							*/
                             if (src.AccessLevel >= trg.AccessLevel && ss >= ts)
+							/*** MOD_END ***/
 							{
-                            /*** MOD_END ***/
-								if ( trg is Mobiles.ShadowKnight && (trg.X != p.X || trg.Y != p.Y) )
+								if ( trg is ShadowKnight && (trg.X != p.X || trg.Y != p.Y) )
 									continue;
 
 								trg.RevealingAction();

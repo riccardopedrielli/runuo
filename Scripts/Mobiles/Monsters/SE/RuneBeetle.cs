@@ -131,20 +131,40 @@ namespace Server.Mobiles
 
 				List<ResistanceMod> mods = new List<ResistanceMod>();
 
-				if ( defender.PhysicalResistance > 0 )
-					mods.Add( new ResistanceMod( ResistanceType.Physical, (defender.PhysicalResistance > 70) ? -70 : -defender.PhysicalResistance ) );
+				if ( Core.ML )
+				{
+					if ( defender.PhysicalResistance > 0 )
+						mods.Add( new ResistanceMod( ResistanceType.Physical, defender.PhysicalResistance / 2 ) );
 
-				if ( defender.FireResistance > 0 )
-					mods.Add( new ResistanceMod( ResistanceType.Fire, (defender.FireResistance > 70) ? -70 : -defender.FireResistance ) );
+					if ( defender.FireResistance > 0 )
+						mods.Add( new ResistanceMod( ResistanceType.Fire, defender.FireResistance / 2 ) );
 
-				if ( defender.ColdResistance > 0 )
-					mods.Add( new ResistanceMod( ResistanceType.Cold, (defender.ColdResistance > 70) ? -70 : -defender.ColdResistance ) );
+					if ( defender.ColdResistance > 0 )
+						mods.Add( new ResistanceMod( ResistanceType.Cold, defender.ColdResistance / 2 ) );
 
-				if ( defender.PoisonResistance > 0 )
-					mods.Add( new ResistanceMod( ResistanceType.Poison, (defender.PoisonResistance > 70) ? -70 : -defender.PoisonResistance ) );
+					if ( defender.PoisonResistance > 0 )
+						mods.Add( new ResistanceMod( ResistanceType.Poison, defender.PoisonResistance / 2 ) );
 
-				if ( defender.EnergyResistance > 0 )
-					mods.Add( new ResistanceMod( ResistanceType.Energy, (defender.EnergyResistance > 70) ? -70 : -defender.EnergyResistance ) );
+					if ( defender.EnergyResistance > 0 )
+						mods.Add( new ResistanceMod( ResistanceType.Energy, defender.EnergyResistance / 2 ) );
+				}
+				else
+				{
+					if ( defender.PhysicalResistance > 0 )
+						mods.Add( new ResistanceMod( ResistanceType.Physical, (defender.PhysicalResistance > 70) ? -70 : -defender.PhysicalResistance ) );
+
+					if ( defender.FireResistance > 0 )
+						mods.Add( new ResistanceMod( ResistanceType.Fire, (defender.FireResistance > 70) ? -70 : -defender.FireResistance ) );
+
+					if ( defender.ColdResistance > 0 )
+						mods.Add( new ResistanceMod( ResistanceType.Cold, (defender.ColdResistance > 70) ? -70 : -defender.ColdResistance ) );
+
+					if ( defender.PoisonResistance > 0 )
+						mods.Add( new ResistanceMod( ResistanceType.Poison, (defender.PoisonResistance > 70) ? -70 : -defender.PoisonResistance ) );
+
+					if ( defender.EnergyResistance > 0 )
+						mods.Add( new ResistanceMod( ResistanceType.Energy, (defender.EnergyResistance > 70) ? -70 : -defender.EnergyResistance ) );
+				}
 
 				for ( int i = 0; i < mods.Count; ++i )
 					defender.AddResistanceMod( mods[i] );
@@ -194,13 +214,26 @@ namespace Server.Mobiles
 		public override void Serialize( GenericWriter writer )
 		{
 			base.Serialize( writer );
-			writer.Write( (int) 0 );
+			writer.Write( (int) 1 );
 		}
 
 		public override void Deserialize( GenericReader reader )
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
+
+			if( version < 1 )
+			{
+				for ( int i = 0; i < Skills.Length; ++i )
+				{
+					Skills[i].Cap = Math.Max( 100.0, Skills[i].Cap * 0.9 );
+
+					if ( Skills[i].Base > Skills[i].Cap )
+					{
+						Skills[i].Base = Skills[i].Cap;
+					}
+				}
+			}
 		}
 	}
 }

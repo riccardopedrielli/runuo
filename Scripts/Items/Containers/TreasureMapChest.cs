@@ -150,9 +150,10 @@ namespace Server.Items
 					{
 						BaseWeapon weapon = (BaseWeapon)item;
 
-                        /*** MOD_START ***/
-                        //niente roba sgrava
-						/*if ( Core.AOS )
+						/*** DEL_START ***/
+                        //no roba sgrava
+						/*
+						if ( Core.AOS )
 						{
 							int attributeCount;
 							int min, max;
@@ -162,12 +163,17 @@ namespace Server.Items
 							BaseRunicTool.ApplyAttributesTo( weapon, attributeCount, min, max );
 						}
 						else
-						{*/
+						{
+						*/
+						/*** DEL_END ***/
 							weapon.DamageLevel = (WeaponDamageLevel)Utility.Random( 6 );
 							weapon.AccuracyLevel = (WeaponAccuracyLevel)Utility.Random( 6 );
 							weapon.DurabilityLevel = (WeaponDurabilityLevel)Utility.Random( 6 );
-						//}
-                        /*** MOD_END ***/
+						/*** DEL_START ***/
+						/*
+						}
+						*/
+						/*** DEL_END ***/
 
 						cont.DropItem( item );
 					}
@@ -175,9 +181,10 @@ namespace Server.Items
 					{
 						BaseArmor armor = (BaseArmor)item;
 
-                        /*** MOD_START ***/
+						/*** DEL_START ***/
                         //no roba sgrava
-                        /*if ( Core.AOS )
+						/*
+						if ( Core.AOS )
 						{
 							int attributeCount;
 							int min, max;
@@ -187,11 +194,16 @@ namespace Server.Items
 							BaseRunicTool.ApplyAttributesTo( armor, attributeCount, min, max );
 						}
 						else
-						{*/
+						{
+						*/
+						/*** DEL_END ***/
 							armor.ProtectionLevel = (ArmorProtectionLevel)Utility.Random( 6 );
 							armor.Durability = (ArmorDurabilityLevel)Utility.Random( 6 );
-						//}
-                        /*** MOD_END ***/
+						/*** DEL_START ***/
+						/*
+						}
+						*/
+						/*** DEL_END ***/
 
 						cont.DropItem( item );
 					}
@@ -199,9 +211,10 @@ namespace Server.Items
 					{
 						BaseHat hat = (BaseHat)item;
 
-                        /*** DEL_START ***/
+						/*** DEL_START ***/
                         //no roba sgrava
-						/*if( Core.AOS )
+						/*
+						if( Core.AOS )
 						{
 							int attributeCount;
 							int min, max;
@@ -209,22 +222,26 @@ namespace Server.Items
 							GetRandomAOSStats( out attributeCount, out min, out  max );
 
 							BaseRunicTool.ApplyAttributesTo( hat, attributeCount, min, max );
-						}*/
-                        /*** DEL_END ***/
+						}
+						*/
+						/*** DEL_END ***/
 
 						cont.DropItem( item );
 					}
 					else if( item is BaseJewel )
 					{
-                        /*** DEL_START ***/
+						/*** DEL_START ***/
                         //no roba sgrava
-						/*int attributeCount;
+						/*
+						int attributeCount;
 						int min, max;
 
 						GetRandomAOSStats( out attributeCount, out min, out max );
 
-						BaseRunicTool.ApplyAttributesTo( (BaseJewel)item, attributeCount, min, max );*/
-                        /*** DEL_END ***/
+						BaseRunicTool.ApplyAttributesTo( (BaseJewel)item, attributeCount, min, max );
+						*/
+						/*** DEL_END ***/
+
 						cont.DropItem( item );
 					}
 				}
@@ -255,11 +272,13 @@ namespace Server.Items
 				cont.DropItem( item );
 			}
 
-            /*** DEL_START ***/
-            //no roba sgrava
-            /*if ( level == 6 && Core.AOS )
-				cont.DropItem( (Item)Activator.CreateInstance( m_Artifacts[Utility.Random(m_Artifacts.Length)] ) );*/
-            /*** DEL_END ***/
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( level == 6 && Core.AOS )
+				cont.DropItem( (Item)Activator.CreateInstance( m_Artifacts[Utility.Random(m_Artifacts.Length)] ) );
+			*/
+			/*** DEL_END ***/
 		}
 
 		public override bool CheckLocked( Mobile from )

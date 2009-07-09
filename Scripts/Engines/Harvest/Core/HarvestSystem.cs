@@ -175,7 +175,9 @@ namespace Server.Engines.Harvest
 
                             /*** MOD_START ***/
                             //no bonus razziali
-							//bool eligableForRacialBonus = ( def.RaceBonus && from.Race == Race.Human );
+							/*
+							bool eligableForRacialBonus = ( def.RaceBonus && from.Race == Race.Human );
+							*/
                             bool eligableForRacialBonus = false;
                             /*** MOD_END ***/
 

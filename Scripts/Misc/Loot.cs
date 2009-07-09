@@ -360,13 +360,16 @@ namespace Server
 		public static BaseClothing RandomClothing( bool inTokuno )
 		{
 			/*** DEL_START ***/
-            //no roba sgrava
-            /*if ( Core.SE && inTokuno )
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
 				return Construct( m_SEClothingTypes, m_AosClothingTypes, m_ClothingTypes ) as BaseClothing;
 
 			if ( Core.AOS )
-				return Construct( m_AosClothingTypes, m_ClothingTypes ) as BaseClothing;*/
-            /*** DEL_END ***/
+				return Construct( m_AosClothingTypes, m_ClothingTypes ) as BaseClothing;
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_ClothingTypes ) as BaseClothing;
 		}
 
@@ -377,14 +380,17 @@ namespace Server
 
 		public static BaseWeapon RandomRangedWeapon( bool inTokuno )
 		{
-            /*** DEL_START ***/
-            //no roba sgrava
-			/*if ( Core.SE && inTokuno )
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
 				return Construct( m_SERangedWeaponTypes, m_AosRangedWeaponTypes, m_RangedWeaponTypes ) as BaseWeapon;
 
 			if ( Core.AOS )
-				return Construct( m_AosRangedWeaponTypes, m_RangedWeaponTypes ) as BaseWeapon;*/
-            /*** DEL_END ***/
+				return Construct( m_AosRangedWeaponTypes, m_RangedWeaponTypes ) as BaseWeapon;
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_RangedWeaponTypes ) as BaseWeapon;
 		}
 
@@ -395,14 +401,17 @@ namespace Server
 
 		public static BaseWeapon RandomWeapon( bool inTokuno )
 		{
-            /*** DEL_START ***/
-            //no roba sgrava
-            /*if ( Core.SE && inTokuno )
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
 				return Construct( m_SEWeaponTypes, m_AosWeaponTypes, m_WeaponTypes ) as BaseWeapon;
 
 			if ( Core.AOS )
-				return Construct( m_AosWeaponTypes, m_WeaponTypes ) as BaseWeapon;*/
-            /*** DEL_END ***/
+				return Construct( m_AosWeaponTypes, m_WeaponTypes ) as BaseWeapon;
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_WeaponTypes ) as BaseWeapon;
 		}
 
@@ -413,14 +422,17 @@ namespace Server
 
 		public static Item RandomWeaponOrJewelry( bool inTokuno )
 		{
-            /*** DEL_START ***/
-            //no roba sgrava
-			/*if ( Core.SE && inTokuno )
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
 				return Construct( m_SEWeaponTypes, m_AosWeaponTypes, m_WeaponTypes, m_JewelryTypes );
 
 			if ( Core.AOS )
-				return Construct( m_AosWeaponTypes, m_WeaponTypes, m_JewelryTypes );*/
-            /*** DEL_END ***/
+				return Construct( m_AosWeaponTypes, m_WeaponTypes, m_JewelryTypes );
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_WeaponTypes, m_JewelryTypes );
 		}
 
@@ -436,11 +448,14 @@ namespace Server
 
 		public static BaseArmor RandomArmor( bool inTokuno )
 		{
-            /*** DEL_START ***/
-            //no roba inutile
-			/*if ( Core.SE && inTokuno )
-				return Construct( m_SEArmorTypes, m_ArmorTypes ) as BaseArmor;*/
-            /*** DEL_END ***/
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
+				return Construct( m_SEArmorTypes, m_ArmorTypes ) as BaseArmor;
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_ArmorTypes ) as BaseArmor;
 		}
 
@@ -451,14 +466,17 @@ namespace Server
 
 		public static BaseHat RandomHat( bool inTokuno )
 		{
-            /*** DEL_START ***/
-            //no roba sgrava
-			/*if ( Core.SE && inTokuno )
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
 				return Construct( m_SEHatTypes, m_AosHatTypes, m_HatTypes ) as BaseHat;
 
 			if ( Core.AOS )
-				return Construct( m_AosHatTypes, m_HatTypes ) as BaseHat;*/
-            /*** DEL_END ***/
+				return Construct( m_AosHatTypes, m_HatTypes ) as BaseHat;
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_HatTypes ) as BaseHat;
 		}
 
@@ -469,24 +487,30 @@ namespace Server
 
 		public static Item RandomArmorOrHat( bool inTokuno )
 		{
-            /*** DEL_START ***/
-            //no roba sgrava
-			/*if ( Core.SE && inTokuno )
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
 				return Construct( m_SEArmorTypes, m_ArmorTypes, m_SEHatTypes, m_AosHatTypes, m_HatTypes );
 
 			if ( Core.AOS )
-				return Construct( m_ArmorTypes, m_AosHatTypes, m_HatTypes );*/
-            /*** DEL_END ***/
+				return Construct( m_ArmorTypes, m_AosHatTypes, m_HatTypes );
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_ArmorTypes, m_HatTypes );
 		}
 
 		public static BaseShield RandomShield()
 		{
-            /*** DEL_START ***/
-            //no roba sgrava
-			/*if ( Core.AOS )
-				return Construct( m_AosShieldTypes, m_ShieldTypes ) as BaseShield;*/
-            /*** DEL_END ***/
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.AOS )
+				return Construct( m_AosShieldTypes, m_ShieldTypes ) as BaseShield;
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_ShieldTypes ) as BaseShield;
 		}
 
@@ -497,14 +521,17 @@ namespace Server
 
 		public static BaseArmor RandomArmorOrShield( bool inTokuno )
 		{
-            /*** DEL_START ***/
-            //no roba sgrava
-			/*if ( Core.SE && inTokuno )
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
 				return Construct( m_SEArmorTypes, m_ArmorTypes, m_AosShieldTypes, m_ShieldTypes ) as BaseArmor;
 
 			if ( Core.AOS )
-				return Construct( m_ArmorTypes, m_AosShieldTypes, m_ShieldTypes ) as BaseArmor;*/
-            /*** DEL_END ***/
+				return Construct( m_ArmorTypes, m_AosShieldTypes, m_ShieldTypes ) as BaseArmor;
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_ArmorTypes, m_ShieldTypes ) as BaseArmor;
 		}
 
@@ -515,14 +542,17 @@ namespace Server
 
 		public static Item RandomArmorOrShieldOrJewelry( bool inTokuno )
 		{
-            /*** DEL_START ***/
-            //no roba sgrava
-			/*if ( Core.SE && inTokuno )
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
 				return Construct( m_SEArmorTypes, m_ArmorTypes, m_SEHatTypes, m_AosHatTypes, m_HatTypes, m_AosShieldTypes, m_ShieldTypes, m_JewelryTypes );
 
 			if ( Core.AOS )
-				return Construct( m_ArmorTypes, m_AosHatTypes, m_HatTypes, m_AosShieldTypes, m_ShieldTypes, m_JewelryTypes );*/
-            /*** DEL_END ***/
+				return Construct( m_ArmorTypes, m_AosHatTypes, m_HatTypes, m_AosShieldTypes, m_ShieldTypes, m_JewelryTypes );
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_ArmorTypes, m_HatTypes, m_ShieldTypes, m_JewelryTypes );
 		}
 
@@ -533,14 +563,17 @@ namespace Server
 
 		public static Item RandomArmorOrShieldOrWeapon( bool inTokuno )
 		{
-            /*** DEL_START ***/
-            //no roba sgrava
-			/*if ( Core.SE && inTokuno )
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
 				return Construct( m_SEWeaponTypes, m_AosWeaponTypes, m_WeaponTypes, m_SERangedWeaponTypes, m_AosRangedWeaponTypes, m_RangedWeaponTypes, m_SEArmorTypes, m_ArmorTypes, m_SEHatTypes, m_AosHatTypes, m_HatTypes, m_AosShieldTypes, m_ShieldTypes );
 
 			if ( Core.AOS )
-				return Construct( m_AosWeaponTypes, m_WeaponTypes, m_AosRangedWeaponTypes, m_RangedWeaponTypes, m_ArmorTypes, m_AosHatTypes, m_HatTypes, m_AosShieldTypes, m_ShieldTypes );*/
-            /*** DEL_END ***/
+				return Construct( m_AosWeaponTypes, m_WeaponTypes, m_AosRangedWeaponTypes, m_RangedWeaponTypes, m_ArmorTypes, m_AosHatTypes, m_HatTypes, m_AosShieldTypes, m_ShieldTypes );
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_WeaponTypes, m_RangedWeaponTypes, m_ArmorTypes, m_HatTypes, m_ShieldTypes );
 		}
 
@@ -551,14 +584,18 @@ namespace Server
 
 		public static Item RandomArmorOrShieldOrWeaponOrJewelry( bool inTokuno )
 		{
-            /*** DEL_START ***/
-            //no roba sgrava
-			/*if ( Core.SE && inTokuno )
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.SE && inTokuno )
 				return Construct( m_SEWeaponTypes, m_AosWeaponTypes, m_WeaponTypes, m_SERangedWeaponTypes, m_AosRangedWeaponTypes, m_RangedWeaponTypes, m_SEArmorTypes, m_ArmorTypes, m_SEHatTypes, m_AosHatTypes, m_HatTypes, m_AosShieldTypes, m_ShieldTypes, m_JewelryTypes );
 
 			if ( Core.AOS )
-				return Construct( m_AosWeaponTypes, m_WeaponTypes, m_AosRangedWeaponTypes, m_RangedWeaponTypes, m_ArmorTypes, m_AosHatTypes, m_HatTypes, m_AosShieldTypes, m_ShieldTypes, m_JewelryTypes );*/
-            /*** DEL_END ***/
+				return Construct( m_AosWeaponTypes, m_WeaponTypes, m_AosRangedWeaponTypes, m_RangedWeaponTypes, m_ArmorTypes, m_AosHatTypes, m_HatTypes, m_AosShieldTypes, m_ShieldTypes, m_JewelryTypes );
+
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_WeaponTypes, m_RangedWeaponTypes, m_ArmorTypes, m_HatTypes, m_ShieldTypes, m_JewelryTypes );
 		}
 
@@ -579,11 +616,14 @@ namespace Server
 
 		public static Item RandomPossibleReagent()
 		{
-            /*** DEL_START ***/
-            //no roba necro
-			/*if ( Core.AOS )
-				return Construct( m_RegTypes, m_NecroRegTypes );*/
-            /*** DEL_END ***/
+			/*** DEL_START ***/
+			//no roba sgrava
+			/*
+			if ( Core.AOS )
+				return Construct( m_RegTypes, m_NecroRegTypes );
+			*/
+			/*** DEL_END ***/
+
 			return Construct( m_RegTypes );
 		}
 
@@ -594,8 +634,6 @@ namespace Server
 
 		public static BaseInstrument RandomInstrument()
 		{
-            /*** DEL_START ***/
-            //no roba inutile
 			if ( Core.SE )
 				return Construct( m_InstrumentTypes, m_SEInstrumentTypes ) as BaseInstrument;
 
@@ -615,11 +653,13 @@ namespace Server
 			{
 				default:
 				case SpellbookType.Regular: types = m_RegularScrollTypes; break;
-                /*** DEL_START ***/
-                //no pala no necro
-                //case SpellbookType.Necromancer: types = (Core.SE ? m_SENecromancyScrollTypes : m_NecromancyScrollTypes ); break;
-				//case SpellbookType.Paladin: types = m_PaladinScrollTypes; break;
-                /*** DEL_END ***/
+				/*** DEL_START ***/
+				//no pala no necro
+				/*
+				case SpellbookType.Necromancer: types = (Core.SE ? m_SENecromancyScrollTypes : m_NecromancyScrollTypes ); break;
+				case SpellbookType.Paladin: types = m_PaladinScrollTypes; break;
+				*/
+				/*** DEL_END ***/
 			}
 
 			return Construct( types, Utility.RandomMinMax( minIndex, maxIndex ) ) as SpellScroll;

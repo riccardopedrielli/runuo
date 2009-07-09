@@ -6,7 +6,7 @@ namespace Server.Items
 	[Flipable]
 	/*** MOD_START ***/
 	/*
-	public class LeatherGloves : BaseArmor
+	public class LeatherGloves : BaseArmor, IArcaneEquip
 	*/
 	public class LeatherGloves : BaseLeatherArmor
 	/*** MOD_END ***/

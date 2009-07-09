@@ -11,12 +11,13 @@ namespace Server
 	{
 		public static int GetLuckChance( Mobile killer, Mobile victim )
 		{
-            /*** MOD_START ***/
-            //niente fortuna
-			//if ( !Core.AOS )            
-				return 0;            
+			/*** MOD_START ***/
+			//niente fortuna
+			/*
+			if ( !Core.AOS )
+				return 0;
 
-			/*int luck = killer.Luck;
+			int luck = killer.Luck;
 
 			PlayerMobile pmKiller = killer as PlayerMobile;
 			if( pmKiller != null && pmKiller.SentHonorContext != null && pmKiller.SentHonorContext.Target == victim )
@@ -28,8 +29,10 @@ namespace Server
 			if ( !Core.SE && luck > 1200 )
 				luck = 1200;
 
-			return (int)(Math.Pow( luck, 1 / 1.8 ) * 100);*/
-            /*** MOD_END ***/
+			return (int)(Math.Pow( luck, 1 / 1.8 ) * 100);
+			*/
+			return 0;
+			/*** MOD_END ***/
 		}
 
 		public static int GetLuckChanceForKiller( Mobile dead )
@@ -69,11 +72,13 @@ namespace Server
 			if ( cont == null )
 				return;
 
-            /*** MOD_START ***/
-            //niente fortuna
-			//bool checkLuck = Core.AOS;
-            bool checkLuck = false;
-            /*** MOD_END ***/
+			/*** MOD_START ***/
+			//niente fortuna
+			/*
+			bool checkLuck = Core.AOS;
+			*/
+			bool checkLuck = false;
+			/*** MOD_END ***/
 
 			for ( int i = 0; i < m_Entries.Length; ++i )
 			{
@@ -464,23 +469,25 @@ namespace Server
 		#endregion
 
 		#region Generic accessors
-        /*** MOD_START ***/
-        //solo loot old style niente cagate con bonus 
-        public static LootPack Poor { get { return OldPoor; } }
-        public static LootPack Meager { get { return OldMeager; } }
-        public static LootPack Average { get { return OldAverage; } }
-        public static LootPack Rich { get { return OldRich; } }
-        public static LootPack FilthyRich { get { return OldFilthyRich; } }
-        public static LootPack UltraRich { get { return OldUltraRich; } }
-        public static LootPack SuperBoss { get { return OldSuperBoss; } }
-		/*public static LootPack Poor{ get{ return Core.AOS ? AosPoor : OldPoor; } }
+		/*** MOD_START ***/
+		//solo loot old style niente cagate con bonus 
+		/*
+		public static LootPack Poor{ get{ return Core.AOS ? AosPoor : OldPoor; } }
 		public static LootPack Meager{ get{ return Core.AOS ? AosMeager : OldMeager; } }
 		public static LootPack Average{ get{ return Core.AOS ? AosAverage : OldAverage; } }
 		public static LootPack Rich{ get{ return Core.AOS ? AosRich : OldRich; } }
 		public static LootPack FilthyRich{ get{ return Core.AOS ? AosFilthyRich : OldFilthyRich; } }
 		public static LootPack UltraRich{ get{ return Core.AOS ? AosUltraRich : OldUltraRich; } }
-		public static LootPack SuperBoss{ get{ return Core.AOS ? AosSuperBoss : OldSuperBoss; } }*/
-        /*** MOD_END ***/
+		public static LootPack SuperBoss{ get{ return Core.AOS ? AosSuperBoss : OldSuperBoss; } }
+		*/
+		public static LootPack Poor{ get{ return OldPoor; } }
+		public static LootPack Meager{ get{ return OldMeager; } }
+		public static LootPack Average{ get{ return OldAverage; } }
+		public static LootPack Rich{ get{ return OldRich; } }
+		public static LootPack FilthyRich{ get{ return OldFilthyRich; } }
+		public static LootPack UltraRich{ get{ return OldUltraRich; } }
+		public static LootPack SuperBoss{ get{ return OldSuperBoss; } }
+		/*** MOD_END ***/
 		#endregion
 
 		public static readonly LootPack LowScrolls = new LootPack( new LootPackEntry[]
@@ -630,10 +637,12 @@ namespace Server
 
 				if ( item is BaseWeapon || item is BaseArmor || item is BaseJewel || item is BaseHat )
 				{
-                    /*** MOD_START ***/
-					//if ( Core.AOS )
-                    if (!Core.AOS) //cosi se e' AOS usa l'OLD
-                    /*** MOD_END ***/
+					/*** MOD_START ***/
+					/*
+					if ( Core.AOS )
+					*/
+					if (false)
+					/*** MOD_END ***/
 					{
 						int bonusProps = GetBonusProperties();
 						int min = m_MinIntensity;
@@ -694,10 +703,12 @@ namespace Server
 				{
 					SlayerName slayer = SlayerName.None;
 
-                    /*** MOD_START ***/
-					//if ( Core.AOS )
-                    if (!Core.AOS) //cosi se e' AOS usa l'OLD
-                    /*** MOD_END ***/
+					/*** MOD_START ***/
+					/*
+					if ( Core.AOS )
+					*/
+					if (false)
+					/*** MOD_END ***/
 						slayer = BaseRunicTool.GetRandomSlayer();
 					else
 						slayer = SlayerGroup.GetLootSlayerType( from.GetType() );
@@ -844,11 +855,13 @@ namespace Server
 			if ( index == 0 )
 				scrollCount += m_BlankTypes.Length;
 
-            /*** DEL_START ***/
-            //no roba necro
-			/*if ( Core.AOS )
-				scrollCount += m_NecroTypes[index].Length;*/
-            /*** DEL_END ***/
+			/*** DEL_START ***/
+			//no roba necro
+			/*
+			if ( Core.AOS )
+				scrollCount += m_NecroTypes[index].Length;
+			*/
+			/*** DEL_END ***/
 
 			int rnd = Utility.Random( scrollCount );
 
@@ -857,13 +870,15 @@ namespace Server
 			else if ( index == 0 )
 				rnd -= m_BlankTypes.Length;
 
-            /*** DEL_START ***/
-            //no roba necro
-			/*if ( Core.AOS && rnd < m_NecroTypes.Length )
+			/*** DEL_START ***/
+			//no roba necro
+			/*
+			if ( Core.AOS && rnd < m_NecroTypes.Length )
 				return Loot.Construct( m_NecroTypes[index] );
 			else if ( Core.AOS )
-				rnd -= m_NecroTypes[index].Length;*/
-            /*** DEL_END ***/
+				rnd -= m_NecroTypes[index].Length;
+			*/
+			/*** DEL_END ***/
 
 			return Loot.RandomScroll( minCircle * 8, (maxCircle * 8) + 7, SpellbookType.Regular );
 		}

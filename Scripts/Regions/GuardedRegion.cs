@@ -315,9 +315,7 @@ namespace Server.Regions
 						if ( fakeCall != null )
 						{
 							fakeCall.Say( Utility.RandomList( 1007037, 501603, 1013037, 1013038, 1013039, 1013041, 1013042, 1013043, 1013052 ) );
-
 							MakeGuard( m );
-
 							timer.Stop();
 							m_GuardCandidates.Remove( m );
 							m.SendLocalizedMessage( 502276 ); // Guards can no longer be called on you.

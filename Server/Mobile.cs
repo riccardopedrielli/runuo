@@ -8226,7 +8226,6 @@ namespace Server
         }
         /*** ADD_END ***/
 
-
 		private bool m_YellowHealthbar;
 
 		[CommandProperty( AccessLevel.GameMaster )]
@@ -10761,7 +10760,7 @@ namespace Server
 		*/ 
         public virtual bool ShowFameTitle { get { return ((m_Player || m_Body.IsHuman) && BodyMod == 0); } }
         /*** MOD_END ***/
-        
+
 		/// <summary>
 		/// Overridable. Event invoked when the Mobile is single clicked.
 		/// </summary>

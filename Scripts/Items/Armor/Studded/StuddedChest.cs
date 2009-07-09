@@ -37,6 +37,7 @@ namespace Server.Items
 		public override ArmorMeditationAllowance DefMedAllowance{ get{ return ArmorMeditationAllowance.Half; } }
 		*/
 		/*** DEL_END ***/
+
 		[Constructable]
 		public StuddedChest() : base( 0x13DB )
 		{

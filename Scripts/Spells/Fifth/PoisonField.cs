@@ -13,7 +13,13 @@ namespace Server.Spells.Fifth
 				"Poison Field", "In Nox Grav",
 				230,
 				9052,
-                true, /*** MOD_START_END ***/ //parametro che permette di castare in citta
+				/*** MOD_START ***/
+				//parametro che permette di castare in citta
+				/*
+				false,
+				*/
+				true,
+				/*** MOD_END ***/
 				Reagent.BlackPearl,
 				Reagent.Nightshade,
 				Reagent.SpidersSilk
@@ -36,12 +42,14 @@ namespace Server.Spells.Fifth
 			{
 				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
 			}
-            /*** MOD_START ***/
-            //si deve poter castare in citta'
-            //else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
-            else if (CheckSequence())
-            {
-                /*** MOD_END ***/
+			/*** MOD_START ***/
+			//si deve poter castare in citta'
+			/*
+			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+			*/
+			else if (CheckSequence())
+			/*** MOD_END ***/
+			{
 				SpellHelper.Turn( Caster, p );
 
 				SpellHelper.GetSurfaceTop( ref p );

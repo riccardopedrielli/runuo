@@ -12,7 +12,13 @@ namespace Server.Spells.Eighth
 				"Earthquake", "In Vas Por",
 				233,
 				9012,
-                true,/*** MOD_START_END ***/ //parametro che permette di castare in citta
+				/*** MOD_START ***/
+				//parametro che permette di castare in citta
+				/*
+				false,
+				*/
+				true,
+				/*** MOD_END ***/
 				Reagent.Bloodmoss,
 				Reagent.Ginseng,
 				Reagent.MandrakeRoot,
@@ -30,26 +36,31 @@ namespace Server.Spells.Eighth
 		public override void OnCast()
 		{
 			/*** MOD_START ***/
-            //si deve poter castare in citta'
-            //else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+			//si deve poter castare in citta'
+			/*
+			if ( SpellHelper.CheckTown( Caster, Caster ) && CheckSequence() )
+			*/
 			if ( CheckSequence() )
+			/*** MOD_END ***/
 			{
-                /*** MOD_END ***/
 				List<Mobile> targets = new List<Mobile>();
 
 				Map map = Caster.Map;
 
 				if ( map != null )
-                    foreach (Mobile m in Caster.GetMobilesInRange(1 + (int)(Caster.Skills[SkillName.Magery].Value / 15.0)))
-                    {
-                        /*** MOD_START ***/                    
-                        //if ( Caster != m && SpellHelper.ValidIndirectTarget( Caster, m ) && Caster.CanBeHarmful( m, false ) && (!Core.AOS || Caster.InLOS( m )) )
-                        //al massimo si colpisce con 9 di differenza sull'asse Z cosi si puo beccare il piano terra nelle case
-                        int zdif = m.Z < Caster.Z ? Caster.Z - m.Z : m.Z - Caster.Z;
-                        if (Caster != m && SpellHelper.ValidIndirectTarget(Caster, m) && Caster.CanBeHarmful(m, false) && Core.AOS && zdif < 10)
-                            targets.Add(m);
-                        /*** MOD_END ***/
-                    }                        
+					foreach ( Mobile m in Caster.GetMobilesInRange( 1 + (int)(Caster.Skills[SkillName.Magery].Value / 15.0) ) )
+					/*** MOD_START ***/
+					//al massimo si colpisce con 9 di differenza sull'asse Z cosi si puo beccare il piano terra nelle case
+					/*
+						if ( Caster != m && SpellHelper.ValidIndirectTarget( Caster, m ) && Caster.CanBeHarmful( m, false ) && (!Core.AOS || Caster.InLOS( m )) )
+							targets.Add( m );
+					*/
+					{
+						int zdif = m.Z < Caster.Z ? Caster.Z - m.Z : m.Z - Caster.Z;
+						if (Caster != m && SpellHelper.ValidIndirectTarget(Caster, m) && Caster.CanBeHarmful(m, false) && Core.AOS && zdif < 10)
+							targets.Add(m);
+					}
+					/*** MOD_END ***/
 
 				Caster.PlaySound( 0x2F3 );
 
@@ -61,18 +72,20 @@ namespace Server.Spells.Eighth
 
 					if ( Core.AOS )
 					{
-                        /*** MOD_START ***/						
+						/*** MOD_START ***/
+						/*
+						damage = m.Hits / 2;
+
+						if ( !m.Player )
+							damage = Math.Max( Math.Min( damage, 100 ), 15 );
+							damage += Utility.RandomMinMax( 0, 15 );
+
+						*/
                         double magery = Caster.Skills[SkillName.Magery].Base;
                         double evalint = Caster.Skills[SkillName.EvalInt].Base;
                         double bonusdmg = (magery + evalint) / 2;
                         damage = Convert.ToInt32(bonusdmg - Utility.RandomMinMax(0, Convert.ToInt32(bonusdmg / 10)));
-
-						/*damage = m.Hits / 2;                                                 
-						if ( !m.Player )
-
-							damage = Math.Max( Math.Min( damage, 100 ), 15 );
-							damage += Utility.RandomMinMax( 0, 15 );*/
-                        /*** MOD_END ***/
+						/*** MOD_END ***/
 					}
 					else
 					{

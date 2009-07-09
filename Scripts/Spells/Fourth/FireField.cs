@@ -13,7 +13,13 @@ namespace Server.Spells.Fourth
 				"Fire Field", "In Flam Grav",
 				215,
 				9041,
-                true, /*** MOD_START_END ***/ //parametro che permette di castare in citta
+				/*** MOD_START ***/
+				//parametro che permette di castare in citta
+				/*
+				false,
+				*/
+				true,
+				/*** MOD_END ***/
 				Reagent.BlackPearl,
 				Reagent.SpidersSilk,
 				Reagent.SulfurousAsh
@@ -36,12 +42,14 @@ namespace Server.Spells.Fourth
 			{
 				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
 			}
-            /*** MOD_START ***/
-            //si deve poter castare in citta'
-            //else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
-            else if (CheckSequence())
-            {
-                /*** MOD_END ***/
+			/*** MOD_START ***/
+			//si deve poter castare in citta'
+			/*
+			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+			*/
+			else if (CheckSequence())
+			/*** MOD_END ***/
+			{
 				SpellHelper.Turn( Caster, p );
 
 				SpellHelper.GetSurfaceTop( ref p );
@@ -190,21 +198,36 @@ namespace Server.Spells.Fourth
 				{
 					m_Caster.DoHarmful( m );
 
-                    /*** MOD_START ***/
-                    //il muro di fuoco
-                    double magery = m_Caster.Skills[SkillName.Magery].Base;
-                    double evalint = m_Caster.Skills[SkillName.EvalInt].Base;
-                    double bonus = ((magery + evalint) / 2) * 0.05;
-                    int damage = Convert.ToInt32(bonus);
-					//int damage = m_Damage;
+					/*** MOD_START ***/
+					//il muro di fuoco
+					/*
+					int damage = m_Damage;
+
+					*/
+					double magery = m_Caster.Skills[SkillName.Magery].Base;
+					double evalint = m_Caster.Skills[SkillName.EvalInt].Base;
+					double bonus = ((magery + evalint) / 2) * 0.05;
+					int damage = Convert.ToInt32(bonus);
+					/*** MOD_END ***/
+
+					/*** MOD_START ***/
+					/*
+					if ( !Core.AOS && m.CheckSkill( SkillName.MagicResist, 0.0, 30.0 ) )
+					{
+						damage = 1;
+
+						m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
+					}
+					*/
 
 					if ( !Core.AOS && m.CheckSkill( SkillName.MagicResist, 20.0, 40.0 ) )
 					{
-                        damage /= 10;
-						//damage = 1;
-                        /*** MOD_END ***/   
+						damage /= 10;
+						
 						m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
 					}
+
+					/*** MOD_END ***/
 
 					AOS.Damage( m, m_Caster, damage, 0, 100, 0, 0, 0 );
 					m.PlaySound( 0x208 );
@@ -267,26 +290,40 @@ namespace Server.Spells.Fourth
 
 							while ( m_Queue.Count > 0 )
 							{
-                                Mobile m = (Mobile)m_Queue.Dequeue();
+								Mobile m = (Mobile)m_Queue.Dequeue();
 
-                                caster.DoHarmful(m);
+								caster.DoHarmful( m );
 
-                                /*** MOD_START ***/
-                                //il muro di fuoco deve togliere
-                                double magery = caster.Skills[SkillName.Magery].Base;
-                                double evalint = caster.Skills[SkillName.EvalInt].Base;
-                                double bonus = ((magery + evalint) / 2) * 0.3;
-                                int damage = Convert.ToInt32(bonus);
-                                //int damage = m_Damage;
-                                                                
-                                //if (!Core.AOS && m.CheckSkill(SkillName.MagicResist, 0.0, 30.0))
-                                if (!Core.AOS && m.CheckSkill(SkillName.MagicResist, 20.0, 40.0))
-                                {
-                                    damage /= 10;
-                                    //damage = 1;
-                                    /*** MOD_END ***/
-                                    m.SendLocalizedMessage(501783); // You feel yourself resisting magical energy.
-                                }
+								/*** MOD_START ***/
+								//il muro di fuoco
+								/*
+								int damage = m_Item.m_Damage;
+
+								*/
+								double magery = caster.Skills[SkillName.Magery].Base;
+								double evalint = caster.Skills[SkillName.EvalInt].Base;
+								double bonus = ((magery + evalint) / 2) * 0.3;
+								int damage = Convert.ToInt32(bonus);
+								/*** MOD_END ***/
+
+								/*** MOD_START ***/
+								/*
+								if ( !Core.AOS && m.CheckSkill( SkillName.MagicResist, 0.0, 30.0 ) )
+								{
+									damage = 1;
+
+									m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
+								}
+								*/
+
+								if ( !Core.AOS && m.CheckSkill( SkillName.MagicResist, 20.0, 40.0 ) )
+								{
+									damage /= 10;
+						
+									m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
+								}
+
+								/*** MOD_END ***/
 
 								AOS.Damage( m, caster, damage, 0, 100, 0, 0, 0 );
 								m.PlaySound( 0x208 );

@@ -191,9 +191,10 @@ namespace Server.Items
 
 		public virtual void BeginConfirmation( Mobile from )
 		{
-            /*** MOD_START ***/
-            //non ci deve essere nessuna conferma se si entra in un gate!
-			/*if ( IsInTown( from.Location, from.Map ) && !IsInTown( m_Target, m_TargetMap ) || (from.Map != Map.Felucca && TargetMap == Map.Felucca && ShowFeluccaWarning) )
+			/*** MOD_START ***/
+			//non ci deve essere nessuna conferma se si entra in un gate!
+			/*
+			if ( IsInTown( from.Location, from.Map ) && !IsInTown( m_Target, m_TargetMap ) || (from.Map != Map.Felucca && TargetMap == Map.Felucca && ShowFeluccaWarning) )
 			{
 				if ( from.AccessLevel == AccessLevel.Player || !from.Hidden )
 					from.Send( new PlaySound( 0x20E, from.Location ) );
@@ -203,9 +204,10 @@ namespace Server.Items
 			else
 			{
 				EndConfirmation( from );
-			}*/
-            /*** MOD_END ***/
-            EndConfirmation(from);
+			}
+			*/
+			EndConfirmation(from);
+			/*** MOD_END ***/
 		}
 
 		public virtual void EndConfirmation( Mobile from )
@@ -243,11 +245,13 @@ namespace Server.Items
 			private Moongate m_Gate;
 			private int m_Range;
 
-            /*** MOD_START ***/
-            //nessun delay per netrare nei gate
-            //public DelayTimer( Mobile from, Moongate gate, int range ) : base( TimeSpan.FromSeconds( 1.0 ) )
-            /*** MOD_END ***/
+			/*** MOD_START ***/
+			//nessun delay per netrare nei gate
+			/*
+			public DelayTimer( Mobile from, Moongate gate, int range ) : base( TimeSpan.FromSeconds( 1.0 ) )
+			*/
 			public DelayTimer( Mobile from, Moongate gate, int range ) : base( TimeSpan.FromSeconds( 0 ) )
+			/*** MOD_END ***/
 			{
 				m_From = from;
 				m_Gate = gate;

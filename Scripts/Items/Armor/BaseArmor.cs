@@ -97,6 +97,8 @@ namespace Server.Items
 		public virtual int OldDexReq{ get{ return 0; } }
 		public virtual int OldIntReq{ get{ return 0; } }
 
+		public virtual bool CanFortify{ get{ return true; } }
+
 		public override void OnAfterDuped( Item newItem )
 		{
 			BaseArmor armor = newItem as BaseArmor;
@@ -1633,10 +1635,11 @@ namespace Server.Items
 					}
 
 					from.CheckSkill( SkillName.ArmsLore, 0, 100 );
-				}*/
-				
+				}
+				*/
+
 				DistributeBonuses( (int)(from.Skills.ArmsLore.Value / 10) );
-				
+
 				/*** MOD_END ***/
 			}
 

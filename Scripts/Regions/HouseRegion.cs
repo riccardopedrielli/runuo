@@ -18,21 +18,26 @@ namespace Server.Regions
 
 		public static void Initialize()
 		{
-            /*** DEL_START ***/
-            //non serve perche non deve controllare la gente
-			//EventSink.Login += new LoginEventHandler( OnLogin );
-            /*** DEL_END ***/
+			/*** DEL_START ***/
+			//non serve perche non deve controllare la gente
+			/*
+			EventSink.Login += new LoginEventHandler( OnLogin );
+			*/
+			/*** DEL_END ***/
 		}
 
-        /*** DEL_START ***/
-        //non serve il controllo
-		/*public static void OnLogin( LoginEventArgs e )
-		{            
-			BaseHouse house = BaseHouse.FindHouseAt( e.Mobile );			
-            if ( house != null && !house.Public && !house.IsFriend( e.Mobile ) )
+		/*** DEL_START ***/
+		//non serve il controllo
+		/*
+		public static void OnLogin( LoginEventArgs e )
+		{
+			BaseHouse house = BaseHouse.FindHouseAt( e.Mobile );
+
+			if ( house != null && !house.Public && !house.IsFriend( e.Mobile ) )
 				e.Mobile.Location = house.BanLocation;
-		}*/
-        /*** DEL_END ***/
+		}
+		*/
+		/*** DEL_END ***/
 
 		public HouseRegion( BaseHouse house ) : base( null, house.Map, HousePriority, GetArea( house ) )
 		{
@@ -88,9 +93,10 @@ namespace Server.Regions
 
 			m_Recursion = true;
 
-            /*** DEL_START ***/
-            //tutti possono entrare
-			/*if ( m is BaseCreature && ((BaseCreature)m).NoHouseRestrictions )
+			/*** DEL_START ***/
+			//tutti possono entrare
+			/*
+			if ( m is BaseCreature && ((BaseCreature)m).NoHouseRestrictions )
 			{
 			}
 			else if ( m is BaseCreature && ((BaseCreature)m).IsHouseSummonable && (BaseCreature.Summoning || m_House.IsInside( oldLocation, 16 )) )
@@ -115,9 +121,15 @@ namespace Server.Regions
 				m.Location = m_House.BanLocation;
 				m.SendLocalizedMessage( 1061637 ); // You are not allowed to access this.
 			}
-			else */
-            /*** DEL_END ***/
-            if ( m_House is HouseFoundation )
+			*/
+			/*** DEL_END ***/
+
+			/*** MOD_START ***/
+			/*
+			else if ( m_House is HouseFoundation )
+			*/
+			if ( m_House is HouseFoundation )
+			/*** MOD_END ***/
 			{
 				HouseFoundation foundation = (HouseFoundation)m_House;
 
@@ -143,9 +155,11 @@ namespace Server.Regions
 		{
 			if ( !base.OnMoveInto( from, d, newLocation, oldLocation ) )
 				return false;
-            /*** DEL_START ***/
-            //Nelle case possono entrare tutti
-			/*if ( from is BaseCreature && ((BaseCreature)from).NoHouseRestrictions )
+
+			/*** DEL_START ***/
+			//Nelle case possono entrare tutti
+			/*
+			if ( from is BaseCreature && ((BaseCreature)from).NoHouseRestrictions )
 			{
 			}
 			else if ( from is BaseCreature && ((BaseCreature)from).IsHouseSummonable && (BaseCreature.Summoning || m_House.IsInside( oldLocation, 16 )) )
@@ -172,9 +186,15 @@ namespace Server.Regions
 				from.SendLocalizedMessage( 1061637 ); // You are not allowed to access this.
 				return false;
 			}
-			else*/
-            /*** DEL_END ***/
-            if ( m_House is HouseFoundation )
+			*/
+			/*** DEL_END ***/
+
+			/*** MOD_START ***/
+			/*
+			else if ( m_House is HouseFoundation )
+			*/
+			if ( m_House is HouseFoundation )
+			/*** MOD_END ***/
 			{
 				HouseFoundation foundation = (HouseFoundation)m_House;
 
@@ -240,9 +260,10 @@ namespace Server.Regions
 			if ( !isFriend )
 				return;
 
-            /*** DEL_START ***/
-            //niente ban niente kick
-			/*if ( e.HasKeyword( 0x33 ) ) // remove thyself
+			/*** DEL_START ***/
+			//niente ban niente kick
+			/*
+			if ( e.HasKeyword( 0x33 ) ) // remove thyself
 			{
 				if ( isFriend )
 				{
@@ -270,9 +291,15 @@ namespace Server.Regions
 					from.Target = new HouseBanTarget( true, m_House );
 				}
 			}
-			else*/
-            /*** DEL_END ***/
-            if ( e.HasKeyword( 0x23 ) ) // I wish to lock this down
+			*/
+			/*** DEL_END ***/
+
+			/*** MOD_START ***/
+			/*
+			else if ( e.HasKeyword( 0x23 ) ) // I wish to lock this down
+			*/
+			if ( e.HasKeyword( 0x23 ) ) // I wish to lock this down
+			/*** MOD_END ***/
 			{
 				if ( isCoOwner )
 				{

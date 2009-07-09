@@ -3,9 +3,10 @@ using Server.Items;
 
 namespace Server.Items
 {
+	[FlipableAttribute( 0x1c06, 0x1c07 )]
 	/*** MOD_START ***/
 	/*
-	public class FemaleLeatherChestt : BaseArmor
+	public class FemaleLeatherChest : BaseArmor
 	*/
 	public class FemaleLeatherChest : BaseLeatherArmor
 	/*** MOD_END ***/

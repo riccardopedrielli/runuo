@@ -95,11 +95,17 @@ Armi
 
     * Archi e balestre non possono essere usati con armature plate o dragon
     Aumentata la chance di hit tra guerrieri a pari skill del 15% (ora 65%)
+	Str minima per Halberd, Lance e War Hammer impostata a 90.
 
 
 Armature
 
     * Str minima per PlateChest e FemalePlateChest impostata a 90.
+
+
+Scudi
+
+	Str minima per Order Shield e Chaos Shield impostata a 90.
 
 
 Account

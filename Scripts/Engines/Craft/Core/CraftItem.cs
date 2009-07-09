@@ -294,7 +294,8 @@ namespace Server.Engines.Craft
 				0x184A, 0x184C, // Heating stand (left)
 				0x184E, 0x1850, // Heating stand (right)
 				0x398C, 0x399F,  // Fire field
-				0x2DDB, 0x2DDC	//Elven stove
+				0x2DDB, 0x2DDC,	//Elven stove
+				0x19AA, 0x19BB	// Veteran Reward Brazier
 			};
 
 		private static int[] m_Ovens = new int[]
@@ -821,7 +822,6 @@ namespace Server.Engines.Craft
 				/*** MOD_END ***/
 				
 				case CraftECA.FiftyPercentChanceMinusTenPercent: return (chance * 0.5) - 0.1;
-				
 				case CraftECA.ChanceMinusSixtyToFourtyFive:
 				{
 					double offset = 0.60 - ((from.Skills[system.MainSkill].Value - 95.0) * 0.03);

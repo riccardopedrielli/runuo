@@ -38,7 +38,12 @@ namespace Server.Misc
 		 */
 
 		public static readonly string Address = null;
+		/*** MOD_START */
+		/*
+		public static readonly string ServerName = "RunUO TC";
+		*/
 		public static readonly string ServerName = "Nuovo Mondo";
+		/*** MOD_END ***/
 
 		public static readonly bool AutoDetect = true;
 

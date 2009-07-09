@@ -59,7 +59,7 @@ namespace Server.Mobiles
 		public override bool HasBreath{ get{ return true; } }
 		public override int Meat{ get{ return 1; } }
         /*** ADD_START ***/
-        //deve droppare meno pelli e barbed
+        //deve droppare pelli barbed
         public override int Hides { get { return 5; } }
         public override HideType HideType { get { return HideType.Barbed; } }
         /*** ADD_END ***/

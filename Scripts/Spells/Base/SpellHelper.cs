@@ -137,10 +137,13 @@ namespace Server.Spells
 					return true;
 			}
 
-            /*** DEL_START ***/ 
-            // nonostante il server sia settato AOS lo vede come false.... -.-
-			//if( Core.Expansion == Expansion.AOS )
-			//{
+			/*** DEL_START ***/ 
+			// nonostante il server sia settato AOS lo vede come false.... -.-
+			/*
+			if( Core.Expansion == Expansion.AOS )
+			{
+			*/
+			/*** DEL_END ***/
 				for( int i = 0; i < m.Aggressors.Count; ++i )
 				{
 					AggressorInfo info = m.Aggressors[i];
@@ -148,8 +151,12 @@ namespace Server.Spells
 					if( info.Attacker.Player && (DateTime.Now - info.LastCombatTime) < CombatHeatDelay )
 						return true;
 				}
-			//}
-            /*** DEL_END ***/
+			/*** DEL_START ***/
+			/*
+			}
+			*/
+			/*** DEL_END ***/
+
 			return false;
 		}
 
@@ -388,13 +395,16 @@ namespace Server.Spells
 
 			if( to is BaseCreature && !((BaseCreature)to).Controlled && ((BaseCreature)to).InitialInnocent )
 				return true;
-            /*** DEL_START ***/
-            //anche gli innocenti devono essere colpiti
-			/*int noto = Notoriety.Compute( from, to );
 
-			return (noto != Notoriety.Innocent || from.Kills >= 5);*/
-            /*** DEL_END ***/
-            return true;
+			/*** DEL_START ***/
+			//anche gli innocenti devono essere colpiti
+			/*
+			int noto = Notoriety.Compute( from, to );
+
+			return (noto != Notoriety.Innocent || from.Kills >= 5);
+			*/
+			/*** DEL_END ***/
+			return true;
 		}
 
 		private static int[] m_Offsets = new int[]
@@ -801,12 +811,12 @@ namespace Server.Spells
 		{
 			if( target.MagicDamageAbsorb > 0 )
 			{
-				/*++circle;
+				++circle;
 
 				target.MagicDamageAbsorb -= circle;
 
 				// This order isn't very intuitive, but you have to nullify reflect before target gets switched
-                */
+
 				bool reflect = (target.MagicDamageAbsorb >= 0);
 
 				if( target is BaseCreature )
@@ -822,9 +832,6 @@ namespace Server.Spells
 				{
 					target.FixedEffect( 0x37B9, 10, 5 );
 
-                    target.MagicDamageAbsorb = 0;
-                    DefensiveSpell.Nullify(target);
-
 					Mobile temp = caster;
 					caster = target;
 					target = temp;
@@ -839,9 +846,6 @@ namespace Server.Spells
 				if( reflect )
 				{
 					target.FixedEffect( 0x37B9, 10, 5 );
-
-                    target.MagicDamageAbsorb = 0;
-                    DefensiveSpell.Nullify(target);
 
 					Mobile temp = caster;
 					caster = target;

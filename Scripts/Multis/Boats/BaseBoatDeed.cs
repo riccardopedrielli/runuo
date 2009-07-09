@@ -22,12 +22,14 @@ namespace Server.Multis
 		{
 			Weight = 1.0;
 
-            /*** MOD_START ***/
-            //i deed delle barche devono essere rubabili
-			//if ( !Core.AOS )
-			//	LootType = LootType.Newbied;
-            LootType = LootType.Regular;
-            /*** MOD_END ***/
+			/*** MOD_START ***/
+			//i deed delle barche devono essere rubabili
+			/*
+			if ( !Core.AOS )
+				LootType = LootType.Newbied;
+			*/
+			LootType = LootType.Regular;
+			/*** MOD_END ***/
 
 			m_MultiID = id & 0x3FFF;
 			m_Offset = offset;

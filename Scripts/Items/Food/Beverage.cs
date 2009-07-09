@@ -947,71 +947,72 @@ namespace Server.Items
 				}
 			}
 			else if ( from == targ )
-			{               
+			{
                 /*** MOD_START ***/
-                //if (from.Thirst < 20)                
-                //  from.Thirst += 1;
+				/*
+				if ( from.Thirst < 20 )
+					from.Thirst += 1;
+				*/
 
-                if (from.Thirst >= 20)
-                {
-                    from.SendMessage("You are simply too full to drink any more!");
-                    return;
-                }
-                else
-                {
+				if (from.Thirst >= 20)
+				{
+					from.SendMessage("You are simply too full to drink any more!");
+					return;
+				}
+				else
+				{
+					switch (this.Content)
+					{
+						case BeverageType.Ale:
+							from.Thirst += 1;
+							break;
+						case BeverageType.Cider:
+							from.Thirst += 3;
+							break;
+						case BeverageType.Liquor:
+							from.Thirst += 1;
+							break;
+						case BeverageType.Milk:
+							from.Thirst += 4;
+							break;
+						case BeverageType.Wine:
+							from.Thirst += 2;
+							break;
+						case BeverageType.Water:
+							from.Thirst += 4;
+							break;
+					}
 
-                    switch (this.Content)
-                    {
-                        case BeverageType.Ale:
-                            from.Thirst += 1;
-                            break;
-                        case BeverageType.Cider:
-                            from.Thirst += 3;
-                            break;
-                        case BeverageType.Liquor:
-                            from.Thirst += 1;
-                            break;
-                        case BeverageType.Milk:
-                            from.Thirst += 4;
-                            break;
-                        case BeverageType.Wine:
-                            from.Thirst += 2;
-                            break;
-                        case BeverageType.Water:
-                            from.Thirst += 4;
-                            break;
-                    }
-
-                    if (from.Thirst < 5)
-                        from.SendMessage("You drink, but are still extremely thirsty.");
-                    else if (from.Thirst < 10)
-                        from.SendMessage("You drink, and begin to feel more refreshed.");
-                    else if (from.Thirst < 15)
-                        from.SendMessage("After drink, you feel much less thirsty.");
-                    else
-                        from.SendMessage("You feel quite full after drink.");
-                }
+					if (from.Thirst < 5)
+						from.SendMessage("You drink, but are still extremely thirsty.");
+					else if (from.Thirst < 10)
+						from.SendMessage("You drink, and begin to feel more refreshed.");
+					else if (from.Thirst < 15)
+						from.SendMessage("After drink, you feel much less thirsty.");
+					else
+						from.SendMessage("You feel quite full after drink.");
+				}
                 /*** MOD_END ***/
 
-                if (ContainsAlchohol)
-                {
-                    int bac = 0;
+				if ( ContainsAlchohol )
+				{
+					int bac = 0;
 
-                    switch (this.Content)
-                    {
-                        case BeverageType.Ale: bac = 1; break;
-                        case BeverageType.Wine: bac = 2; break;
-                        case BeverageType.Cider: bac = 3; break;
-                        case BeverageType.Liquor: bac = 4; break;
-                    }
+					switch ( this.Content )
+					{
+						case BeverageType.Ale: bac = 1; break;
+						case BeverageType.Wine: bac = 2; break;
+						case BeverageType.Cider: bac = 3; break;
+						case BeverageType.Liquor: bac = 4; break;
+					}
 
-                    from.BAC += bac;
+					from.BAC += bac;
 
-                    if (from.BAC > 60)
-                        from.BAC = 60;
+					if ( from.BAC > 60 )
+						from.BAC = 60;
 
-                    CheckHeaveTimer(from);
-                }
+					CheckHeaveTimer( from );
+				}
 
 				from.PlaySound( Utility.RandomList( 0x30, 0x2D6 ) );
 

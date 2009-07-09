@@ -260,14 +260,14 @@ namespace Server.Spells
 
 		public virtual int GetDamageFixed( Mobile m )
 		{
-			m.CheckSkill( DamageSkill, 0.0, 120.0 );
+			m.CheckSkill( DamageSkill, 0.0, m.Skills[DamageSkill].Cap );
 
 			return m.Skills[DamageSkill].Fixed;
 		}
 
 		public virtual double GetDamageSkill( Mobile m )
 		{
-			m.CheckSkill( DamageSkill, 0.0, 120.0 );
+			m.CheckSkill( DamageSkill, 0.0, m.Skills[DamageSkill].Cap );
 
 			return m.Skills[DamageSkill].Value;
 		}
@@ -532,6 +532,9 @@ namespace Server.Spells
 					if ( ClearHandsOnCast )
 						m_Caster.ClearHands();
 
+					if ( Core.ML )
+						WeaponAbility.ClearCurrentAbility( m_Caster );
+
 					m_CastTimer = new CastTimer( this, castDelay );
 					m_CastTimer.Start();
 
@@ -614,10 +617,10 @@ namespace Server.Spells
 
 		public virtual TimeSpan GetCastRecovery()
 		{
-            return TimeSpan.Zero;
-            /*** DEL_END ***/
-            //no delay tra le magie
-			/*if ( !Core.AOS )
+			/*** MOD_START ***/
+			//no delay tra le magie
+			/*
+			if ( !Core.AOS )
 				return NextSpellDelay;
 
 			int fcr = AosAttributes.GetValue( m_Caster, AosAttribute.CastRecovery );
@@ -631,8 +634,10 @@ namespace Server.Spells
 			if ( delay < CastRecoveryMinimum )
 				delay = CastRecoveryMinimum;
 
-			return TimeSpan.FromSeconds( (double)delay / CastRecoveryPerSecond );*/
-            /*** DEL_END ***/
+			return TimeSpan.FromSeconds( (double)delay / CastRecoveryPerSecond );
+			*/
+			return TimeSpan.Zero;
+			/*** MOD_END ***/
 		}
 
 
@@ -657,10 +662,10 @@ namespace Server.Spells
 			// Faster casting cap of 0 (if using the protection spell) 
 			// Paladin spells are subject to a faster casting cap of 4 
 			// Paladins with magery of 70.0 or above are subject to a faster casting cap of 2 
-			int fcMax = 2;
+			int fcMax = 4;
 
-			if ( CastSkill == SkillName.Chivalry && m_Caster.Skills[SkillName.Magery].Value < 70.0 )
-				fcMax = 4;
+			if ( CastSkill == SkillName.Magery || CastSkill == SkillName.Necromancy || ( CastSkill == SkillName.Chivalry && m_Caster.Skills[SkillName.Magery].Value >= 70.0 ) )
+				fcMax = 2;
 
 			int fc = AosAttributes.GetValue( m_Caster, AosAttribute.CastSpeed );
 

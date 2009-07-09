@@ -32,64 +32,68 @@ namespace Server.Misc
 
 		public static void HungerDecay( Mobile m )
 		{
-            /*** MOD_START ***/
-            //if ( m != null && m.Hunger >= 1 )
-            //    m.Hunger -= 1;
-            if (m != null && m.AccessLevel == AccessLevel.Player)
-            {
-                if(m.Hunger >= 1 )
-                    m.Hunger -= 1;
+			/*** MOD_START ***/
+			/*
+			if ( m != null && m.Hunger >= 1 )
+				m.Hunger -= 1;
+			*/
+			if (m != null && m.AccessLevel == AccessLevel.Player)
+			{
+				if(m.Hunger >= 1 )
+					m.Hunger -= 1;
 
-                switch (m.Hunger)
-                {
-                    case 3:
-                        m.SendMessage(133, "You become hungry.");
-                        break;
-                    case 2:
-                        m.SendMessage(133, "You are very hungry.");
-                        break;
-                    case 1:
-                        m.SendMessage(133, "You are extremely hungry!!!");
-                        break;
-                    case 0:
-                        m.Kill();
-                        m.SendMessage(133, "You are dead by hunger!!!");
-                        m.Hunger = 5;
-                        break;
-                }
-            }
-            /*** MOD_END ***/
+				switch (m.Hunger)
+				{
+					case 3:
+						m.SendMessage(133, "You become hungry.");
+						break;
+					case 2:
+						m.SendMessage(133, "You are very hungry.");
+						break;
+					case 1:
+						m.SendMessage(133, "You are extremely hungry!!!");
+						break;
+					case 0:
+						m.Kill();
+						m.SendMessage(133, "You are dead by hunger!!!");
+						m.Hunger = 5;
+						break;
+				}
+			}
+			/*** MOD_END ***/
 		}
 
 		public static void ThirstDecay( Mobile m )
 		{
-            /*** MOD_START ***/
-            //if ( m != null && m.Thirst >= 1 )
-            //    m.Thirst -= 1;
-            if (m != null && m.AccessLevel == AccessLevel.Player)
-            {
-                if (m.Thirst >= 1)
-                    m.Thirst -= 1;
+			/*** MOD_START ***/
+			/*
+			if ( m != null && m.Thirst >= 1 )
+				m.Thirst -= 1;
+			*/
+			if (m != null && m.AccessLevel == AccessLevel.Player)
+			{
+				if (m.Thirst >= 1)
+					m.Thirst -= 1;
 
-                switch (m.Thirst)
-                {
-                    case 3:
-                        m.SendMessage(133, "You become thirsty.");
-                        break;
-                    case 2:
-                        m.SendMessage(133, "You are very thirsty.");
-                        break;
-                    case 1:
-                        m.SendMessage(133, "You are extremely thirsty!!!");
-                        break;
-                    case 0:
-                        m.Kill();
-                        m.SendMessage(133, "You are dead by thirst!!!");
-                        m.Hunger = 5;
-                        break;
-                }
-            }
-            /*** MOD_END ***/
+				switch (m.Thirst)
+				{
+					case 3:
+						m.SendMessage(133, "You become thirsty.");
+						break;
+					case 2:
+						m.SendMessage(133, "You are very thirsty.");
+						break;
+					case 1:
+						m.SendMessage(133, "You are extremely thirsty!!!");
+						break;
+					case 0:
+						m.Kill();
+						m.SendMessage(133, "You are dead by thirst!!!");
+						m.Hunger = 5;
+						break;
+				}
+			}
+			/*** MOD_END ***/
 		}
 	}
 
@@ -151,8 +155,10 @@ namespace Server.Misc
                     m.SendMessage(133, "You are dead by hunger!!!");
                     m.Hunger = 5;
                 }
-                else                
-                    m.Hits -= DOT; //se hits va in negativo viene impostato a 0 nel set della proprietà
+                else
+				{
+                	m.Hits -= DOT; //se hits va in negativo viene impostato a 0 nel set della proprietÃ 
+				}
             }
         }
 
