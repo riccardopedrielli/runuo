@@ -1,0 +1,48 @@
+Specifiche VORTEX 9001 per le modifiche ai sorgenti RunUO
+
+
+old_code = codice originale del repository ufficiale RunUO
+new_code = codice aggiunto dal programmatore
+
+### ELIMINARE ###
+
+/*** DEL_START ***/
+/*
+old_code
+*/
+/*** DEL_END ***/
+
+
+### MODIFICARE ###
+
+/*** MOD_START ***/
+/*
+old_code
+*/
+
+new_code
+
+/*** MOD_END ***/
+
+
+### AGGIUNGERE ###
+
+/*** ADD_START ***/
+
+new_code
+
+/*** ADD_END ***/
+
+
+I tag devono essere applicati ad ogni modifica fatta ai sorgenti originali, anche se tale modifica comporta il cambiamento di 1 solo byte
+E' necessario rispettare strettamente lo schema proposto per garantire una buona gestione del codice e facilitare le sincronizzazioni con il repository ufficiale
+Durante la sincronizzazione con il repository ufficiale è necessario copiare anche old_code commentato
+
+Cosa NON fare
+- /*** MOD_START_END ***/
+- Commentare old_code con //
+- Includere tra i tag _START e _END codice non modificato (se non strettamente necessario per mantenere la leggibilità del codice)
+- In MOD scrivere new_code prima di old_code
+
+Vortex - 20090709
+
