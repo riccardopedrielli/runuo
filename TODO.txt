@@ -3,6 +3,7 @@ Guardie
     * Equipaggiamento appropriato.
     * Skill e stat bilanciate.
     * Tipi diversi (equip, vesti, skill, mount) per ogni città.
+	* le bolas non devono dismountare
 
 	
 Spells
@@ -21,9 +22,11 @@ Items
 Mob
     * Modificare livelli di drop armi e armor
 
+	
 Code Review
 	* mettere i commenti nel polimorph;
 
+	
 Account
 
 
@@ -36,4 +39,16 @@ Skills
 Craft
 
     * aggiungere il pentolone nei craft del tinker
+	
+	
+Gates (public & cast)
+
+	* i criminali possono attraversarli
+	
+
+Case
+    
+    Gli items “secure” e “locked” all’interno delle case sono “rubabili” con skill lockpicking a 100 (dex e stealing danno bonus) probabilita’ massima 10%
+    impostato il delay a 5sec per rubare in casa
+
 	
