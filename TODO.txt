@@ -40,11 +40,6 @@ Craft
 
     * aggiungere il pentolone nei craft del tinker
 	
-	
-Gates (public & cast)
-
-	* i criminali possono attraversarli
-	
 
 Case
     
