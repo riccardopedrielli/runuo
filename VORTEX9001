@@ -41,6 +41,7 @@ Durante la sincronizzazione con il repository ufficiale è necessario copiare an
 Cosa NON fare
 - /*** MOD_START_END ***/
 - Commentare old_code con //
+- Commentare old_code con /* */ sulla stessa riga del codice, /* e */ devono essere su righe vuote
 - Includere tra i tag _START e _END codice non modificato (se non strettamente necessario per mantenere la leggibilità del codice)
 - In MOD scrivere new_code prima di old_code
 

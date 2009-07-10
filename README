@@ -1,26 +1,37 @@
+/*** INSTALLARE MONO ***/
 
-Installare mono:
-	apt-get install libmono-winforms2.0-cil mono-devel
+/* Debian */
 
-	
-	
+apt-get install libmono-winforms2.0-cil mono-devel
 
-Compilare il server:
-	cd Server
-	gmcs -optimize -unsafe -t:exe -out:RunUO.exe -win32icon:runuo.ico -d:MONO -recurse:*.cs
-	mv RunUo.exe ..
 
-	
+/* Gentoo */
 
-NB. perche il server non crashi quando fa save o apre gump bisogna:
-	WINDOWS:
-		scaricare la libreria zlib32.dll (ora gia presente nel repo) e affiancarla all'eseguibile del server
-		cancellare in locale il file RunUO.exe.config
-		
-	LINUX:
-		cercare la libreria libz.so.1 e linkarla come segue
-		
-		sudo ln -s /usr/lib/libz.so.1 /usr/lib/libz.so	
-		
-	
+emerge mono
 
+
+
+/*** COMPILARE IL CORE ***/
+
+/* Mono */
+
+gmcs -optimize -unsafe -t:exe -out:RunUO.exe -win32icon:Server/runuo.ico -d:MONO -recurse:Server/*.cs
+
+
+/* .NET Framework */
+
+C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\csc -optimize -unsafe -t:exe -out:RunUO.exe -win32icon:Server\runuo.ico -recurse:Server\*.cs
+
+
+
+/*** AVVIARE IL RUNUO ***/
+
+/* Mono */
+
+mono RunUO.exe
+
+
+/* .NET Framework */
+
+Eliminare il file RunUO.exe.config
+Avviare RunUO.exe
