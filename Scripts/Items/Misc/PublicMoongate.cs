@@ -57,11 +57,14 @@ namespace Server.Items
 
 		public bool UseGate( Mobile m )
 		{
-			if ( m.Criminal )
+            /*** DEL_START ***/
+            //i criminali possono castare i gate
+            /*if ( m.Criminal )
 			{
 				m.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
 				return false;
-			}
+			}*/
+            /*** DEL_END ***/
 			else if ( SpellHelper.CheckCombat( m ) )
 			{
 				m.SendLocalizedMessage( 1005564, "", 0x22 ); // Wouldst thou flee during the heat of battle??
@@ -449,10 +452,13 @@ namespace Server.Items
 			{
 				m_Mobile.SendLocalizedMessage( 1019004 ); // You are not allowed to travel there.
 			}
-			else if ( m_Mobile.Criminal )
+			/*** DEL_START ***/
+            //i criminali possono castare i gate
+            /*else if ( m_Mobile.Criminal )
 			{
 				m_Mobile.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
-			}
+			}*/
+            /*** DEL_END ***/
 			else if ( SpellHelper.CheckCombat( m_Mobile ) )
 			{
 				m_Mobile.SendLocalizedMessage( 1005564, "", 0x22 ); // Wouldst thou flee during the heat of battle??

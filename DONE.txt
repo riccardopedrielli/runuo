@@ -66,6 +66,7 @@ Gates (public & cast)
     * Teleportano senza delay.
     * Accessibili durante il combat
     * Non si possono castare durante il combat
+	* i criminali possono attraversarli e castarli
 
 
 Moongates

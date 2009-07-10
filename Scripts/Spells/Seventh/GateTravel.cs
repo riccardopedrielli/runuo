@@ -108,11 +108,14 @@ namespace Server.Spells.Seventh
 			{
 				Caster.SendLocalizedMessage( 1019004 ); // You are not allowed to travel there.
 			}
-			else if ( Caster.Criminal )
+            /*** DEL_START ***/
+            //i criminali possono castare i gate
+            /*else if ( Caster.Criminal )
 			{
 				Caster.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
-			}
-			else if ( SpellHelper.CheckCombat( Caster ) )
+			}*/
+            /*** DEL_END ***/
+            else if ( SpellHelper.CheckCombat( Caster ) )
 			{
 				Caster.SendLocalizedMessage( 1005564, "", 0x22 ); // Wouldst thou flee during the heat of battle??
 			}
