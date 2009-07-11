@@ -39,12 +39,3 @@ Skills
 Craft
 
     * aggiungere il pentolone nei craft del tinker
-	
-
-Case
-    
-    Gli items “secure” e “locked” all’interno delle case sono “rubabili” con skill lockpicking a 100 (dex e stealing danno bonus) probabilita’ massima 10%
-    impostato il delay a 5sec per rubare in casa
-	distruggendo le case custom da indietro un check in denaro
-
-	
