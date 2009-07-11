@@ -108,7 +108,7 @@ namespace Server.Items
                 Item item = (Item)targeted;
                 from.Direction = from.GetDirectionTo(item);
 
-                if (!(from.Skills[SkillName.Lockpicking].Base >= 90))
+                if (!(from.Skills[SkillName.Lockpicking].Base >= 100))
                 {
                     m_Item.SendLocalizedMessageTo(from, 502072); // You don't see how that lock can be manipulated.
                     return;
@@ -215,7 +215,7 @@ namespace Server.Items
 
                 //se ToDO = 1 unlock ToDo = 0 unsecure
                 public StealingTimer(Mobile from, Item item, Lockpick lockpick, int ToDo, BaseHouse house)
-                    : base(TimeSpan.FromSeconds(5.0))
+                    : base(TimeSpan.FromSeconds(10.0))
                 {
                     m_From = from;
                     m_Item = item;
@@ -248,10 +248,12 @@ namespace Server.Items
                     double stealing = m_From.Skills[SkillName.Stealing].Base;                   
                     int bonus = Convert.ToInt32((lockpicking + stealing + m_From.Dex) / 60);//max 5%
 
-                    if (m_From.CheckTargetSkill(SkillName.Lockpicking, m_Item, 90, 100))
+                    /* Commentato perche abbiamo deciso che per ora max si puo avere il 5%
+					if (m_From.CheckTargetSkill(SkillName.Lockpicking, m_Item, 90, 100))
                     {
                         bonus += Utility.Random(5);
                     }
+					*/
 
                     if (Utility.Random(100) <= bonus) //probabilità max del 10%
                     {

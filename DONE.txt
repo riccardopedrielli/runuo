@@ -19,8 +19,8 @@ Skills
 Case
 	
     * Tolto il bonus di detecting hidden all’interno.
-    * Gli items “secure” e “locked” all’interno delle case sono “rubabili” con skill lockpicking a 100 (dex e stealing danno bonus) probabilita’ massima 10%
-    * impostato il delay a 5sec per rubare in casa
+    * Gli items “secure” e “locked” all’interno delle case sono “rubabili” con skill lockpicking a 100 (dex e stealing danno bonus) probabilita’ massima 5%
+    * impostato il delay a 10sec per rubare in casa
     * Le case non decadono col tempo
     * Tutte le case sono accessibili a chiunque, anche ai mob
     * Rimosse le voci inutilizzate dal gump delle case
