@@ -59,13 +59,21 @@ namespace Server.Items
 		{
             /*** DEL_START ***/
             //i criminali possono castare i gate
-            /*if ( m.Criminal )
+            /*
+			if ( m.Criminal )
 			{
 				m.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
 				return false;
-			}*/
+			}
+			*/
             /*** DEL_END ***/
+
+			/*** MOD_START ***/
+			/*
 			else if ( SpellHelper.CheckCombat( m ) )
+			*/
+			if ( SpellHelper.CheckCombat( m ) )
+			/*** MOD_END ***/
 			{
 				m.SendLocalizedMessage( 1005564, "", 0x22 ); // Wouldst thou flee during the heat of battle??
 				return false;
@@ -454,10 +462,12 @@ namespace Server.Items
 			}
 			/*** DEL_START ***/
             //i criminali possono castare i gate
-            /*else if ( m_Mobile.Criminal )
+            /*
+			else if ( m_Mobile.Criminal )
 			{
 				m_Mobile.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
-			}*/
+			}
+			*/
             /*** DEL_END ***/
 			else if ( SpellHelper.CheckCombat( m_Mobile ) )
 			{

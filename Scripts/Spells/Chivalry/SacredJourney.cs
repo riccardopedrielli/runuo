@@ -104,10 +104,12 @@ namespace Server.Spells.Chivalry
 			}
             /*** DEL_START ***/
             //i criminali possono castare i gate
-            /*else if ( Caster.Criminal )
+            /*
+			else if ( Caster.Criminal )
 			{
 				Caster.SendLocalizedMessage( 1005561, "", 0x22 ); // Thou'rt a criminal and cannot escape so easily.
-			}*/
+			}
+			*/
             /*** DEL_END ***/
 			else if ( SpellHelper.CheckCombat( Caster ) )
 			{
