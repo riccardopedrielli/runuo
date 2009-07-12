@@ -139,6 +139,7 @@ NPC
 	* Gli healer ressano solo i fantasmi in warmode senza conferma
     * Rimossi reagenti e book dei necro e pala
     * Eliminati training skill SE e ML da npc
+	* Aggiunto il pentolone al vendor cuoco
 
 
 BOD
