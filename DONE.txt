@@ -165,4 +165,5 @@ Staff related
     * TestRobe: toggle AccessLevel Player/Account con doppio click.
     * Eliminati comandi decorate e vendorgen
     * Generazione porte, sign, moongates e teleporter solo su Felucca
+	* Aggiunto il Sorious' FireFeet
 	
