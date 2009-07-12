@@ -13,6 +13,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <newfilesearch>OnLoad</newfilesearch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -189,5 +190,10 @@
     <Compile Include="Utility.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Effects.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="runuo.ico">
+      <Visible>False</Visible>
+    </None>
   </ItemGroup>
 </Project>

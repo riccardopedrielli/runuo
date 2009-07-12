@@ -10,6 +10,7 @@
     <RootNamespace>Server</RootNamespace>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <newfilesearch>OnLoad</newfilesearch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -2017,10 +2018,6 @@
     <Compile Include="Custom\Engines\AI\AI\ArcherGuardAI.cs" />
     <Compile Include="Custom\Engines\AI\AI\MageGuardAI.cs" />
     <Compile Include="Custom\Engines\AI\AI\WarriorGuardAI.cs" />
-    <Compile Include="Custom\Chests-osi\TreasureChestLevel3.cs" />
-    <Compile Include="Custom\Chests-osi\TreasureChestLevel4.cs" />
-    <Compile Include="Custom\Chests-osi\TreasureChestLevel1.cs" />
-    <Compile Include="Custom\Chests-osi\TreasureChestLevel2.cs" />
     <Compile Include="Custom\XmlSpawner2\XmlItems\QuestNote.cs" />
     <Compile Include="Custom\XmlSpawner2\XmlItems\XmlSpawnerAddon.cs" />
     <Compile Include="Custom\XmlSpawner2\XmlItems\TimedSwitches.cs" />
@@ -2656,6 +2653,12 @@
     <Compile Include="Targets\MoveTarget.cs" />
     <Compile Include="Targets\BladedItemTarget.cs" />
     <Compile Include="Targets\PickMoveTarget.cs" />
+    <Compile Include="Custom\Items\Misc\PlayerPiano.cs" />
+    <Compile Include="Custom\Gumps\SkillStatSetGump.cs" />
+    <Compile Include="Custom\Items\Containers\Chests-osi\TreasureChestLevel1.cs" />
+    <Compile Include="Custom\Items\Containers\Chests-osi\TreasureChestLevel2.cs" />
+    <Compile Include="Custom\Items\Containers\Chests-osi\TreasureChestLevel3.cs" />
+    <Compile Include="Custom\Items\Containers\Chests-osi\TreasureChestLevel4.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\Mobiles\Guards\Cove\" />
@@ -2671,5 +2674,12 @@
     <Folder Include="Custom\Mobiles\Guards\Trinsic\" />
     <Folder Include="Custom\Mobiles\Guards\Vesper\" />
     <Folder Include="Custom\Mobiles\Guards\Yew\" />
+    <Folder Include="Custom\Gumps\" />
+    <Folder Include="Custom\Items\Containers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Output\Scripts.CS.hash">
+      <Visible>False</Visible>
+    </None>
   </ItemGroup>
 </Project>
