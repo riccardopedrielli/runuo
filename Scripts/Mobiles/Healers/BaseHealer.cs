@@ -92,9 +92,17 @@ namespace Server.Mobiles
 
 			m.PlaySound( 0x214 );
 			m.FixedEffect( 0x376A, 10, 16 );
-
+						
+			/*** DEL_START ***/
+			/*	rimuovo il gump di conferma per la resurrezione
 			m.CloseGump( typeof( ResurrectGump ) );
 			m.SendGump( new ResurrectGump( m, ResurrectMessage.Healer ) );
+			*/
+			/*** DEL_END ***/
+			
+			/*** ADD_START ***/
+			m.Resurrect();
+			/*** ADD_END ***/
 		}
 
 		public virtual void OfferHeal( PlayerMobile m )
@@ -120,7 +128,13 @@ namespace Server.Mobiles
 		{
 			if ( !m.Frozen && DateTime.Now >= m_NextResurrect && InRange( m, 4 ) && !InRange( oldLocation, 4 ) && InLOS( m ) )
 			{
+				/*** MOD_START ***/
+				//se e' in warmode l'healer lo ressa
+				if ( !m.Alive && m.Warmode )
+				/*
 				if ( !m.Alive )
+				*/
+				/*** MOD_END ***/
 				{
 					m_NextResurrect = DateTime.Now + ResurrectDelay;
 

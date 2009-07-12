@@ -36,8 +36,12 @@ namespace Server.Items
 		public override void Deserialize( GenericReader reader )
 		{
 			base.Deserialize( reader );
+			/*** MOD_START ***/
+			LootType = LootType.Regular;
+			/*
 			LootType = LootType.Blessed;
-
+			*/
+			/*** MOD_END ***/
 			int version = reader.ReadInt();
 
 			switch ( version )
@@ -55,7 +59,12 @@ namespace Server.Items
 		{
 			Weight = 1.0;
 			Hue = 0x34;
+			/*** MOD_START ***/
+			LootType = LootType.Regular;
+			/*
 			LootType = LootType.Blessed;
+			*/
+			/*** MOD_END ***/
 
 			m_Worth = worth;
 		}

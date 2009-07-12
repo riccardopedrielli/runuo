@@ -81,6 +81,7 @@ Items
     * Tutti i tipi di deed sono lootabili (case,barche,decorazioni..)
     * Le chiavi delle barche e i modellini dockati sono lootabili
     * Rimossi reagenti spellbook e oggetti aos da dropp e treasure
+	* I BankCheck ora sono lootabili
 
 
 Craft
@@ -90,7 +91,7 @@ Craft
     * Bonus al danno delle armi exceptional: Arms Lore / 3
     * Bonus alla resistenza delle armature exceptional: Arms Lore / 10
     * Probabilità di craftare item exceptional basata su Arms Lore
-
+	* aggiungere il pentolone nei craft del tinker
 
 Armi
 
@@ -135,6 +136,7 @@ NPC
     * Fixato il bug che non contava nel balance anche i check
     * Gli healer normali ressano anche i criminali ma non i rossi
     * Gli evil healer ressano solo i rossi e non i blu
+	* Gli healer ressano solo i fantasmi in warmode senza conferma
     * Rimossi reagenti e book dei necro e pala
     * Eliminati training skill SE e ML da npc
 
@@ -162,3 +164,4 @@ Staff related
     * TestRobe: toggle AccessLevel Player/Account con doppio click.
     * Eliminati comandi decorate e vendorgen
     * Generazione porte, sign, moongates e teleporter solo su Felucca
+	

@@ -227,6 +227,10 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( Spyglass ), 1044050, 1025365, 60.0, 110.0, typeof( IronIngot ), 1044036, 4, 1044037 );
 			AddCraft( typeof( Lantern ), 1044050, 1022597, 30.0, 80.0, typeof( IronIngot ), 1044036, 2, 1044037 );
 			AddCraft( typeof( HeatingStand ), 1044050, 1026217, 60.0, 110.0, typeof( IronIngot ), 1044036, 4, 1044037 );
+			/*** ADD_START ***/
+            // aggiunto il pentolone
+            AddCraft( typeof( Cauldron ), 1044050, 1022420, 50.0, 100.0, typeof( IronIngot ), 1044036, 8, 1044037 );
+            /*** ADD_END ***/
 
 			if ( Core.SE )
 			{

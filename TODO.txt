@@ -10,32 +10,28 @@ Spells
 
     * Scelta creatura tramite gump per Summon Creature.
     * Incrementare danno (suggerito 15%) 
+	* controllare polymorph che sembra non scada mai
 
 	
 Items
 
     * Eliminare craft SE e ML da Tailoring.
     * Bonus di alchemy sul danno delle pozioni explosion -50%.
-    * Potenziare il disguise kit in maniera da potersi scegliere il nome oppure copiare aspetto, nome e tag di gilda del target selezionato.
-	* togliere i check da blessed
+    * Potenziare il disguise kit in maniera da potersi scegliere il nome oppure copiare aspetto, nome e tag di gilda del target selezionato.	
 	
 Mob
     * Modificare livelli di drop armi e armor
-
-	
-Code Review
-	* mettere i commenti nel polimorph;
 
 	
 Account
 
 
 PG
-	* togliere la finestrella di accettazione resurrect e fare in modo che ressi solo se sei in war
+	
 
 Skills
 
 
 Craft
-
-    * aggiungere il pentolone nei craft del tinker
+    
+	* riguardare le % dei craft perche alcuni richiedono + di 100 di skill
