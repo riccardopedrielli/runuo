@@ -76,7 +76,9 @@ namespace Server.Mobiles
 			return artifact;
 		}
 
-		private PowerScroll CreateRandomPowerScroll()
+        /*** DEL_START ***/
+		/*
+        private PowerScroll CreateRandomPowerScroll()
 		{
 			int level;
 			double random = Utility.RandomDouble();
@@ -90,7 +92,7 @@ namespace Server.Mobiles
 
 			return PowerScroll.CreateRandomNoCraft( level, level );
 		}
-
+        
 		public void GivePowerScrolls()
 		{
 			if ( Map != Map.Felucca )
@@ -151,8 +153,6 @@ namespace Server.Mobiles
 			}
 		}
 
-        /*** DEL_START ***/
-        /*
 		public static void GivePowerScrollTo( Mobile m, PowerScroll ps )
 		{
 			if( ps == null || m == null )	//sanity
