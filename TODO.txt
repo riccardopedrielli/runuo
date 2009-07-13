@@ -21,7 +21,7 @@ Items
 	
 Mob
     * Modificare livelli di drop armi e armor
-
+	* rimuovere le Scroll of power dai champion
 	
 Account
 
