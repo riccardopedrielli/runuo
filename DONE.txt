@@ -7,6 +7,7 @@ Mob
     * Impostato il drop di item magici a Pre-AOS.
     * Impostato drop pelli del DeepSeaSerpent a 10 barbed.
     * Impostato drop pelli del SeaSerpent a 10 horned.
+	* Rimosse le Scroll of power dai champion
 
 
 Skills

@@ -151,6 +151,8 @@ namespace Server.Mobiles
 			}
 		}
 
+        /*** DEL_START ***/
+        /*
 		public static void GivePowerScrollTo( Mobile m, PowerScroll ps )
 		{
 			if( ps == null || m == null )	//sanity
@@ -207,12 +209,18 @@ namespace Server.Mobiles
 				}
 			}
 		}
+        */
+        /*** DEL_END ***/
 
 		public override bool OnBeforeDeath()
 		{
 			if ( !NoKillAwards )
 			{
-				GivePowerScrolls();
+                /*** DEL_START ***/
+				/*
+                GivePowerScrolls();
+                */
+                /*** DEL_END ***/
 
 				if( NoGoodies )
 					return base.OnBeforeDeath();

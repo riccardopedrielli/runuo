@@ -255,6 +255,8 @@ namespace Server.Mobiles
 			}
 		}
 
+        /*** DEL_START ***/
+        /*
 		public void GivePowerScrolls()
 		{
 			List<Mobile> toGive = new List<Mobile>();
@@ -330,7 +332,9 @@ namespace Server.Mobiles
 				}
 			}
 		}
-
+        */
+        /*** DEL_END ***/
+        
 		public override bool OnBeforeDeath()
 		{
 			if ( m_TrueForm )
@@ -347,7 +351,11 @@ namespace Server.Mobiles
 
 				if ( !NoKillAwards )
 				{
-					GivePowerScrolls();
+                    /*** DEL_START ***/
+                    /* //no power of scroll
+                    GivePowerScrolls();
+                    */
+                    /*** DEL_END ***/
 
 					Map map = this.Map;
 
