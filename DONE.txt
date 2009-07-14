@@ -60,6 +60,7 @@ Spells
     * il Wall of Stone crea i singoli pezzi anche se non si e' in LOS
     * La spell magic reflect ora si puo castare sempre anche se gia attiva
 	* Magic Reflect impostato a pre-aos (riflette una magia)
+	* Telekinesis ora sposta direttamente gli oggetti all'interno del backpack per un peso massimo di Magery / 3 (non sposta i container)
 
 Gates (public & cast)
 

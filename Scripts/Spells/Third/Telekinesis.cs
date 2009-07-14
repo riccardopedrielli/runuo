@@ -27,6 +27,8 @@ namespace Server.Spells.Third
 			Caster.Target = new InternalTarget( this );
 		}
 
+        /*** DEL_START ***/
+        /*
 		public void Target( ITelekinesisable obj )
 		{
 			if ( CheckSequence() )
@@ -73,6 +75,60 @@ namespace Server.Spells.Third
 
 			FinishSequence();
 		}
+        */
+        /*** DEL_END ***/
+
+        /*** ADD_START ***/
+        public void Target(Item item)
+        {
+            if (CheckSequence()) 
+            {        
+                Item retItem = null;
+                int spellMaxWeight = (int)(Caster.Skills[SkillName.Magery].Value / 3),
+                    backpackMaxWeight = (Caster.Backpack.MaxWeight - Caster.Backpack.TotalWeight);
+
+                if (backpackMaxWeight <= 0)
+                {
+                    Caster.SendMessage("Your Backpack cannot hold more weight.");
+                    return;
+                }
+
+                if (item.Weight > spellMaxWeight)
+                {
+                    Caster.SendMessage("This item is too heavy to move.");
+                    return;
+                }
+
+                if (spellMaxWeight > backpackMaxWeight)
+                    spellMaxWeight = backpackMaxWeight;
+
+                if (item.Stackable && item.Amount > 1)
+                {
+                    int maxAmount = (int)(spellMaxWeight / item.Weight);
+
+                    if (maxAmount == item.Amount)
+                        retItem = item;
+                    else
+                        retItem = Mobile.LiftItemDupe(item, item.Amount - maxAmount);
+                }
+                else
+                {
+                    retItem = item;
+                }
+
+                Effects.SendLocationParticles(EffectItem.Create(item.Location, item.Map, EffectItem.DefaultDuration), 0x376A, 9, 32, 5022);
+                Effects.PlaySound(item.Location, item.Map, 0x1F5);
+
+                Caster.AddToBackpack(retItem);
+
+                FinishSequence();                
+            }
+            else
+            {
+                Caster.SendLocalizedMessage(501857); // This spell won't work on that!
+            }
+        }
+        /*** ADD_END ***/
 
 		public class InternalTarget : Target
 		{
@@ -85,12 +141,24 @@ namespace Server.Spells.Third
 
 			protected override void OnTarget( Mobile from, object o )
 			{
+                /*** ADD_START ***/
+                // i gold dentro un container se spostati con telecinesi creano un bug che duplica migliaia di gp
+                if (o is Item && !(o is Container) && !(((Item)o).RootParent is Container) && ((Item)o).Movable)
+                    m_Owner.Target( (Item)o );
+                else
+                    from.SendLocalizedMessage(501857); // This spell won't work on that!
+                /*** ADD_END ***/
+
+                /*** DEL_START ***/
+                /*
 				if ( o is ITelekinesisable )
 					m_Owner.Target( (ITelekinesisable)o );
 				else if ( o is Container )
 					m_Owner.Target( (Container)o );
 				else
 					from.SendLocalizedMessage( 501857 ); // This spell won't work on that!
+                */
+                /*** DEL_END ***/
 			}
 
 			protected override void OnTargetFinish( Mobile from )

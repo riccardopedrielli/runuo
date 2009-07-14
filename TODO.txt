@@ -9,9 +9,7 @@ Guardie
 Spells
 
     * Scelta creatura tramite gump per Summon Creature.
-    * Incrementare danno (suggerito 15%) 
-	* controllare polymorph che sembra non scada mai
-
+    * Incrementare danno (suggerito 15%) 		
 	
 Items
 
