@@ -106,7 +106,7 @@ namespace Server.Spells.Third
                 {
                     int maxAmount = (int)(spellMaxWeight / item.Weight);
 
-                    if (maxAmount == item.Amount)
+                    if (maxAmount >= item.Amount)
                         retItem = item;
                     else
                         retItem = Mobile.LiftItemDupe(item, item.Amount - maxAmount);
