@@ -13,7 +13,11 @@ namespace Server.Commands
 	{
 		public static void Initialize()
 		{
+			/*** DEL_START ***/
+			/*
 			CommandSystem.Register( "DecorateMag", AccessLevel.Administrator, new CommandEventHandler( DecorateMag_OnCommand ) );
+			*/
+			/*** DEL_END ***/
 		}
 
 		[Usage( "DecorateMag" )]

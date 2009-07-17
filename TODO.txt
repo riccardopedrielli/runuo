@@ -16,20 +16,51 @@ Items
     * Eliminare craft SE e ML da Tailoring.
     * Bonus di alchemy sul danno delle pozioni explosion -50%.
     * Potenziare il disguise kit in maniera da potersi scegliere il nome oppure copiare aspetto, nome e tag di gilda del target selezionato.	
-	
+
+
+Armature
+	* Sistemare % cast
+	* Sistemare rigenero mana
+
+
+Scudi
+	* Decidere % cast e rigenero mana (tutti uguali? tutti diversi?)
+
+
 Mob
+
+	* Eliminare il drop di ring e bracelet (inutile farli droppare senza prop)
     * Modificare livelli di drop armi e armor
-	
-	
+	* Rifare il drop dei champion
+
+
 Account
 
 
 PG
-	
+	* Disabilitare razza elfica (se si riesce alla creazione lato client, altrimenti workaround)
+	* Togliere il sistema di virtu.
+
 
 Skills
 
 
 Craft
     
-	* riguardare le % dei craft perche alcuni richiedono + di 100 di skill
+	* Riguardare le % dei craft perche alcuni hanno una chance troppo bassa a 100 di skill
+
+BOD
+
+	* Rifare tutto il sistema di premi
+	* Controllare l'esistenza (runuo o forum) di BOD per altre skill di craft oltre a Blacksmithy e Tailoring
+
+
+Mondo
+
+	* Sistema di timing e season
+
+
+Staff Related
+
+	* Trovare spawn di mob/vendor/decorazioni/porte/gate/teleport/varie&eventuali per xmlSpawner
+

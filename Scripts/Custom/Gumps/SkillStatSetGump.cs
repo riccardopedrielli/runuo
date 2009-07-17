@@ -14,200 +14,298 @@ namespace Server
 {
 	public class SkillStatSetGump : Gump
 	{
+		private enum Stats
+		{
+			Strength,
+			Dexterity,
+			Intelligence
+		}
+		
+		private Point3D m_Target;
+		private Map m_TargetMap;
+		private string m_error = null;
+		private string[] m_stats = null;
+		private bool[] m_skills = null;
+		
 		//Number of skills to choose
-		private int switches = 3;
+		private const int switches = 3;
 
 		//Value at which selected skills are set
-		private double val = 50;
+		private const int val = 50;
+		
+		//Total stat points
+		private const int statCap = 100;
+		
+		//Max points in a stat
+		private const int statMax = 60;
+		
+		//Min points in a stat
+		private const int statMin = 10;
 
-		public SkillStatSetGump()
-			: base( 60, 50 )
+		//Gump graphic
+		private const string titleColor = "#FFFFFF";
+		private const string gdrColor = "#4AC684";
+		private const string infoColor = "#BDE784";
+		private const string skillColor = "#D6EFEF";
+		private const string errorColor = "#FF5533";
+		
+		private const int uncheckedID = 11410;
+		private const int checkedID = 11402;
+		
+		private const int gumpX = 20;
+		private const int gumpY = 41;
+		private const int areaWidth = 682;
+		private const int areaHeight = 550;
+		
+		private const int skillOffsetX = 103;
+		private const int skillOffsetY = 120;
+		private const int skillDistanceX = 155;
+		private const int skillDistanceY = 23;
+		
+		public SkillStatSetGump( Point3D Target, Map TargetMap ) : base( gumpX, gumpY )
+		{
+			m_Target = Target;
+			m_TargetMap = TargetMap;
+			
+			CreateGump();
+		}
+		
+		public SkillStatSetGump( Point3D Target, Map TargetMap, string error, string[] stats, bool[] skills ) : base( gumpX, gumpY )
+		{
+			m_Target = Target;
+			m_TargetMap = TargetMap;
+			
+			m_error = error;
+			m_stats = stats;
+			m_skills = skills;
+			
+			CreateGump();
+		}
+		
+		private void CreateGump()
 		{
 			this.Closable=false;
 			this.Disposable=false;
 			this.Dragable=false;
 			this.Resizable=false;
+			
+			AddImageTiled( 50, 20, areaWidth, areaHeight, 5124 ); //BACKGROUND
 
-			this.AddBackground(   0,   0, 670, 552, 5054 );
-			/*this.AddImageTiled(  10,  10, 650,  22, 2624 );
-			this.AddImageTiled(  10,  37, 650,  62, 2624 );
-			this.AddImageTiled(  10, 104, 650, 366, 2624 );
-			this.AddImageTiled(  10, 475, 650,  40, 2624 );
-			this.AddImageTiled(  10, 520, 140,  22, 2624 );
-			this.AddImageTiled( 155, 520, 505,  22, 2624 );*/
-			//this.AddAlphaRegion( 10,  10, 650, 532 );
+			AddImage( 90, 33, 9005 ); //WAX MARK
+			AddImageTiled( 130, 65, 200, 1, 9101 ); //UNDERLINE
 
-			this.AddHtml( 10, 12, 650, 20, printHtmlColor("<CENTER>CHARACTER SETUP</CENTER>", "#FFCC22"), false, false );
+			AddImageTiled( 50, 29, 30, areaHeight + 10, 10460 ); //SQUARE COLUMN LEFT
+			AddImageTiled( 34, 140, 17, areaHeight - 121, 9263 ); //COLUMN BORDER LEFT
 
-			this.AddHtml( 20, 39, 640, 62, printHtmlColor( @"Here you can set your starting skills and stats
-														Select 3 skills, they will be set to 50.0%
-														Set your stats with a total of 100 points and a limit of 60 points in a single stat
-														", "#060630"), false, false );
+			AddImage( 48, 135, 10411 ); //DRAGON TAIL LEFT
+			AddImage( -16, 285, 10402 ); //DRAGON END TAIL LEFT
+			AddImage( 0, 10, 10421 ); //DRAGON BODY LEFT
+			AddImage( 25, 0, 10420 ); //DRAGON HEAD LEFT
 
-			this.AddCheck(20, 114, 30008, 30009, false, 0);
-			this.AddCheck(20, 139, 30008, 30009, false, 1);
-			this.AddCheck(20, 164, 30008, 30009, false, 2);
-			this.AddCheck(20, 189, 30008, 30009, false, 3);
-			this.AddCheck(20, 214, 30008, 30009, false, 4);
-			this.AddCheck(20, 239, 30008, 30009, false, 5);
-			this.AddCheck(20, 264, 30008, 30009, false, 6);
-			this.AddCheck(20, 289, 30008, 30009, false, 7);
-			this.AddCheck(20, 314, 30008, 30009, false, 8);
-			this.AddCheck(20, 339, 30008, 30009, false, 9);
-			this.AddCheck(20, 364, 30008, 30009, false, 10);
-			this.AddCheck(20, 389, 30008, 30009, false, 11);
-			this.AddCheck(20, 414, 30008, 30009, false, 12);
-			this.AddCheck(20, 439, 30008, 30009, false, 13);
+			AddImageTiled( 83, 15, areaWidth - 50, 15, 10250 ); //MAIOLICA TOP
 
-			this.AddCheck(180, 114, 30008, 30009, false, 14);
-			this.AddCheck(180, 139, 30008, 30009, false, 15);
-			this.AddCheck(180, 164, 30008, 30009, false, 16);
-			this.AddCheck(180, 189, 30008, 30009, false, 17);
-			this.AddCheck(180, 214, 30008, 30009, false, 18);
-			this.AddCheck(180, 239, 30008, 30009, false, 19);
-			this.AddCheck(180, 264, 30008, 30009, false, 20);
-			this.AddCheck(180, 289, 30008, 30009, false, 21);
-			this.AddCheck(180, 314, 30008, 30009, false, 22);
-			this.AddCheck(180, 339, 30008, 30009, false, 23);
-			this.AddCheck(180, 364, 30008, 30009, false, 24);
-			this.AddCheck(180, 389, 30008, 30009, false, 25);
-			this.AddCheck(180, 414, 30008, 30009, false, 26);
-			this.AddCheck(180, 439, 30008, 30009, false, 27);
+			AddImage( 34, areaHeight + 19, 10306 ); //MAIOLICA BOTTOM LEFT CORNER
+			AddImage( areaWidth + 42, areaHeight + 19, 10304 ); //MAIOLICA BOTTOM RIGHT CORNER
+			AddImageTiled( 51, areaHeight + 19, areaWidth - 8, 17, 10101 ); //MAIOLICA BOTTOM
+
+			AddImageTiled( areaWidth + 15, 29, 44, areaHeight - 10, 2605 );//COLUMN BORDER RIGHT
+			AddImageTiled( areaWidth + 15, 29, 30, areaHeight - 10, 10460 ); //SQUARE COLUMN RIGHT
+			AddImage( areaWidth + 25, 0, 10441 ); //DRAGON RIGHT
+
+			AddImage( areaWidth - 30, 50, 1417 ); //ROUND STONE
+			AddImage( areaWidth - 21, 60, 5504 ); //UO LOGO
 			
-			this.AddCheck(340, 114, 30008, 30009, false, 28);
-			this.AddCheck(340, 139, 30008, 30009, false, 29);
-			this.AddCheck(340, 164, 30008, 30009, false, 30);
-			this.AddCheck(340, 189, 30008, 30009, false, 31);
-			this.AddCheck(340, 214, 30008, 30009, false, 32);
-			this.AddCheck(340, 239, 30008, 30009, false, 33);
-			this.AddCheck(340, 264, 30008, 30009, false, 34);
-			this.AddCheck(340, 289, 30008, 30009, false, 35);
-			this.AddCheck(340, 314, 30008, 30009, false, 36);
-			this.AddCheck(340, 339, 30008, 30009, false, 37);
-			this.AddCheck(340, 364, 30008, 30009, false, 38);
-			this.AddCheck(340, 389, 30008, 30009, false, 39);
-			this.AddCheck(340, 414, 30008, 30009, false, 40);
-			this.AddCheck(340, 439, 30008, 30009, false, 41);
+			this.AddHtml( 132, 45, 270, 20, PrintHtml( "CHARACTER SETUP", titleColor ), false, false );
 			
-			this.AddCheck(500, 264, 30008, 30009, false, 42);
-			this.AddCheck(500, 289, 30008, 30009, false, 43);
-			this.AddCheck(500, 314, 30008, 30009, false, 44);
-			this.AddCheck(500, 339, 30008, 30009, false, 45);
-			this.AddCheck(500, 364, 30008, 30009, false, 46);
-			this.AddCheck(500, 389, 30008, 30009, false, 47);
-			this.AddCheck(500, 414, 30008, 30009, false, 48);
-			this.AddCheck(500, 439, 30008, 30009, false, 50);
+			this.AddHtml( 132, 70, 500, 20, PrintHtml( "<I>Hail adventurer, it is time to tell us about your past.</I>", gdrColor ), false, false );
 			
-			this.AddImage(510, 133, 9000);
+			this.AddHtml( skillOffsetX, 115, 600, 50, PrintHtml( String.Format( "Select {0} skills, they will be set to {1}.0%", switches, val), infoColor), false, false );
 			
-			this.AddHtml( 50, 115, 120, 20, printHtml("Alchemy"), false, false );
-			this.AddHtml( 50, 140, 120, 20, printHtml("Anatomy"), false, false );
-			this.AddHtml( 50, 165, 120, 20, printHtml("Animal Lore"), false, false );
-			this.AddHtml( 50, 190, 120, 20, printHtml("Item Identification"), false, false );
-			this.AddHtml( 50, 215, 120, 20, printHtml("Arms Lore"), false, false );
-			this.AddHtml( 50, 240, 120, 20, printHtml("Parrying"), false, false );
-			this.AddHtml( 50, 265, 120, 20, printHtml("Begging"), false, false );
-			this.AddHtml( 50, 290, 120, 20, printHtml("Blacksmithy"), false, false );
-			this.AddHtml( 50, 315, 120, 20, printHtml("Bowcraft/Fletching"), false, false );
-			this.AddHtml( 50, 340, 120, 20, printHtml("Peacemaking"), false, false );
-			this.AddHtml( 50, 365, 120, 20, printHtml("Camping"), false, false );
-			this.AddHtml( 50, 390, 120, 20, printHtml("Carpentry"), false, false );
-			this.AddHtml( 50, 415, 120, 20, printHtml("Cartography"), false, false );
-			this.AddHtml( 50, 440, 120, 20, printHtml("Cooking"), false, false );
+			int skillX = skillOffsetX;
+			int skillY = skillOffsetY;
 			
-			this.AddHtml( 210, 115, 120, 20, printHtml("Detecting Hidden"), false, false );
-			this.AddHtml( 210, 140, 120, 20, printHtml("Discordance"), false, false );
-			this.AddHtml( 210, 165, 120, 20, printHtml("Evaluating Intelligence"), false, false );
-			this.AddHtml( 210, 190, 120, 20, printHtml("Healing"), false, false );
-			this.AddHtml( 210, 215, 120, 20, printHtml("Fishing"), false, false );
-			this.AddHtml( 210, 240, 120, 20, printHtml("Forensic Evaluation"), false, false );
-			this.AddHtml( 210, 265, 120, 20, printHtml("Herding"), false, false );
-			this.AddHtml( 210, 290, 120, 20, printHtml("Hiding"), false, false );
-			this.AddHtml( 210, 315, 120, 20, printHtml("Provocation"), false, false );
-			this.AddHtml( 210, 340, 120, 20, printHtml("Inscription"), false, false );
-			this.AddHtml( 210, 365, 120, 20, printHtml("Lockpicking"), false, false );
-			this.AddHtml( 210, 390, 120, 20, printHtml("Magery"), false, false );
-			this.AddHtml( 210, 415, 120, 20, printHtml("Resisting Spells"), false, false );
-			this.AddHtml( 210, 440, 120, 20, printHtml("Tactics"), false, false );
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  0, "Alchemy");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  1, "Anatomy");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  2, "Animal Lore");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  3, "Item Identification");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  4, "Arms Lore");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  5, "Parrying");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  6, "Begging");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  7, "Blacksmithy");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  8, "Bowcraft/Fletching");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  9, "Peacemaking");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 10, "Camping");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 11, "Carpentry");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 12, "Cartography");
 			
-			this.AddHtml( 370, 115, 120, 20, printHtml("Snooping"), false, false );
-			this.AddHtml( 370, 140, 120, 20, printHtml("Musicianship"), false, false );
-			this.AddHtml( 370, 165, 120, 20, printHtml("Poisoning"), false, false );
-			this.AddHtml( 370, 190, 120, 20, printHtml("Archery"), false, false );
-			this.AddHtml( 370, 215, 120, 20, printHtml("Spirit Speak"), false, false );
-			this.AddHtml( 370, 240, 120, 20, printHtml("Stealing"), false, false );
-			this.AddHtml( 370, 265, 120, 20, printHtml("Tailoring"), false, false );
-			this.AddHtml( 370, 290, 120, 20, printHtml("Animal Taming"), false, false );
-			this.AddHtml( 370, 315, 120, 20, printHtml("Taste Identification"), false, false );
-			this.AddHtml( 370, 340, 120, 20, printHtml("Tinkering"), false, false );
-			this.AddHtml( 370, 365, 120, 20, printHtml("Tracking"), false, false );
-			this.AddHtml( 370, 390, 120, 20, printHtml("Veterinary"), false, false );
-			this.AddHtml( 370, 415, 120, 20, printHtml("Swordsmanship"), false, false );
-			this.AddHtml( 370, 440, 120, 20, printHtml("Mace Fighting"), false, false );
+			skillX += skillDistanceX;
+			skillY = skillOffsetY;
 			
-			this.AddHtml( 530, 265, 120, 20, printHtml("Fencing"), false, false );
-			this.AddHtml( 530, 290, 120, 20, printHtml("Wrestling"), false, false );
-			this.AddHtml( 530, 315, 120, 20, printHtml("Lumberjacking"), false, false );
-			this.AddHtml( 530, 340, 120, 20, printHtml("Mining"), false, false );
-			this.AddHtml( 530, 365, 120, 20, printHtml("Meditation"), false, false );
-			this.AddHtml( 530, 390, 120, 20, printHtml("Stealth"), false, false );
-			this.AddHtml( 530, 415, 120, 20, printHtml("Remove Trap"), false, false );
-			this.AddHtml( 530, 440, 120, 20, printHtml("Focus"), false, false );
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 13, "Cooking");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 14, "Detecting Hidden");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 15, "Discordance");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 16, "Evaluating Intelligence");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 17, "Healing");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 18, "Fishing");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 19, "Forensic Evaluation");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 20, "Herding");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 21, "Hiding");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 22, "Provocation");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 23, "Inscription");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 24, "Lockpicking");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 25, "Magery");
 			
-			this.AddButton( 10, 520, 4005, 4007, (int)Buttons.FinishButton, GumpButtonType.Reply, 0 );
-			this.AddHtml( 50, 522, 110, 20, printHtmlColor("CONFIRM", "#060630"), false, false );
-		}
-		
-		public enum Buttons
-		{
-			FinishButton
+			skillX += skillDistanceX;
+			skillY = skillOffsetY;
+
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 26, "Resisting Spells");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 27, "Tactics");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 28, "Snooping");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 29, "Musicianship");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 30, "Poisoning");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 31, "Archery");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 32, "Spirit Speak");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 33, "Stealing");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 34, "Tailoring");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 35, "Animal Taming");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 36, "Taste Identification");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 37, "Tinkering");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 38, "Tracking");
+			
+			skillX += skillDistanceX;
+			skillY = skillOffsetY + skillDistanceY * 2;
+			
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 39, "Veterinary");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 40, "Swordsmanship");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 41, "Mace Fighting");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 42, "Fencing");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 43, "Wrestling");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 44, "Lumberjacking");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 45, "Mining");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 46, "Meditation");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 47, "Stealth");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 48, "Remove Trap");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 50, "Focus");
+			
+			this.AddHtml( skillOffsetX, 460, 600, 50, PrintHtml( String.Format( "Set your stats with a total of {0} points and a {1} to {2} points in a single stat", statCap, statMin, statMax ), infoColor), false, false );
+			
+			this.AddHtml( skillOffsetX, 490, 100, 20, PrintHtml( "Strength:", skillColor ), false, false );
+			this.AddBackground( skillOffsetX + 65, 488, 40, 24, 3000 );
+			this.AddTextEntry( skillOffsetX + 74, 490, 30, 20, 0, (int)Stats.Strength, ( m_stats == null ? "" : m_stats[0] ), 2 );
+			
+			this.AddHtml( skillOffsetX + 192, 490, 100, 20, PrintHtml( "Dexterity:", skillColor ), false, false );
+			this.AddBackground( skillOffsetX + 260, 488, 40, 24, 3000 );
+			this.AddTextEntry( skillOffsetX + 269, 490, 30, 20, 0, (int)Stats.Dexterity, ( m_stats == null ? "" : m_stats[1] ), 2 );
+			
+			this.AddHtml( skillOffsetX + 379, 490, 100, 20, PrintHtml( "Intelligence:", skillColor ), false, false );
+			this.AddBackground( skillOffsetX + 455, 488, 40, 24, 3000 );
+			this.AddTextEntry( skillOffsetX + 464, 490, 30, 20, 0, (int)Stats.Intelligence, ( m_stats == null ? "" : m_stats[2] ), 2 );
+			
+			this.AddHtml( skillOffsetX, areaHeight - 20, 500, 20, PrintHtml( m_error, errorColor ), false, false );
+			
+			this.AddButton( areaWidth - 65, areaHeight - 20, 247, 248,  0, GumpButtonType.Reply, 0 );
 		}
 
 		public override void OnResponse( NetState state, RelayInfo info )
 		{
 			Mobile m = state.Mobile;
 
-			switch( info.ButtonID )
+			try
 			{
-				case 0:
+				if ( info.Switches.Length < switches )
 				{
-					if ( info.Switches.Length < switches )
-					{
-						m.SendGump( new SkillStatSetGump() );
-						m.SendMessage( 0, "You must pick {0} skills.", switches );
-						break;
-					}
-					else if ( info.Switches.Length > switches )
-					{
-						m.SendGump( new SkillStatSetGump() );
-						m.SendMessage( 0, "You can only pick {0} skills", switches);
-						break;
-					}
-					else
-					{
-						Server.Skills skills = m.Skills;
-
-						for ( int i = 0; i < skills.Length; ++i )
-						{
-							if ( info.IsSwitched( i ))
-								m.Skills[i].Base = val;
-							else
-								m.Skills[i].Base = 0;
-						}
-					}
-					break;
+					ResendGump( String.Format( "You must pick {0} skills", switches ), m, info );
 				}
+				else if ( info.Switches.Length > switches )
+				{
+					ResendGump( String.Format( "You can only pick {0} skills", switches ), m, info  );
+				}
+				else if ( info.GetTextEntry( (int)Stats.Strength ).Text == ""
+						|| info.GetTextEntry( (int)Stats.Dexterity ).Text == ""
+						|| info.GetTextEntry( (int)Stats.Intelligence ).Text == "" )
+				{
+					ResendGump( "You must set a value for each stat", m, info  );
+				}
+				else if ( Convert.ToInt32( info.GetTextEntry( (int)Stats.Strength ).Text ) < statMin
+						|| Convert.ToInt32( info.GetTextEntry( (int)Stats.Dexterity ).Text ) < statMin
+			         	|| Convert.ToInt32( info.GetTextEntry( (int)Stats.Intelligence ).Text ) < statMin )
+				{
+					ResendGump( String.Format( "You must set al least {0} points in a single stat", statMin ), m, info  );
+				}
+				else if ( Convert.ToInt32( info.GetTextEntry( (int)Stats.Strength ).Text ) > statMax
+						|| Convert.ToInt32( info.GetTextEntry( (int)Stats.Dexterity ).Text ) > statMax
+			         	|| Convert.ToInt32( info.GetTextEntry( (int)Stats.Intelligence ).Text ) > statMax )
+				{
+					ResendGump( String.Format( "You cannot set more than {0} points in a single stat", statMax ), m, info  );
+				}
+				else if ( Convert.ToInt32( info.GetTextEntry( (int)Stats.Strength ).Text )
+						+ Convert.ToInt32( info.GetTextEntry( (int)Stats.Dexterity ).Text )
+						+ Convert.ToInt32( info.GetTextEntry( (int)Stats.Intelligence ).Text ) > statCap )
+				{
+					ResendGump( String.Format( "You cannot exceed {0} total stat points", statCap ), m, info  );
+				}
+				else if ( Convert.ToInt32( info.GetTextEntry( (int)Stats.Strength ).Text )
+						+ Convert.ToInt32( info.GetTextEntry( (int)Stats.Dexterity ).Text )
+						+ Convert.ToInt32( info.GetTextEntry( (int)Stats.Intelligence ).Text ) < statCap )
+				{
+					ResendGump( String.Format( "You must set {0} total stat points", statCap ), m, info  );
+				}
+				else
+				{
+					m.Str = Convert.ToInt32( info.GetTextEntry( (int)Stats.Strength ).Text );
+					m.Dex = Convert.ToInt32( info.GetTextEntry( (int)Stats.Dexterity ).Text );
+					m.Int = Convert.ToInt32( info.GetTextEntry( (int)Stats.Intelligence ).Text );
+				
+					m.Hits = 100;
+					m.Mana = 100;
+					m.Stam = 100;
+				
+					Server.Skills skills = m.Skills;
+
+					for ( int i = 0; i < skills.Length; ++i )
+					{
+						if ( info.IsSwitched( i ))
+							m.Skills[i].Base = val;
+						else
+							m.Skills[i].Base = 0;
+					}
+					
+					m.MoveToWorld( m_Target, m_TargetMap );
+					
+					Effects.PlaySound( m.Location, m.Map, 0x1FE );
+				}
+			}
+			catch( FormatException )
+			{
+				ResendGump( "You can only enter numbers in stat fields", m, info  );
 			}
 		}
 		
-		private string printHtml(string str)
+		private void ResendGump(string error, Mobile m, RelayInfo info)
 		{
-			return "<BASEFONT COLOR=#FFFFBB>"+str+"</BASEFONT>";
+			string[] stats = new string[3];
+			stats[0] = info.GetTextEntry( (int)Stats.Strength ).Text;
+			stats[1] = info.GetTextEntry( (int)Stats.Dexterity ).Text;
+			stats[2] = info.GetTextEntry( (int)Stats.Intelligence ).Text;
+			
+			bool[] skills = new bool[51];
+			for ( int i = 0; i < skills.Length; ++i )
+			{
+				skills[i] = info.IsSwitched( i );
+			}
+			
+			m.SendGump( new SkillStatSetGump( m_Target, m_TargetMap, error, stats, skills ) );
 		}
 		
-		private string printHtmlColor(string str, string color)
+		private string PrintHtml( string str, string color )
 		{
-			return "<BASEFONT COLOR="+color+">"+str+"</BASEFONT>";
+			return String.Format( "<BASEFONT COLOR={0}>{1}</BASEFONT>", color, str );
+		}
+		
+		private void AddSkillCheck( int skillX, int skillY, int skillID, string skillName )
+		{
+			this.AddCheck( skillX, skillY, uncheckedID, checkedID, ( m_skills == null ? false : m_skills[skillID] ), skillID );
+			this.AddHtml( skillX + 28, skillY - 1, 120, 20, PrintHtml( skillName, skillColor ), false, false );
 		}
 	}
 }

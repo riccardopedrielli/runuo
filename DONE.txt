@@ -13,21 +13,20 @@ Mob
 Skills
 
     * Resisting spells non da bonus al fisico
-    * bonus Evalint+Anatomy abbassato a 100 pari a wrestling    
+    * Bonus EvalInt + Anatomy abbassato a 100 pari a Wrestling    
     * Resisting Spells impostata con resistenze minime a Skill / 3
 
 
 Case
 	
-    * Tolto il bonus di detecting hidden all’interno.
-    * Gli items “secure” e “locked” all’interno delle case sono “rubabili” con skill lockpicking a 100 (dex e stealing danno bonus) probabilita’ massima 5%
-    * impostato il delay a 10sec per rubare in casa
-    * Le case non decadono col tempo
-    * Tutte le case sono accessibili a chiunque, anche ai mob
-    * Rimosse le voci inutilizzate dal gump delle case
-    * Rimossa la possibilita’ di BAN e KICK delle case.
-    * Eliminato il leave house.
-    * Modificata l’opzione di demolizione in modo che il ticket non venga spedito in banca ma nello zaino e che non sia blessed.
+    * Tolto il bonus di detecting hidden all'interno.
+    * Gli items "secure" e "locked" all'interno delle case sono rubabili con skill lockpicking a 100 (dex e stealing danno bonus) probabilità massima 5% e delay 10 secondi.
+    * Le case non decadono col tempo.
+    * Tutte le case sono accessibili a chiunque, pg e npc.
+    * Rimosse le voci inutilizzate dal gump delle case.
+    * Rimossa la possibilità di BAN e KICK delle case.
+    * Eliminato il comando leave house.
+    * Modificata l'opzione di demolizione in modo che il ticket non venga spedito in banca ma nello zaino e che non sia blessed.
 
 
 Guardie
@@ -38,26 +37,26 @@ Guardie
     * Non scompaiono dopo pochi secondi ma rimangono fino alla morte.
     * Hanno una buona velocità.
     * Non scappano quando hanno poca vita.
-    * Sistemata l’animazione della corsa.
-    * Non spammano “guards” durante il combattimento.
+    * Sistemata l'animazione della corsa.
+    * Non spammano "guards" durante il combattimento.
     * Se lasciano la zona di protezione delle guardie per 3 secondi, si teleportano allo spawn point.
-    * Rispondono al “guard”.
+    * Rispondono al "guard".
 
 
 Spells
 
-    * Aumentato il danno dell’Earthquake
+    * Aumentato il danno dell'Earthquake
     * Aumentata durata del Wall of Stone a 120 sec e lunghezza a 5 tile.
     * Tutte le spells si possono castare in città, compresi summon e area.
     * I cast ad area colpiscono anche gli innocenti.
     * Impossibile castare Gate Travel, Recall e Sacred Journey durante pvp.
     * Potenziato il muro di fuoco.
     * Durata minima del paralize settata a 2 sec
-    * Ora e’ possibile paralizzare uno che sta castando
-    * rimosso delay tra un cast e l’altro
+    * Ora è possibile paralizzare uno che sta castando
+    * Rimosso delay tra un cast e l'altro
     * La spell polimorph modifica il nome e rimuove il tag di gilda.
     * La spell earthquake ora colpisce anche se il target non e' in LOS e su un range dell'asse Z minore di 10
-    * il Wall of Stone crea i singoli pezzi anche se non si e' in LOS
+    * Il Wall of Stone crea i singoli pezzi anche se non si e' in LOS
     * La spell magic reflect ora si puo castare sempre anche se gia attiva
 	* Magic Reflect impostato a pre-aos (riflette una magia)
 	* Telekinesis ora sposta direttamente gli oggetti all'interno del backpack per un peso massimo di Magery / 3 (non sposta i container)
@@ -68,7 +67,7 @@ Gates (public & cast)
     * Teleportano senza delay.
     * Accessibili durante il combat
     * Non si possono castare durante il combat
-	* i criminali possono attraversarli e castarli
+	* I criminali possono attraversarli e castarli
 
 
 Moongates
@@ -79,7 +78,7 @@ Moongates
 
 Items
 
-    * Rimossa la possibilita’ di fare l’insure sugli item
+    * Rimossa la possibilità di fare l'insure sugli item
     * Tutti i tipi di deed sono lootabili (case,barche,decorazioni..)
     * Le chiavi delle barche e i modellini dockati sono lootabili
     * Rimossi reagenti spellbook e oggetti aos da dropp e treasure
@@ -93,7 +92,7 @@ Craft
     * Bonus al danno delle armi exceptional: Arms Lore / 3
     * Bonus alla resistenza delle armature exceptional: Arms Lore / 10
     * Probabilità di craftare item exceptional basata su Arms Lore
-	* aggiungere il pentolone nei craft del tinker
+	* Aggiunto il cauldron nei craft del tinker
 
 Armi
 
@@ -115,7 +114,8 @@ Scudi
 Account
 
     * Limite a 2 pg
-    * Eliminato il warning in caso di client obsoleti (provvisorio)
+    * [Provvisorio] Eliminato il warning in caso di client obsoleti [Da impostare a kick]
+	* [Provvisorio] Eliminato il delay per la cancellazione del pg [Da impostare a 7 giorni]
 
 
 PG
@@ -124,8 +124,7 @@ PG
     * Eliminati i bonus della razza umana (riferimenti su stratics).
     * Rimossa la Luck (fortuna)
     * Eliminato lo young status
-    * Creazione alla locanda di Britain (provvisorio)
-    Disabilitate features non volute alla creazione del pg (razza elfica, paladino, necromante, ninja, samurai e skill correlate)
+    * Sistema personalizzato di creazione con selezione di stat e skill in una stanza a parte e successivo trasporto alla locanda di Britain
     * I pg affamati perderanno lentamente HP fino alla sopportazione massima che portera' alla morte inevitabile
     * I pg assetati perderanno lentamente stamina fino alla sopportazione massima che portera' alla morte inevitabile
     * Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
@@ -133,7 +132,7 @@ PG
 
 NPC
 
-    * ActiveSpeed e PassiveSpeed ora sono delay reali e costanti. Non vengono più influenzati dalla stamina o da altri fattori.
+    * Modificati i calcoli della velocità degli npc (ActiveSpeed e PassiveSpeed ora sono delay reali e costanti, non vengono più influenzati dalla stamina o da altri fattori).
     * Anche i criminali possono usare la banca.
     * Fixato il bug che non contava nel balance anche i check
     * Gli healer normali ressano anche i criminali ma non i rossi
@@ -141,7 +140,7 @@ NPC
 	* Gli healer ressano solo i fantasmi in warmode senza conferma
     * Rimossi reagenti e book dei necro e pala
     * Eliminati training skill SE e ML da npc
-	* Aggiunto il pentolone al vendor cuoco
+	* Aggiunto il cauldron al vendor cuoco
 
 
 BOD
@@ -165,7 +164,7 @@ Staff related
     xmlSpawner 3.24
     * Impostata la stagione 0 (primavera) su Felucca.
     * TestRobe: toggle AccessLevel Player/Account con doppio click.
-    * Eliminati comandi decorate e vendorgen
+    * Eliminati comandi decorate, decoratemag e vendorgen (verrà usato xmlSpawner)
     * Generazione porte, sign, moongates e teleporter solo su Felucca
 	* Aggiunto il Sorious' FireFeet
 	

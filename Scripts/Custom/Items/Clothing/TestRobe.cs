@@ -14,6 +14,7 @@ namespace Server.Items
 			Name = "Test Robe";
 			Hue=503;
 			Layer = Layer.OuterTorso;
+			LootType = LootType.Blessed;
 		}
 
 		public override void OnDoubleClick( Mobile m )

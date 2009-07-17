@@ -23,7 +23,12 @@ namespace Server.Misc
 		private static int MaxAccountsPerIP = 1;
 		private static bool AutoAccountCreation = true;
 		private static bool RestrictDeletion = !TestCenter.Enabled;
+		/*** MOD_START ***/
+		/*
 		private static TimeSpan DeleteDelay = TimeSpan.FromDays( 7.0 );
+		*/
+		private static TimeSpan DeleteDelay = TimeSpan.FromDays( 0.0 );
+		/*** MOD_END ***/
 
 		public static PasswordProtection ProtectPasswords = PasswordProtection.NewCrypt;
 

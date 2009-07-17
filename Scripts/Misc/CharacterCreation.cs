@@ -704,7 +704,7 @@ namespace Server.Misc
 			CityInfo city = GetStartLocation( args, young );
 			//CityInfo city = new CityInfo( "Britain", "Sweet Dreams Inn", 1496, 1628, 10, Map.Felucca );
 			*/
-			CityInfo city = new CityInfo( "Britain", "Sweet Dreams Inn", 1496, 1628, 10, Map.Felucca );
+			CityInfo city = new CityInfo( "Birth room", "A scary place", 6040, 408, 0, Map.Trammel );
 			/*** MOD_END ***/
 
 			newChar.MoveToWorld( city.Location, city.Map );
