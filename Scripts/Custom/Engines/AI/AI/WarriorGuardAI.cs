@@ -49,15 +49,6 @@ namespace Server.Mobiles
 				}
 			}
 
-			/*if ( !m_Mobile.InLOS( combatant ) )
-			{
-				if ( AcquireFocusMob( m_Mobile.RangePerception, m_Mobile.FightMode, false, false, true ) )
-				{
-					m_Mobile.Combatant = combatant = m_Mobile.FocusMob;
-					m_Mobile.FocusMob = null;
-				}
-			}*/
-
 			if ( WalkMobileRange(m_Mobile.Combatant, 1, true, m_Mobile.RangeFight, m_Mobile.Weapon.MaxRange) )
 			{
 				m_Mobile.Direction = m_Mobile.GetDirectionTo( combatant );
@@ -85,44 +76,6 @@ namespace Server.Mobiles
 			{
 				if ( m_Mobile.Debug )
 					m_Mobile.DebugSay( "I should be closer to {0}", combatant.Name );
-			}
-
-			/*** MOD_START ***/
-			/*
-			if ( !m_Mobile.Controlled && !m_Mobile.Summoned && !m_Mobile.IsParagon )
-			*/
-
-			if ( !m_Mobile.Controlled && !m_Mobile.Summoned && !m_Mobile.IsParagon && !(m_Mobile is BaseTownGuard) )
-			/*** MOD_END ***/
-
-			{
-				if ( m_Mobile.Hits < m_Mobile.HitsMax * 20/100 )
-				{
-					// We are low on health, should we flee?
-
-					bool flee = false;
-
-					if ( m_Mobile.Hits < combatant.Hits )
-					{
-						// We are more hurt than them
-
-						int diff = combatant.Hits - m_Mobile.Hits;
-
-						flee = ( Utility.Random( 0, 100 ) < (10 + diff) ); // (10 + diff)% chance to flee
-					}
-					else
-					{
-						flee = Utility.Random( 0, 100 ) < 10; // 10% chance to flee
-					}
-
-					if ( flee )
-					{
-						if ( m_Mobile.Debug )
-							m_Mobile.DebugSay( "I am going to flee from {0}", combatant.Name );
-
-						Action = ActionType.Flee;
-					}
-				}
 			}
 
 			return true;

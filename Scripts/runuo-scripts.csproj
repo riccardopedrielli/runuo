@@ -2703,6 +2703,9 @@
     <Compile Include="Custom\Mobiles\Guards\Trinsic\TrinsicWarriorGuard.cs" />
     <Compile Include="Custom\Mobiles\Guards\Trinsic\TrinsicArcherGuard.cs" />
     <Compile Include="Custom\Mobiles\Guards\Trinsic\TrinsicMageGuard.cs" />
+    <Compile Include="Custom\Mobiles\Guards\BuccaneersDen\BuccaneersWarriorGuard.cs" />
+    <Compile Include="Custom\Mobiles\Guards\BuccaneersDen\BuccaneersArcherGuard.cs" />
+    <Compile Include="Custom\Mobiles\Guards\BuccaneersDen\BuccaneersMageGuard.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\Mobiles\Guards\Cove\" />
@@ -2720,6 +2723,7 @@
     <Folder Include="Custom\Gumps\" />
     <Folder Include="Custom\Items\Containers\" />
     <Folder Include="Custom\Engines\Spawner\" />
+    <Folder Include="Custom\Mobiles\Guards\BuccaneersDen\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Output\Scripts.CS.hash">

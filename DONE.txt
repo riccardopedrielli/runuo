@@ -31,17 +31,14 @@ Case
 
 Guardie
 
+	* Non compaiodo dal nulla ma sono già disposte nelle città.
+    * Hanno una buona velocità.
     * Non possono essere disarmate.
     * Non possono essere disarcionate.
-    * Quando muoiono perdono tutti gli item e muore il cavallo.
-    * Non scompaiono dopo pochi secondi ma rimangono fino alla morte.
-    * Hanno una buona velocità.
     * Non scappano quando hanno poca vita.
-    * Sistemata l'animazione della corsa.
-    * Non spammano "guards" durante il combattimento.
+    * Quando muoiono perdono tutti gli item e muore la mount.
+	* Hanno abiti ed equipaggiamento personalizzato per ogni città.
     * Se lasciano la zona di protezione delle guardie per 3 secondi, si teleportano allo spawn point.
-    * Rispondono al "guard".
-	* Equipaggiamento personalizzato per ogni città
 
 
 Spells
@@ -66,7 +63,7 @@ Gates (public & cast)
 
     * Nessun warning.
     * Teleportano senza delay.
-    * Accessibili durante il combat
+    * Attraversabili durante il combat
     * Non si possono castare durante il combat
 	* I criminali possono attraversarli e castarli
 

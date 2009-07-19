@@ -50,7 +50,7 @@ namespace Server.Mobiles
 
 		public virtual bool SmartAI
 		{
-			get{ return ( m_Mobile is BaseVendor || m_Mobile is BaseEscortable ); }
+			get{ return true; }
 		}
 
 		private const double HealChance = 0.25; // 25% chance to heal at gm chivalry, uses close wounds.
@@ -625,37 +625,6 @@ namespace Server.Mobiles
 				{
 					base.DoActionGuard();
 				}
-			}
-
-			return true;
-		}
-
-		public override bool DoActionFlee()
-		{
-			Mobile c = m_Mobile.Combatant;
-
-			if ( (m_Mobile.Mana > 20 || m_Mobile.Mana == m_Mobile.ManaMax) && m_Mobile.Hits > (m_Mobile.HitsMax / 2) )
-			{
-				m_Mobile.DebugSay( "I am stronger now, my guard is up" );
-				Action = ActionType.Guard;
-			}
-			else if ( AcquireFocusMob( m_Mobile.RangePerception, m_Mobile.FightMode, false, false, true ) )
-			{
-				if ( m_Mobile.Debug )
-					m_Mobile.DebugSay( "I am scared of {0}", m_Mobile.FocusMob.Name );
-
-				RunFrom( m_Mobile.FocusMob );
-				m_Mobile.FocusMob = null;
-
-				if ( m_Mobile.Poisoned && Utility.Random( 0, 5 ) == 0 )
-					new CleanseByFireSpell( m_Mobile, null );
-			}
-			else
-			{
-				m_Mobile.DebugSay( "Area seems clear, but my guard is up" );
-
-				Action = ActionType.Guard;
-				m_Mobile.Warmode = true;
 			}
 
 			return true;

@@ -32,6 +32,8 @@ namespace Server.Mobiles
 			SetSkill( SkillName.MagicResist, 90, 100 );
 			SetSkill( SkillName.Focus, 130, 150 );
 			SetSkill( SkillName.Chivalry, 100, 110 );
+			SetSkill( SkillName.Parry, 90, 100 );
+			SetSkill( SkillName.Magery, 60, 70 );
 		}
 		
 		public override void Serialize( GenericWriter writer )
