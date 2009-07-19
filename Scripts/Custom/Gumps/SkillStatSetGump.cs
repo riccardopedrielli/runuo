@@ -59,7 +59,7 @@ namespace Server
 		
 		private const int skillOffsetX = 103;
 		private const int skillOffsetY = 120;
-		private const int skillDistanceX = 155;
+		private const int skillDistanceX = 149;
 		private const int skillDistanceY = 23;
 		
 		public SkillStatSetGump( Point3D Target, Map TargetMap ) : base( gumpX, gumpY )
@@ -127,65 +127,65 @@ namespace Server
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  0, "Alchemy");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  1, "Anatomy");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  2, "Animal Lore");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  3, "Item Identification");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 35, "Animal Taming");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 31, "Archery");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  4, "Arms Lore");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  5, "Parrying");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  6, "Begging");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  7, "Blacksmithy");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  8, "Bowcraft/Fletching");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  9, "Peacemaking");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 10, "Camping");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 11, "Carpentry");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 12, "Cartography");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 13, "Cooking");
 			
 			skillX += skillDistanceX;
 			skillY = skillOffsetY;
 			
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 13, "Cooking");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 14, "Detecting Hidden");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 15, "Discordance");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 16, "Evaluating Intelligence");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 17, "Healing");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 16, "Evaluate Intelligence");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 42, "Fencing");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 18, "Fishing");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 50, "Focus");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 19, "Forensic Evaluation");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 17, "Healing");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 20, "Herding");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 21, "Hiding");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 22, "Provocation");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 23, "Inscription");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  3, "Item Identification");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 24, "Lockpicking");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 25, "Magery");
 			
 			skillX += skillDistanceX;
 			skillY = skillOffsetY;
-
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 26, "Resisting Spells");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 27, "Tactics");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 28, "Snooping");
+			
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 44, "Lumberjacking");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 41, "Mace Fighting");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 25, "Magery");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 46, "Meditation");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 45, "Mining");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 29, "Musicianship");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  5, "Parrying");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY,  9, "Peacemaking");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 30, "Poisoning");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 31, "Archery");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 32, "Spirit Speak");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 33, "Stealing");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 34, "Tailoring");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 35, "Animal Taming");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 36, "Taste Identification");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 37, "Tinkering");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 38, "Tracking");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 22, "Provocation");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 48, "Remove Trap");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 26, "Resisting Spells");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 28, "Snooping");
 			
 			skillX += skillDistanceX;
 			skillY = skillOffsetY + skillDistanceY * 2;
-			
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 39, "Veterinary");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 40, "Swordsmanship");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 41, "Mace Fighting");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 42, "Fencing");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 43, "Wrestling");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 44, "Lumberjacking");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 45, "Mining");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 46, "Meditation");
+
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 32, "Spirit Speak");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 33, "Stealing");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 47, "Stealth");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 48, "Remove Trap");
-			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 50, "Focus");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 40, "Swordsmanship");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 27, "Tactics");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 34, "Tailoring");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 36, "Taste Identification");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 37, "Tinkering");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 38, "Tracking");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 39, "Veterinary");
+			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 43, "Wrestling");
 			
 			this.AddHtml( skillOffsetX, 460, 600, 50, PrintHtml( String.Format( "Set your stats with a total of {0} points and a {1} to {2} points in a single stat", statCap, statMin, statMax ), infoColor), false, false );
 			
@@ -305,7 +305,7 @@ namespace Server
 		private void AddSkillCheck( int skillX, int skillY, int skillID, string skillName )
 		{
 			this.AddCheck( skillX, skillY, uncheckedID, checkedID, ( m_skills == null ? false : m_skills[skillID] ), skillID );
-			this.AddHtml( skillX + 28, skillY - 1, 120, 20, PrintHtml( skillName, skillColor ), false, false );
+			this.AddHtml( skillX + 25, skillY - 1, 120, 20, PrintHtml( skillName, skillColor ), false, false );
 		}
 	}
 }

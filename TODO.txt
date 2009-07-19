@@ -1,9 +1,7 @@
 Guardie
 
-    * Equipaggiamento appropriato.
     * Skill e stat bilanciate.
-    * Tipi diversi (equip, vesti, skill, mount) per ogni città.
-	* le bolas non devono dismountare
+	* Gestire problema della mancanza di spawn point (ora vanno a 0,0 invece devono distruggersi)
 
 	
 Spells
@@ -19,12 +17,15 @@ Items
 
 
 Armature
+
 	* Sistemare % cast
 	* Sistemare rigenero mana
 
 
 Scudi
+
 	* Decidere % cast e rigenero mana (tutti uguali? tutti diversi?)
+	* Livello di armor
 
 
 Mob
@@ -38,11 +39,14 @@ Account
 
 
 PG
-	* Disabilitare razza elfica (se si riesce alla creazione lato client, altrimenti workaround)
+
+	* Disabilitare razza elfica (se si riesce alla creazione lato client, altrimenti workaround) (provare con flag in expansioninfo e verificare conseguenze)
 	* Togliere il sistema di virtu.
 
 
 Skills
+
+	* Modificare Spirit Speak: eliminare o ridurre la cura e rendere visibili i ghost a 100 (solo i ghost non i gm!)
 
 
 Craft

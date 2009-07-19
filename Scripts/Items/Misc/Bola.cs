@@ -84,11 +84,21 @@ namespace Server.Items
 
 			to.Damage( 1, from );
 
+			/*** MOD_START ***/
+			/*
 			if ( to is ChaosDragoon || to is ChaosDragoonElite )
+			*/
+			if ( to is ChaosDragoon || to is ChaosDragoonElite || to is BaseTownGuard )
+			/*** MOD_END ***/
 				from.SendLocalizedMessage( 1042047 ); // You fail to knock the rider from its mount.
 
 			IMount mt = to.Mount;
+			/*** MOD_START ***/
+			/*
 			if ( mt != null && !( to is ChaosDragoon || to is ChaosDragoonElite ) )
+			*/
+			if ( mt != null && !( to is ChaosDragoon || to is ChaosDragoonElite || to is BaseTownGuard ) )
+			/*** MOD_ENd ***/
 				mt.Rider = null;
 
 			to.SendLocalizedMessage( 1040023 ); // You have been knocked off of your mount!

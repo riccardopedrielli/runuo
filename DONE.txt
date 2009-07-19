@@ -41,6 +41,7 @@ Guardie
     * Non spammano "guards" durante il combattimento.
     * Se lasciano la zona di protezione delle guardie per 3 secondi, si teleportano allo spawn point.
     * Rispondono al "guard".
+	* Equipaggiamento personalizzato per ogni città
 
 
 Spells

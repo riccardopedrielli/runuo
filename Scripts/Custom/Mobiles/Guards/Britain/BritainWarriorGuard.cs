@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using Server.Misc;
 using Server.Items;
-using Server.Mobiles;
-using Server.Regions;
-using Server.Targeting;
 
 namespace Server.Mobiles
 {
@@ -19,13 +13,35 @@ namespace Server.Mobiles
 		{
 		}
 
+		protected override void GenerateArmor()
+		{
+			if ( Female )
+			{
+				AddItem( new FemalePlateChest() );
+			}
+			else
+			{
+				AddItem( new PlateChest() );
+			}
+			AddItem( new PlateArms() );
+			AddItem( new PlateLegs() );
+			AddItem( new PlateGloves() );
+			AddItem( new PlateGorget() );
+			AddItem( new PlateHelm() );
+		}
+
+		protected override void GenerateWeapon()
+		{
+			BaseWeapon weapon = new Halberd();
+			weapon.Movable = false;
+			AddItem( weapon );
+		}
+		
 		protected override void GenerateClothes()
 		{
-			int hue = Utility.RandomBlueHue();
-			AddItem( new Kilt( hue ) ); 
-			AddItem( new BodySash( hue ) );
-			AddItem( new Cloak( hue ) );
-			AddItem( new Boots( hue ) );
+			AddItem( new Kilt( 1324 ) ); 
+			AddItem( new BodySash( 1324 ) );
+			AddItem( new Cloak( 1324 ) );
 		}
 
 		public override void Serialize( GenericWriter writer )

@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using Server.Misc;
-using Server.Items;
-using Server.Mobiles;
 using Server.Regions;
 
 namespace Server.Mobiles
@@ -63,47 +59,10 @@ namespace Server.Mobiles
 		{
 			int hairHue = Utility.RandomHairHue();
 
-			if ( Female )
-			{
-				switch ( Utility.Random( 10 ) )
-				{
-					case 0: AddItem( new Afro( hairHue ) ); break;
-					case 1: AddItem( new KrisnaHair( hairHue ) ); break;
-					case 2: AddItem( new PageboyHair( hairHue ) ); break;
-					case 3: AddItem( new PonyTail( hairHue ) ); break;
-					case 4: AddItem( new ReceedingHair( hairHue ) ); break;
-					case 5: AddItem( new TwoPigTails( hairHue ) ); break;
-					case 6: AddItem( new ShortHair( hairHue ) ); break;
-					case 7: AddItem( new LongHair( hairHue ) ); break;
-					case 8: AddItem( new BunsHair( hairHue ) ); break;
-					default: break;
-				}
-			}
-			else
-			{
-				switch ( Utility.Random( 9 ) )
-				{
-					case 0: AddItem( new Afro( hairHue ) ); break;
-					case 1: AddItem( new KrisnaHair( hairHue ) ); break;
-					case 2: AddItem( new PageboyHair( hairHue ) ); break;
-					case 3: AddItem( new PonyTail( hairHue ) ); break;
-					case 4: AddItem( new ReceedingHair( hairHue ) ); break;
-					case 5: AddItem( new TwoPigTails( hairHue ) ); break;
-					case 6: AddItem( new ShortHair( hairHue ) ); break;
-					case 7: AddItem( new LongHair( hairHue ) ); break;
-					default: break;
-				}
-
-				switch ( Utility.Random( 6 ) )
-				{
-					case 0: AddItem( new LongBeard( hairHue ) ); break;
-					case 1: AddItem( new MediumLongBeard( hairHue ) ); break;
-					case 2: AddItem( new Vandyke( hairHue ) ); break;
-					case 3: AddItem( new Mustache( hairHue ) ); break;
-					case 4: AddItem( new Goatee( hairHue ) ); break;
-					default: break;
-				}
-			}
+			Utility.AssignRandomHair( this, hairHue );
+			
+			if ( !Female )
+				Utility.AssignRandomFacialHair( this, hairHue );
 		}
 
 		protected virtual void GenerateArmor()
