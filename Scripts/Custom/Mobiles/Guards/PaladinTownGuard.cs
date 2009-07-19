@@ -4,6 +4,7 @@ namespace Server.Mobiles
 	{
 		public PaladinTownGuard() : base( AIType.AI_PaladinGuard )
 		{
+			TithingPoints = 1000000;
 		}
 
 		public PaladinTownGuard( Serial serial ) : base( serial )
