@@ -140,12 +140,7 @@ NPC
     * Eliminati training skill SE e ML da npc
 	* Aggiunto il cauldron al vendor cuoco
 
-
-BOD
-
-    Rimossi i Runic Hammer e i Runic Sewing Kit.
-
-
+	
 Nuovi engines
 
     * Gioco Battle Chess (scacchi giganti)

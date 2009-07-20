@@ -54,12 +54,7 @@ Craft
     
 	* Riguardare le % dei craft perche alcuni hanno una chance troppo bassa a 100 di skill
 
-BOD
-
-	* Rifare tutto il sistema di premi
-	* Controllare l'esistenza (runuo o forum) di BOD per altre skill di craft oltre a Blacksmithy e Tailoring
-
-
+	
 Mondo
 
 	* Sistema di timing e season

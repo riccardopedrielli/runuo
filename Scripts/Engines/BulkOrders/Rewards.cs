@@ -183,13 +183,7 @@ namespace Server.Engines.BulkOrders
 		private static readonly ConstructCallback GargoylesPickaxe = new ConstructCallback( CreateGargoylesPickaxe );
 		private static readonly ConstructCallback ProspectorsTool = new ConstructCallback( CreateProspectorsTool );
 		private static readonly ConstructCallback PowderOfTemperament = new ConstructCallback( CreatePowderOfTemperament );
-
-		/*** DEL_START ***/
-		/*
 		private static readonly ConstructCallback RunicHammer = new ConstructCallback( CreateRunicHammer );
-		*/
-		/*** DEL_END ***/
-
 		private static readonly ConstructCallback PowerScroll = new ConstructCallback( CreatePowerScroll );
 		private static readonly ConstructCallback ColoredAnvil = new ConstructCallback( CreateColoredAnvil );
 		private static readonly ConstructCallback AncientHammer = new ConstructCallback( CreateAncientHammer );
@@ -231,8 +225,6 @@ namespace Server.Engines.BulkOrders
 			return new PowderOfTemperament();
 		}
 
-		/*** DEL_START ***/
-		/*
 		private static Item CreateRunicHammer( int type )
 		{
 			if ( type >= 1 && type <= 8 )
@@ -240,8 +232,6 @@ namespace Server.Engines.BulkOrders
 
 			throw new InvalidOperationException();
 		}
-		*/
-		/*** DEL_END ***/
 
 		private static Item CreatePowerScroll( int type )
 		{
@@ -447,9 +437,6 @@ namespace Server.Engines.BulkOrders
 					new RewardGroup(  200, new RewardItem( 45, GargoylesPickaxe ), new RewardItem( 45, ProspectorsTool ), new RewardItem( 10, MiningGloves, 3 ) ),
 					new RewardGroup(  400, new RewardItem( 2, GargoylesPickaxe ), new RewardItem( 2, ProspectorsTool ), new RewardItem( 1, PowderOfTemperament ) ),
 					new RewardGroup(  450, new RewardItem( 9, PowderOfTemperament ), new RewardItem( 1, MiningGloves, 5 ) ),
-					
-					/*** MOD_START ***/
-					/*
 					new RewardGroup(  500, new RewardItem( 1, RunicHammer, 1 ) ),
 					new RewardGroup(  550, new RewardItem( 3, RunicHammer, 1 ), new RewardItem( 2, RunicHammer, 2 ) ),
 					new RewardGroup(  600, new RewardItem( 1, RunicHammer, 2 ) ),
@@ -467,12 +454,6 @@ namespace Server.Engines.BulkOrders
 					new RewardGroup( 1100, new RewardItem( 1, AncientHammer, 60 ) ),
 					new RewardGroup( 1150, new RewardItem( 1, RunicHammer, 7 ) ),
 					new RewardGroup( 1200, new RewardItem( 1, RunicHammer, 8 ) )
-					*/
-
-					new RewardGroup(  625, new RewardItem( 6, PowerScroll, 5 ), new RewardItem( 1, ColoredAnvil ) ),
-					new RewardGroup(  675, new RewardItem( 1, ColoredAnvil ), new RewardItem( 6, PowerScroll, 10 ) )
-
-					/*** MOD_END ***/
 				};
 		}
 	}
@@ -483,13 +464,7 @@ namespace Server.Engines.BulkOrders
 		private static readonly ConstructCallback Cloth = new ConstructCallback( CreateCloth );
 		private static readonly ConstructCallback Sandals = new ConstructCallback( CreateSandals );
 		private static readonly ConstructCallback StretchedHide = new ConstructCallback( CreateStretchedHide );
-
-		/*** DEL_START ***/
-		/*
 		private static readonly ConstructCallback RunicKit = new ConstructCallback( CreateRunicKit );
-		*/
-		/*** DEL_END ***/
-
 		private static readonly ConstructCallback Tapestry = new ConstructCallback( CreateTapestry );
 		private static readonly ConstructCallback PowerScroll = new ConstructCallback( CreatePowerScroll );
 		private static readonly ConstructCallback BearRug = new ConstructCallback( CreateBearRug );
@@ -564,8 +539,6 @@ namespace Server.Engines.BulkOrders
 			}
 		}
 
-		/*** DEL_START ***/
-		/*
 		private static Item CreateRunicKit( int type )
 		{
 			if ( type >= 1 && type <= 3 )
@@ -573,8 +546,6 @@ namespace Server.Engines.BulkOrders
 
 			throw new InvalidOperationException();
 		}
-		*/
-		/*** DEL_END ***/
 
 		private static Item CreatePowerScroll( int type )
 		{
@@ -753,32 +724,15 @@ namespace Server.Engines.BulkOrders
 					new RewardGroup( 150, new RewardItem( 9, Cloth, 3 ), new RewardItem( 1, Sandals ) ),
 					new RewardGroup( 200, new RewardItem( 4, Cloth, 4 ), new RewardItem( 1, Sandals ) ),
 					new RewardGroup( 300, new RewardItem( 1, StretchedHide ) ),
-
-					/*** DEL_START ***/
-					/*
 					new RewardGroup( 350, new RewardItem( 1, RunicKit, 1 ) ),
-					*/
-					/*** DEL_END ***/
-
 					new RewardGroup( 400, new RewardItem( 2, PowerScroll, 5 ), new RewardItem( 3, Tapestry ) ),
 					new RewardGroup( 450, new RewardItem( 1, BearRug ) ),
 					new RewardGroup( 500, new RewardItem( 1, PowerScroll, 10 ) ),
 					new RewardGroup( 550, new RewardItem( 1, ClothingBlessDeed ) ),
 					new RewardGroup( 575, new RewardItem( 1, PowerScroll, 15 ) ),
-
-					/*** DEL_START ***/
-					/*
 					new RewardGroup( 600, new RewardItem( 1, RunicKit, 2 ) ),
-					*/
-					/*** DEL_END ***/
-
 					new RewardGroup( 650, new RewardItem( 1, PowerScroll, 20 ) ),
-
-					/*** DEL_START ***/
-					/*
 					new RewardGroup( 700, new RewardItem( 1, RunicKit, 3 ) )
-					*/
-					/*** DEL_END ***/
 				};
 		}
 	}
