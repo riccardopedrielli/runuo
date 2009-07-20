@@ -139,6 +139,7 @@ NPC
     * Rimossi reagenti e book dei necro e pala
     * Eliminati training skill SE e ML da npc
 	* Aggiunto il cauldron al vendor cuoco
+	* Rimossi i BulkOrder dai Blacksmith Weaponsmith Tailor e Weaver
 
 	
 Nuovi engines

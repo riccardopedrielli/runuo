@@ -58,10 +58,15 @@ namespace Server.Mobiles
 			return ( item is SmallTailorBOD || item is LargeTailorBOD );
 		}
 
+        /*** DEL_START ***/
+        //disattivo sempre i BOD
+        /*
 		public override bool SupportsBulkOrders( Mobile from )
 		{
-			return ( from is PlayerMobile && from.Skills[SkillName.Tailoring].Base > 0 );
+            return ( from is PlayerMobile && from.Skills[SkillName.Tailoring].Base > 0 );        
 		}
+        */
+        /*** DEL_END ***/
 
 		public override TimeSpan GetNextBulkOrder( Mobile from )
 		{
