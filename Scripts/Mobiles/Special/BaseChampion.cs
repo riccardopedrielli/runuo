@@ -78,7 +78,7 @@ namespace Server.Mobiles
 
         /*** DEL_START ***/
 		/*
-        private PowerScroll CreateRandomPowerScroll()
+		private PowerScroll CreateRandomPowerScroll()
 		{
 			int level;
 			double random = Utility.RandomDouble();
@@ -92,7 +92,7 @@ namespace Server.Mobiles
 
 			return PowerScroll.CreateRandomNoCraft( level, level );
 		}
-        
+
 		public void GivePowerScrolls()
 		{
 			if ( Map != Map.Felucca )
@@ -218,7 +218,7 @@ namespace Server.Mobiles
 			{
                 /*** DEL_START ***/
 				/*
-                GivePowerScrolls();
+				GivePowerScrolls();
                 */
                 /*** DEL_END ***/
 

@@ -42,6 +42,7 @@ namespace Server.Items
 			LootType = LootType.Blessed;
 			*/
 			/*** MOD_END ***/
+
 			int version = reader.ReadInt();
 
 			switch ( version )

@@ -63,7 +63,7 @@ namespace Server.Mobiles
         /*
 		public override bool SupportsBulkOrders( Mobile from )
 		{
-            return ( from is PlayerMobile && from.Skills[SkillName.Tailoring].Base > 0 );        
+			return ( from is PlayerMobile && from.Skills[SkillName.Tailoring].Base > 0 );
 		}
         */
         /*** DEL_END ***/

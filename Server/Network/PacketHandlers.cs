@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: PacketHandlers.cs 266 2007-11-27 02:28:55Z zippy $
+ *   $Id: PacketHandlers.cs 344 2009-07-21 02:29:34Z mark $
  *
  ***************************************************************************/
 
@@ -1952,7 +1952,7 @@ namespace Server.Network
 
 			state.Send( SeasonChange.Instantiate( m.GetSeason(), true ) );
 
-			state.Send( SupportedFeatures.Instantiate( state.Account ) );
+			state.Send( SupportedFeatures.Instantiate( state ) );
 
 			state.Sequence = 0;
 			state.Send( new MobileUpdate( m ) );
@@ -1969,7 +1969,7 @@ namespace Server.Network
 
 			m.SendEverything();
 
-			state.Send( SupportedFeatures.Instantiate( state.Account ) );
+			state.Send( SupportedFeatures.Instantiate( state ) );
 			state.Send( new MobileUpdate( m ) );
 			//state.Send( new MobileAttributes( m ) );
 			state.Send( new MobileStatus( m, m ) );
@@ -2095,10 +2095,6 @@ namespace Server.Network
 			}
 		}
 
-		private const int AuthIDWindowSize = 128;
-		private static int[] m_AuthIDWindow = new int[AuthIDWindowSize];
-		private static DateTime[] m_AuthIDWindowAge = new DateTime[AuthIDWindowSize];
-
 		private static bool m_ClientVerification = true;
 
 		public static bool ClientVerification
@@ -2107,54 +2103,47 @@ namespace Server.Network
 			set{ m_ClientVerification = value; }
 		}
 
-		private static int GenerateAuthID()
-		{
-			int authID = Utility.Random( 1, int.MaxValue - 1 );
+		internal struct AuthIDPersistence {
+			public DateTime Age;
+			public ClientVersion Version;
 
-			if ( Utility.RandomBool() )
-				authID |= 1<<31;
-
-			bool wasSet = false;
-			DateTime oldest = DateTime.MaxValue;
-			int oldestIndex = 0;
-
-			for ( int i = 0; i < m_AuthIDWindow.Length; ++i )
-			{
-				if ( m_AuthIDWindow[i] == 0 )
-				{
-					m_AuthIDWindow[i] = authID;
-					m_AuthIDWindowAge[i] = DateTime.Now;
-					wasSet = true;
-					break;
-				}
-				else if ( m_AuthIDWindowAge[i] < oldest )
-				{
-					oldest = m_AuthIDWindowAge[i];
-					oldestIndex = i;
-				}
+			public AuthIDPersistence( ClientVersion v ) {
+				Age = DateTime.Now;
+				Version = v;
 			}
-
-			if ( !wasSet )
-			{
-				m_AuthIDWindow[oldestIndex] = authID;
-				m_AuthIDWindowAge[oldestIndex] = DateTime.Now;
-			}
-
-			return authID;
 		}
 
-		private static bool IsValidAuthID( int authID )
-		{
-			for ( int i = 0; i < m_AuthIDWindow.Length; ++i )
-			{
-				if ( m_AuthIDWindow[i] == authID )
-				{
-					m_AuthIDWindow[i] = 0;
-					return true;
-				}
-			}
+		private const int m_AuthIDWindowSize = 128;
+		private static Dictionary<int, AuthIDPersistence> m_AuthIDWindow = new Dictionary<int, AuthIDPersistence>( m_AuthIDWindowSize );
 
-			return !m_ClientVerification;
+		private static int GenerateAuthID( NetState state )
+		{			
+			if ( m_AuthIDWindow.Count == m_AuthIDWindowSize ) {
+				int oldestID = 0;
+				DateTime oldest = DateTime.MaxValue;
+
+				foreach ( KeyValuePair<int, AuthIDPersistence> kvp in m_AuthIDWindow ) {
+					if ( kvp.Value.Age < oldest ) {
+						oldestID = kvp.Key;
+						oldest = kvp.Value.Age;
+					}
+				}
+
+				m_AuthIDWindow.Remove( oldestID );
+			}
+			
+			int authID;
+
+			do {
+				authID = Utility.Random( 1, int.MaxValue - 1 );
+
+				if ( Utility.RandomBool() )
+					authID |= 1<<31;
+			} while ( m_AuthIDWindow.ContainsKey( authID ) );
+
+			m_AuthIDWindow[authID] = new AuthIDPersistence( state.Version );
+			
+			return authID;
 		}
 
 		public static void GameLogin( NetState state, PacketReader pvSrc )
@@ -2169,13 +2158,19 @@ namespace Server.Network
 
 			int authID = pvSrc.ReadInt32();
 
-			if ( !IsValidAuthID( authID ) )
-			{
+			if ( m_AuthIDWindow.ContainsKey( authID ) ) {
+				AuthIDPersistence ap = m_AuthIDWindow[authID];
+				m_AuthIDWindow.Remove( authID );
+
+				state.Version = ap.Version;
+			}
+			else if ( m_ClientVerification ) {
 				Console.WriteLine( "Login: {0}: Invalid client detected, disconnecting", state );
 				state.Dispose();
 				return;
 			}
-			else if ( state.m_AuthID != 0 && authID != state.m_AuthID )
+			
+			if ( state.m_AuthID != 0 && authID != state.m_AuthID )
 			{
 				Console.WriteLine( "Login: {0}: Invalid client detected, disconnecting", state );
 				state.Dispose();
@@ -2201,7 +2196,7 @@ namespace Server.Network
 				state.CompressionEnabled = true;
 
 				if ( Core.AOS )
-					state.Send( SupportedFeatures.Instantiate( state.Account ) );
+					state.Send( SupportedFeatures.Instantiate( state ) );
 
 				state.Send( new CharacterList( state.Account, state.CityInfo ) );
 			}
@@ -2225,7 +2220,7 @@ namespace Server.Network
 			{
 				ServerInfo si = info[index];
 
-				state.m_AuthID = PlayServerAck.m_AuthID = GenerateAuthID();
+				state.m_AuthID = PlayServerAck.m_AuthID = GenerateAuthID( state );
 
 				state.SentFirstPacket = false;
 				state.Send( new PlayServerAck( si ) );

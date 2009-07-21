@@ -396,15 +396,16 @@ namespace Server.Spells
 			if( to is BaseCreature && !((BaseCreature)to).Controlled && ((BaseCreature)to).InitialInnocent )
 				return true;
 
-			/*** DEL_START ***/
+			/*** MOD_START ***/
 			//anche gli innocenti devono essere colpiti
 			/*
 			int noto = Notoriety.Compute( from, to );
 
 			return (noto != Notoriety.Innocent || from.Kills >= 5);
 			*/
-			/*** DEL_END ***/
+			
 			return true;
+			/*** MOD_END ***/
 		}
 
 		private static int[] m_Offsets = new int[]
@@ -817,7 +818,8 @@ namespace Server.Spells
 
 				target.MagicDamageAbsorb -= circle;
 
-				// This order isn't very intuitive, but you have to nullify reflect before target gets switched 
+				// This order isn't very intuitive, but you have to nullify reflect before target gets switched
+
 				*/
 				/*** DEL_END ***/
 
@@ -835,7 +837,7 @@ namespace Server.Spells
 				if( reflect )
 				{
 					target.FixedEffect( 0x37B9, 10, 5 );
-					
+
 					/*** ADD_START ***/
                     target.MagicDamageAbsorb = 0;
                     DefensiveSpell.Nullify(target);

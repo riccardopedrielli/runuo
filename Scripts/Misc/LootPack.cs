@@ -637,12 +637,9 @@ namespace Server
 
 				if ( item is BaseWeapon || item is BaseArmor || item is BaseJewel || item is BaseHat )
 				{
-					/*** MOD_START ***/
+					/*** DEL_START ***/
 					/*
 					if ( Core.AOS )
-					*/
-					if (false)
-					/*** MOD_END ***/
 					{
 						int bonusProps = GetBonusProperties();
 						int min = m_MinIntensity;
@@ -668,6 +665,8 @@ namespace Server
 					}
 					else // not aos
 					{
+					*/
+					/*** DEL_END ***/
 						if ( item is BaseWeapon )
 						{
 							BaseWeapon weapon = (BaseWeapon)item;
@@ -697,20 +696,23 @@ namespace Server
 							if ( 40 > Utility.Random( 100 ) )
 								armor.Durability = (ArmorDurabilityLevel)GetRandomOldBonus();
 						}
+					/*** DEL_START ***/
+					/*
 					}
+					*/
+					/*** DEL_END ***/
 				}
 				else if ( item is BaseInstrument )
 				{
 					SlayerName slayer = SlayerName.None;
 
-					/*** MOD_START ***/
+					/*** DEL_START ***/
 					/*
 					if ( Core.AOS )
-					*/
-					if (false)
-					/*** MOD_END ***/
 						slayer = BaseRunicTool.GetRandomSlayer();
 					else
+					*/
+					/*** DEL_END ***/
 						slayer = SlayerGroup.GetLootSlayerType( from.GetType() );
 
 					if ( slayer == SlayerName.None )

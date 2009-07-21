@@ -334,7 +334,7 @@ namespace Server.Mobiles
 		}
         */
         /*** DEL_END ***/
-        
+
 		public override bool OnBeforeDeath()
 		{
 			if ( m_TrueForm )
@@ -353,7 +353,7 @@ namespace Server.Mobiles
 				{
                     /*** DEL_START ***/
                     /* //no power of scroll
-                    GivePowerScrolls();
+					GivePowerScrolls();
                     */
                     /*** DEL_END ***/
 

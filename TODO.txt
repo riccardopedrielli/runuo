@@ -4,7 +4,7 @@ Guardie
 	* Gestire problema della mancanza di spawn point (ora vanno a 0,0 invece devono distruggersi)
 	* Sistemare AI e FightMode di Paladin, Mage e Archer
 
-	
+
 Spells
 
     * Scelta creatura tramite gump per Summon Creature.

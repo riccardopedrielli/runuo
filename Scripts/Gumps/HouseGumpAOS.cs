@@ -833,7 +833,12 @@ namespace Server.Gumps
 			bool isFriend = isCoOwner || m_House.IsFriend( from );
 
 			if ( isCombatRestricted )
+				/*** MOD_START ***/
+				/*
 				isFriend = isCoOwner = isFriend = false;
+				*/
+				isCoOwner = isFriend = false;
+				/*** MOD_END ***/
 
 			if ( !from.CheckAlive() )
 				return;

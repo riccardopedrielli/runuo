@@ -2129,17 +2129,14 @@ namespace Server.Items
 			}
 
 			/*** ADD_START ***/
-			if( m_Resource != null )
+			CraftResourceInfo resInfo = CraftResources.GetInfo( m_Resource );
+			
+			if ( resInfo != null)
 			{
-				CraftResourceInfo resInfo = CraftResources.GetInfo( m_Resource );
-				
-				if ( resInfo != null)
-				{
-					CraftAttributeInfo attrInfo = resInfo.AttributeInfo;
-	
-					if( attrInfo != null && attrInfo.WeaponMatherialDamageBonus != null )
-						bonus += attrInfo.WeaponMatherialDamageBonus;
-				}
+				CraftAttributeInfo attrInfo = resInfo.AttributeInfo;
+
+				if( attrInfo != null )
+					bonus += attrInfo.WeaponMatherialDamageBonus;
 			}
 			/*** ADD_END ***/
 

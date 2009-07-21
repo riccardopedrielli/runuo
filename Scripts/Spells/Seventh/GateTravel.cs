@@ -117,7 +117,7 @@ namespace Server.Spells.Seventh
 			}
 			*/
             /*** DEL_END ***/
-            else if ( SpellHelper.CheckCombat( Caster ) )
+			else if ( SpellHelper.CheckCombat( Caster ) )
 			{
 				Caster.SendLocalizedMessage( 1005564, "", 0x22 ); // Wouldst thou flee during the heat of battle??
 			}

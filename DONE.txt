@@ -154,7 +154,7 @@ Nuovi items
 
 Staff related
 
-    * Sync with RunUO-svn: 339
+    * Sync with RunUO-svn: 345
     xmlSpawner 3.24
     * Impostata la stagione 0 (primavera) su Felucca.
     * TestRobe: toggle AccessLevel Player/Account con doppio click.

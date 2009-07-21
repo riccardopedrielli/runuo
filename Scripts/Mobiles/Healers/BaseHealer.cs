@@ -92,7 +92,7 @@ namespace Server.Mobiles
 
 			m.PlaySound( 0x214 );
 			m.FixedEffect( 0x376A, 10, 16 );
-						
+
 			/*** DEL_START ***/
 			/*	rimuovo il gump di conferma per la resurrezione
 			m.CloseGump( typeof( ResurrectGump ) );
@@ -130,10 +130,10 @@ namespace Server.Mobiles
 			{
 				/*** MOD_START ***/
 				//se e' in warmode l'healer lo ressa
-				if ( !m.Alive && m.Warmode )
 				/*
 				if ( !m.Alive )
 				*/
+				if ( !m.Alive && m.Warmode )
 				/*** MOD_END ***/
 				{
 					m_NextResurrect = DateTime.Now + ResurrectDelay;

@@ -2706,6 +2706,8 @@
     <Compile Include="Custom\Mobiles\Guards\BuccaneersDen\BuccaneersWarriorGuard.cs" />
     <Compile Include="Custom\Mobiles\Guards\BuccaneersDen\BuccaneersArcherGuard.cs" />
     <Compile Include="Custom\Mobiles\Guards\BuccaneersDen\BuccaneersMageGuard.cs" />
+    <Compile Include="Mobiles\Vendors\NPC\Monk.cs" />
+    <Compile Include="Mobiles\Vendors\SBInfo\SBMonk.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\Mobiles\Guards\Cove\" />
