@@ -38,7 +38,7 @@ Guardie
     * Non scappano quando hanno poca vita.
     * Quando muoiono perdono tutti gli item e muore la mount.
 	* Hanno abiti ed equipaggiamento personalizzato per ogni città.
-    * Se lasciano la zona di protezione delle guardie per 3 secondi, si teleportano allo spawn point.
+    * Se lasciano la zona di protezione delle guardie per 3 secondi, si teleportano allo spawn point, se lo spawn point non esiste vengono eliminate.
 
 
 Spells

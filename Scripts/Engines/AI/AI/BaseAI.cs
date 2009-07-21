@@ -2716,14 +2716,26 @@ namespace Server.Mobiles
 				Point3D from = m_Owner.m_Mobile.Location;
 				Point3D to = m_Owner.m_Mobile.Home;
 
+				m_Owner.m_Mobile.PlaySound( 0x1FE );
+				
 				m_Owner.m_Mobile.Location = to;
-
+				
 				Effects.SendLocationParticles( EffectItem.Create( from, m_Owner.m_Mobile.Map, EffectItem.DefaultDuration ), 0x3728, 10, 10, 2023 );
+				
+				Stop();
+				
+				if ( to == Point3D.Zero )
+				{
+					((Mobile)m_Owner.m_Mobile).Delete();
+				}
+				else
+				{
 				Effects.SendLocationParticles( EffectItem.Create(   to, m_Owner.m_Mobile.Map, EffectItem.DefaultDuration ), 0x3728, 10, 10, 5023 );
 
 				m_Owner.m_Mobile.PlaySound( 0x1FE );
+				}
 				
-				Stop();
+				
 			}
 		}
 		/*** ADD_END ***/
