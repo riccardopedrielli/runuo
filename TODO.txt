@@ -46,7 +46,7 @@ PG
 
 Skills
 
-	* Modificare Spirit Speak: eliminare o ridurre la cura e rendere visibili i ghost a 100 (solo i ghost non i gm!)
+	
 
 
 Craft
