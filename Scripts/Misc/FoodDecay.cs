@@ -37,7 +37,7 @@ namespace Server.Misc
 			if ( m != null && m.Hunger >= 1 )
 				m.Hunger -= 1;
 			*/
-			if (m != null && m.AccessLevel == AccessLevel.Player)
+			if (m != null && m.AccessLevel == AccessLevel.Player && m.Alive)
 			{
 				if(m.Hunger >= 1 )
 					m.Hunger -= 1;
@@ -70,7 +70,7 @@ namespace Server.Misc
 			if ( m != null && m.Thirst >= 1 )
 				m.Thirst -= 1;
 			*/
-			if (m != null && m.AccessLevel == AccessLevel.Player)
+            if (m != null && m.AccessLevel == AccessLevel.Player && m.Alive)
 			{
 				if (m.Thirst >= 1)
 					m.Thirst -= 1;
