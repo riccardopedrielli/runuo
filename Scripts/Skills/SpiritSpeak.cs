@@ -30,9 +30,14 @@ namespace Server.SkillHandlers
 			}
 			*/
 			/*** DEL_END ***/
-
+			
 			m.RevealingAction();
-
+			
+			/*** ADD_START ***/
+            m.PublicOverheadMessage(MessageType.Regular, 0x3B2, 1062074, "", false); // Anh Mi Sah Ko
+			m.PlaySound( 0x24A );
+			/*** ADD_END ***/
+			
 			if ( m.CheckSkill( SkillName.SpiritSpeak, 0, 100 ) )
 			{	
 				if ( !m.CanHearGhosts )
@@ -47,8 +52,12 @@ namespace Server.SkillHandlers
 					t.Start();
 					m.CanHearGhosts = true;
 				}
-
+				
+				/*** DEL_START ***/
+				/*
 				m.PlaySound( 0x24A );
+				*/
+				/*** DEL_END ***/
 				m.SendLocalizedMessage( 502444 );//You contact the neitherworld.
 			}
 			else
@@ -57,27 +66,42 @@ namespace Server.SkillHandlers
 				m.CanHearGhosts = false;
 			}
 
+			/*** MOD_START ***/
+			/*
 			return TimeSpan.FromSeconds( 1.0 );
+			*/
+			return TimeSpan.FromSeconds( 5.0 );
+			/*** MOD_END ***/			
 		}
-
+		
 		private class SpiritSpeakTimer : Timer
 		{
 			private Mobile m_Owner;
+			/*** MOD_START ***/
+			/*
 			public SpiritSpeakTimer( Mobile m ) : base( TimeSpan.FromMinutes( 2.0 ) )
+			*/
+			public SpiritSpeakTimer( Mobile m ): base( TimeSpan.FromMinutes( 2.0 ) )
+			/*** MOD_END ***/		
 			{
 				m_Owner = m;
-				Priority = TimerPriority.FiveSeconds;
-			}
+                /*** MOD_START ***/
+                /*
+                Priority = TimerPriority.FiveSeconds;
+                */
+                Priority = TimerPriority.OneSecond;
+                /*** MOD_END ***/
+            }
 
 			protected override void OnTick()
 			{
-				m_Owner.CanHearGhosts = false;
+				m_Owner.CanHearGhosts = false;                
 				m_Owner.SendLocalizedMessage( 502445 );//You feel your contact with the neitherworld fading.
 			}
 		}
-
+		
 		/*** DEL_START ***/
-		/*
+		/*		
 		private class SpiritSpeakSpell : Spell
 		{
 			private static SpellInfo m_Info = new SpellInfo( "Spirit Speak", "", 269 );

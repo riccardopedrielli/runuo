@@ -2193,16 +2193,19 @@ namespace Server.Mobiles
 			if ( Core.ML && Skills[SkillName.SpiritSpeak].Value >= 100.0 )
 				return false;
 
-			if ( Core.AOS )
-			{
-				for ( int i = 0; i < hears.Count; ++i )
-				{
-					Mobile m = hears[i];
+            /*** DEL_START ***/
+            /*
+            if ( Core.AOS )
+            {
+                for ( int i = 0; i < hears.Count; ++i )
+                {
+                    Mobile m = hears[i];
 
-					if ( m != this && m.Skills[SkillName.SpiritSpeak].Value >= 100.0 )
-						return false;
-				}
-			}
+                    if ( m != this && m.Skills[SkillName.SpiritSpeak].Value >= 100.0 )
+                        return false;
+                }
+            }
+            */
 
 			return base.MutateSpeech( hears, ref text, ref context );
 		}
