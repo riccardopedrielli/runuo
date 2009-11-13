@@ -30,7 +30,7 @@ namespace Server.SkillHandlers
 			}
 			*/
 			/*** DEL_END ***/
-			
+
 			m.RevealingAction();
 
 			if ( m.CheckSkill( SkillName.SpiritSpeak, 0, 100 ) )
@@ -59,7 +59,7 @@ namespace Server.SkillHandlers
 
 			return TimeSpan.FromSeconds( 1.0 );
 		}
-		
+
 		private class SpiritSpeakTimer : Timer
 		{
 			private Mobile m_Owner;
@@ -75,9 +75,9 @@ namespace Server.SkillHandlers
 				m_Owner.SendLocalizedMessage( 502445 );//You feel your contact with the neitherworld fading.
 			}
 		}
-		
+
 		/*** DEL_START ***/
-		/*		
+		/*
 		private class SpiritSpeakSpell : Spell
 		{
 			private static SpellInfo m_Info = new SpellInfo( "Spirit Speak", "", 269 );

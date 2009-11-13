@@ -2357,7 +2357,7 @@ namespace Server.Gumps
 						{
 							ArrayList results = new ArrayList();
 
-							DateTime minTime = DateTime.Now - TimeSpan.FromDays( 180.0 );
+							DateTime minTime = DateTime.Now - Account.InactiveDuration;
 
 							foreach ( Account acct in Accounts.GetAccounts() )
 							{

@@ -317,7 +317,7 @@ namespace Server.Mobiles
 							*/
 							/*** DEL_END ***/
 
-							/*** DEL_START ***/
+							/*** MOD_START ***/
 							//no ma gg alla skillezza dei programmatori che fanno le funzioni e non le usano
 							/*
 
@@ -329,7 +329,7 @@ namespace Server.Mobiles
 								this.Say( 1042759, "0" ); // Thy current bank balance is ~1_AMOUNT~ gold.
 							*/
 							this.Say(1042759, Convert.ToString(GetBalance(e.Mobile)));
-							/*** DEL_END ***/
+							/*** MOD_END ***/
 
 							break;
 						}

@@ -53,13 +53,13 @@ namespace Server.SkillHandlers
 
 				bool inHouse = ( house != null && house.IsFriend( src ) );
 
-				/*** MOD_START ***/
+				/*** DEL_START ***/
 				//in casa i pg non devono avere bonus sulla skill
 				/*
 				if ( inHouse )
 					range = 22;
 				*/
-				/*** MOD_END ***/
+				/*** DEL_END ***/
 
 				if ( range > 0 )
 				{

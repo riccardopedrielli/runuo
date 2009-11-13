@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: Listener.cs 265 2007-11-17 07:10:29Z mark $
+ *   $Id: Listener.cs 405 2009-10-18 00:44:59Z mark $
  *
  ***************************************************************************/
 
@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading;
 using Server;
@@ -56,7 +57,7 @@ namespace Server.Network
 
 		private Socket Bind( IPEndPoint ipep )
 		{
-			Socket s = SocketPool.AcquireSocket();
+			Socket s = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
 
 			try
 			{
@@ -69,6 +70,17 @@ namespace Server.Network
 				s.Listen( 8 );
 
 				if ( ipep.Address.Equals( IPAddress.Any ) ) {
+					NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+
+					foreach ( NetworkInterface adapter in adapters ) {
+						IPInterfaceProperties properties = adapter.GetIPProperties();
+
+						foreach ( IPAddressInformation unicast in properties.UnicastAddresses ) {
+							Console.WriteLine( "Listening: {0}:{1}", unicast.Address, ipep.Port );
+						}
+					}
+					
+					/*
 					try {
 						Console.WriteLine( "Listening: {0}:{1}", IPAddress.Loopback, ipep.Port );
 
@@ -80,12 +92,13 @@ namespace Server.Network
 							Console.WriteLine( "Listening: {0}:{1}", ip[i], ipep.Port );
 					}
 					catch { }
+					*/
 				}
 				else {
 					Console.WriteLine( "Listening: {0}:{1}", ipep.Address, ipep.Port );
 				}
 
-				IAsyncResult res = s.BeginAccept( SocketPool.AcquireSocket(), 0, m_OnAccept, s );
+				IAsyncResult res = s.BeginAccept( m_OnAccept, s );
 
 				return s;
 			}
@@ -132,7 +145,7 @@ namespace Server.Network
 			}
 
 			try {
-				listener.BeginAccept( SocketPool.AcquireSocket(), 0, m_OnAccept, listener );
+				listener.BeginAccept( m_OnAccept, listener );
 			} catch ( SocketException ex ) {
 				NetState.TraceException( ex );
 			} catch ( ObjectDisposedException ) {
@@ -170,8 +183,6 @@ namespace Server.Network
 
 			try {
 				socket.Close();
-
-				SocketPool.ReleaseSocket( socket );
 			} catch ( SocketException ex ) {
 				NetState.TraceException( ex );
 			}

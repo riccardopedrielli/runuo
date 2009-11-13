@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: Mobile.cs 340 2009-07-19 04:18:39Z mark $
+ *   $Id: Mobile.cs 406 2009-10-18 01:34:42Z mark $
  *
  ***************************************************************************/
 
@@ -403,32 +403,34 @@ namespace Server
 	[Flags]
 	public enum MobileDelta
 	{
-		None=0x00000000,
-		Name=0x00000001,
-		Flags=0x00000002,
-		Hits=0x00000004,
-		Mana=0x00000008,
-		Stam=0x00000010,
-		Stat=0x00000020,
-		Noto=0x00000040,
-		Gold=0x00000080,
-		Weight=0x00000100,
-		Direction=0x00000200,
-		Hue=0x00000400,
-		Body=0x00000800,
-		Armor=0x00001000,
-		StatCap=0x00002000,
-		GhostUpdate=0x00004000,
-		Followers=0x00008000,
-		Properties=0x00010000,
-		TithingPoints=0x00020000,
-		Resistances=0x00040000,
-		WeaponDamage=0x00080000,
-		Hair=0x00100000,
-		FacialHair=0x00200000,
-		Race=0x00400000,
+		None=           0x00000000,
+		Name=           0x00000001,
+		Flags=          0x00000002,
+		Hits=           0x00000004,
+		Mana=           0x00000008,
+		Stam=           0x00000010,
+		Stat=           0x00000020,
+		Noto=           0x00000040,
+		Gold=           0x00000080,
+		Weight=         0x00000100,
+		Direction=      0x00000200,
+		Hue=            0x00000400,
+		Body=           0x00000800,
+		Armor=          0x00001000,
+		StatCap=        0x00002000,
+		GhostUpdate=    0x00004000,
+		Followers=      0x00008000,
+		Properties=     0x00010000,
+		TithingPoints=  0x00020000,
+		Resistances=    0x00040000,
+		WeaponDamage=   0x00080000,
+		Hair=           0x00100000,
+		FacialHair=     0x00200000,
+		Race=           0x00400000,
+		HealthbarYellow=0x00800000,
+		HealthbarPoison=0x01000000,
 
-		Attributes=0x0000001C
+		Attributes=   0x0000001C
 	}
 
 	public enum AccessLevel
@@ -701,7 +703,7 @@ namespace Server
 		private int m_SpeechHue, m_EmoteHue, m_WhisperHue, m_YellHue;
 		private string m_Language;
 		private NetState m_NetState;
-		private bool m_Female, m_Warmode, m_Hidden, m_Blessed;
+		private bool m_Female, m_Warmode, m_Hidden, m_Blessed, m_Flying;
 		private int m_StatCap;
 		private int m_Str, m_Dex, m_Int;
 		private int m_Hits, m_Stam, m_Mana;
@@ -1197,8 +1199,13 @@ namespace Server
 					m_Aggressors.RemoveAt( i );
 					info.Free();
 
-					if( m_NetState != null && this.CanSee( attacker ) && Utility.InUpdateRange( m_Location, attacker.m_Location ) )
-						m_NetState.Send( new MobileIncoming( this, attacker ) );
+					if( m_NetState != null && this.CanSee( attacker ) && Utility.InUpdateRange( m_Location, attacker.m_Location ) ) {
+						if ( m_NetState.IsPost7000 ) {
+							m_NetState.Send( new MobileIncoming( this, attacker ) );
+						} else {
+							m_NetState.Send( new MobileIncomingOld( this, attacker ) );
+						}
+					}
 				}
 			}
 
@@ -1217,8 +1224,13 @@ namespace Server
 					m_Aggressed.RemoveAt( i );
 					info.Free();
 
-					if( m_NetState != null && this.CanSee( defender ) && Utility.InUpdateRange( m_Location, defender.m_Location ) )
-						m_NetState.Send( new MobileIncoming( this, defender ) );
+					if( m_NetState != null && this.CanSee( defender ) && Utility.InUpdateRange( m_Location, defender.m_Location ) ) {
+						if ( m_NetState.IsPost7000 ) {
+							m_NetState.Send( new MobileIncoming( this, defender ) );
+						} else {
+							m_NetState.Send( new MobileIncomingOld( this, defender ) );
+						}
+					}
 				}
 			}
 
@@ -2416,8 +2428,13 @@ namespace Server
 			{
 				m_Aggressors.Add( AggressorInfo.Create( aggressor, this, criminal ) ); // new AggressorInfo( aggressor, this, criminal, true ) );
 
-				if( this.CanSee( aggressor ) && m_NetState != null )
-					m_NetState.Send( new MobileIncoming( this, aggressor ) );
+				if( this.CanSee( aggressor ) && m_NetState != null ) {
+					if ( m_NetState.IsPost7000 ) {
+						m_NetState.Send( new MobileIncoming( this, aggressor ) );
+					} else {
+						m_NetState.Send( new MobileIncomingOld( this, aggressor ) );
+					}
+				}
 
 				if( Combatant == null )
 					setCombatant = true;
@@ -2429,8 +2446,13 @@ namespace Server
 			{
 				aggressor.m_Aggressed.Add( AggressorInfo.Create( aggressor, this, criminal ) ); // new AggressorInfo( aggressor, this, criminal, false ) );
 
-				if( this.CanSee( aggressor ) && m_NetState != null )
-					m_NetState.Send( new MobileIncoming( this, aggressor ) );
+				if( this.CanSee( aggressor ) && m_NetState != null ) {
+					if ( m_NetState.IsPost7000 ) {
+						m_NetState.Send( new MobileIncoming( this, aggressor ) );
+					} else {
+						m_NetState.Send( new MobileIncomingOld( this, aggressor ) );
+					}
+				}
 
 				if( Combatant == null )
 					setCombatant = true;
@@ -2460,8 +2482,13 @@ namespace Server
 					m_Aggressed.RemoveAt( i );
 					info.Free();
 
-					if( m_NetState != null && this.CanSee( aggressed ) )
-						m_NetState.Send( new MobileIncoming( this, aggressed ) );
+					if( m_NetState != null && this.CanSee( aggressed ) ) {
+						if ( m_NetState.IsPost7000 ) {
+							m_NetState.Send( new MobileIncoming( this, aggressed ) );
+						} else {
+							m_NetState.Send( new MobileIncomingOld( this, aggressed ) );
+						}
+					}
 
 					break;
 				}
@@ -2486,8 +2513,13 @@ namespace Server
 					m_Aggressors.RemoveAt( i );
 					info.Free();
 
-					if( m_NetState != null && this.CanSee( aggressor ) )
-						m_NetState.Send( new MobileIncoming( this, aggressor ) );
+					if( m_NetState != null && this.CanSee( aggressor ) ) {
+						if ( m_NetState.IsPost7000 ) {
+							m_NetState.Send( new MobileIncoming( this, aggressor ) );
+						} else {
+							m_NetState.Send( new MobileIncomingOld( this, aggressor ) );
+						}
+					}
 
 					break;
 				}
@@ -2962,7 +2994,11 @@ namespace Server
 			return true;
 		}
 
-		private static Packet[] m_MovingPacketCache = new Packet[8];
+		private static Packet[][] m_MovingPacketCache = new Packet[2][]
+			{
+				new Packet[8],
+				new Packet[8]
+			};
 
 		private bool m_Pushing;
 
@@ -3189,11 +3225,6 @@ namespace Server
 
 						TimeSpan delay = ComputeMovementSpeed( d );
 
-						/*if ( Mounted )
-							delay = ( d & Direction.Running ) != 0 ? m_RunMount : m_WalkMount;
-						else
-							delay = ( d & Direction.Running ) != 0 ? m_RunFoot : m_WalkFoot;*/
-
 						DateTime end;
 
 						if( m_MoveRecords.Count > 0 )
@@ -3246,10 +3277,11 @@ namespace Server
 
 				eable.Free();
 
-				Packet[] cache = m_MovingPacketCache;
+				Packet[][] cache = m_MovingPacketCache;
 
 				for( int i = 0; i < cache.Length; ++i )
-					Packet.Release( ref cache[i] );
+					for( int j = 0; j < cache[i].Length; ++j )
+						Packet.Release( ref cache[i][j] );
 
 				for( int i = 0; i < m_MoveList.Count; ++i )
 				{
@@ -3262,11 +3294,21 @@ namespace Server
 
 						if( ns != null && Utility.InUpdateRange( m_Location, m.m_Location ) && m.CanSee( this ) )
 						{
-							int noto = Notoriety.Compute( m, this );
-							Packet p = cache[noto];
+							Packet p = null;
 
-							if( p == null )
-								cache[noto] = p = Packet.Acquire( new MobileMoving( this, noto ) );
+							if ( ns.IsPost7000 ) {
+								int noto = Notoriety.Compute( m, this );
+								p = cache[0][noto];
+
+								if( p == null )
+									cache[0][noto] = p = Packet.Acquire( new MobileMoving( this, noto ) );
+							} else {
+								int noto = Notoriety.Compute( m, this );
+								p = cache[1][noto];
+
+								if( p == null )
+									cache[1][noto] = p = Packet.Acquire( new MobileMovingOld( this, noto ) );
+							}
 
 							ns.Send( p );
 						}
@@ -3280,7 +3322,8 @@ namespace Server
 				}
 
 				for( int i = 0; i < cache.Length; ++i )
-					Packet.Release( ref cache[i] );
+					for( int j = 0; j < cache[i].Length; ++j )
+						Packet.Release( ref cache[i][j] );
 
 				if( m_MoveList.Count > 0 )
 					m_MoveList.Clear();
@@ -3298,10 +3341,12 @@ namespace Server
 		{
 			return ComputeMovementSpeed( this.Direction, false );
 		}
+
 		public TimeSpan ComputeMovementSpeed( Direction dir )
 		{
 			return ComputeMovementSpeed( dir, true );
 		}
+
 		public virtual TimeSpan ComputeMovementSpeed( Direction dir, bool checkTurning )
 		{
 			TimeSpan delay;
@@ -4276,7 +4321,7 @@ namespace Server
 
 								foreach( NetState ns in eable )
 								{
-									if( ns.Mobile != from && ns.Mobile.CanSee( from ) )
+									if( !ns.IsPost7000 && ns.Mobile != from && ns.Mobile.CanSee( from ) )
 									{
 										if( p == null )
 										{
@@ -4411,7 +4456,7 @@ namespace Server
 
 					foreach( NetState ns in eable )
 					{
-						if( ns.Mobile != this && ns.Mobile.CanSee( this ) )
+						if( !ns.IsPost7000 && ns.Mobile != this && ns.Mobile.CanSee( this ) )
 						{
 							if( p == null )
 							{
@@ -6160,6 +6205,7 @@ namespace Server
 				ProcessDelta();
 
 				Packet p = null;
+				//Packet pNew = null;
 
 				IPooledEnumerable eable = map.GetClientsInRange( m_Location );
 
@@ -6169,14 +6215,22 @@ namespace Server
 					{
 						state.Mobile.ProcessDelta();
 
-						if( p == null )
-							p = Packet.Acquire( new MobileAnimation( this, action, frameCount, repeatCount, forward, repeat, delay ) );
+						//if ( state.IsPost7000 ) {
+							//if( pNew == null )
+								//pNew = Packet.Acquire( new NewMobileAnimation( this, action, frameCount, delay ) );
 
-						state.Send( p );
+							//state.Send( pNew );
+						//} else {
+							if( p == null )
+								p = Packet.Acquire( new MobileAnimation( this, action, frameCount, repeatCount, forward, repeat, delay ) );
+
+							state.Send( p );
+						//}
 					}
 				}
 
 				Packet.Release( p );
+				//Packet.Release( pNew );
 
 				eable.Free();
 			}
@@ -6458,7 +6512,7 @@ namespace Server
 				if( m_Blessed != value )
 				{
 					m_Blessed = value;
-					Delta( MobileDelta.Flags );
+					Delta( MobileDelta.HealthbarYellow );
 				}
 			}
 		}
@@ -6717,7 +6771,17 @@ namespace Server
 
 						if( CanSee( m ) && Utility.InUpdateRange( m_Location, m.m_Location ) )
 						{
-							ns.Send( new MobileIncoming( this, m ) );
+							if ( ns.IsPost7000 ) {
+								ns.Send( new MobileIncoming( this, m ) );
+
+								if ( m.Poisoned )
+									ns.Send( new HealthbarPoison( m ) );
+
+								if ( m.Blessed || m.YellowHealthbar )
+									ns.Send( new HealthbarYellow( m ) );
+							} else {
+								ns.Send( new MobileIncomingOld( this, m ) );
+							}
 
 							if( m.IsDeadBondedPet )
 								ns.Send( new BondedStatus( 0, m.m_Serial, 1 ) );
@@ -6776,17 +6840,19 @@ namespace Server
 
 					NetState ns = m_NetState;
 
-					if( m_Map != null )
+					if( ns != null && m_Map != null )
 					{
-						if( ns != null && m_Map != null )
-						{
-							ns.Sequence = 0;
-							ns.Send( new MapChange( this ) );
-							ns.Send( new MapPatches() );
-							ns.Send( SeasonChange.Instantiate( GetSeason(), true ) );
+						ns.Sequence = 0;
+						ns.Send( new MapChange( this ) );
+						ns.Send( new MapPatches() );
+						ns.Send( SeasonChange.Instantiate( GetSeason(), true ) );
+
+						if ( ns.IsPost7000 )
 							ns.Send( new MobileUpdate( this ) );
-							ClearFastwalkStack();
-						}
+						else
+							ns.Send( new MobileUpdateOld( this ) );
+
+						ClearFastwalkStack();
 					}
 
 					if( ns != null )
@@ -6797,10 +6863,17 @@ namespace Server
 						ns.Sequence = 0;
 						ClearFastwalkStack();
 
-						Send( new MobileIncoming( this, this ) );
-						Send( new MobileUpdate( this ) );
-						CheckLightLevels( true );
-						Send( new MobileUpdate( this ) );
+						if ( ns.IsPost7000 ) {
+							Send( new MobileIncoming( this, this ) );
+							Send( new MobileUpdate( this ) );
+							CheckLightLevels( true );
+							Send( new MobileUpdate( this ) );
+						} else {
+							Send( new MobileIncomingOld( this, this ) );
+							Send( new MobileUpdateOld( this ) );
+							CheckLightLevels( true );
+							Send( new MobileUpdateOld( this ) );
+						}
 					}
 
 					SendEverything();
@@ -6811,10 +6884,17 @@ namespace Server
 						ns.Sequence = 0;
 						ClearFastwalkStack();
 
-						Send( new MobileIncoming( this, this ) );
-						Send( SupportedFeatures.Instantiate( ns ) );
-						Send( new MobileUpdate( this ) );
-						Send( new MobileAttributes( this ) );
+						if ( ns.IsPost7000 ) {
+							Send( new MobileIncoming( this, this ) );
+							Send( SupportedFeatures.Instantiate( ns ) );
+							Send( new MobileUpdate( this ) );
+							Send( new MobileAttributes( this ) );
+						} else {
+							Send( new MobileIncomingOld( this, this ) );
+							Send( SupportedFeatures.Instantiate( ns ) );
+							Send( new MobileUpdateOld( this ) );
+							Send( new MobileAttributes( this ) );
+						}
 					}
 
 					OnMapChange( oldMap );
@@ -7698,6 +7778,29 @@ namespace Server
 			if( m_Female )
 				flags |= 0x02;
 
+			if( m_Flying )
+				flags |= 0x04;
+
+			if( m_Blessed || m_YellowHealthbar )
+				flags |= 0x08;
+
+			if( m_Warmode )
+				flags |= 0x40;
+
+			if( m_Hidden )
+				flags |= 0x80;
+
+			return flags;
+		}
+
+		// Pre-7.0.0.0 Packet Flags
+		public virtual int GetOldPacketFlags()
+		{
+			int flags = 0x0;
+
+			if( m_Female )
+				flags |= 0x02;
+
 			if( m_Poison != null )
 				flags |= 0x04;
 
@@ -7733,6 +7836,23 @@ namespace Server
 
 		public virtual void OnGenderChanged( bool oldFemale )
 		{
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public bool Flying
+		{
+			get
+			{
+				return m_Flying;
+			}
+			set
+			{
+				if( m_Flying != value )
+				{
+					m_Flying = value;
+					Delta( MobileDelta.Flags );
+				}
+			}
 		}
 
 		[CommandProperty( AccessLevel.GameMaster )]
@@ -7817,7 +7937,10 @@ namespace Server
 							}
 							else
 							{
-								state.Send( new MobileIncoming( state.Mobile, this ) );
+								if ( state.IsPost7000 )
+									state.Send( new MobileIncoming( state.Mobile, this ) );
+								else
+									state.Send( new MobileIncomingOld( state.Mobile, this ) );
 
 								if( IsDeadBondedPet )
 									state.Send( new BondedStatus( 0, m_Serial, 1 ) );
@@ -8238,7 +8361,7 @@ namespace Server
 			set
 			{
 				m_YellowHealthbar = value;
-				Delta( MobileDelta.Flags );
+				Delta( MobileDelta.HealthbarYellow );
 			}
 		}
 
@@ -8379,7 +8502,7 @@ namespace Server
 				/*if ( m_Poison != value && (m_Poison == null || value == null || m_Poison.Level < value.Level) )
 				{*/
 				m_Poison = value;
-				Delta( MobileDelta.Flags );
+				Delta( MobileDelta.HealthbarPoison );
 
 				if( m_PoisonTimer != null )
 				{
@@ -8886,7 +9009,12 @@ namespace Server
 					ns.Send( new MapChange( this ) );
 					ns.Send( new MapPatches() );
 					ns.Send( SeasonChange.Instantiate( GetSeason(), true ) );
-					ns.Send( new MobileUpdate( this ) );
+
+					if ( ns.IsPost7000 )
+						ns.Send( new MobileUpdate( this ) );
+					else
+						ns.Send( new MobileUpdateOld( this ) );
+
 					ClearFastwalkStack();
 				}
 			}
@@ -8903,10 +9031,17 @@ namespace Server
 				ns.Sequence = 0;
 				ClearFastwalkStack();
 
-				Send( new MobileIncoming( this, this ) );
-				Send( new MobileUpdate( this ) );
-				CheckLightLevels( true );
-				Send( new MobileUpdate( this ) );
+				if ( ns.IsPost7000 ) {
+					Send( new MobileIncoming( this, this ) );
+					Send( new MobileUpdate( this ) );
+					CheckLightLevels( true );
+					Send( new MobileUpdate( this ) );
+				} else {
+					Send( new MobileIncomingOld( this, this ) );
+					Send( new MobileUpdateOld( this ) );
+					CheckLightLevels( true );
+					Send( new MobileUpdateOld( this ) );
+				}
 			}
 
 			SendEverything();
@@ -8917,10 +9052,17 @@ namespace Server
 				ns.Sequence = 0;
 				ClearFastwalkStack();
 
-				Send( new MobileIncoming( this, this ) );
-				Send( SupportedFeatures.Instantiate( ns ) );
-				Send( new MobileUpdate( this ) );
-				Send( new MobileAttributes( this ) );
+				if ( ns.IsPost7000 ) {
+					Send( new MobileIncoming( this, this ) );
+					Send( SupportedFeatures.Instantiate( ns ) );
+					Send( new MobileUpdate( this ) );
+					Send( new MobileAttributes( this ) );
+				} else {
+					Send( new MobileIncomingOld( this, this ) );
+					Send( SupportedFeatures.Instantiate( ns ) );
+					Send( new MobileUpdateOld( this ) );
+					Send( new MobileAttributes( this ) );
+				}
 			}
 
 			OnMapChange( oldMap );
@@ -8956,7 +9098,12 @@ namespace Server
 				if( isTeleport && m_NetState != null )
 				{
 					m_NetState.Sequence = 0;
-					m_NetState.Send( new MobileUpdate( this ) );
+
+					if ( m_NetState.IsPost7000 )
+						m_NetState.Send( new MobileUpdate( this ) );
+					else
+						m_NetState.Send( new MobileUpdateOld( this ) );
+
 					ClearFastwalkStack();
 				}
 
@@ -9013,7 +9160,17 @@ namespace Server
 
 								if( (isTeleport || !inOldRange) && m.m_NetState != null && m.CanSee( this ) )
 								{
-									m.m_NetState.Send( new MobileIncoming( m, this ) );
+									if ( m.m_NetState.IsPost7000 ) {
+										m.m_NetState.Send( new MobileIncoming( m, this ) );
+
+										if ( m_Poison != null )
+											m.m_NetState.Send( new HealthbarPoison( this ) );
+
+										if ( m_Blessed || m_YellowHealthbar )
+											m.m_NetState.Send( new HealthbarYellow( this ) );
+									} else {
+										m.m_NetState.Send( new MobileIncomingOld( m, this ) );
+									}
 
 									if( IsDeadBondedPet )
 										m.m_NetState.Send( new BondedStatus( 0, m_Serial, 1 ) );
@@ -9029,7 +9186,17 @@ namespace Server
 
 								if( !inOldRange && CanSee( m ) )
 								{
-									ourState.Send( new MobileIncoming( this, m ) );
+									if ( ourState.IsPost7000 ) {
+										ourState.Send( new MobileIncoming( this, m ) );
+
+										if ( m.Poisoned )
+											ourState.Send( new HealthbarPoison( m ) );
+
+										if ( m.Blessed || m.YellowHealthbar )
+											ourState.Send( new HealthbarYellow( m ) );
+									} else {
+										ourState.Send( new MobileIncomingOld( this, m ) );
+									}
 
 									if( m.IsDeadBondedPet )
 										ourState.Send( new BondedStatus( 0, m.m_Serial, 1 ) );
@@ -9056,7 +9223,17 @@ namespace Server
 						{
 							if( (isTeleport || !Utility.InUpdateRange( oldLocation, ns.Mobile.Location )) && ns.Mobile.CanSee( this ) )
 							{
-								ns.Send( new MobileIncoming( ns.Mobile, this ) );
+								if ( ns.IsPost7000 ) {
+									ns.Send( new MobileIncoming( ns.Mobile, this ) );
+
+									if ( m_Poison != null )
+										ns.Send( new HealthbarPoison( this ) );
+
+									if ( m_Blessed || m_YellowHealthbar )
+										ns.Send( new HealthbarYellow( this ) );
+								} else {
+									ns.Send( new MobileIncomingOld( ns.Mobile, this ) );
+								}
 
 								if( IsDeadBondedPet )
 									ns.Send( new BondedStatus( 0, m_Serial, 1 ) );
@@ -9385,7 +9562,17 @@ namespace Server
 				{
 					if( state.Mobile.CanSee( this ) )
 					{
-						state.Send( new MobileIncoming( state.Mobile, this ) );
+						if ( state.IsPost7000 ) {
+							state.Send( new MobileIncoming( state.Mobile, this ) );
+
+							if ( m_Poison != null )
+								state.Send( new HealthbarPoison( this ) );
+
+							if ( m_Blessed || m_YellowHealthbar )
+								state.Send( new HealthbarYellow( this ) );
+						} else {
+							state.Send( new MobileIncomingOld( state.Mobile, this ) );
+						}
 
 						if( IsDeadBondedPet )
 							state.Send( new BondedStatus( 0, m_Serial, 1 ) );
@@ -9810,6 +9997,8 @@ namespace Server
 
 			bool sendHair = false, sendFacialHair = false, removeHair = false, removeFacialHair = false;
 
+			bool sendHealthbarPoison = false, sendHealthbarYellow = false;
+
 			if( attrs != MobileDelta.None )
 			{
 				sendAny = true;
@@ -9866,6 +10055,16 @@ namespace Server
 				sendMoving = true;
 			}
 
+			if( (delta & MobileDelta.HealthbarPoison) != 0 )
+			{
+				sendHealthbarPoison = true;
+			}
+
+			if( (delta & MobileDelta.HealthbarYellow) != 0 )
+			{
+				sendHealthbarYellow = true;
+			}
+
 			if( (delta & MobileDelta.Name) != 0 )
 			{
 				sendAll = false;
@@ -9895,12 +10094,13 @@ namespace Server
 				sendFacialHair = true;
 			}
 
-			Packet[] cache = m_MovingPacketCache;
+			Packet[][] cache = m_MovingPacketCache;
 
-			if( sendMoving || sendNonlocalMoving )
+			if( sendMoving || sendNonlocalMoving || sendHealthbarPoison || sendHealthbarYellow )
 			{
 				for( int i = 0; i < cache.Length; ++i )
-					Packet.Release( ref cache[i] );
+					for( int j = 0; j < cache[i].Length; ++j )
+						Packet.Release( ref cache[i][j] );
 			}
 
 			NetState ourState = m.m_NetState;
@@ -9910,22 +10110,44 @@ namespace Server
 				if( sendUpdate )
 				{
 					ourState.Sequence = 0;
-					ourState.Send( new MobileUpdate( m ) );
+
+					if ( ourState.IsPost7000 )
+						ourState.Send( new MobileUpdate( m ) );
+					else
+						ourState.Send( new MobileUpdateOld( m ) );
+
 					ClearFastwalkStack();
 				}
 
-				if( sendIncoming )
-					ourState.Send( new MobileIncoming( m, m ) );
+				if ( ourState.IsPost7000 ) {
+					if( sendIncoming )
+						ourState.Send( new MobileIncoming( m, m ) );
 
-				if( sendMoving )
-				{
-					int noto = Notoriety.Compute( m, m );
-					ourState.Send( cache[noto] = Packet.Acquire( new MobileMoving( m, noto ) ) );
+					if( sendMoving )
+					{
+						int noto = Notoriety.Compute( m, m );
+						ourState.Send( cache[0][noto] = Packet.Acquire( new MobileMoving( m, noto ) ) );
+					}
+
+					if ( sendHealthbarPoison )
+						ourState.Send( new HealthbarPoison( m ) );
+
+					if ( sendHealthbarYellow )
+						ourState.Send( new HealthbarYellow( m ) );
+				} else {
+					if( sendIncoming )
+						ourState.Send( new MobileIncomingOld( m, m ) );
+
+					if( sendMoving || sendHealthbarPoison || sendHealthbarYellow )
+					{
+						int noto = Notoriety.Compute( m, m );
+						ourState.Send( cache[1][noto] = Packet.Acquire( new MobileMovingOld( m, noto ) ) );
+					}
 				}
 
 				if( sendPublicStats || sendPrivateStats )
 				{
-					ourState.Send( new MobileStatusExtended( m ) );
+					ourState.Send( new MobileStatusExtended( m, m_NetState ) );
 				}
 				else if( sendAll )
 				{
@@ -9978,7 +10200,7 @@ namespace Server
 			sendIncoming = sendIncoming || sendNonlocalIncoming;
 			sendHits = sendHits || sendAll;
 
-			if( m.m_Map != null && (sendRemove || sendIncoming || sendPublicStats || sendHits || sendMoving || sendOPLUpdate || sendHair || sendFacialHair) )
+			if( m.m_Map != null && (sendRemove || sendIncoming || sendPublicStats || sendHits || sendMoving || sendOPLUpdate || sendHair || sendFacialHair || sendHealthbarPoison || sendHealthbarYellow) )
 			{
 				Mobile beholder;
 
@@ -9988,6 +10210,7 @@ namespace Server
 				Packet statPacketTrue = null, statPacketFalse = null;
 				Packet deadPacket = null;
 				Packet hairPacket = null, facialhairPacket = null;
+				Packet hbpPacket = null, hbyPacket = null;
 
 				foreach( NetState state in eable )
 				{
@@ -10000,7 +10223,11 @@ namespace Server
 
 						if( sendIncoming )
 						{
-							state.Send( new MobileIncoming( beholder, m ) );
+							if ( state.IsPost7000 ) {
+								state.Send( new MobileIncoming( beholder, m ) );
+							} else {
+								state.Send( new MobileIncomingOld( beholder, m ) );
+							}
 
 							if( m.IsDeadBondedPet )
 							{
@@ -10011,16 +10238,43 @@ namespace Server
 							}
 						}
 
-						if( sendMoving )
-						{
-							int noto = Notoriety.Compute( beholder, m );
+						if ( state.IsPost7000 ) {
+							if( sendMoving )
+							{
+								int noto = Notoriety.Compute( beholder, m );
 
-							Packet p = cache[noto];
+								Packet p = cache[0][noto];
 
-							if( p == null )
-								cache[noto] = p = Packet.Acquire( new MobileMoving( m, noto ) );
+								if( p == null )
+									cache[0][noto] = p = Packet.Acquire( new MobileMoving( m, noto ) );
 
-							state.Send( p );
+								state.Send( p );
+							}
+
+							if ( sendHealthbarPoison ) {
+								if ( hbpPacket == null )
+									hbpPacket = Packet.Acquire( new HealthbarPoison( m ) );
+								
+								state.Send( hbpPacket );
+							}
+
+							if ( sendHealthbarYellow ) {
+								if ( hbyPacket == null )
+									hbyPacket = Packet.Acquire( new HealthbarYellow( m ) );
+								state.Send( hbyPacket );
+							}
+						} else {
+							if( sendMoving || sendHealthbarPoison || sendHealthbarYellow )
+							{
+								int noto = Notoriety.Compute( beholder, m );
+
+								Packet p = cache[1][noto];
+
+								if( p == null )
+									cache[1][noto] = p = Packet.Acquire( new MobileMovingOld( m, noto ) );
+
+								state.Send( p );
+							}
 						}
 
 						if( sendPublicStats )
@@ -10085,14 +10339,17 @@ namespace Server
 				Packet.Release( deadPacket );
 				Packet.Release( hairPacket );
 				Packet.Release( facialhairPacket );
+				Packet.Release( hbpPacket );
+				Packet.Release( hbyPacket );
 
 				eable.Free();
 			}
 
-			if( sendMoving || sendNonlocalMoving )
+			if( sendMoving || sendNonlocalMoving || sendHealthbarPoison || sendHealthbarYellow )
 			{
 				for( int i = 0; i < cache.Length; ++i )
-					Packet.Release( ref cache[i] );
+					for( int j = 0; j < cache.Length; ++j )
+						Packet.Release( ref cache[i][j] );
 			}
 		}
 
@@ -10657,7 +10914,7 @@ namespace Server
 		public virtual void OnStatsQuery( Mobile from )
 		{
 			if( from.Map == this.Map && Utility.InUpdateRange( this, from ) && from.CanSee( this ) )
-				from.Send( new MobileStatus( from, this ) );
+				from.Send( new MobileStatus( from, this, m_NetState ) );
 
 			if( from == this )
 				Send( new StatLockInfo( this ) );

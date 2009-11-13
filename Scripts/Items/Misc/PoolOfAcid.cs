@@ -12,69 +12,9 @@ namespace Server.Items
 		private TimeSpan m_Duration;
 		private int m_MinDamage;
 		private int m_MaxDamage;
-
 		private DateTime m_Created;
-
 		private bool m_Drying;
-
 		private Timer m_Timer;
-
-		[CommandProperty( AccessLevel.GameMaster )]
-		public bool Drying
-		{
-			get
-			{
-				return m_Drying;
-			}
-			set
-			{
-				m_Drying = value;
-
-				if( m_Drying )
-					ItemID = 0x122A;
-				else
-					ItemID = 0x122B;
-			}
-		}
-
-
-		[CommandProperty( AccessLevel.GameMaster )]
-		public TimeSpan Duration{ get{ return m_Duration; } set{ m_Duration = value; } }
-
-		[CommandProperty( AccessLevel.GameMaster )]
-		public int MinDamage
-		{
-			get
-			{
-				return m_MinDamage;
-			}
-			set
-			{
-				if ( value < 1 )
-					value = 1;
-
-				m_MinDamage = value;
-			}
-		}
-
-		[CommandProperty( AccessLevel.GameMaster )]
-		public int MaxDamage
-		{
-			get
-			{
-				return m_MaxDamage;
-			}
-			set
-			{
-				if ( value < 1 )
-					value = 1;
-
-				if ( value < MinDamage )
-					value = MinDamage;
-
-				m_MaxDamage = value;
-			}
-		}
 
 		[Constructable]
 		public PoolOfAcid() : this( TimeSpan.FromSeconds( 10.0 ), 2, 5 )
@@ -109,12 +49,14 @@ namespace Server.Items
 			DateTime now = DateTime.Now;
 			TimeSpan age = now - m_Created;
 
-			if( age > m_Duration )
+			if( age > m_Duration ) {
 				Delete();
-			else
-			{
-				if( !Drying && age > (m_Duration - age) )
-					Drying = true;
+			} else {
+				if( !m_Drying && age > (m_Duration - age) )
+				{
+					m_Drying = true;
+					ItemID = 0x122B;
+				}
 
 				List<Mobile> toDamage = new List<Mobile>();
 
@@ -128,22 +70,19 @@ namespace Server.Items
 					}
 				}
 
-				for( int i = 0; i < toDamage.Count; i++ )
+				for ( int i = 0; i < toDamage.Count; i++ )
 					Damage( toDamage[i] );
-
 			}
 		}
-
-
 		public override bool OnMoveOver( Mobile m )
 		{
 			Damage( m );
 			return true;
 		}
 
-		public void Damage( Mobile m )
+		public void Damage ( Mobile m )
 		{
-			m.Damage( Utility.RandomMinMax( MinDamage, MaxDamage ) );
+			m.Damage( Utility.RandomMinMax( m_MinDamage, m_MaxDamage ) );
 		}
 
 		public PoolOfAcid( Serial serial ) : base( serial )

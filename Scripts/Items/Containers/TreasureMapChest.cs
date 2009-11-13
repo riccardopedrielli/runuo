@@ -141,9 +141,14 @@ namespace Server.Items
 				{
 					Item item;
 
+					/*** DEL_START ***/
+                    //no gioielli
+					/*
 					if ( Core.AOS )
 						item = Loot.RandomArmorOrShieldOrWeaponOrJewelry();
 					else
+					*/
+					/*** DEL_END ***/
 						item = Loot.RandomArmorOrShieldOrWeapon();
 
 					if ( item is BaseWeapon )

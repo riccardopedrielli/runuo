@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: Main.cs 297 2008-05-29 03:57:42Z mark $
+ *   $Id: Main.cs 401 2009-10-17 07:27:30Z mark $
  *
  ***************************************************************************/
 
@@ -154,26 +154,17 @@ namespace Server
 
 		public static bool AOS
 		{
-			get
-			{
-				return m_Expansion >= Expansion.AOS;
-			}
+			get { return m_Expansion >= Expansion.AOS; }
 		}
 
 		public static bool SE
 		{
-			get
-			{
-				return m_Expansion >= Expansion.SE;
-			}
+			get { return m_Expansion >= Expansion.SE; }
 		}
 
 		public static bool ML
 		{
-			get
-			{
-				return m_Expansion >= Expansion.ML;
-			}
+			get { return m_Expansion >= Expansion.ML; }
 		}
 
 		#endregion
@@ -251,11 +242,12 @@ namespace Server
 					{
 					}
 
-					if ( SocketPool.Created )
-						SocketPool.Destroy();
-
-					Console.WriteLine( "This exception is fatal, press return to exit" );
-					Console.ReadLine();
+					if ( m_Service ) {
+						Console.WriteLine( "This exception is fatal." );
+					} else {
+						Console.WriteLine( "This exception is fatal, press return to exit" );
+						Console.ReadLine();
+					}
 				}
 
 				m_Closing = true;
@@ -347,9 +339,6 @@ namespace Server
 			if( !m_Crashed )
 				EventSink.InvokeShutdown( new ShutdownEventArgs() );
 
-			if( SocketPool.Created )
-				SocketPool.Destroy();
-
 			Timer.TimerThread.Set();
 
 			Console.WriteLine( "done" );
@@ -386,7 +375,7 @@ namespace Server
 					if( !Directory.Exists( "Logs" ) )
 						Directory.CreateDirectory( "Logs" );
 
-					Console.SetOut( m_MultiConOut = new MultiTextWriter( Console.Out, new FileLogger( "Logs/Console.log" ) ) );
+					Console.SetOut( m_MultiConOut = new MultiTextWriter( new FileLogger( "Logs/Console.log" ) ) );
 				}
 				else
 				{
@@ -431,7 +420,7 @@ namespace Server
 				Console.WriteLine( "Core: Optimizing for {0} {2}processor{1}", m_ProcessorCount, m_ProcessorCount == 1 ? "" : "s", Is64Bit ? "64-bit " : "" );
 
 			int platform = (int)Environment.OSVersion.Platform;
-			if ( ( platform == 4 ) || ( platform == 128 ) ) { // MS 4, MONO 128
+			if( platform == 4 || platform == 128 ) { // MS 4, MONO 128
 				m_Unix = true;
 				Console.WriteLine( "Core: Unix environment detected" );
 			}
@@ -443,13 +432,22 @@ namespace Server
 			while( !ScriptCompiler.Compile( m_Debug, m_Cache ) )
 			{
 				Console.WriteLine( "Scripts: One or more scripts failed to compile or no script files were found." );
-				Console.WriteLine( " - Press return to exit, or R to try again." );
+				
+				if( m_Service )
+					return;
 
+				Console.WriteLine( " - Press return to exit, or R to try again." );
+				
 				if( Console.ReadKey( true ).Key != ConsoleKey.R )
 					return;
 			}
 
-			SocketPool.Create();
+			ScriptCompiler.Invoke( "Configure" );
+			
+			Region.Load();
+			World.Load();
+
+			ScriptCompiler.Invoke( "Initialize" );
 
 			MessagePump ms = m_MessagePump = new MessagePump();
 

@@ -13,6 +13,7 @@ namespace Server.Spells.Ninjitsu
 		public abstract int RequiredMana{ get; }
 
 		public override SkillName CastSkill{ get{ return SkillName.Ninjitsu; } }
+		public override SkillName DamageSkill{ get{ return SkillName.Ninjitsu; } }
 
 		public override bool RevealOnCast{ get{ return false; } }
 		public override bool ClearHandsOnCast{ get{ return false; } }
@@ -21,7 +22,6 @@ namespace Server.Spells.Ninjitsu
 		public override bool BlocksMovement{ get{ return false; } }
 
 		//public override int CastDelayBase{ get{ return 1; } }
-		public override double CastDelayFastScalar { get { return 0; } }
 
 		public override int CastRecoveryBase{ get{ return 7; } }
 

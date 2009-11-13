@@ -12,7 +12,7 @@ Mob
 
 Skills
 
-    * Resisting spells non da bonus al fisico
+    * Resisting spells non da bonus alla resistenza fisica
     * Bonus EvalInt + Anatomy abbassato a 100 pari a Wrestling    
     * Resisting Spells impostata con resistenze minime a Skill / 3
 	* Spirit Speak non cura piu, fa leggere cosa scrivono i morti e rende visibili i ghost con skill a 100
@@ -80,7 +80,7 @@ Items
     * Rimossa la possibilità di fare l'insure sugli item
     * Tutti i tipi di deed sono lootabili (case,barche,decorazioni..)
     * Le chiavi delle barche e i modellini dockati sono lootabili
-    * Rimossi reagenti spellbook e oggetti aos da dropp e treasure
+    * Rimossi reagenti, spellbook e oggetti aos da mob e treasure chest
 	* I BankCheck ora sono lootabili
 
 
@@ -137,7 +137,7 @@ NPC
     * Gli healer normali ressano anche i criminali ma non i rossi
     * Gli evil healer ressano solo i rossi e non i blu
 	* Gli healer ressano solo i fantasmi in warmode senza conferma
-    * Rimossi reagenti e book dei necro e pala
+    * Rimossi reagenti, scroll e book dei necro e pala
     * Eliminati training skill SE e ML da npc
 	* Aggiunto il cauldron al vendor cuoco
 	* Rimossi i BulkOrder dai Blacksmith Weaponsmith Tailor e Weaver
@@ -150,13 +150,13 @@ Nuovi engines
 
 Nuovi items
 
-    * Aggiunti dungeon chest
+    * Dungeon chest
 
 
 Staff related
 
-    * Sync with RunUO-svn: 345
-    xmlSpawner 3.24
+    * Sync with RunUO-svn: 433
+    * xmlSpawner 3.24
     * Impostata la stagione 0 (primavera) su Felucca.
     * TestRobe: toggle AccessLevel Player/Account con doppio click.
     * Eliminati comandi decorate, decoratemag e vendorgen (verrà usato xmlSpawner)

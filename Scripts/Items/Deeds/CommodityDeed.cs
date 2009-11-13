@@ -66,7 +66,7 @@ namespace Server.Items
 				}
 			}
 
-			if ( !( m_Commodity is ICommodity ) )	//Apparently, there may be items out there with this.  Funky.
+			if ( m_Commodity != null && !( m_Commodity is ICommodity ) ) //Apparently, there may be items out there with this.  Funky.
 			{
 				Timer.DelayCall( TimeSpan.Zero, this.Delete );
 			}
@@ -101,12 +101,14 @@ namespace Server.Items
 
 		public override int LabelNumber{ get{ return m_Commodity == null ? 1047016 : 1047017; } }
 
-		public override void GetProperties(ObjectPropertyList list)
+		public override void GetProperties( ObjectPropertyList list )
 		{
 			base.GetProperties( list );
 
 			if ( m_Commodity != null && m_Commodity is ICommodity )
 				list.Add( 1060658, "#{0}\t{1}", ((ICommodity)m_Commodity).DescriptionNumber, m_Commodity.Amount ); // ~1_val~: ~2_val~
+			else
+				list.Add( 1060748 ); // unfilled
 		}
 
 		public override void OnSingleClick( Mobile from )

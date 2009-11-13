@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: AssemblyInfo.cs 4 2006-06-15 04:28:39Z mark $
+ *   $Id: AssemblyInfo.cs 400 2009-10-07 10:25:04Z mark $
  *
  ***************************************************************************/
 
@@ -46,7 +46,7 @@ using System.Runtime.CompilerServices;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("2.0.*")]
+[assembly: AssemblyVersion("2.1.*")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 

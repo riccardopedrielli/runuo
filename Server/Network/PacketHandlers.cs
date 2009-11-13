@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: PacketHandlers.cs 344 2009-07-21 02:29:34Z mark $
+ *   $Id: PacketHandlers.cs 389 2009-10-04 08:19:19Z mark $
  *
  ***************************************************************************/
 
@@ -147,7 +147,7 @@ namespace Server.Network
 			Register( 0xD1,   2,  true, new OnPacketReceive( LogoutReq ) );
 			Register( 0xD6,   0,  true, new OnPacketReceive( BatchQueryProperties ) );
 			Register( 0xD7,   0,  true, new OnPacketReceive( EncodedCommand ) );
-            Register( 0xEF,  21, false, new OnPacketReceive( LoginServerSeed ) );
+			Register( 0xEF,  21, false, new OnPacketReceive( LoginServerSeed ) );
 
 			Register6017( 0x08, 15, true, new OnPacketReceive( DropReq6017 ) );
 
@@ -1235,8 +1235,13 @@ namespace Server.Network
 		{
 			Mobile m = state.Mobile;
 
-			state.Send( new MobileUpdate( m ) );
-			state.Send( new MobileIncoming( m, m ) );
+			if ( state.IsPost7000 ) {
+				state.Send( new MobileUpdate( m ) );
+				state.Send( new MobileIncoming( m, m ) );
+			} else {
+				state.Send( new MobileUpdateOld( m ) );
+				state.Send( new MobileIncomingOld( m, m ) );
+			}
 
 			m.SendEverything();
 
@@ -1955,26 +1960,50 @@ namespace Server.Network
 			state.Send( SupportedFeatures.Instantiate( state ) );
 
 			state.Sequence = 0;
-			state.Send( new MobileUpdate( m ) );
-			state.Send( new MobileUpdate( m ) );
 
-			m.CheckLightLevels( true );
+			if ( state.IsPost7000 ) {
+				state.Send( new MobileUpdate( m ) );
+				state.Send( new MobileUpdate( m ) );
 
-			state.Send( new MobileUpdate( m ) );
+				m.CheckLightLevels( true );
 
-			state.Send( new MobileIncoming( m, m ) );
-			//state.Send( new MobileAttributes( m ) );
-			state.Send( new MobileStatus( m, m ) );
-			state.Send( Server.Network.SetWarMode.Instantiate( m.Warmode ) );
+				state.Send( new MobileUpdate( m ) );
 
-			m.SendEverything();
+				state.Send( new MobileIncoming( m, m ) );
+				//state.Send( new MobileAttributes( m ) );
+				state.Send( new MobileStatus( m, m ) );
+				state.Send( Server.Network.SetWarMode.Instantiate( m.Warmode ) );
 
-			state.Send( SupportedFeatures.Instantiate( state ) );
-			state.Send( new MobileUpdate( m ) );
-			//state.Send( new MobileAttributes( m ) );
-			state.Send( new MobileStatus( m, m ) );
-			state.Send( Server.Network.SetWarMode.Instantiate( m.Warmode ) );
-			state.Send( new MobileIncoming( m, m ) );
+				m.SendEverything();
+
+				state.Send( SupportedFeatures.Instantiate( state ) );
+				state.Send( new MobileUpdate( m ) );
+				//state.Send( new MobileAttributes( m ) );
+				state.Send( new MobileStatus( m, m ) );
+				state.Send( Server.Network.SetWarMode.Instantiate( m.Warmode ) );
+				state.Send( new MobileIncoming( m, m ) );
+			} else {
+				state.Send( new MobileUpdateOld( m ) );
+				state.Send( new MobileUpdateOld( m ) );
+
+				m.CheckLightLevels( true );
+
+				state.Send( new MobileUpdateOld( m ) );
+
+				state.Send( new MobileIncomingOld( m, m ) );
+				//state.Send( new MobileAttributes( m ) );
+				state.Send( new MobileStatus( m, m ) );
+				state.Send( Server.Network.SetWarMode.Instantiate( m.Warmode ) );
+
+				m.SendEverything();
+
+				state.Send( SupportedFeatures.Instantiate( state ) );
+				state.Send( new MobileUpdateOld( m ) );
+				//state.Send( new MobileAttributes( m ) );
+				state.Send( new MobileStatus( m, m ) );
+				state.Send( Server.Network.SetWarMode.Instantiate( m.Warmode ) );
+				state.Send( new MobileIncomingOld( m, m ) );
+			}
 
 			state.Send( LoginComplete.Instance );
 			state.Send( new CurrentTime() );
@@ -2024,9 +2053,28 @@ namespace Server.Network
 			int shirtHue = pvSrc.ReadInt16();
 			int pantsHue = pvSrc.ReadInt16();
 
+			/*
+			Pre-7.0.0.0:
+			0x00, 0x01 -> Human Male, Human Female
+			0x02, 0x03 -> Elf Male, Elf Female
+
+			Post-7.0.0.0:
+			0x00, 0x01
+			0x02, 0x03 -> Human Male, Human Female
+			0x04, 0x05 -> Elf Male, Elf Female
+			0x05, 0x06 -> Gargoyle Male, Gargoyle Female
+			*/
+
 			bool female = ((genderRace % 2) != 0);
 
-			Race race = Race.Races[(byte)(genderRace / 2)];
+			Race race = null;
+
+			if ( state.IsPost7000 ) {
+				byte raceID = (byte)(genderRace < 4 ? 0 : ((genderRace / 2) - 1));
+				race = Race.Races[raceID];
+			} else {
+				race = Race.Races[(byte)(genderRace / 2)];
+			}
 
 			if( race == null )
 				race = Race.DefaultRace;

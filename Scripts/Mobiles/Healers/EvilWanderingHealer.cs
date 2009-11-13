@@ -38,14 +38,23 @@ namespace Server.Mobiles
 
 		public override bool CheckResurrect( Mobile m )
 		{
-		/*** ADD_START ***/
-		//gli evil healer possono ressare solo i rossi
-		if (m.Kills < 5)
-		{
-			Say("Thou'rt not an evil killer. I shall not resurrect thee"); 
-			return false;
-		}
-		/*** ADD_START ***/
+			/*** MOD_START ***/
+			//gli evil healer possono ressare solo i rossi
+			/*
+			if ( Core.AOS && m.Criminal )
+			{
+				Say( 501222 ); // Thou art a criminal.  I shall not resurrect thee.
+				return false;
+			}
+
+			*/
+
+			if (m.Kills < 5)
+			{
+				Say("Thou'rt not an evil killer. I shall not resurrect thee"); 
+				return false;
+			}
+			/*** MOD_END ***/
 			return true;
 		}
 

@@ -6,7 +6,7 @@ using Server.Engines.Harvest;
 namespace Server.Items
 {
 	[FlipableAttribute( 0xE86, 0xE85 )]
-	public class Pickaxe : BaseAxe
+	public class Pickaxe : BaseAxe, IUsesRemaining
 	{
 		public override HarvestSystem HarvestSystem{ get{ return Mining.System; } }
 
@@ -17,6 +17,7 @@ namespace Server.Items
 		public override int AosMinDamage{ get{ return 13; } }
 		public override int AosMaxDamage{ get{ return 15; } }
 		public override int AosSpeed{ get{ return 35; } }
+		public override float MlSpeed{ get{ return 3.00f; } }
 
 		public override int OldStrengthReq{ get{ return 25; } }
 		public override int OldMinDamage{ get{ return 1; } }

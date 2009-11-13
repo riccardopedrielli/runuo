@@ -358,8 +358,8 @@ namespace Server.Engines.Craft
 							toWeaken = 3;
 					}
 
-					if ( m_CraftSystem.CraftItems.SearchForSubclass( clothing.GetType() ) == null && !IsSpecialClothing( clothing ))
-					{
+ 					if (m_CraftSystem.CraftItems.SearchForSubclass(clothing.GetType()) == null && !IsSpecialClothing(clothing) && !((targeted is TribalMask) || (targeted is HornedTribalMask)) )
+ 					{
 						number = (usingDeed) ? 1061136 : 1044277; // That item cannot be repaired. // You cannot repair that item with this type of repair contract.
 					}
 					else if ( !clothing.IsChildOf( from.Backpack ) )
@@ -428,6 +428,7 @@ namespace Server.Engines.Craft
 				}
 				else if( toDelete )
 				{
+					from.SendLocalizedMessage( number );
 					m_Deed.Delete();
 				}
 			}

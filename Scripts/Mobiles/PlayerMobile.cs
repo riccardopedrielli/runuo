@@ -1838,9 +1838,8 @@ namespace Server.Mobiles
 			if ( this.Alive && !wasAlive )
 			{
 				Item deathRobe = new DeathRobe();
-				if ( !this.Backpack.CheckHold( this, deathRobe, false, true ) )
-					deathRobe.Delete();
-				else if ( !EquipItem( deathRobe ) )
+				
+				if ( !EquipItem( deathRobe ) )
 					deathRobe.Delete();
 			}
 		}
@@ -2913,6 +2912,20 @@ namespace Server.Mobiles
 						list.Add( 1060776, "{0}\t{1}", pl.Rank.Title, faction.Definition.PropName ); // ~1_val~, ~2_val~
 				}
 			}
+
+			if ( Core.ML )
+			{
+				for ( int i = AllFollowers.Count - 1; i >= 0; i-- )
+				{
+					BaseCreature c = AllFollowers[ i ] as BaseCreature;
+
+					if ( c != null && c.ControlOrder == OrderType.Guard )
+					{
+						list.Add( 501129 ); // guarded
+						break;
+					}
+				}
+			}
 		}
 
 		public override void OnSingleClick( Mobile from )
@@ -3238,8 +3251,17 @@ namespace Server.Mobiles
 			{
 				Type t = m.GetType();
 
-				if ( t == oldType || t == newType )
-					Send( new MobileMoving( m, Notoriety.Compute( this, m ) ) );
+				if ( t == oldType || t == newType ) {
+					NetState ns = this.NetState;
+
+					if ( ns != null ) {
+						if ( ns.IsPost7000 ) {
+							ns.Send( new MobileMoving( m, Notoriety.Compute( this, m ) ) );
+						} else {
+							ns.Send( new MobileMovingOld( m, Notoriety.Compute( this, m ) ) );
+						}
+					}
+				}
 			}
 		}
 		#endregion
