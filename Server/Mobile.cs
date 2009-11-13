@@ -8143,7 +8143,7 @@ namespace Server
                 /*
                 ((m.Alive || (Core.SE && Skills.SpiritSpeak.Value >= 100.0)) || !Alive || m_AccessLevel > AccessLevel.Player || m.Warmode));
                 */
-                ((m.Alive || m.CanHearGhosts) || !Alive || m_AccessLevel > AccessLevel.Player || m.Warmode));
+                ((m.Alive || CanHearGhosts) || !Alive || m_AccessLevel > AccessLevel.Player || m.Warmode));
                 /*** MOD_END ***/
 		}
 
