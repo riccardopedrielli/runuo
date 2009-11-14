@@ -4096,5 +4096,13 @@ namespace Server.Mobiles
 
 			m_AutoStabled.Clear();
 		}
+
+        /*** ADD_START ***/
+        //ho fatto l'override per togliere il fatto che se un fantasma parla si mette in automatico in war e viene visto da tutti
+        public override bool CheckSpeechManifest()
+        {
+            return false;
+        }
+        /*** ADD_END ***/
 	}
 }
