@@ -15,7 +15,7 @@ Skills
     * Resisting spells non da bonus alla resistenza fisica
     * Bonus EvalInt + Anatomy abbassato a 100 pari a Wrestling    
     * Resisting Spells impostata con resistenze minime a Skill / 3
-	* Spirit Speak non cura piu, fa leggere cosa scrivono i morti e rende visibili i ghost con skill a 100
+	* Spirit Speak non cura piu, fa leggere cosa scrivono i morti e rende visibili i ghost anche se non sono in war. 
 
 
 Case
@@ -127,7 +127,7 @@ PG
     * I pg affamati perderanno lentamente HP fino alla sopportazione massima che portera' alla morte inevitabile
     * I pg assetati perderanno lentamente stamina fino alla sopportazione massima che portera' alla morte inevitabile
     * Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
-
+	* Se un pg da fantasma parla, non viene piu messo in automatico in war
 
 NPC
 

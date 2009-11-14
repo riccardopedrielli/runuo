@@ -37,9 +37,14 @@ namespace Server.SkillHandlers
             m.PublicOverheadMessage(MessageType.Regular, 0x3B2, 1062074, "", false); // Anh Mi Sah Ko
 			m.PlaySound( 0x24A );
 			/*** ADD_END ***/
-			
-			if ( m.CheckSkill( SkillName.SpiritSpeak, 0, 100 ) )
-			{	
+
+            /*** MOD_START ***/
+            /*
+            if ( m.CheckSkill( SkillName.SpiritSpeak, 0, 100 ) )
+            */
+            if (m.CheckSkill(SkillName.SpiritSpeak, 30, 100))
+            /*** MOD_END ***/
+			{
 				if ( !m.CanHearGhosts )
 				{
 					Timer t = new SpiritSpeakTimer( m );
