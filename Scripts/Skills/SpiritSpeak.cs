@@ -58,6 +58,12 @@ namespace Server.SkillHandlers
 				m.PlaySound( 0x24A );
 				*/
 				/*** DEL_END ***/
+
+                /*** ADD_START ***/
+                m.ClearScreen();
+                m.SendEverything();
+                /*** ADD_END ***/
+
 				m.SendLocalizedMessage( 502444 );//You contact the neitherworld.
 			}
 			else
@@ -95,7 +101,11 @@ namespace Server.SkillHandlers
 
 			protected override void OnTick()
 			{
-				m_Owner.CanHearGhosts = false;                
+				m_Owner.CanHearGhosts = false;
+                /*** ADD_START ***/
+                m.ClearScreen();
+                m.SendEverything();
+                /*** ADD_END ***/
 				m_Owner.SendLocalizedMessage( 502445 );//You feel your contact with the neitherworld fading.
 			}
 		}
