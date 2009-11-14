@@ -103,8 +103,8 @@ namespace Server.SkillHandlers
 			{
 				m_Owner.CanHearGhosts = false;
                 /*** ADD_START ***/
-                m.ClearScreen();
-                m.SendEverything();
+                m_Owner.ClearScreen();
+                m_Owner.SendEverything();
                 /*** ADD_END ***/
 				m_Owner.SendLocalizedMessage( 502445 );//You feel your contact with the neitherworld fading.
 			}
