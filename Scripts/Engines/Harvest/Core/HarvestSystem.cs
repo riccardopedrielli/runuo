@@ -321,12 +321,18 @@ namespace Server.Engines.Harvest
 
 		public virtual HarvestResource MutateResource( Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc, HarvestVein vein, HarvestResource primary, HarvestResource fallback )
 		{
-			bool racialBonus = (def.RaceBonus && from.Race == Race.Elf );
+            /*** MOD_START ***/
+            /*
+            bool racialBonus = (def.RaceBonus && from.Race == Race.Elf );
 
-			if( vein.ChanceToFallback > (Utility.RandomDouble() + (racialBonus ? .20 : 0)) )
-				return fallback;
+            if( vein.ChanceToFallback > (Utility.RandomDouble() + (racialBonus ? .20 : 0)) )
+                return fallback;
+            */
+            if( vein.ChanceToFallback > Utility.RandomDouble())
+                return fallback;
+            /*** MOD_END ***/
 
-			double skillValue = from.Skills[def.Skill].Value;
+            double skillValue = from.Skills[def.Skill].Value;
 
 			if ( fallback != null && (skillValue < primary.ReqSkill || skillValue < primary.MinSkill) )
 				return fallback;

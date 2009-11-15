@@ -359,11 +359,14 @@ namespace Server
 			{
 				//There has to be this distinction between the racial values and not to account for gaining skills and these skills aren't displayed nor Totaled up.
 				double value = this.NonRacialValue;
-
+                /*** DEL_START ***/
+                /*
 				double raceBonus = m_Owner.Owner.RacialSkillBonus;
 
 				if( raceBonus > value )
 					value = raceBonus;
+                */
+                /*** DEL_END ***/
 
 				return value;
 			}

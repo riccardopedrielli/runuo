@@ -39,8 +39,7 @@ Account
 
 
 PG
-	* Rimuovere bonus razza elfica
-	
+		
 	
 Skills
 

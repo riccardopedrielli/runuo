@@ -121,6 +121,7 @@ PG
 
     * Se subiscono danni vengono dishiddati.
     * Eliminati i bonus della razza umana (riferimenti su stratics).
+	* Eliminati i bonus della razza elfica (riferimenti su stratics).
     * Rimossa la Luck (fortuna)
     * Eliminato lo young status
     * Sistema personalizzato di creazione con selezione di stat e skill in una stanza a parte e successivo trasporto alla locanda di Britain

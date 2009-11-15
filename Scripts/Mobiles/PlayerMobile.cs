@@ -441,9 +441,12 @@ namespace Server.Mobiles
 			if ( type != ResistanceType.Physical && 60 < max && Spells.Fourth.CurseSpell.UnderEffect( this ) )
 				max = 60;
 
+            /*** DEL_START ***/
+            /*
 			if( Core.ML && this.Race == Race.Elf && type == ResistanceType.Energy )
 				max += 5; //Intended to go after the 60 max from curse
-
+            */
+            /*** DEL_END ***/
 			return max;
 		}
 
@@ -472,10 +475,15 @@ namespace Server.Mobiles
 		public override void ComputeBaseLightLevels( out int global, out int personal )
 		{
 			global = LightCycle.ComputeLevelFor( this );
-
+            
+            /*** MOD_START ***/
+            /*              
 			bool racialNightSight = (Core.ML && this.Race == Race.Elf);
 
 			if ( this.LightLevel < 21 && ( AosAttributes.GetValue( this, AosAttribute.NightSight ) > 0 || racialNightSight ))
+            */
+            if (this.LightLevel < 21 && AosAttributes.GetValue(this, AosAttribute.NightSight) > 0)
+            /*** MOD_END ***/
 				personal = 21;
 			else
 				personal = this.LightLevel;
@@ -1077,8 +1085,13 @@ namespace Server.Mobiles
 		[CommandProperty( AccessLevel.GameMaster )]
 		public override int ManaMax
 		{
-			get{ return base.ManaMax + AosAttributes.GetValue( this, AosAttribute.BonusMana ) + ((Core.ML && Race == Race.Elf) ? 20 : 0); }
-		}
+            /*** MOD_START ***/
+            /*
+            get{ return base.ManaMax + AosAttributes.GetValue( this, AosAttribute.BonusMana ) + ((Core.ML && Race == Race.Elf) ? 20 : 0); }
+            */
+            get { return base.ManaMax + AosAttributes.GetValue(this, AosAttribute.BonusMana); }
+            /*** MOD_END ***/
+        }
 		#endregion
 
 		#region Stat Getters/Setters
