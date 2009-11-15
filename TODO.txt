@@ -10,8 +10,7 @@ Spells
     * Incrementare danno (suggerito 15%) 		
 	
 Items
-
-    * Eliminare craft SE e ML da Tailoring.
+    
     * Bonus di alchemy sul danno delle pozioni explosion -50%.
     * Potenziare il disguise kit in maniera da potersi scegliere il nome oppure copiare aspetto, nome e tag di gilda del target selezionato.	
 
@@ -48,9 +47,8 @@ Skills
 
 Craft
     
-	* Riguardare le % dei craft perche alcuni hanno una chance troppo bassa a 100 di skill
-	* Aggiungere i craft elfici mancanti
-	* Fare in modo che solo gli elfi possano craftare roba elfica e gli umani roba umana ma tutti possono usare tutto
+	* Riguardare le % dei craft perche alcuni hanno una chance troppo bassa a 100 di skill	
+	* [da decidere bene] Fare in modo che solo gli elfi possano craftare roba elfica e gli umani roba umana ma tutti possono usare tutto
 	
 Mondo
 
