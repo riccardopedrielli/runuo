@@ -164,8 +164,12 @@ namespace Server.Mobiles
 			return t.Name;
 		}
 	}
-
+    /*** MOD_START ***/
+    /*
 	public class BaseCreature : Mobile, IHonorTarget
+    */
+    public class BaseCreature : Mobile
+    /*** MOD_END ***/
 	{
 		public const int MaxLoyalty = 100;
 
@@ -1172,9 +1176,13 @@ namespace Server.Mobiles
 			BardPacified = false;
 		}
 
+        /*** DEL_START ***/
+        /*
 		private HonorContext m_ReceivedHonorContext;
 
 		public HonorContext ReceivedHonorContext{ get{ return m_ReceivedHonorContext; } set{ m_ReceivedHonorContext = value; } }
+        */
+        /*** DEL_END ***/
 
 		public override void OnDamage( int amount, Mobile from, bool willKill )
 		{
@@ -1208,8 +1216,12 @@ namespace Server.Mobiles
 			if ( speechType != null && !willKill )
 				speechType.OnDamage( this, amount );
 
+            /*** DEL_START ***/
+            /*
 			if ( m_ReceivedHonorContext != null )
 				m_ReceivedHonorContext.OnTargetDamaged( from, amount );
+            */
+            /*** DEL_END ***/
 
 			base.OnDamage( amount, from, willKill );
 		}
@@ -4104,8 +4116,12 @@ namespace Server.Mobiles
 			if ( speechType != null )
 				speechType.OnDeath( this );
 
+            /*** DEL_START ***/
+            /*
 			if ( m_ReceivedHonorContext != null )
 				m_ReceivedHonorContext.OnTargetKilled();
+            */
+            /*** DEL_END ***/
 
 			return base.OnBeforeDeath();
 		}
@@ -4433,8 +4449,12 @@ namespace Server.Mobiles
 			SetControlMaster( null );
 			SummonMaster = null;
 
+            /*** DEL_START ***/
+            /*
 			if ( m_ReceivedHonorContext != null )
 				m_ReceivedHonorContext.Cancel();
+            */
+            /*** DEL_END ***/
 
 			base.OnDelete();
 

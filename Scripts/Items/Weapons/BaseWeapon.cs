@@ -1475,6 +1475,8 @@ namespace Server.Items
 				percentageBonus += 25;
 			}
 
+            /*** DEL_START ***/
+            /*
 			if ( attacker is PlayerMobile && !(Core.ML && defender is PlayerMobile ))
 			{
 				PlayerMobile pmAttacker = (PlayerMobile) attacker;
@@ -1491,6 +1493,8 @@ namespace Server.Items
 					percentageBonus += pmAttacker.SentHonorContext.PerfectionDamageBonus;
 				}
 			}
+            */
+            /*** DEL_END ***/
 
 			//if ( factor > 3.0 )
 			//	factor = 3.0;
@@ -1728,8 +1732,12 @@ namespace Server.Items
 			if ( move != null )
 				move.OnHit( attacker, defender, damage );
 
-			if ( defender is IHonorTarget && ((IHonorTarget)defender).ReceivedHonorContext != null )
-				((IHonorTarget)defender).ReceivedHonorContext.OnTargetHit( attacker );
+            /*** DEL_START ***/
+            /*
+            if ( defender is IHonorTarget && ((IHonorTarget)defender).ReceivedHonorContext != null )
+                ((IHonorTarget)defender).ReceivedHonorContext.OnTargetHit( attacker );
+            */
+            /*** DEL_END ***/
 
 			if ( !(this is BaseRanged) )
 			{
@@ -2052,78 +2060,82 @@ namespace Server.Items
 			if ( move != null )
 				move.OnMiss( attacker, defender );
 
-			if ( defender is IHonorTarget && ((IHonorTarget)defender).ReceivedHonorContext != null )
-				((IHonorTarget)defender).ReceivedHonorContext.OnTargetMissed( attacker );
-		}
+            /*** DEL_START ***/
+            /*
+            if ( defender is IHonorTarget && ((IHonorTarget)defender).ReceivedHonorContext != null )
+                ((IHonorTarget)defender).ReceivedHonorContext.OnTargetMissed( attacker );
+            */
+            /*** DEL_END ***/
+        }
 
-		public virtual void GetBaseDamageRange( Mobile attacker, out int min, out int max )
-		{
-			if ( attacker is BaseCreature )
-			{
-				BaseCreature c = (BaseCreature)attacker;
+        public virtual void GetBaseDamageRange( Mobile attacker, out int min, out int max )
+        {
+            if ( attacker is BaseCreature )
+            {
+                BaseCreature c = (BaseCreature)attacker;
 
-				if ( c.DamageMin >= 0 )
-				{
-					min = c.DamageMin;
-					max = c.DamageMax;
-					return;
-				}
+                if ( c.DamageMin >= 0 )
+                {
+                    min = c.DamageMin;
+                    max = c.DamageMax;
+                    return;
+                }
 
-				if ( this is Fists && !attacker.Body.IsHuman )
-				{
-					min = attacker.Str / 28;
-					max = attacker.Str / 28;
-					return;
-				}
-			}
+                if ( this is Fists && !attacker.Body.IsHuman )
+                {
+                    min = attacker.Str / 28;
+                    max = attacker.Str / 28;
+                    return;
+                }
+            }
 
-			min = MinDamage;
-			max = MaxDamage;
-		}
+            min = MinDamage;
+            max = MaxDamage;
+        }
 
-		public virtual double GetBaseDamage( Mobile attacker )
-		{
-			int min, max;
+        public virtual double GetBaseDamage( Mobile attacker )
+        {
+            int min, max;
 
-			GetBaseDamageRange( attacker, out min, out max );
+            GetBaseDamageRange( attacker, out min, out max );
 
-			return Utility.RandomMinMax( min, max );
-		}
+            return Utility.RandomMinMax( min, max );
+        }
 
-		public virtual double GetBonus( double value, double scalar, double threshold, double offset )
-		{
-			double bonus = value * scalar;
+        public virtual double GetBonus( double value, double scalar, double threshold, double offset )
+        {
+            double bonus = value * scalar;
 
-			if ( value >= threshold )
-				bonus += offset;
+            if ( value >= threshold )
+                bonus += offset;
 
-			return bonus / 100;
-		}
+            return bonus / 100;
+        }
 
-		public virtual int GetHitChanceBonus()
-		{
-			if ( !Core.AOS )
-				return 0;
+        public virtual int GetHitChanceBonus()
+        {
+            if ( !Core.AOS )
+                return 0;
 
-			int bonus = 0;
+            int bonus = 0;
 
-			switch ( m_AccuracyLevel )
-			{
-				case WeaponAccuracyLevel.Accurate:		bonus += 02; break;
-				case WeaponAccuracyLevel.Surpassingly:	bonus += 04; break;
-				case WeaponAccuracyLevel.Eminently:		bonus += 06; break;
-				case WeaponAccuracyLevel.Exceedingly:	bonus += 08; break;
-				case WeaponAccuracyLevel.Supremely:		bonus += 10; break;
-			}
+            switch ( m_AccuracyLevel )
+            {
+                case WeaponAccuracyLevel.Accurate:		bonus += 02; break;
+                case WeaponAccuracyLevel.Surpassingly:	bonus += 04; break;
+                case WeaponAccuracyLevel.Eminently:		bonus += 06; break;
+                case WeaponAccuracyLevel.Exceedingly:	bonus += 08; break;
+                case WeaponAccuracyLevel.Supremely:		bonus += 10; break;
+            }
 
-			return bonus;
-		}
+            return bonus;
+        }
 
-		public virtual int GetDamageBonus()
-		{
-			int bonus = VirtualDamageBonus;
+        public virtual int GetDamageBonus()
+        {
+            int bonus = VirtualDamageBonus;
 
-			/*** DEL_START ***/
+            /*** DEL_START ***/
 			/*
 			switch ( m_Quality )
 			{

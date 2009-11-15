@@ -323,37 +323,41 @@ namespace Server.Mobiles
 
 				Misc.Titles.AwardFame( escorter, 10, true );
 
+                /*** DEL_START ***/
+                /*
 				bool gainedPath = false;
 
 				PlayerMobile pm = escorter as PlayerMobile;
+                
+                if( pm != null )
+                {					
+                    if( pm.CompassionGains > 0 && DateTime.Now > pm.NextCompassionDay )
+                    {
+                        pm.NextCompassionDay = DateTime.MinValue;
+                        pm.CompassionGains = 0;
+                    }
 
-				if( pm != null )
-				{
-					if( pm.CompassionGains > 0 && DateTime.Now > pm.NextCompassionDay )
-					{
-						pm.NextCompassionDay = DateTime.MinValue;
-						pm.CompassionGains = 0;
-					}
+                    if( pm.CompassionGains >= 5 ) // have already gained 5 times in one day, can gain no more
+                    {
+                        pm.SendLocalizedMessage( 1053004 ); // You must wait about a day before you can gain in compassion again.
+                    }
+                    else if( VirtueHelper.Award( pm, VirtueName.Compassion, this.IsPrisoner ? 400 : 200, ref gainedPath ) )
+                    {
+                        if( gainedPath )
+                            pm.SendLocalizedMessage( 1053005 ); // You have achieved a path in compassion!
+                        else
+                            pm.SendLocalizedMessage( 1053002 ); // You have gained in compassion.
 
-					if( pm.CompassionGains >= 5 ) // have already gained 5 times in one day, can gain no more
-					{
-						pm.SendLocalizedMessage( 1053004 ); // You must wait about a day before you can gain in compassion again.
-					}
-					else if( VirtueHelper.Award( pm, VirtueName.Compassion, this.IsPrisoner ? 400 : 200, ref gainedPath ) )
-					{
-						if( gainedPath )
-							pm.SendLocalizedMessage( 1053005 ); // You have achieved a path in compassion!
-						else
-							pm.SendLocalizedMessage( 1053002 ); // You have gained in compassion.
-
-						pm.NextCompassionDay = DateTime.Now + TimeSpan.FromDays( 1.0 ); // in one day CompassionGains gets reset to 0
-						++pm.CompassionGains;
-					}
-					else
-					{
-						pm.SendLocalizedMessage( 1053003 ); // You have achieved the highest path of compassion and can no longer gain any further.
-					}
-				}
+                        pm.NextCompassionDay = DateTime.Now + TimeSpan.FromDays( 1.0 ); // in one day CompassionGains gets reset to 0
+                        ++pm.CompassionGains;
+                    }
+                    else
+                    {
+                        pm.SendLocalizedMessage( 1053003 ); // You have achieved the highest path of compassion and can no longer gain any further.
+                    }
+                }
+                */
+                /*** DEL_END ***/
 
 				return true;
 			}
