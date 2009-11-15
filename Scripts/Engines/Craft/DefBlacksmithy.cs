@@ -290,7 +290,7 @@ namespace Server.Engines.Craft
 				SetNeededExpansion( index, Expansion.SE );
 			*/
 			/*** DEL_END ***/
-				
+				/*
 				if( Core.ML )
 				{
 					index = AddCraft( typeof( Circlet ), 1011079, 1032645, 62.1, 112.1, typeof( IronIngot ), 1044036, 6, 1044037 );
@@ -305,7 +305,7 @@ namespace Server.Engines.Craft
 					AddRes( index, typeof( BlueDiamond ), 1032696, 1, 1044240 );
 					SetNeededExpansion( index, Expansion.ML );
 				}
-				
+				*/
 			/*** DEL_START ***/
 			/*
 			}
