@@ -86,8 +86,8 @@ Items
 
 Craft
 
-    * Eliminati craft SE e ML da Blacksmithy.
-    * Eliminati craft SE e ML da Bowcraft.
+    * Eliminati craft SE da Blacksmithy.
+    * Eliminati craft SE da Bowcraft.
     * Bonus al danno delle armi exceptional: Arms Lore / 3
     * Bonus alla resistenza delle armature exceptional: Arms Lore / 10
     * Probabilità di craftare item exceptional basata su Arms Lore

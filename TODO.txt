@@ -50,7 +50,8 @@ Skills
 Craft
     
 	* Riguardare le % dei craft perche alcuni hanno una chance troppo bassa a 100 di skill
-
+	* Aggiungere i craft elfici mancanti
+	* Fare in modo che solo gli elfi possano craftare roba elfica e gli umani roba umana ma tutti possono usare tutto
 	
 Mondo
 
