@@ -39,11 +39,9 @@ Account
 
 
 PG
-
-	* Disabilitare razza elfica (se si riesce alla creazione lato client, altrimenti workaround) (provare con flag in expansioninfo e verificare conseguenze)
-	* Togliere il sistema di virtu.
-
-
+	* Rimuovere bonus razza elfica
+	
+	
 Skills
 
 	

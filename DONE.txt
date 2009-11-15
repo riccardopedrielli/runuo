@@ -128,7 +128,8 @@ PG
     * I pg assetati perderanno lentamente stamina fino alla sopportazione massima che portera' alla morte inevitabile
     * Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
 	* Se un pg da fantasma parla, non viene piu messo in automatico in war
-
+	* Rimosso il sistema di virtù
+	
 NPC
 
     * Modificati i calcoli della velocità degli npc (ActiveSpeed e PassiveSpeed ora sono delay reali e costanti, non vengono più influenzati dalla stamina o da altri fattori).
@@ -162,4 +163,10 @@ Staff related
     * Eliminati comandi decorate, decoratemag e vendorgen (verrà usato xmlSpawner)
     * Generazione porte, sign, moongates e teleporter solo su Felucca
 	* Aggiunto il Sorious' FireFeet
+	
+File Cancellati
+	/Scripts/Engines/virtue/*
+	/Scripts/Custom/Engines/Spawner/XmlSpawner2/XmlAttachments/XmlAddVirtues.cs
+	
+	
 	
