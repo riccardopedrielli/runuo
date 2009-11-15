@@ -1069,7 +1069,7 @@ namespace Server
 					suffix = String.Format( "[{0}]", Utility.FixHtml( guild.Abbreviation ) );
 			}
 
-            /*** ADD_START ***/
+			/*** ADD_START ***/
             if (GuildAbbMod != null)
             {
                 if (GuildAbbMod != " ")
@@ -1077,7 +1077,7 @@ namespace Server
                 else
                     suffix = "";
             }
-            /*** ADD_END ***/
+			/*** ADD_END ***/
 
 			suffix = ApplyNameSuffix( suffix );
 
@@ -1092,45 +1092,45 @@ namespace Server
 				else
 					type = "";
 
-                /*** MOD_START ***/
-                /*
+				/*** MOD_START ***/
+				/*
 				string title = GuildTitle;
-                */
+				*/
                 string title;
                                 
                 if (GuildTitleMod != null)
                     title = GuildTitleMod;
                 else
                     title = Utility.FixHtml(GuildTitle);                
-                /*** MOD_END ***/
+				/*** MOD_END ***/
 
 				if( title == null )
 					title = "";
 				else
 					title = title.Trim();
 
-                /*** ADD_START ***/
+				/*** ADD_START ***/
                 string guildname;
                 
                 if(GuildNameMod != null)
                     guildname = GuildNameMod;
                 else
                     guildname = Utility.FixHtml(guild.Name);
-                /*** ADD_END ***/
+				/*** ADD_END ***/
 
 				if( NewGuildDisplay && title.Length > 0 )
 				{
-                    /*** MOD_START ***/
-                    /*
+					/*** MOD_START ***/
+					/*
 					list.Add( "{0}, {1}", Utility.FixHtml( title ), Utility.FixHtml( guild.Name ) );
 					*/
 					
                     list.Add("{0}, {1}", title, guildname);
-                    /*** MOD_END ***/
+					/*** MOD_END ***/
 				}
 				else
 				{
-                    /*** MOD_START ***/
+					/*** MOD_START ***/
 					/*
 					if( title.Length > 0 )
 						list.Add( "{0}, {1} Guild{2}", Utility.FixHtml( title ), Utility.FixHtml( guild.Name ), type );
@@ -1141,7 +1141,7 @@ namespace Server
                         list.Add("{0}, {1} Guild{2}", title, guildname, type);
                     else
                         list.Add(guildname);
-                    /*** MOD_END ***/
+					/*** MOD_END ***/
 				}
 			}
 		}
@@ -8138,13 +8138,14 @@ namespace Server
 
 			return this == m || (
 				m.m_Map == m_Map &&
-				(!m.Hidden || (m_AccessLevel != AccessLevel.Player && (m_AccessLevel >= m.AccessLevel || m_AccessLevel >= AccessLevel.Developer))) &&				
-                /*** MOD_START ***/
-                /*
-                ((m.Alive || (Core.SE && Skills.SpiritSpeak.Value >= 100.0)) || !Alive || m_AccessLevel > AccessLevel.Player || m.Warmode));
-                */
-                ((m.Alive || CanHearGhosts) || !Alive || m_AccessLevel > AccessLevel.Player || m.Warmode));
-                /*** MOD_END ***/
+				(!m.Hidden || (m_AccessLevel != AccessLevel.Player && (m_AccessLevel >= m.AccessLevel || m_AccessLevel >= AccessLevel.Developer))) &&
+				/*** MOD_START ***/
+				/*
+				((m.Alive || (Core.SE && Skills.SpiritSpeak.Value >= 100.0)) || !Alive || m_AccessLevel > AccessLevel.Player || m.Warmode));
+				*/
+				((m.Alive || CanHearGhosts) || !Alive || m_AccessLevel > AccessLevel.Player || m.Warmode));
+				/*** MOD_END ***/
+
 		}
 
 		public virtual bool CanBeRenamedBy( Mobile from )
@@ -8295,63 +8296,63 @@ namespace Server
 		}
 
 		/*** ADD_START ***/
-        private string m_GuildAbbMod;
+		private string m_GuildAbbMod;
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public string GuildAbbMod
-        {
-            get
-            {
-                return m_GuildAbbMod;
-            }
-            set
-            {
-                if (m_GuildAbbMod != value)
-                {
-                    m_GuildAbbMod = value;                    
-                    InvalidateProperties();
-                }
-            }
-        }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public string GuildAbbMod
+		{
+			get
+			{
+				return m_GuildAbbMod;
+			}
+			set
+			{
+				if (m_GuildAbbMod != value)
+				{
+					m_GuildAbbMod = value;                    
+					InvalidateProperties();
+				}
+			}
+		}
 
-        private string m_GuildTitleMod;
+		private string m_GuildTitleMod;
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public string GuildTitleMod
-        {
-            get
-            {
-                return m_GuildTitleMod;
-            }
-            set
-            {
-                if (m_GuildTitleMod != value)
-                {
-                    m_GuildTitleMod = value;                    
-                    InvalidateProperties();
-                }
-            }
-        }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public string GuildTitleMod
+		{
+			get
+			{
+				return m_GuildTitleMod;
+			}
+			set
+			{
+				if (m_GuildTitleMod != value)
+				{
+					m_GuildTitleMod = value;                    
+					InvalidateProperties();
+				}
+			}
+		}
 
-        private string m_GuildNameMod;
+		private string m_GuildNameMod;
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public string GuildNameMod
-        {
-            get
-            {
-                return m_GuildNameMod;
-            }
-            set
-            {
-                if (m_GuildNameMod != value)
-                {
-                    m_GuildNameMod = value;                   
-                    InvalidateProperties();
-                }
-            }
-        }
-        /*** ADD_END ***/
+		[CommandProperty(AccessLevel.GameMaster)]
+		public string GuildNameMod
+		{
+			get
+			{
+				return m_GuildNameMod;
+			}
+			set
+			{
+				if (m_GuildNameMod != value)
+				{
+					m_GuildNameMod = value;                   
+					InvalidateProperties();
+				}
+			}
+		}
+		/*** ADD_END ***/
 
 		private bool m_YellowHealthbar;
 
@@ -11015,12 +11016,12 @@ namespace Server
 		public static bool GuildClickMessage { get { return m_GuildClickMessage; } set { m_GuildClickMessage = value; } }
 		public static bool OldPropertyTitles { get { return m_OldPropertyTitles; } set { m_OldPropertyTitles = value; } }
 
-        /*** MOD_START ***/
+		/*** MOD_START ***/
 		/*
 		public virtual bool ShowFameTitle { get { return true; } }//(m_Player || m_Body.IsHuman) && m_Fame >= 10000; } 
 		*/ 
-        public virtual bool ShowFameTitle { get { return ((m_Player || m_Body.IsHuman) && BodyMod == 0); } }
-        /*** MOD_END ***/
+		public virtual bool ShowFameTitle { get { return ((m_Player || m_Body.IsHuman) && BodyMod == 0); } }
+		/*** MOD_END ***/
 
 		/// <summary>
 		/// Overridable. Event invoked when the Mobile is single clicked.

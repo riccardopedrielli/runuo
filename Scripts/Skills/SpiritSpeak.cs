@@ -30,21 +30,21 @@ namespace Server.SkillHandlers
 			}
 			*/
 			/*** DEL_END ***/
-			
+
 			m.RevealingAction();
-			
+
 			/*** ADD_START ***/
-            m.PublicOverheadMessage(MessageType.Regular, 0x3B2, 1062074, "", false); // Anh Mi Sah Ko
+			m.PublicOverheadMessage(MessageType.Regular, 0x3B2, 1062074, "", false); // Anh Mi Sah Ko
 			m.PlaySound( 0x24A );
 			/*** ADD_END ***/
 
-            /*** MOD_START ***/
-            /*
-            if ( m.CheckSkill( SkillName.SpiritSpeak, 0, 100 ) )
-            */
-            if (m.CheckSkill(SkillName.SpiritSpeak, 30, 100))
-            /*** MOD_END ***/
-			{
+			/*** MOD_START ***/
+			/*
+			if ( m.CheckSkill( SkillName.SpiritSpeak, 0, 100 ) )
+			*/
+			if (m.CheckSkill(SkillName.SpiritSpeak, 30, 100))
+			/*** MOD_END ***/
+			{	
 				if ( !m.CanHearGhosts )
 				{
 					Timer t = new SpiritSpeakTimer( m );
@@ -57,17 +57,17 @@ namespace Server.SkillHandlers
 					t.Start();
 					m.CanHearGhosts = true;
 				}
-				
+
 				/*** DEL_START ***/
 				/*
 				m.PlaySound( 0x24A );
 				*/
 				/*** DEL_END ***/
 
-                /*** ADD_START ***/
-                m.ClearScreen();
-                m.SendEverything();
-                /*** ADD_END ***/
+				/*** ADD_START ***/
+				m.ClearScreen();
+				m.SendEverything();
+				/*** ADD_END ***/
 
 				m.SendLocalizedMessage( 502444 );//You contact the neitherworld.
 			}
@@ -82,9 +82,9 @@ namespace Server.SkillHandlers
 			return TimeSpan.FromSeconds( 1.0 );
 			*/
 			return TimeSpan.FromSeconds( 5.0 );
-			/*** MOD_END ***/			
+			/*** MOD_END ***/
 		}
-		
+
 		private class SpiritSpeakTimer : Timer
 		{
 			private Mobile m_Owner;
@@ -93,30 +93,30 @@ namespace Server.SkillHandlers
 			public SpiritSpeakTimer( Mobile m ) : base( TimeSpan.FromMinutes( 2.0 ) )
 			*/
 			public SpiritSpeakTimer( Mobile m ): base( TimeSpan.FromMinutes( 2.0 ) )
-			/*** MOD_END ***/		
+			/*** MOD_END ***/
 			{
 				m_Owner = m;
-                /*** MOD_START ***/
-                /*
-                Priority = TimerPriority.FiveSeconds;
-                */
-                Priority = TimerPriority.OneSecond;
-                /*** MOD_END ***/
-            }
+				/*** MOD_START ***/
+				/*
+				Priority = TimerPriority.FiveSeconds;
+				*/
+				Priority = TimerPriority.OneSecond;
+				/*** MOD_END ***/
+			}
 
 			protected override void OnTick()
 			{
 				m_Owner.CanHearGhosts = false;
-                /*** ADD_START ***/
-                m_Owner.ClearScreen();
-                m_Owner.SendEverything();
-                /*** ADD_END ***/
+				/*** ADD_START ***/
+				m_Owner.ClearScreen();
+				m_Owner.SendEverything();
+				/*** ADD_END ***/
 				m_Owner.SendLocalizedMessage( 502445 );//You feel your contact with the neitherworld fading.
 			}
 		}
-		
+
 		/*** DEL_START ***/
-		/*		
+		/*
 		private class SpiritSpeakSpell : Spell
 		{
 			private static SpellInfo m_Info = new SpellInfo( "Spirit Speak", "", 269 );

@@ -370,8 +370,8 @@ namespace Server.Mobiles
 
 				Misc.Titles.AwardFame( escorter, 10, true );
 
-                /*** DEL_START ***/
-                /*
+				/*** DEL_START ***/
+				/*
 				bool gainedPath = false;
 
 				PlayerMobile pm = escorter as PlayerMobile;
@@ -403,8 +403,8 @@ namespace Server.Mobiles
 						pm.SendLocalizedMessage( 1053003 ); // You have achieved the highest path of compassion and can no longer gain any further.
 					}
 				}
-                */
-                /*** DEL_END ***/
+				*/
+				/*** DEL_END ***/
 
 				XmlQuest.RegisterEscort(this, escorter);
 

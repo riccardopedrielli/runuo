@@ -180,8 +180,8 @@ namespace Server.Gumps
 
 				from.Resurrect();
 
-                /*** DEL_START ***/
-                /*
+				/*** DEL_START ***/
+				/*
 				if( m_Healer != null && from != m_Healer )
 				{
 					VirtueLevel level = VirtueHelper.GetLevel( m_Healer, VirtueName.Compassion );
@@ -193,16 +193,16 @@ namespace Server.Gumps
 						case VirtueLevel.Knight: from.Hits = AOS.Scale( from.HitsMax, 80 ); break;
 					}
 				}
-                */
-                /*** DEL_END ***/
+				*/
+				/*** DEL_END ***/
 
 				if( m_FromSacrifice && from is PlayerMobile )
 				{
-                    /*** DEL_START ***/
-                    /*
+					/*** DEL_START ***/
+					/*
 					((PlayerMobile)from).AvailableResurrects -= 1;
-                    */
-                    /*** DEL_END ***/
+					*/
+					/*** DEL_END ***/
 
 					Container pack = from.Backpack;
 					Container corpse = from.Corpse;

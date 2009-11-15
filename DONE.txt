@@ -166,8 +166,6 @@ Staff related
 	* Aggiunto il Sorious' FireFeet
 	
 File Cancellati
-	/Scripts/Engines/virtue/*
-	/Scripts/Custom/Engines/Spawner/XmlSpawner2/XmlAttachments/XmlAddVirtues.cs
-	
-	
-	
+	/Scripts/Engines/Virtues/
+	/Scripts/Custom/Engines/Spawner/XmlSpawner2/XmlAttachments/XmlAddVirtue.cs
+

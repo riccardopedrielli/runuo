@@ -72,12 +72,13 @@ namespace Server.Mobiles
 		Black
 	}
 	#endregion
-    /*** MOD_START ***/
-    /*
+
+	/*** MOD_START ***/
+	/*
 	public class PlayerMobile : Mobile, IHonorTarget
-    */
-    public class PlayerMobile : Mobile
-    /*** MOD_END ***/
+	*/
+	public class PlayerMobile : Mobile
+	/*** MOD_END ***/
 	{
 		private class CountAndTimeStamp
 		{
@@ -441,12 +442,13 @@ namespace Server.Mobiles
 			if ( type != ResistanceType.Physical && 60 < max && Spells.Fourth.CurseSpell.UnderEffect( this ) )
 				max = 60;
 
-            /*** DEL_START ***/
-            /*
+			/*** DEL_START ***/
+			/*
 			if( Core.ML && this.Race == Race.Elf && type == ResistanceType.Energy )
 				max += 5; //Intended to go after the 60 max from curse
-            */
-            /*** DEL_END ***/
+
+			*/
+			/*** DEL_END ***/
 			return max;
 		}
 
@@ -456,13 +458,13 @@ namespace Server.Mobiles
 			UpdateResistances();
 		}
 
-        /*** MOD_START ***/
-        //niente bonus sul peso agli umani
+		/*** MOD_START ***/
+		//niente bonus sul peso agli umani
 		/*
 		public override int MaxWeight { get { return (((Core.ML && this.Race == Race.Human) ? 100 : 40) + (int)(3.5 * this.Str)); } }
 		*/
-        public override int MaxWeight { get { return (40 + (int)(3.5 * this.Str)); } }
-        /*** MOD_START ***/
+		public override int MaxWeight { get { return (40 + (int)(3.5 * this.Str)); } }
+		/*** MOD_START ***/
 
 		private int m_LastGlobalLight = -1, m_LastPersonalLight = -1;
 
@@ -475,15 +477,15 @@ namespace Server.Mobiles
 		public override void ComputeBaseLightLevels( out int global, out int personal )
 		{
 			global = LightCycle.ComputeLevelFor( this );
-            
-            /*** MOD_START ***/
-            /*              
+
+			/*** MOD_START ***/
+			/*
 			bool racialNightSight = (Core.ML && this.Race == Race.Elf);
 
 			if ( this.LightLevel < 21 && ( AosAttributes.GetValue( this, AosAttribute.NightSight ) > 0 || racialNightSight ))
-            */
-            if (this.LightLevel < 21 && AosAttributes.GetValue(this, AosAttribute.NightSight) > 0)
-            /*** MOD_END ***/
+			*/
+			if (this.LightLevel < 21 && AosAttributes.GetValue(this, AosAttribute.NightSight) > 0)
+			/*** MOD_END ***/
 				personal = 21;
 			else
 				personal = this.LightLevel;
@@ -515,15 +517,14 @@ namespace Server.Mobiles
 
 		public override int GetMinResistance( ResistanceType type )
 		{
-            /*** ADD_START ***/
-            //la resistenza minima al fisico non deve esistere! le resistenze al fisico si devono
-            //basare solo sulle armor
-            if (type == ResistanceType.Physical)
-                return 0;
-            /*** ADD_END ***/
+			/*** ADD_START ***/
+			//la resistenza minima al fisico non deve esistere! le resistenze al fisico si devono
+			//basare solo sulle armor
+			if (type == ResistanceType.Physical)
+				return 0;
+			/*** ADD_END ***/
 
-            
-            /*** DEL_START ***/
+			/*** DEL_START ***/
 			/*
 			int magicResist = (int)(Skills[SkillName.MagicResist].Value * 10);
 			int min = int.MinValue;
@@ -533,12 +534,12 @@ namespace Server.Mobiles
 			else if ( magicResist >= 400 )
 				min = (magicResist - 400) / 15;
 			*/
-            /*** DEL_END ***/
+			/*** DEL_END ***/
 
-            /*** ADD_START ***/ //la resistenza magica deve essere skill/3
-            int magicResist = Convert.ToInt32(Skills[SkillName.MagicResist].Base);
-            int min = magicResist / 3;
-            /*** ADD_END ***/
+			/*** ADD_START ***/ //la resistenza magica deve essere skill/3
+			int magicResist = Convert.ToInt32(Skills[SkillName.MagicResist].Base);
+			int min = magicResist / 3;
+			/*** ADD_END ***/
 
 			if ( min > MaxPlayerResistance )
 				min = MaxPlayerResistance;
@@ -1085,13 +1086,13 @@ namespace Server.Mobiles
 		[CommandProperty( AccessLevel.GameMaster )]
 		public override int ManaMax
 		{
-            /*** MOD_START ***/
-            /*
-            get{ return base.ManaMax + AosAttributes.GetValue( this, AosAttribute.BonusMana ) + ((Core.ML && Race == Race.Elf) ? 20 : 0); }
-            */
-            get { return base.ManaMax + AosAttributes.GetValue(this, AosAttribute.BonusMana); }
-            /*** MOD_END ***/
-        }
+			/*** MOD_START ***/
+			/*
+			get{ return base.ManaMax + AosAttributes.GetValue( this, AosAttribute.BonusMana ) + ((Core.ML && Race == Race.Elf) ? 20 : 0); }
+			*/
+			get{ return base.ManaMax + AosAttributes.GetValue(this, AosAttribute.BonusMana); }
+			/*** MOD_END ***/
+		}
 		#endregion
 
 		#region Stat Getters/Setters
@@ -1306,48 +1307,48 @@ namespace Server.Mobiles
 					if ( Alive && house.InternalizedVendors.Count > 0 && house.IsOwner( this ) )
 						list.Add( new CallbackEntry( 6204, new ContextCallback( GetVendor ) ) );
 
-                    /*** DEL_START ***/
-                    //no leave house
+					/*** DEL_START ***/
+					//no leave house
 					/*
 					if ( house.IsAosRules )
 						list.Add( new CallbackEntry( 6207, new ContextCallback( LeaveHouse ) ) );
 					*/
-                    /*** DEL_END ***/
+					/*** DEL_END ***/
 				}
-                
+
                 /*** DEL_START ***/
                 //non serve
                 /*
-                if ( m_JusticeProtectors.Count > 0 )
-                    list.Add( new CallbackEntry( 6157, new ContextCallback( CancelProtection ) ) );
+				if ( m_JusticeProtectors.Count > 0 )
+					list.Add( new CallbackEntry( 6157, new ContextCallback( CancelProtection ) ) );
 
-                if( Alive )
-                    list.Add( new CallbackEntry( 6210, new ContextCallback( ToggleChampionTitleDisplay ) ) );
-                */
-                /*** DEL_END ***/
+				if( Alive )
+					list.Add( new CallbackEntry( 6210, new ContextCallback( ToggleChampionTitleDisplay ) ) );
+				*/
+				/*** DEL_END ***/
 			}
 		}
 
-        /*** DEL_START ***/
-        /*
-        private void CancelProtection()
-        {
-            for ( int i = 0; i < m_JusticeProtectors.Count; ++i )
-            {
-                Mobile prot = m_JusticeProtectors[i];
+		/*** DEL_START ***/
+		/*
+		private void CancelProtection()
+		{
+			for ( int i = 0; i < m_JusticeProtectors.Count; ++i )
+			{
+				Mobile prot = m_JusticeProtectors[i];
 
-                string args = String.Format( "{0}\t{1}", this.Name, prot.Name );
+				string args = String.Format( "{0}\t{1}", this.Name, prot.Name );
 
-                prot.SendLocalizedMessage( 1049371, args ); // The protective relationship between ~1_PLAYER1~ and ~2_PLAYER2~ has been ended.
-                this.SendLocalizedMessage( 1049371, args ); // The protective relationship between ~1_PLAYER1~ and ~2_PLAYER2~ has been ended.
-            }
+				prot.SendLocalizedMessage( 1049371, args ); // The protective relationship between ~1_PLAYER1~ and ~2_PLAYER2~ has been ended.
+				this.SendLocalizedMessage( 1049371, args ); // The protective relationship between ~1_PLAYER1~ and ~2_PLAYER2~ has been ended.
+			}
 
-            m_JusticeProtectors.Clear();
-        }
-        */
-        /*** DEL_END ***/
-		
-        #region Insurance
+			m_JusticeProtectors.Clear();
+		}
+		*/
+		/*** DEL_END ***/
+
+		#region Insurance
 
 		private void ToggleItemInsurance()
 		{
@@ -1514,15 +1515,15 @@ namespace Server.Mobiles
 
 		private void LeaveHouse()
 		{
-            /*** DEL_START ***/
-            //non ci si puo uscire dalla casa cosi lamerosamente <- go buy skill in writing
-            /*
+			/*** DEL_START ***/
+			//non ci si puo uscire dalla casa cosi lamerosamente <- go buy skill in writing
+			/*
 			BaseHouse house = BaseHouse.FindHouseAt( this );
 
 			if ( house != null )
 				this.Location = house.BanLocation;
 			*/
-            /*** DEL_END ***/
+			/*** DEL_END ***/
 		}
 
 		private delegate void ContextCallback();
@@ -1775,7 +1776,7 @@ namespace Server.Mobiles
 
 		public override bool OnMoveOver( Mobile m )
 		{
-			if ( m is BaseCreature && !((BaseCreature)m).Controlled )
+			if ( Alive && m is BaseCreature && !((BaseCreature)m).Controlled )
 				return false;
 
 			return base.OnMoveOver( m );
@@ -1813,11 +1814,11 @@ namespace Server.Mobiles
 		public override void OnBeneficialAction( Mobile target, bool isCriminal )
 		{
 			/*** DEL_START ***/
-            /*
-            if ( m_SentHonorContext != null )
+			/*
+			if ( m_SentHonorContext != null )
 				m_SentHonorContext.OnSourceBeneficialAction( target );
-            */
-            /*** DEL_END ***/
+			*/
+			/*** DEL_END ***/
 
 			base.OnBeneficialAction( target, isCriminal );
 		}
@@ -1846,14 +1847,14 @@ namespace Server.Mobiles
 
 			WeightOverloading.FatigueOnDamage( this, amount );
 
-            /*** DEL_START ***/
-            /*
+			/*** DEL_START ***/
+			/*
 			if ( m_ReceivedHonorContext != null )
 				m_ReceivedHonorContext.OnTargetDamaged( from, amount );
 			if ( m_SentHonorContext != null )
 				m_SentHonorContext.OnSourceDamaged( from, amount );
-            */
-            /*** DEL_END ***/
+			*/
+			/*** DEL_END ***/
 
 			base.OnDamage( amount, from, willKill );
 		}
@@ -1877,13 +1878,13 @@ namespace Server.Mobiles
 		{
 			get
 			{
-                /*** DEL_START ***/
-                //niente bonus di razza lamereschi
+				/*** DEL_START ***/
+				//niente bonus di razza lamereschi
 				/*
 				if( Core.ML && this.Race == Race.Human )
 					return 20.0;
 				*/
-                /*** DEL_END ***/
+				/*** DEL_END ***/
 
 				return 0;
 			}
@@ -1912,14 +1913,14 @@ namespace Server.Mobiles
 			if ( m_InsuranceAward is PlayerMobile )
 				((PlayerMobile)m_InsuranceAward).m_InsuranceBonus = 0;
 
-            /*** DEL_START ***/
-            /*
-            if ( m_ReceivedHonorContext != null )
-                m_ReceivedHonorContext.OnTargetKilled();
-            if ( m_SentHonorContext != null )
-                m_SentHonorContext.OnSourceKilled();
-            */
-            /*** DEL_END ***/
+			/*** DEL_START ***/
+			/*
+			if ( m_ReceivedHonorContext != null )
+				m_ReceivedHonorContext.OnTargetKilled();
+			if ( m_SentHonorContext != null )
+				m_SentHonorContext.OnSourceKilled();
+			*/
+			/*** DEL_END ***/
 
 			return base.OnBeforeDeath();
 		}
@@ -2023,46 +2024,45 @@ namespace Server.Mobiles
 					Criminal = true;
 			}
 
-            /*** MOD_START ***/
-            /*
+			/*** MOD_START ***/
+			/*
 			if ( this.Kills >= 5 && DateTime.Now >= m_NextJustAward )
-            */
-            if (this.Kills >= 5)
-            /*** MOD_END ***/
+			*/
+			if (this.Kills >= 5)
+			/*** MOD_END ***/
 			{
 				Mobile m = FindMostRecentDamager( false );
 
 				if( m is BaseCreature )
 					m = ((BaseCreature)m).GetMaster();
 
-                /*** DEL_START ***/
-                /*
-                if ( m != null && m is PlayerMobile && m != this )
-                {
-                    bool gainedPath = false;
+				/*** DEL_START ***/
+				/*
+				if ( m != null && m is PlayerMobile && m != this )
+				{
+					bool gainedPath = false;
 
-                    int pointsToGain = 0;
+					int pointsToGain = 0;
 
-                    pointsToGain += (int) Math.Sqrt( this.GameTime.TotalSeconds * 4 );
-                    pointsToGain *= 5;
-                    pointsToGain += (int) Math.Pow( this.Skills.Total / 250, 2 );
+					pointsToGain += (int) Math.Sqrt( this.GameTime.TotalSeconds * 4 );
+					pointsToGain *= 5;
+					pointsToGain += (int) Math.Pow( this.Skills.Total / 250, 2 );
 
-     
-                    if ( VirtueHelper.Award( m, VirtueName.Justice, pointsToGain, ref gainedPath ) )
-                    {
-                        if ( gainedPath )
-                            m.SendLocalizedMessage( 1049367 ); // You have gained a path in Justice!
-                        else
-                            m.SendLocalizedMessage( 1049363 ); // You have gained in Justice.
+					if ( VirtueHelper.Award( m, VirtueName.Justice, pointsToGain, ref gainedPath ) )
+					{
+						if ( gainedPath )
+							m.SendLocalizedMessage( 1049367 ); // You have gained a path in Justice!
+						else
+							m.SendLocalizedMessage( 1049363 ); // You have gained in Justice.
 
-                        m.FixedParticles( 0x375A, 9, 20, 5027, EffectLayer.Waist );
-                        m.PlaySound( 0x1F7 );
+						m.FixedParticles( 0x375A, 9, 20, 5027, EffectLayer.Waist );
+						m.PlaySound( 0x1F7 );
 
-                        m_NextJustAward = DateTime.Now + TimeSpan.FromMinutes( pointsToGain / 3 );
-                    }                    
-                }
-                */
-                /*** DEL_END ***/
+						m_NextJustAward = DateTime.Now + TimeSpan.FromMinutes( pointsToGain / 3 );
+					}
+				}
+				*/
+				/*** DEL_END ***/
 			}
 
 			if ( m_InsuranceCost > 0 )
@@ -2220,10 +2220,11 @@ namespace Server.Mobiles
 			m_ShortTermElapse = TimeSpan.FromHours( 8.0 );
 			m_LongTermElapse = TimeSpan.FromHours( 40.0 );
 
-            /*** DEL_START ***/
-            /*
-            m_JusticeProtectors = new List<Mobile>();
-            */
+			/*** DEL_START ***/
+			/*
+			m_JusticeProtectors = new List<Mobile>();
+			*/
+			/*** DEL_END ***/
 			m_GuildRank = Guilds.RankDefinition.Lowest;
 
 			m_ChampionTitles = new ChampionTitleInfo();
@@ -2239,19 +2240,20 @@ namespace Server.Mobiles
 			if ( Core.ML && Skills[SkillName.SpiritSpeak].Value >= 100.0 )
 				return false;
 
-            /*** DEL_START ***/
-            /*
-            if ( Core.AOS )
-            {
-                for ( int i = 0; i < hears.Count; ++i )
-                {
-                    Mobile m = hears[i];
+			/*** DEL_START ***/
+			/*
+			if ( Core.AOS )
+			{
+				for ( int i = 0; i < hears.Count; ++i )
+				{
+					Mobile m = hears[i];
 
-                    if ( m != this && m.Skills[SkillName.SpiritSpeak].Value >= 100.0 )
-                        return false;
-                }
-            }
-            */
+					if ( m != this && m.Skills[SkillName.SpiritSpeak].Value >= 100.0 )
+						return false;
+				}
+			}
+			*/
+			/*** DEL_END ***/
 
 			return base.MutateSpeech( hears, ref text, ref context );
 		}
@@ -2331,11 +2333,11 @@ namespace Server.Mobiles
 				from.Damage( amount, from );
 			}
 
-            /*** ADD_START ***/
-            //quando ricevi danno devi essere disHiddato
-            if(base.Hidden)
-                base.RevealingAction();
-            /*** ADD_END ***/
+			/*** ADD_START ***/
+			//quando ricevi danno devi essere disHiddato
+			if(base.Hidden)
+				base.RevealingAction();
+			/*** ADD_END ***/
 			base.Damage( amount, from );
 		}
 
@@ -2500,11 +2502,11 @@ namespace Server.Mobiles
 				}
 				case 24:
 				{
-                    /*** DEL_START ***/
-                    /*
+					/*** DEL_START ***/
+					/*
 					m_LastHonorLoss = reader.ReadDeltaTime();
-                    */
-                    /*** DEL_END ***/
+					*/
+					/*** DEL_END ***/
 					goto case 23;
 				}
 				case 23:
@@ -2514,11 +2516,11 @@ namespace Server.Mobiles
 				}
 				case 22:
 				{
-                    /*** DEL_START ***/
-                    /*
+					/*** DEL_START ***/
+					/*
 					m_LastValorLoss = reader.ReadDateTime();
-                    */
-                    /*** DEL_END ***/
+					*/
+					/*** DEL_END ***/
 					goto case 21;
 				}
 				case 21:
@@ -2584,23 +2586,24 @@ namespace Server.Mobiles
 				}
 				case 15:
 				{
-                    /*** DEL_START ***/
-                    /*
+					/*** DEL_START ***/
+					/*
 					m_LastCompassionLoss = reader.ReadDeltaTime();
-                    */
-                    /*** DEL_END ***/
+					*/
+					/*** DEL_END ***/
 					goto case 14;
 				}
 				case 14:
 				{
-                    /*** DEL_START ***/
-                    /*
+					/*** DEL_START ***/
+					/*
 					m_CompassionGains = reader.ReadEncodedInt();
 
 					if ( m_CompassionGains > 0 )
 						m_NextCompassionDay = reader.ReadDeltaTime();
-                    */
-                    /*** DEL_END ***/
+
+					*/
+					/*** DEL_END ***/
 					goto case 13;
 				}
 				case 13: // just removed m_PayedInsurance list
@@ -2672,23 +2675,23 @@ namespace Server.Mobiles
 				}
 				case 4:
 				{
-                    /*** DEL_START ***/
-                    /*
+					/*** DEL_START ***/
+					/*
 					m_LastJusticeLoss = reader.ReadDeltaTime();
 					m_JusticeProtectors = reader.ReadStrongMobileList();
-                    */
-                    /*** DEL_END ***/
+					*/
+					/*** DEL_END ***/
 					goto case 3;
 				}
 				case 3:
 				{
-                    /*** DEL_START ***/
-                    /*
+					/*** DEL_START ***/
+					/*
 					m_LastSacrificeGain = reader.ReadDeltaTime();
 					m_LastSacrificeLoss = reader.ReadDeltaTime();
 					m_AvailableResurrects = reader.ReadInt();
-                    */
-                    /*** DEL_END ***/
+					*/
+					/*** DEL_END ***/
 					goto case 2;
 				}
 				case 2:
@@ -2718,12 +2721,12 @@ namespace Server.Mobiles
 			if ( m_PermaFlags == null )
 				m_PermaFlags = new List<Mobile>();
 
-            /*** DEL_START ***/
-            /*
+			/*** DEL_START ***/
+			/*
 			if ( m_JusticeProtectors == null )
 				m_JusticeProtectors = new List<Mobile>();
-            */
-            /*** DEL_END ***/
+			*/
+			/*** DEL_END ***/
 
 			if ( m_BOBFilter == null )
 				m_BOBFilter = new Engines.BulkOrders.BOBFilter();
@@ -2809,21 +2812,20 @@ namespace Server.Mobiles
 				}
 			}
 
-            /*** DEL_START ***/
-            /*
-            writer.WriteDeltaTime( m_LastHonorLoss );
-            */
-            /*** DEL_END ***/
+			/*** DEL_START ***/
+			/*
+			writer.WriteDeltaTime( m_LastHonorLoss );
+			*/
+			/*** DEL_END ***/
 
 			ChampionTitleInfo.Serialize( writer, m_ChampionTitles );
 
-            /*** DEL_START ***/
-            /*
+			/*** DEL_START ***/
+			/*
 			writer.Write( m_LastValorLoss );
 			*/
-            /*** DEL_END ***/
-
-            writer.WriteEncodedInt( m_ToTItemsTurnedIn );
+			/*** DEL_END ***/
+			writer.WriteEncodedInt( m_ToTItemsTurnedIn );
 			writer.Write( m_ToTTotalMonsterFame );	//This ain't going to be a small #.
 
 			writer.WriteEncodedInt( m_AllianceMessageHue );
@@ -2855,15 +2857,16 @@ namespace Server.Mobiles
 
 			writer.WriteEncodedInt( (int) m_Profession );
 
-            /*** DEL_START ***/
-            /*
-            writer.WriteDeltaTime( m_LastCompassionLoss );
-            writer.WriteEncodedInt( m_CompassionGains );
-            
+			/*** DEL_START ***/
+			/*
+			writer.WriteDeltaTime( m_LastCompassionLoss );
+
+			writer.WriteEncodedInt( m_CompassionGains );
+
 			if ( m_CompassionGains > 0 )
 				writer.WriteDeltaTime( m_NextCompassionDay );
-            */
-            /*** DEL_END ***/
+			*/
+			/*** DEL_END ***/
 
 			m_BOBFilter.Serialize( writer );
 
@@ -2891,16 +2894,16 @@ namespace Server.Mobiles
 
 			writer.Write( NextSmithBulkOrder );
 
-            /*** DEL_START ***/
-            /*
+			/*** DEL_START ***/
+			/*
 			writer.WriteDeltaTime( m_LastJusticeLoss );
 			writer.Write( m_JusticeProtectors, true );
 
 			writer.WriteDeltaTime( m_LastSacrificeGain );
 			writer.WriteDeltaTime( m_LastSacrificeLoss );
 			writer.Write( m_AvailableResurrects );
-            */
-            /*** DEL_END ***/
+			*/
+			/*** DEL_END ***/
 
 			writer.Write( (int) m_Flags );
 
@@ -2913,15 +2916,15 @@ namespace Server.Mobiles
 
 		public static void CheckAtrophies( Mobile m )
 		{
-            /*** DEL_START ***/
-            /*
+			/*** DEL_START ***/
+			/*
 			SacrificeVirtue.CheckAtrophy( m );
 			JusticeVirtue.CheckAtrophy( m );
 			CompassionVirtue.CheckAtrophy( m );
 			ValorVirtue.CheckAtrophy( m );
 			HonorVirtue.CheckAtrophy( m );
-            */
-            /*** DEL_END ***/
+			*/
+			/*** DEL_END ***/
 
 			if( m is PlayerMobile )
 				ChampionTitleInfo.CheckAtrophy( (PlayerMobile)m );
@@ -3248,14 +3251,14 @@ namespace Server.Mobiles
 
 		public override void OnDelete()
 		{
-            /*** DEL_START ***/
-            /*
+			/*** DEL_START ***/
+			/*
 			if ( m_ReceivedHonorContext != null )
 				m_ReceivedHonorContext.Cancel();
 			if ( m_SentHonorContext != null )
 				m_SentHonorContext.Cancel();
-            */
-            /*** DEL_END ***/
+			*/
+			/*** DEL_END ***/
 
 			InvalidateMyRunUO();
 		}
@@ -3426,8 +3429,8 @@ namespace Server.Mobiles
 		}
 		#endregion
 
-        /*** DEL_START ***/
-        /*          
+		/*** DEL_START ***/
+		/*          
 		#region Virtues
 		private DateTime m_LastSacrificeGain;
 		private DateTime m_LastSacrificeLoss;
@@ -3470,11 +3473,11 @@ namespace Server.Mobiles
 		public HonorContext ReceivedHonorContext{ get{ return m_ReceivedHonorContext; } set{ m_ReceivedHonorContext = value; } }
 		public HonorContext SentHonorContext{ get{ return m_SentHonorContext; } set{ m_SentHonorContext = value; } }
 		#endregion
-        */
-        /*** DEL_END ***/
+		*/
+		/*** DEL_END ***/
 
-        #region Young system
-        [CommandProperty( AccessLevel.GameMaster )]
+		#region Young system
+		[CommandProperty( AccessLevel.GameMaster )]
 		public bool Young
 		{
 			get{ return GetFlag( PlayerFlag.Young ); }
@@ -4197,13 +4200,12 @@ namespace Server.Mobiles
 
 			m_AutoStabled.Clear();
 		}
-
-        /*** ADD_START ***/
-        //ho fatto l'override per togliere il fatto che se un fantasma parla si mette in automatico in war e viene visto da tutti
-        public override bool CheckSpeechManifest()
-        {
-            return false;
-        }
-        /*** ADD_END ***/
+		/*** ADD_START ***/
+		//ho fatto l'override per togliere il fatto che se un fantasma parla si mette in automatico in war e viene visto da tutti
+		public override bool CheckSpeechManifest()
+		{
+			return false;
+		}
+		/*** ADD_END ***/
 	}
 }

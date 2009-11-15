@@ -508,15 +508,6 @@
     <Compile Include="Engines\Craft\Core\CraftSubRes.cs" />
     <Compile Include="Engines\Craft\DefGlassblowing.cs" />
     <Compile Include="Engines\Craft\DefAlchemy.cs" />
-    <Compile Include="Engines\Virtues\Compassion.cs" />
-    <Compile Include="Engines\Virtues\VirtueInfoGump.cs" />
-    <Compile Include="Engines\Virtues\VirtueHelper.cs" />
-    <Compile Include="Engines\Virtues\Valor.cs" />
-    <Compile Include="Engines\Virtues\VirtueStatusGump.cs" />
-    <Compile Include="Engines\Virtues\Justice.cs" />
-    <Compile Include="Engines\Virtues\Honor.cs" />
-    <Compile Include="Engines\Virtues\VirtueGump.cs" />
-    <Compile Include="Engines\Virtues\Sacrifice.cs" />
     <Compile Include="Engines\Ethics\Hero\Powers\HolySteed.cs" />
     <Compile Include="Engines\Ethics\Hero\Powers\HolySense.cs" />
     <Compile Include="Engines\Ethics\Hero\Powers\HolyBlade.cs" />
@@ -2565,7 +2556,6 @@
     <Compile Include="Custom\Engines\Spawner\XmlSpawner2\XmlAttachments\XmlAddFame.cs" />
     <Compile Include="Custom\Engines\Spawner\XmlSpawner2\XmlAttachments\XmlAddKarma.cs" />
     <Compile Include="Custom\Engines\Spawner\XmlSpawner2\XmlAttachments\XmlAddTithing.cs" />
-    <Compile Include="Custom\Engines\Spawner\XmlSpawner2\XmlAttachments\XmlAddVirtue.cs" />
     <Compile Include="Custom\Engines\Spawner\XmlSpawner2\XmlAttachments\XmlData.cs" />
     <Compile Include="Custom\Engines\Spawner\XmlSpawner2\XmlAttachments\XmlDate.cs" />
     <Compile Include="Custom\Engines\Spawner\XmlSpawner2\XmlAttachments\XmlDeathAction.cs" />

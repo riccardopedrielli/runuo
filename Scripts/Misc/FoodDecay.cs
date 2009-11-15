@@ -97,9 +97,9 @@ namespace Server.Misc
 		}
 	}
 
-    /*** ADD_START ***/
-    //DOT che toglie vita e stamina a seconda della fame o sete
-    public class DOTFoodThirstTimer : Timer
+	/*** ADD_START ***/
+	//DOT che toglie vita e stamina a seconda della fame o sete
+	public class DOTFoodThirstTimer : Timer
     {
         public static void Initialize()
         {
@@ -184,5 +184,5 @@ namespace Server.Misc
             }
         }
     }
-    /*** ADD_END ***/
+	/*** ADD_END ***/
 }

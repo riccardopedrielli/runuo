@@ -443,12 +443,12 @@ namespace Server.Engines.CannedEvil
 						if( killer is BaseCreature )
 							killer = ((BaseCreature)killer).GetMaster();
 
-                        /*** DEL_START ***/
-                        /*
+						/*** DEL_START ***/
+						/*
 						if( killer is PlayerMobile )
 						{
 							int mobSubLevel = GetSubLevelFor( m ) + 1;
-                            
+
 							if( mobSubLevel >= 0 )
 							{
 								bool gainedPath = false;
@@ -470,8 +470,8 @@ namespace Server.Engines.CannedEvil
 								info.Award( m_Type, mobSubLevel );
 							}
 						}
-                        */
-                        /*** DEL_END ***/
+						*/
+						/*** DEL_END ***/
 					}
 				}
 
