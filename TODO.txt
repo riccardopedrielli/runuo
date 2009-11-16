@@ -1,18 +1,18 @@
 Guardie
 
-    * Skill e stat bilanciate.
+	* Skill e stat bilanciate.
 	* Sistemare AI Paladin
 
 
 Spells
 
-    * Scelta creatura tramite gump per Summon Creature.
-    * Incrementare danno (suggerito 15%) 		
+	* Scelta creatura tramite gump per Summon Creature.
+	* Incrementare danno (suggerito 15%) 		
 	
 Items
     
-    * Bonus di alchemy sul danno delle pozioni explosion -50%.
-    * Potenziare il disguise kit in maniera da potersi scegliere il nome oppure copiare aspetto, nome e tag di gilda del target selezionato.	
+	* Bonus di alchemy sul danno delle pozioni explosion -50%.
+	* Potenziare il disguise kit in maniera da potersi scegliere il nome oppure copiare aspetto, nome e tag di gilda del target selezionato.	
 
 
 Armature
@@ -30,7 +30,7 @@ Scudi
 Mob
 
 	* Eliminare il drop di ring e bracelet (inutile farli droppare senza prop)
-    * Modificare livelli di drop armi e armor
+	* Modificare livelli di drop armi e armor
 	* Rifare il drop dei champion
 
 

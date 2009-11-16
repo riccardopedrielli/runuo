@@ -112,57 +112,58 @@ Scudi
 
 Account
 
-    * Limite a 2 pg
-    * [Provvisorio] Eliminato il warning in caso di client obsoleti [Da impostare a kick]
+	* Limite a 2 pg
+	* Disattivati i veteran rewards
+	* [Provvisorio] Eliminato il warning in caso di client obsoleti [Da impostare a kick]
 	* [Provvisorio] Eliminato il delay per la cancellazione del pg [Da impostare a 7 giorni]
 
 
 PG
 
-    * Se subiscono danni vengono dishiddati.
-    * Eliminati i bonus della razza umana (riferimenti su stratics).
+	* Se subiscono danni vengono dishiddati.
+	* Eliminati i bonus della razza umana (riferimenti su stratics).
 	* Eliminati i bonus della razza elfica (riferimenti su stratics).
-    * Rimossa la Luck (fortuna)
-    * Eliminato lo young status
-    * Sistema personalizzato di creazione con selezione di stat e skill in una stanza a parte e successivo trasporto alla locanda di Britain
-    * I pg affamati perderanno lentamente HP fino alla sopportazione massima che portera' alla morte inevitabile
-    * I pg assetati perderanno lentamente stamina fino alla sopportazione massima che portera' alla morte inevitabile
-    * Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
+	* Rimossa la Luck (fortuna)
+	* Eliminato lo young status
+	* Sistema personalizzato di creazione con selezione di stat e skill in una stanza a parte e successivo trasporto alla locanda di Britain
+	* I pg affamati perderanno lentamente HP fino alla sopportazione massima che portera' alla morte inevitabile
+	* I pg assetati perderanno lentamente stamina fino alla sopportazione massima che portera' alla morte inevitabile
+	* Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
 	* Se un pg da fantasma parla, non viene piu messo in automatico in war
 	* Rimosso il sistema di virtù
 	
 NPC
 
-    * Modificati i calcoli della velocità degli npc (ActiveSpeed e PassiveSpeed ora sono delay reali e costanti, non vengono più influenzati dalla stamina o da altri fattori).
-    * Anche i criminali possono usare la banca.
-    * Fixato il bug che non contava nel balance anche i check
-    * Gli healer normali ressano anche i criminali ma non i rossi
-    * Gli evil healer ressano solo i rossi e non i blu
+	* Modificati i calcoli della velocità degli npc (ActiveSpeed e PassiveSpeed ora sono delay reali e costanti, non vengono più influenzati dalla stamina o da altri fattori).
+	* Anche i criminali possono usare la banca.
+	* Fixato il bug che non contava nel balance anche i check
+	* Gli healer normali ressano anche i criminali ma non i rossi
+	* Gli evil healer ressano solo i rossi e non i blu
 	* Gli healer ressano solo i fantasmi in warmode senza conferma
-    * Rimossi reagenti, scroll e book dei necro e pala
-    * Eliminati training skill SE e ML da npc
+	* Rimossi reagenti, scroll e book dei necro e pala
+	* Eliminati training skill SE e ML da npc
 	* Aggiunto il cauldron al vendor cuoco
 	* Rimossi i BulkOrder dai Blacksmith Weaponsmith Tailor e Weaver
 
 	
 Nuovi engines
 
-    * Gioco Battle Chess (scacchi giganti)
+	* Gioco Battle Chess (scacchi giganti)
 
 
 Nuovi items
 
-    * Dungeon chest
+	* Dungeon chest
 
 
 Staff related
 
-    * Sync with RunUO-svn: 433
-    * xmlSpawner 3.24
-    * Impostata la stagione 0 (primavera) su Felucca.
-    * TestRobe: toggle AccessLevel Player/Account con doppio click.
-    * Eliminati comandi decorate, decoratemag e vendorgen (verrà usato xmlSpawner)
-    * Generazione porte, sign, moongates e teleporter solo su Felucca
+	* Sync with RunUO-svn: 433
+	* xmlSpawner 3.24
+	* Impostata la stagione 0 (primavera) su Felucca.
+	* TestRobe: toggle AccessLevel Player/Account con doppio click.
+	* Eliminati comandi decorate, decoratemag e vendorgen (verrà usato xmlSpawner)
+	* Generazione porte, sign, moongates e teleporter solo su Felucca
 	* Aggiunto il Sorious' FireFeet
 	
 File Cancellati

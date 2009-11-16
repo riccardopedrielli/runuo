@@ -2712,6 +2712,10 @@
     <Compile Include="Engines\Doom\LeverPuzzle\LeverPuzzleController.cs" />
     <Compile Include="Engines\Doom\LeverPuzzle\LeverPuzzleItems.cs" />
     <Compile Include="Engines\Doom\LeverPuzzle\LeverPuzzleRegions.cs" />
+    <Compile Include="Custom\Mobiles\AI\AI\ArcherGuardAI.cs" />
+    <Compile Include="Custom\Mobiles\AI\AI\MageGuardAI.cs" />
+    <Compile Include="Custom\Mobiles\AI\AI\PaladinGuardAI.cs" />
+    <Compile Include="Custom\Mobiles\AI\AI\WarriorGuardAI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\Mobiles\Guards\Cove\" />
