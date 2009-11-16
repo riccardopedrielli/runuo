@@ -146,9 +146,10 @@ NPC
 	* Rimossi i BulkOrder dai Blacksmith Weaponsmith Tailor e Weaver
 
 	
-Nuovi engines
+Engines
 
 	* Gioco Battle Chess (scacchi giganti)
+	* rimosso il faction system da felucca
 
 
 Nuovi items
