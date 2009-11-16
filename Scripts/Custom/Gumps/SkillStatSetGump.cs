@@ -187,7 +187,7 @@ namespace Server
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 39, "Veterinary");
 			this.AddSkillCheck(skillX, skillY+=skillDistanceY, 43, "Wrestling");
 			
-			this.AddHtml( skillOffsetX, 460, 600, 50, PrintHtml( String.Format( "Set your stats with a total of {0} points and a {1} to {2} points in a single stat", statCap, statMin, statMax ), infoColor), false, false );
+			this.AddHtml( skillOffsetX, 460, 600, 50, PrintHtml( String.Format( "Set your stats with {1} to {2} points in a single stat and a total of {0} points", statCap, statMin, statMax ), infoColor), false, false );
 			
 			this.AddHtml( skillOffsetX, 490, 100, 20, PrintHtml( "Strength:", skillColor ), false, false );
 			this.AddBackground( skillOffsetX + 65, 488, 40, 24, 3000 );

@@ -49,13 +49,13 @@ namespace Server.SkillHandlers
 				if ( !src.CheckSkill( SkillName.DetectHidden, 0.0, 100.0 ) )
 					range /= 2;
 
+				/*** DEL_START ***/
+				//in casa i pg non devono avere bonus sulla skill
+				/*
 				BaseHouse house = BaseHouse.FindHouseAt( p, src.Map, 16 );
 
 				bool inHouse = ( house != null && house.IsFriend( src ) );
 
-				/*** DEL_START ***/
-				//in casa i pg non devono avere bonus sulla skill
-				/*
 				if ( inHouse )
 					range = 22;
 				*/
