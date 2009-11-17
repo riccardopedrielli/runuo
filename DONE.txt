@@ -156,6 +156,8 @@ Nuovi items
 
 	* Dungeon chest
 
+Varie
+	* Abilitata la macro BandageSelf del client
 
 Staff related
 
