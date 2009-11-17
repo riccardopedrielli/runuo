@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -88,6 +88,7 @@
     <Compile Include="Commands\Properties.cs" />
     <Compile Include="Commands\Statics.cs" />
     <Compile Include="Commands\SignParser.cs" />
+    <Compile Include="Custom\Mobiles\Monsters\Elemental\Excremental.cs" />
     <Compile Include="Engines\Help\PageQueueGump.cs" />
     <Compile Include="Engines\Help\StuckMenu.cs" />
     <Compile Include="Engines\Help\SpeechLog.cs" />
@@ -2716,24 +2717,6 @@
     <Compile Include="Custom\Mobiles\AI\AI\MageGuardAI.cs" />
     <Compile Include="Custom\Mobiles\AI\AI\PaladinGuardAI.cs" />
     <Compile Include="Custom\Mobiles\AI\AI\WarriorGuardAI.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Custom\Mobiles\Guards\Cove\" />
-    <Folder Include="Custom\Mobiles\Guards\Jhelom\" />
-    <Folder Include="Custom\Mobiles\Guards\Minoc\" />
-    <Folder Include="Custom\Mobiles\Guards\Moonglow\" />
-    <Folder Include="Custom\Mobiles\Guards\Nujelm\" />
-    <Folder Include="Custom\Mobiles\Guards\Ocllo\" />
-    <Folder Include="Custom\Mobiles\Guards\Papua\" />
-    <Folder Include="Custom\Mobiles\Guards\SerpentsHold\" />
-    <Folder Include="Custom\Mobiles\Guards\SkaraBrae\" />
-    <Folder Include="Custom\Mobiles\Guards\Trinsic\" />
-    <Folder Include="Custom\Mobiles\Guards\Vesper\" />
-    <Folder Include="Custom\Mobiles\Guards\Yew\" />
-    <Folder Include="Custom\Gumps\" />
-    <Folder Include="Custom\Items\Containers\" />
-    <Folder Include="Custom\Engines\Spawner\" />
-    <Folder Include="Custom\Mobiles\Guards\BuccaneersDen\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Output\Scripts.CS.hash">
