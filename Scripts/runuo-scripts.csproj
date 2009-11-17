@@ -88,6 +88,7 @@
     <Compile Include="Commands\Properties.cs" />
     <Compile Include="Commands\Statics.cs" />
     <Compile Include="Commands\SignParser.cs" />
+    <Compile Include="Custom\Misc\BandagePacket.cs" />
     <Compile Include="Custom\Mobiles\Monsters\Elemental\Excremental.cs" />
     <Compile Include="Engines\Help\PageQueueGump.cs" />
     <Compile Include="Engines\Help\StuckMenu.cs" />
