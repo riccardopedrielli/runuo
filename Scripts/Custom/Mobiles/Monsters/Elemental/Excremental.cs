@@ -16,7 +16,7 @@ namespace Server.Mobiles
 		public Excremental( int oreAmount ) : base( AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4 )
 		{
 			// TODO: Gas attack
-			Name = "a excremental";
+			Name = "an excremental";
 			Body = 112;
 			BaseSoundID = 268;
             Hue = 442;
@@ -65,6 +65,9 @@ namespace Server.Mobiles
 		public override bool BleedImmune{ get{ return true; } }
 		public override int TreasureMapLevel{ get{ return 2; } }
 
+		/*** DEL_START ***/
+		//se no troppo sgravo
+		/*
 		public override void AlterMeleeDamageFrom( Mobile from, ref int damage )
 		{
 			if ( from is BaseCreature )
@@ -75,10 +78,7 @@ namespace Server.Mobiles
 					damage = 0; // Immune to pets and provoked creatures
 			}
 		}
-
-		/*** DEL_START ***/
-		//se no troppo sgravo
-		/*
+		
 		public override void CheckReflect( Mobile caster, ref bool reflect )
 		{
 			reflect = true; // Every spell is reflected back to the caster
