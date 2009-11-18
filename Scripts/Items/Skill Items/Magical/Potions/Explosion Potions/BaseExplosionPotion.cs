@@ -236,7 +236,12 @@ namespace Server.Items
 			int alchemyBonus = 0;
 
 			if ( direct )
+				/*** MOD_START ***/
+				/*
 				alchemyBonus = (int)(from.Skills.Alchemy.Value / (Core.AOS ? 5 : 10));
+				*/
+				alchemyBonus = (int)(from.Skills.Alchemy.Value / 10);
+				/*** MOD_END ***/
 
 			IPooledEnumerable eable = LeveledExplosion ? map.GetObjectsInRange( loc, ExplosionRange ) : map.GetMobilesInRange( loc, ExplosionRange );
 			ArrayList toExplode = new ArrayList();
