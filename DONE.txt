@@ -82,7 +82,7 @@ Items
     * Le chiavi delle barche e i modellini dockati sono lootabili
     * Rimossi reagenti, spellbook e oggetti aos da mob e treasure chest
 	* I BankCheck ora sono lootabili
-
+	* Bonus di alchemy sul danno delle pozioni explosion -50%.
 
 Craft
 
