@@ -116,7 +116,12 @@ namespace Server.SkillHandlers
 						{
 							if ( m_Target is Food )
 							{
+								/*** MOD_START ***/
+								/*
 								((Food)m_Target).Poison = m_Poison;
+								*/								
+								((Food)m_Target).Poison = Poison.GetPoison(m_Poison.Level + 1);
+								/*** MOD_END ***/								
 							}
 							else if ( m_Target is BaseWeapon )
 							{
