@@ -49,7 +49,12 @@ namespace Server.SkillHandlers
 
 				return TimeSpan.FromSeconds( Core.AOS ? 10.0 : 5.0 );
 			}
+			/*** MOD_START ***/
+			/*
 			else if ( Core.AOS && Server.Misc.RegenRates.GetArmorOffset( m ) > 0 )
+			*/
+			else if ( Server.Misc.RegenRates.GetMeditationFactor( m ) == 0 )
+			/*** MOD_END ***/
 			{
 				m.SendLocalizedMessage( 500135 ); // Regenative forces cannot penetrate your armor!
 

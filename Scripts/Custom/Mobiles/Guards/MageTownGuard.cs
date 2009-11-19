@@ -35,6 +35,7 @@ namespace Server.Mobiles
 			SetSkill( SkillName.DetectHidden, 90, 100 );
 			SetSkill( SkillName.MagicResist, 90, 100 );
 			SetSkill( SkillName.Focus, 130, 150 );
+			SetSkill( SkillName.Meditation, 500, 600 );
 		}
 		
 		public override void Serialize( GenericWriter writer )

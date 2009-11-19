@@ -6,7 +6,12 @@ namespace Server.Items
 {
 	public class ChaosShield : BaseShield
 	{
+		/*** MOD_START ***/
+		/*
 		public override int BasePhysicalResistance{ get{ return 1; } }
+		*/
+		public override int BasePhysicalResistance{ get{ return 2; } }
+		/*** MOD_END ***/
 		public override int BaseFireResistance{ get{ return 0; } }
 		public override int BaseColdResistance{ get{ return 0; } }
 		public override int BasePoisonResistance{ get{ return 0; } }

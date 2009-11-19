@@ -11,7 +11,7 @@ namespace Server.Items
 		public override int BasePoisonResistance{ get{ return 0; } }
 		public override int BaseEnergyResistance{ get{ return 0; } }
 		
-		public override ArmorMeditationAllowance DefMedAllowance{ get{ return ArmorMeditationAllowance.None; } }
+		public override double MeditationFactor{ get{ return 0; } }
 		
 		public BasePlateArmor( Serial serial ) :  base( serial )
 		{

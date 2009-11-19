@@ -57,20 +57,8 @@ namespace Server.Items
 
 	public enum ArmorMeditationAllowance
 	{
-		/*** MOD_START ***/
-		
-		/*
 		All,
 		Half,
 		None
-		*/
-		
-		All,
-		P75,
-		P50,
-		P25,
-		None
-			
-		/*** MOD_END ***/
 	}
 }

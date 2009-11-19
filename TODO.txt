@@ -1,7 +1,6 @@
 Guardie
 
 	* Skill e stat bilanciate.
-	* Sistemare AI Paladin
 
 
 Spells
@@ -17,13 +16,11 @@ Items
 Armature
 
 	* Sistemare % cast
-	* Sistemare rigenero mana
 
 
 Scudi
 
-	* Decidere % cast e rigenero mana (tutti uguali? tutti diversi?)
-	* Livello di armor
+	* Impostare alcune props e craft
 
 
 Mob
@@ -31,12 +28,15 @@ Mob
 	* Eliminare il drop di ring e bracelet (inutile farli droppare senza prop)
 	* Modificare livelli di drop armi e armor
 	* Rifare il drop dei champion
+	* Rifare il drop di un macello di mob
 
 
 Account
 
 
 PG
+
+	* Aggiungere suono poison
 		
 	
 Skills
@@ -46,8 +46,9 @@ Skills
 
 Craft
     
-	* Riguardare le % dei craft perche alcuni hanno una chance troppo bassa a 100 di skill	
-	* [da decidere bene] Fare in modo che solo gli elfi possano craftare roba elfica e gli umani roba umana ma tutti possono usare tutto
+	* Riguardare le % dei craft perche alcuni hanno una chance troppo bassa a 100 di skill
+	* Aggiungere craft elfici
+	* Fare in modo che solo gli elfi possano craftare roba elfica e gli umani roba umana ma tutti possono usare tutto
 	
 Mondo
 

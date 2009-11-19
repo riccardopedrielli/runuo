@@ -429,6 +429,10 @@ namespace Server.Items
 
 		public virtual int InitMinHits{ get{ return 0; } }
 		public virtual int InitMaxHits{ get{ return 0; } }
+		
+		/*** ADD_START ***/
+		public virtual double MeditationFactor{ get{ return 0; } }
+		/*** ADD_END ***/
 
 		[CommandProperty( AccessLevel.GameMaster )]
 		public ArmorBodyType BodyPosition

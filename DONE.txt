@@ -104,11 +104,15 @@ Armi
 Armature
 
     * Str minima per PlateChest e FemalePlateChest impostata a 90.
+	* Rigenero mana in accordo con UODT
+	* Resistenze in accordo con UODT
 
 
 Scudi
 
 	* Str minima per Order Shield e Chaos Shield impostata a 90.
+	* Rigenero mana in accordo con UODT
+	* Resistenze in accordo con UODT
 
 
 Account

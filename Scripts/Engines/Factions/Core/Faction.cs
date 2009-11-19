@@ -1219,7 +1219,7 @@ namespace Server.Factions
 
 			CheckLeaveTimer( mob );
 		}
-		
+
 		/*** MOD_START ***/
 		//rimosso il faction system da felucca
 		/*
@@ -1227,6 +1227,7 @@ namespace Server.Factions
 		*/
 		public static readonly Map Facet = Map.Trammel;
 		/*** MOD_END ***/
+
 		public static void WriteReference( GenericWriter writer, Faction fact )
 		{
 			int idx = Factions.IndexOf( fact );

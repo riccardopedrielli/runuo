@@ -5,8 +5,18 @@ namespace Server.Items
 {
 	public class HeaterShield : BaseShield
 	{
+		/*** MOD_START ***/
+		/*
 		public override int BasePhysicalResistance{ get{ return 0; } }
+		*/
+		public override int BasePhysicalResistance{ get{ return 2; } }
+		/*** MOD_END ***/
+		/*** MOD_START ***/
+		/*
 		public override int BaseFireResistance{ get{ return 1; } }
+		*/
+		public override int BaseFireResistance{ get{ return 0; } }
+		/*** MOD_END ***/
 		public override int BaseColdResistance{ get{ return 0; } }
 		public override int BasePoisonResistance{ get{ return 0; } }
 		public override int BaseEnergyResistance{ get{ return 0; } }

@@ -5,9 +5,19 @@ namespace Server.Items
 {
 	public class BronzeShield : BaseShield
 	{
+		/*** MOD_START ***/
+		/*
 		public override int BasePhysicalResistance{ get{ return 0; } }
+		*/
+		public override int BasePhysicalResistance{ get{ return 1; } }
+		/*** MOD_END ***/
 		public override int BaseFireResistance{ get{ return 0; } }
+		/*** MOD_START ***/
+		/*
 		public override int BaseColdResistance{ get{ return 1; } }
+		*/
+		public override int BaseColdResistance{ get{ return 0; } }
+		/*** MOD_END ***/
 		public override int BasePoisonResistance{ get{ return 0; } }
 		public override int BaseEnergyResistance{ get{ return 0; } }
 
@@ -17,6 +27,10 @@ namespace Server.Items
 		public override int AosStrReq{ get{ return 35; } }
 
 		public override int ArmorBase{ get{ return 10; } }
+		
+		/*** ADD_START ***/
+		public override double MeditationFactor{ get{ return 0.5; } }
+		/*** ADD_END ***/
 
 		[Constructable]
 		public BronzeShield() : base( 0x1B72 )

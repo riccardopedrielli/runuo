@@ -123,6 +123,8 @@ namespace Server.Misc
 			if ( !from.Meditating )
 				CheckBonusSkill( from, from.Mana, from.ManaMax, SkillName.Meditation );
 
+			/*** MOD_START ***/
+			/*
 			double rate;
 			double armorPenalty = GetArmorOffset( from );
 
@@ -187,10 +189,47 @@ namespace Server.Misc
 				else if ( rate > 7.0 )
 					rate = 7.0;
 			}
+			*/
+			CheckBonusSkill( from, from.Mana, from.ManaMax, SkillName.Focus );
+			
+			double rate;
+			double medPoints = (from.Int + (from.Skills[SkillName.Meditation].Value * 3 * GetMeditationFactor( from ))) * 0.0275;
+			double focusPoints = from.Skills[SkillName.Focus].Value * 0.05;
+			double totalPoints = focusPoints + medPoints + (from.Meditating ? medPoints : 0.0);
+			
+			if ( totalPoints < -1 )
+				totalPoints = -1;
+
+			rate = 1.0 / (0.1 * (2 + totalPoints));
+			
+			from.SendMessage("meditationFactor: "+GetMeditationFactor( from ).ToString()+" totalPoints: "+totalPoints.ToString()+" rate: "+rate.ToString());
+			/*** MOD_END ***/
 
 			return TimeSpan.FromSeconds( rate );
 		}
 
+		/*** ADD_START ***/
+		public static double GetMeditationFactor( Mobile from )
+		{
+			double factor = 1;
+
+			foreach ( Item item in from.Items )
+			{
+				if ( item is BaseArmor )
+				{
+					if ( ((BaseArmor) item).MeditationFactor < factor )
+					{
+						factor = ((BaseArmor) item).MeditationFactor;
+					}
+				}
+			}
+
+			return factor;
+		}
+		/*** ADD_END ***/
+
+		/*** DEL_START ***/
+		/*
 		public static double GetArmorOffset( Mobile from )
 		{
 			double rating = 0.0;
@@ -217,13 +256,11 @@ namespace Server.Misc
 			{
 				default:
 				case ArmorMeditationAllowance.None: return ar.BaseArmorRatingScaled;
-				/*** DEL_START ***/
-				/*
 				case ArmorMeditationAllowance.Half: return ar.BaseArmorRatingScaled / 2.0;
-				*/
-				/*** DEL_END ***/
 				case ArmorMeditationAllowance.All:  return 0.0;
 			}
 		}
+		*/
+		/*** DEL_END ***/
 	}
 }

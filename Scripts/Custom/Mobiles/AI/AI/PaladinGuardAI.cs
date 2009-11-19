@@ -87,12 +87,6 @@ namespace Server.Mobiles
 				Action = ActionType.Combat;
 				m_NextCastTime = DateTime.Now;
 			}
-			else if ( SmartAI && m_Mobile.Mana < m_Mobile.ManaMax )
-			{
-				m_Mobile.DebugSay( "I am going to meditate" );
-
-				m_Mobile.UseSkill( SkillName.Meditation );
-			}
 			else
 			{
 				m_Mobile.DebugSay( "I am wandering" );
@@ -303,13 +297,7 @@ namespace Server.Mobiles
 				{
 					if ( m_Mobile.Mana < 30 && m_Mobile.Mana > 15 )
 					{
-						if ( c.Paralyzed )
-						{
-							m_Mobile.DebugSay( "I am going to meditate" );
-
-							m_Mobile.UseSkill( SkillName.Meditation );
-						}
-						else if ( !c.Paralyzed ) //Not very paladin like, but.. I cant think of anything right now.
+						if ( !c.Paralyzed ) //Not very paladin like, but.. I cant think of anything right now.
 						{
 							if ( Utility.Random( 2 ) == 0 )
 							{

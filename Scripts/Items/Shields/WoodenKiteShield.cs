@@ -9,7 +9,12 @@ namespace Server.Items
 		public override int BaseFireResistance{ get{ return 0; } }
 		public override int BaseColdResistance{ get{ return 0; } }
 		public override int BasePoisonResistance{ get{ return 0; } }
+		/*** MOD_START ***/
+		/*
 		public override int BaseEnergyResistance{ get{ return 1; } }
+		*/
+		public override int BaseEnergyResistance{ get{ return 0; } }
+		/*** MOD_END ***/
 
 		public override int InitMinHits{ get{ return 50; } }
 		public override int InitMaxHits{ get{ return 65; } }
@@ -17,6 +22,10 @@ namespace Server.Items
 		public override int AosStrReq{ get{ return 20; } }
 
 		public override int ArmorBase{ get{ return 12; } }
+		
+		/*** ADD_START ***/
+		public override double MeditationFactor{ get{ return 0.75; } }
+		/*** ADD_END ***/
 
 		[Constructable]
 		public WoodenKiteShield() : base( 0x1B79 )

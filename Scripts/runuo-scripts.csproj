@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -1384,7 +1384,6 @@
     <Compile Include="Items\Armor\Studded\StuddedHaidate.cs" />
     <Compile Include="Items\Armor\Studded\StuddedGloves.cs" />
     <Compile Include="Items\Armor\Studded\StuddedChest.cs" />
-    <Compile Include="Items\Armor\Studded\BaseStuddedArmor.cs" />
     <Compile Include="Items\Armor\Studded\FemaleStuddedChest.cs" />
     <Compile Include="Items\Armor\Studded\HideGloves.cs" />
     <Compile Include="Items\Armor\Studded\StuddedLegs.cs" />
@@ -1406,7 +1405,6 @@
     <Compile Include="Items\Armor\Ranger\RangerArms.cs" />
     <Compile Include="Items\Armor\Ranger\RangerGorget.cs" />
     <Compile Include="Items\Armor\Ranger\RangerLegs.cs" />
-    <Compile Include="Items\Armor\Dragon\BaseDragonArmor.cs" />
     <Compile Include="Items\Armor\Dragon\DragonHelm.cs" />
     <Compile Include="Items\Armor\Dragon\DragonChest.cs" />
     <Compile Include="Items\Armor\Dragon\DragonArms.cs" />
@@ -1438,17 +1436,14 @@
     <Compile Include="Items\Armor\Leather\LeatherNinjaJacket.cs" />
     <Compile Include="Items\Armor\Leather\LeatherBustierArms.cs" />
     <Compile Include="Items\Armor\Leather\LeafChest.cs" />
-    <Compile Include="Items\Armor\Leather\BaseLeatherArmor.cs" />
     <Compile Include="Items\Armor\Leather\LeatherNinjaMitts.cs" />
     <Compile Include="Items\Armor\Bone\BoneChest.cs" />
     <Compile Include="Items\Armor\Bone\BoneArms.cs" />
     <Compile Include="Items\Armor\Bone\BoneLegs.cs" />
     <Compile Include="Items\Armor\Bone\BoneGloves.cs" />
-    <Compile Include="Items\Armor\Bone\BaseBoneArmor.cs" />
     <Compile Include="Items\Armor\Ring\RingmailGloves.cs" />
     <Compile Include="Items\Armor\Ring\RingmailArms.cs" />
     <Compile Include="Items\Armor\Ring\RingmailLegs.cs" />
-    <Compile Include="Items\Armor\Ring\BaseRingArmor.cs" />
     <Compile Include="Items\Armor\Ring\RingmailChest.cs" />
     <Compile Include="Items\Armor\Helmets\Helmet.cs" />
     <Compile Include="Items\Armor\Helmets\ChainCoif.cs" />
@@ -1494,7 +1489,6 @@
     <Compile Include="Items\Armor\Plate\PlateGloves.cs" />
     <Compile Include="Items\Armor\Plate\FemalePlateChest.cs" />
     <Compile Include="Items\Armor\Plate\PlateGorget.cs" />
-    <Compile Include="Items\Armor\Plate\BasePlateArmor.cs" />
     <Compile Include="Items\Armor\Plate\DecorativePlateKabuto.cs" />
     <Compile Include="Items\Armor\Plate\PlateBattleKabuto.cs" />
     <Compile Include="Items\Armor\Plate\StandardPlateKabuto.cs" />
@@ -1511,7 +1505,6 @@
     <Compile Include="Items\Armor\Chain\ChainChest.cs" />
     <Compile Include="Items\Armor\Chain\ChainLegs.cs" />
     <Compile Include="Items\Armor\Chain\ChainHatsuburi.cs" />
-    <Compile Include="Items\Armor\Chain\BaseChainArmor.cs" />
     <Compile Include="Items\Facial\Hair.cs" />
     <Compile Include="Items\Facial\Beard.cs" />
     <Compile Include="Items\SupplyBags\AlchemyBag.cs" />
@@ -1988,10 +1981,6 @@
     <Compile Include="Custom\Games\Battle Chess\Pieces\Bishop.cs" />
     <Compile Include="Custom\Games\Battle Chess\ChessTarget.cs" />
     <Compile Include="Custom\Games\Battle Chess\ChessRegion.cs" />
-    <Compile Include="Custom\Engines\AI\AI\PaladinGuardAI.cs" />
-    <Compile Include="Custom\Engines\AI\AI\ArcherGuardAI.cs" />
-    <Compile Include="Custom\Engines\AI\AI\MageGuardAI.cs" />
-    <Compile Include="Custom\Engines\AI\AI\WarriorGuardAI.cs" />
     <Compile Include="Custom\Items\Clothing\TestRobe.cs" />
     <Compile Include="Custom\Mobiles\Guards\WarriorTownGuard.cs" />
     <Compile Include="Custom\Mobiles\Guards\Britain\BritainWarriorGuard.cs" />
@@ -2718,6 +2707,39 @@
     <Compile Include="Custom\Mobiles\AI\AI\MageGuardAI.cs" />
     <Compile Include="Custom\Mobiles\AI\AI\PaladinGuardAI.cs" />
     <Compile Include="Custom\Mobiles\AI\AI\WarriorGuardAI.cs" />
+    <Compile Include="Custom\Items\Armor\Studded\BaseStuddedArmor.cs" />
+    <Compile Include="Custom\Items\Armor\Ring\BaseRingArmor.cs" />
+    <Compile Include="Custom\Items\Armor\Plate\BasePlateArmor.cs" />
+    <Compile Include="Custom\Items\Armor\Leather\BaseLeatherArmor.cs" />
+    <Compile Include="Custom\Items\Armor\Dragon\BaseDragonArmor.cs" />
+    <Compile Include="Custom\Items\Armor\Chain\BaseChainArmor.cs" />
+    <Compile Include="Custom\Items\Armor\Bone\BaseBoneArmor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Custom\Mobiles\Guards\Cove\" />
+    <Folder Include="Custom\Mobiles\Guards\Jhelom\" />
+    <Folder Include="Custom\Mobiles\Guards\Minoc\" />
+    <Folder Include="Custom\Mobiles\Guards\Moonglow\" />
+    <Folder Include="Custom\Mobiles\Guards\Nujelm\" />
+    <Folder Include="Custom\Mobiles\Guards\Ocllo\" />
+    <Folder Include="Custom\Mobiles\Guards\Papua\" />
+    <Folder Include="Custom\Mobiles\Guards\SerpentsHold\" />
+    <Folder Include="Custom\Mobiles\Guards\SkaraBrae\" />
+    <Folder Include="Custom\Mobiles\Guards\Trinsic\" />
+    <Folder Include="Custom\Mobiles\Guards\Vesper\" />
+    <Folder Include="Custom\Mobiles\Guards\Yew\" />
+    <Folder Include="Custom\Gumps\" />
+    <Folder Include="Custom\Items\Containers\" />
+    <Folder Include="Custom\Engines\Spawner\" />
+    <Folder Include="Custom\Mobiles\Guards\BuccaneersDen\" />
+    <Folder Include="Custom\Items\Armor\" />
+    <Folder Include="Custom\Items\Armor\Bone\" />
+    <Folder Include="Custom\Items\Armor\Chain\" />
+    <Folder Include="Custom\Items\Armor\Dragon\" />
+    <Folder Include="Custom\Items\Armor\Leather\" />
+    <Folder Include="Custom\Items\Armor\Plate\" />
+    <Folder Include="Custom\Items\Armor\Ring\" />
+    <Folder Include="Custom\Items\Armor\Studded\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Output\Scripts.CS.hash">
