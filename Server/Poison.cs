@@ -92,7 +92,7 @@ namespace Server
 		{
 			/*** ADD_START ***/
 			if (level > 4)
-				return 4;
+				level = 4;
 			/*** ADD_END ***/
 
 			for ( int i = 0; i < m_Poisons.Count; ++i )
