@@ -16,7 +16,7 @@ Skills
     * Bonus EvalInt + Anatomy abbassato a 100 pari a Wrestling    
     * Resisting Spells impostata con resistenze minime a Skill / 3
 	* Spirit Speak non cura piu, fa leggere cosa scrivono i morti e rende visibili i ghost anche se non sono in war. 
-	* Il veleno aumenta di un livello se applicato al cibo o al bere
+	* Il veleno aumenta di un livello se applicato al cibo o a bevande
 
 
 Case
