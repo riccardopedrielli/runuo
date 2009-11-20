@@ -201,8 +201,6 @@ namespace Server.Misc
 				totalPoints = -1;
 
 			rate = 1.0 / (0.1 * (2 + totalPoints));
-			
-			from.SendMessage("meditationFactor: "+GetMeditationFactor( from ).ToString()+" totalPoints: "+totalPoints.ToString()+" rate: "+rate.ToString());
 			/*** MOD_END ***/
 
 			return TimeSpan.FromSeconds( rate );
