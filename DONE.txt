@@ -16,9 +16,10 @@ Skills
     * Bonus EvalInt + Anatomy abbassato a 100 pari a Wrestling    
     * Resisting Spells impostata con resistenze minime a Skill / 3
 	* Spirit Speak non cura piu, fa leggere cosa scrivono i morti e rende visibili i ghost anche se non sono in war. 
-	* Il veleno aumenta di un livello se applicato al cibo o a bevande
+	* Il veleno, se applicato al cibo, ha una probabilità di (poisoning/3)% che venga aumentato di 1 livello
+	* Il veleno ora toglie sempre lo stesso danno per ogni tick a seconda del livello
 
-
+	
 Case
 	
     * Tolto il bonus di detecting hidden all'interno.
@@ -60,7 +61,9 @@ Spells
     * La spell magic reflect ora si puo castare sempre anche se gia attiva
 	* Magic Reflect impostato a pre-aos (riflette una magia)
 	* Telekinesis ora sposta direttamente gli oggetti all'interno del backpack per un peso massimo di Magery / 3 (non sposta i container)
-
+	* Corretti i suoni del poison e del tick sul danno
+	
+	
 Gates (public & cast)
 
     * Nessun warning.
@@ -85,6 +88,7 @@ Items
 	* I BankCheck ora sono lootabili
 	* Bonus di alchemy sul danno delle pozioni explosion -50%.
 
+	
 Craft
 
     * Eliminati craft SE da Blacksmithy.
@@ -94,6 +98,7 @@ Craft
     * Probabilità di craftare item exceptional basata su Arms Lore
 	* Aggiunto il cauldron nei craft del tinker
 
+	
 Armi
 
     * Archi e balestre non possono essere usati con armature plate o dragon
@@ -137,6 +142,7 @@ PG
 	* Se un pg da fantasma parla, non viene piu messo in automatico in war
 	* Rimosso il sistema di virtù
 	
+	
 NPC
 
 	* Modificati i calcoli della velocità degli npc (ActiveSpeed e PassiveSpeed ora sono delay reali e costanti, non vengono più influenzati dalla stamina o da altri fattori).
@@ -161,9 +167,12 @@ Nuovi items
 
 	* Dungeon chest
 
+	
 Varie
 	* Abilitata la macro BandageSelf del client
-
+	* Ricalcolati i danni dei veleni
+	
+	
 Staff related
 
 	* Sync with RunUO-svn: 433
@@ -174,6 +183,7 @@ Staff related
 	* Generazione porte, sign, moongates e teleporter solo su Felucca
 	* Aggiunto il Sorious' FireFeet
 	* Aggiunto il parametro di avvio (-compilescripts) al server per avviare la compilazione degli script, altrimenti carica la dll direttamente
+	
 	
 File Cancellati
 	/Scripts/Engines/Virtues/

@@ -35,9 +35,7 @@ Account
 
 
 PG
-
-	* Aggiungere suono poison
-		
+	
 	
 Skills
 

@@ -14,9 +14,11 @@ namespace Server
 		[CallPriority( 10 )]
 		public static void Configure()
 		{
+			/*** DEL_START ***/
+			/*
 			if ( Core.AOS )
 			{
-				Register( new PoisonImpl( "Lesser",		0,  4, 16,  7.5, 3.0, 2.25, 10, 4 ) );
+				Register( new PoisonImpl( "Lesser",		0,	4, 16,	8.0, 3.0, 2.25, 10, 4 ) );			
 				Register( new PoisonImpl( "Regular",	1,  8, 18, 10.0, 3.0, 3.25, 10, 3 ) );
 				Register( new PoisonImpl( "Greater",	2, 12, 20, 15.0, 3.0, 4.25, 10, 2 ) );
 				Register( new PoisonImpl( "Deadly",		3, 16, 30, 30.0, 3.0, 5.25, 15, 2 ) );
@@ -30,6 +32,16 @@ namespace Server
 				Register( new PoisonImpl( "Deadly",		3, 7, 26, 12.500, 3.5, 4.0, 10, 2 ) );
 				Register( new PoisonImpl( "Lethal",		4, 9, 26, 25.000, 3.5, 5.0, 10, 2 ) );
 			}
+			*/
+			/*** DEL_END ***/
+
+			/*** ADD_START ***/
+			Register( new PoisonImpl( "Lesser",		0,	null,	12,	 0.0, 3.0, 2.5,  8, 4 ) );
+			Register( new PoisonImpl( "Regular",	1,	null,	16,  0.0, 3.0, 3.0, 10, 3 ) );
+			Register( new PoisonImpl( "Greater",	2,	null,	22,  0.0, 3.0, 3.5, 12, 2 ) );
+			Register( new PoisonImpl( "Deadly",		3,	null,	32,  0.0, 3.0, 4.0, 14, 2 ) );
+			Register( new PoisonImpl( "Lethal",		4,	null,	45,  0.0, 3.0, 4.5, 16, 2 ) );
+			/*** ADD_END ***/
 		}
 
 		public static Poison IncreaseLevel( Poison oldPoison )
@@ -59,6 +71,12 @@ namespace Server
 			m_Minimum = min;
 			m_Maximum = max;
 			m_Scalar = percent * 0.01;
+			/*** MOD_START ***/
+			/*
+			m_Scalar = percent * 0.01;
+			*/
+			m_Scalar = percent;
+			/*** MOD_END ***/
 			m_Delay = TimeSpan.FromSeconds( delay );
 			m_Interval = TimeSpan.FromSeconds( interval );
 			m_Count = count;
@@ -121,12 +139,21 @@ namespace Server
 				}
 				else
 				{
+					/*** MOD_START ***/
+					/*
 					damage = 1 + (int)(m_Mobile.Hits * m_Poison.m_Scalar);
+					*/
+					damage = m_Poison.m_Maximum;
+					/*** MOD_END ***/
 
+					/*** DEL_START ***/
+					/*
 					if ( damage < m_Poison.m_Minimum )
 						damage = m_Poison.m_Minimum;
 					else if ( damage > m_Poison.m_Maximum )
 						damage = m_Poison.m_Maximum;
+					*/
+					/*** DEL_END ***/					
 
 					m_LastDamage = damage;
 				}
@@ -142,6 +169,10 @@ namespace Server
 				*/
 				/*** DEL_END ***/
 
+				/*** ADD_START ***/
+				m_Mobile.PlaySound(0x246);
+				/*** ADD_END ***/
+				
 				AOS.Damage( m_Mobile, m_From, damage, 0, 0, 0, 100, 0 );
 
 				if ( (m_Index % m_Poison.m_MessageInterval) == 0 )

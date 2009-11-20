@@ -115,12 +115,15 @@ namespace Server.SkillHandlers
 						if ( m_From.CheckTargetSkill( SkillName.Poisoning, m_Target, m_MinSkill, m_MaxSkill ) )
 						{
 							if ( m_Target is Food )
-							{
+							{		
 								/*** MOD_START ***/
 								/*
 								((Food)m_Target).Poison = m_Poison;
-								*/								
-								((Food)m_Target).Poison = Poison.GetPoison(m_Poison.Level + 1);
+								*/
+								if (m_From.Skills[SkillName.Poisoning].Base / 3 < Utility.Random(100))
+									m_Poison = Poison.GetPoison(++m_Poison.Level);
+								
+								((Food)m_Target).Poison = m_Poison;
 								/*** MOD_END ***/								
 							}
 							else if ( m_Target is BaseWeapon )
@@ -138,8 +141,13 @@ namespace Server.SkillHandlers
 								((Shuriken)m_Target).Poison = m_Poison;
 								((Shuriken)m_Target).PoisonCharges = Math.Min( 18 - (m_Poison.Level * 2), ((Shuriken)m_Target).UsesRemaining );
 							}
-
+							
+							/*** MOD_START ***/
+							/*
 							m_From.SendLocalizedMessage( 1010517 ); // You apply the poison
+							*/
+							m_From.SendMessage("You apply " + m_Poison.ToString() + " poison");
+							/*** MOD_END ***/
 
 							Misc.Titles.AwardKarma( m_From, -20, true );
 						}
