@@ -173,6 +173,7 @@ Staff related
 	* Eliminati comandi decorate, decoratemag e vendorgen (verrà usato xmlSpawner)
 	* Generazione porte, sign, moongates e teleporter solo su Felucca
 	* Aggiunto il Sorious' FireFeet
+	* Aggiunto il parametro di avvio (-compilescripts) al server per avviare la compilazione degli script, altrimenti carica la dll direttamente
 	
 File Cancellati
 	/Scripts/Engines/Virtues/

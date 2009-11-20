@@ -149,6 +149,26 @@ namespace Server
 
 		public static bool CompileCSScripts( bool debug, bool cache, out Assembly assembly )
 		{
+			/*** ADD_START ***/
+			if (!Core.CompileScripts)
+			{
+				if (File.Exists("Scripts/Output/Scripts.CS.dll"))
+				{
+					assembly = Assembly.LoadFrom("Scripts/Output/Scripts.CS.dll");
+
+					if (!m_AdditionalReferences.Contains(assembly.Location))
+					{
+						m_AdditionalReferences.Add(assembly.Location);
+					}
+
+					Console.WriteLine("Scripts: Scripts.CS.dll loaded!");
+
+					return true;
+				}
+				Console.WriteLine("ERROR: Cannot find Scripts.CS.dll.");				
+			}
+			/*** ADD_END ***/
+
 			Console.Write( "Scripts: Compiling C# scripts..." );
 			string[] files = GetScripts( "*.cs" );
 
@@ -293,6 +313,26 @@ namespace Server
 
 		public static bool CompileVBScripts( bool debug, bool cache, out Assembly assembly )
 		{
+			/*** ADD_START ***/
+			if (!Core.CompileScripts)
+			{
+				if( File.Exists( "Scripts/Output/Scripts.VB.dll" ) )
+				{
+					assembly = Assembly.LoadFrom("Scripts/Output/Scripts.VB.dll");
+
+					if (!m_AdditionalReferences.Contains(assembly.Location))
+					{
+						m_AdditionalReferences.Add(assembly.Location);
+					}
+
+					Console.WriteLine("Scripts: Scripts.VB.dll loaded.");
+					
+					return true;
+				}
+				Console.WriteLine("ERROR: Cannot find Scripts.VB.dll.");
+			}
+			/*** ADD_END ***/
+
 			Console.Write( "Scripts: Compiling VB.NET scripts..." );
 			string[] files = GetScripts( "*.vb" );
 

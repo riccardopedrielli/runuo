@@ -52,6 +52,9 @@ namespace Server
 		private static bool m_Cache = true;
 		private static bool m_HaltOnWarning;
 		private static bool m_VBdotNET;
+		/*** ADD_START ***/
+		private static bool m_CompileScripts;
+		/*** ADD_END ***/
 		private static MultiTextWriter m_MultiConOut;
 
 		private static bool m_Profiling;
@@ -100,6 +103,9 @@ namespace Server
 		public static bool Debug { get { return m_Debug; } }
 		internal static bool HaltOnWarning { get { return m_HaltOnWarning; } }
 		internal static bool VBdotNet { get { return m_VBdotNET; } }
+		/*** ADD_START ***/
+		internal static bool CompileScripts { get { return m_CompileScripts; } }
+		/*** ADD_END ***/
 		public static List<string> DataDirectories { get { return m_DataDirectories; } }
 		public static Assembly Assembly { get { return m_Assembly; } set { m_Assembly = value; } }
 		public static Process Process { get { return m_Process; } }
@@ -366,6 +372,10 @@ namespace Server
 					m_HaltOnWarning = true;
 				else if ( Insensitive.Equals( args[i], "-vb" ) )
 					m_VBdotNET = true;
+				/*** ADD_START ***/
+				else if (Insensitive.Equals(args[i], "-compilescripts"))
+					m_CompileScripts = true;
+				/*** ADD_END ***/
 			}
 
 			try
@@ -520,8 +530,13 @@ namespace Server
 					Utility.Separate( sb, "-haltonwarning", " " );
 
 				if ( m_VBdotNET )
-					Utility.Separate( sb, "-vb", " " );
+					Utility.Separate(  sb, "-vb", " " );
 
+				/*** ADD_START ***/
+				if ( m_CompileScripts )
+					Utility.Separate(  sb, "-compilescripts", " " );
+				/*** ADD_END ***/
+				
 				return sb.ToString();
 			}
 		}
