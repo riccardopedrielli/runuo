@@ -36,11 +36,11 @@ namespace Server
 			/*** DEL_END ***/
 
 			/*** ADD_START ***/
-			Register( new PoisonImpl( "Lesser",		0,	null,	12,	 0.0, 3.0, 2.5,  8, 4 ) );
-			Register( new PoisonImpl( "Regular",	1,	null,	16,  0.0, 3.0, 3.0, 10, 3 ) );
-			Register( new PoisonImpl( "Greater",	2,	null,	22,  0.0, 3.0, 3.5, 12, 2 ) );
-			Register( new PoisonImpl( "Deadly",		3,	null,	32,  0.0, 3.0, 4.0, 14, 2 ) );
-			Register( new PoisonImpl( "Lethal",		4,	null,	45,  0.0, 3.0, 4.5, 16, 2 ) );
+			Register( new PoisonImpl( "Lesser",		0,	0,	12,	 0.0, 3.0, 2.5,  8, 4 ) );
+			Register( new PoisonImpl( "Regular",	1,	0,	16,  0.0, 3.0, 3.0, 10, 3 ) );
+			Register( new PoisonImpl( "Greater",	2,	0,	22,  0.0, 3.0, 3.5, 12, 2 ) );
+			Register( new PoisonImpl( "Deadly",		3,	0,	32,  0.0, 3.0, 4.0, 14, 2 ) );
+			Register( new PoisonImpl( "Lethal",		4,	0,	45,  0.0, 3.0, 4.5, 16, 2 ) );
 			/*** ADD_END ***/
 		}
 
