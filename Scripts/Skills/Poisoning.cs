@@ -112,41 +112,57 @@ namespace Server.SkillHandlers
 
 					protected override void OnTick()
 					{
+						String poison_str = null;
+
 						if ( m_From.CheckTargetSkill( SkillName.Poisoning, m_Target, m_MinSkill, m_MaxSkill ) )
 						{
 							if ( m_Target is Food )
-							{		
+							{
 								/*** MOD_START ***/
 								/*
 								((Food)m_Target).Poison = m_Poison;
 								*/
 								if (m_From.Skills[SkillName.Poisoning].Base / 3 < Utility.Random(100))
-									m_Poison = Poison.GetPoison(++m_Poison.Level);
-								
-								((Food)m_Target).Poison = m_Poison;
-								/*** MOD_END ***/								
+									((Food)m_Target).Poison = Poison.GetPoison(m_Poison.Level + 1);
+								else
+									((Food)m_Target).Poison = m_Poison;
+
+								poison_str = ((Food)m_Target).Poison.ToString();
+								/*** MOD_END ***/
 							}
 							else if ( m_Target is BaseWeapon )
 							{
 								((BaseWeapon)m_Target).Poison = m_Poison;
 								((BaseWeapon)m_Target).PoisonCharges = 18 - (m_Poison.Level * 2);
+								
+								/*** ADD_START ***/
+								poison_str = ((BaseWeapon)m_Target).Poison.ToString();
+								/*** ADD_END ***/
 							}
 							else if ( m_Target is FukiyaDarts )
 							{
 								((FukiyaDarts)m_Target).Poison = m_Poison;
 								((FukiyaDarts)m_Target).PoisonCharges = Math.Min( 18 - (m_Poison.Level * 2), ((FukiyaDarts)m_Target).UsesRemaining );
+								
+								/*** ADD_START ***/
+								poison_str = ((FukiyaDarts)m_Target).Poison.ToString();
+								/*** ADD_END ***/
 							}
 							else if ( m_Target is Shuriken )
 							{
 								((Shuriken)m_Target).Poison = m_Poison;
 								((Shuriken)m_Target).PoisonCharges = Math.Min( 18 - (m_Poison.Level * 2), ((Shuriken)m_Target).UsesRemaining );
+								
+								/*** ADD_START ***/
+								poison_str = ((Shuriken)m_Target).Poison.ToString();
+								/*** ADD_END ***/
 							}
 							
 							/*** MOD_START ***/
 							/*
 							m_From.SendLocalizedMessage( 1010517 ); // You apply the poison
 							*/
-							m_From.SendMessage("You apply " + m_Poison.ToString() + " poison");
+							m_From.SendMessage("You apply a " + poison_str + " poison");
 							/*** MOD_END ***/
 
 							Misc.Titles.AwardKarma( m_From, -20, true );
