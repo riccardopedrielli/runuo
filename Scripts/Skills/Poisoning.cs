@@ -56,6 +56,14 @@ namespace Server.SkillHandlers
 
 					bool startTimer = false;
 
+					/*** ADD_START ***/
+					if( targeted is Food && ((Food)targeted).Amount > 1 )
+					{
+						from.SendMessage("You cannot apply poison on a stack!");
+						return;
+					}
+					/*** ADD_END ***/
+
 					if ( targeted is Food || targeted is FukiyaDarts || targeted is Shuriken )
 					{
 						startTimer = true;
