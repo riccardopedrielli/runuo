@@ -2714,6 +2714,18 @@
     <Compile Include="Custom\Items\Armor\Dragon\BaseDragonArmor.cs" />
     <Compile Include="Custom\Items\Armor\Chain\BaseChainArmor.cs" />
     <Compile Include="Custom\Items\Armor\Bone\BaseBoneArmor.cs" />
+    <Compile Include="Items\Minor Artifacts\ML\WildfireBow.cs" />
+    <Compile Include="Items\Minor Artifacts\ML\HelmOfSwiftness.cs" />
+    <Compile Include="Items\Minor Artifacts\ML\Windsong.cs" />
+    <Compile Include="Items\Minor Artifacts\ML\Boomstick.cs" />
+    <Compile Include="Items\Minor Artifacts\ML\QuiverOfElements.cs" />
+    <Compile Include="Items\Minor Artifacts\ML\QuiverOfRage.cs" />
+    <Compile Include="Items\Quivers\BaseQuiver.cs" />
+    <Compile Include="Items\Quivers\ElvenQuiver.cs" />
+    <Compile Include="Items\Quivers\QuiverOfBlight.cs" />
+    <Compile Include="Items\Quivers\QuiverOfFire.cs" />
+    <Compile Include="Items\Quivers\QuiverOfIce.cs" />
+    <Compile Include="Items\Quivers\QuiverOfLightning.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\Mobiles\Guards\Cove\" />

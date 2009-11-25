@@ -160,12 +160,11 @@ namespace Server.SkillHandlers
 							{
 								((Shuriken)m_Target).Poison = m_Poison;
 								((Shuriken)m_Target).PoisonCharges = Math.Min( 18 - (m_Poison.Level * 2), ((Shuriken)m_Target).UsesRemaining );
-								
 								/*** ADD_START ***/
 								poison_str = ((Shuriken)m_Target).Poison.ToString();
 								/*** ADD_END ***/
 							}
-							
+
 							/*** MOD_START ***/
 							/*
 							m_From.SendLocalizedMessage( 1010517 ); // You apply the poison

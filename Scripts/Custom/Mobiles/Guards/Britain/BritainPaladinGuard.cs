@@ -7,10 +7,12 @@ namespace Server.Mobiles
 		[Constructable]
 		public BritainPaladinGuard()
 		{
+			this.Debug = true;
 		}
 
 		public BritainPaladinGuard( Serial serial ) : base( serial )
 		{
+			this.Debug = true;
 		}
 
 		protected override void GenerateArmor()

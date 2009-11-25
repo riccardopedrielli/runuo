@@ -89,7 +89,7 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				m_Mobile.DebugSay( "I am wandering" );
+				//m_Mobile.DebugSay( "I am wandering" );
 
 				m_Mobile.Warmode = false;
 
@@ -135,7 +135,7 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				m_Mobile.DebugSay( "Smart AI" );
+				//m_Mobile.DebugSay( "Smart AI" );
 
 				if ( !m_Mobile.InRange( m, m_Mobile.RangeFight ) )
 				{
@@ -470,6 +470,7 @@ namespace Server.Mobiles
 				}
 			}
 
+			/*
 			if ( !m_Mobile.Controlled && !m_Mobile.Summoned )
 			{
 				if ( m_Mobile.Hits < m_Mobile.HitsMax * 20/100 )
@@ -573,12 +574,14 @@ namespace Server.Mobiles
 			{
 				RunTo( c );
 			}
+			*/
 
 			return true;
 		}
 
 		public override bool DoActionGuard()
 		{
+			/*
 			if ( AcquireFocusMob( m_Mobile.RangePerception, m_Mobile.FightMode, false, false, true ) )
 			{
 				if ( m_Mobile.Debug )
@@ -614,6 +617,7 @@ namespace Server.Mobiles
 					base.DoActionGuard();
 				}
 			}
+			*/
 
 			return true;
 		}

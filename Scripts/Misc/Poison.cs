@@ -18,7 +18,7 @@ namespace Server
 			/*
 			if ( Core.AOS )
 			{
-				Register( new PoisonImpl( "Lesser",		0,	4, 16,	8.0, 3.0, 2.25, 10, 4 ) );			
+				Register( new PoisonImpl( "Lesser",		0,  4, 16,  7.5, 3.0, 2.25, 10, 4 ) );
 				Register( new PoisonImpl( "Regular",	1,  8, 18, 10.0, 3.0, 3.25, 10, 3 ) );
 				Register( new PoisonImpl( "Greater",	2, 12, 20, 15.0, 3.0, 4.25, 10, 2 ) );
 				Register( new PoisonImpl( "Deadly",		3, 16, 30, 30.0, 3.0, 5.25, 15, 2 ) );
@@ -70,7 +70,6 @@ namespace Server
 			m_Level = level;
 			m_Minimum = min;
 			m_Maximum = max;
-			m_Scalar = percent * 0.01;
 			/*** MOD_START ***/
 			/*
 			m_Scalar = percent * 0.01;

@@ -17,9 +17,10 @@ Skills
     * Resisting Spells impostata con resistenze minime a Skill / 3
 	* Spirit Speak non cura piu, fa leggere cosa scrivono i morti e rende visibili i ghost anche se non sono in war. 
 	* Il veleno, se applicato al cibo, ha una probabilità di (poisoning/3)% che venga aumentato di 1 livello
+	* Il veleno non può essere applicato ad oggetti impilati
 	* Il veleno ora toglie sempre lo stesso danno per ogni tick a seconda del livello
 
-	
+
 Case
 	
     * Tolto il bonus di detecting hidden all'interno.

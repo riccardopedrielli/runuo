@@ -530,11 +530,11 @@ namespace Server
 					Utility.Separate( sb, "-haltonwarning", " " );
 
 				if ( m_VBdotNET )
-					Utility.Separate(  sb, "-vb", " " );
+					Utility.Separate( sb, "-vb", " " );
 
 				/*** ADD_START ***/
 				if ( m_CompileScripts )
-					Utility.Separate(  sb, "-compilescripts", " " );
+					Utility.Separate( sb, "-compilescripts", " " );
 				/*** ADD_END ***/
 				
 				return sb.ToString();
