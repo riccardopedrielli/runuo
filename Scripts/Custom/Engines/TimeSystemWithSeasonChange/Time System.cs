@@ -132,7 +132,7 @@ namespace Server.TimeSystem
 
         public const int BinaryVersion = 2; // The version number used in the data file.
 
-        private static readonly string m_DataDirectory = Path.Combine(Core.BaseDirectory, Core.Unix ? @"Data/Custom/Time\ System" : @"Data\Custom\Time System");
+        private static readonly string m_DataDirectory = Path.Combine(Core.BaseDirectory, Core.Unix ? @"Data/Custom/Time System" : @"Data\Custom\Time System");
         private const string m_DataFileName = "Time System.dat";
 
         private const int m_MinLightLevel = 0; // Minimum light level.  Lower = brighter.  UO only supports 0-30.
