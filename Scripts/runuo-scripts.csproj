@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -88,6 +88,9 @@
     <Compile Include="Commands\Properties.cs" />
     <Compile Include="Commands\Statics.cs" />
     <Compile Include="Commands\SignParser.cs" />
+    <Compile Include="Custom\Engines\TimeSystemWithSeasonChange\Support.cs" />
+    <Compile Include="Custom\Engines\TimeSystemWithSeasonChange\Time System.cs" />
+    <Compile Include="Custom\Engines\TimeSystemWithSeasonChange\VariableObject.cs" />
     <Compile Include="Custom\Misc\BandagePacket.cs" />
     <Compile Include="Custom\Mobiles\Monsters\Elemental\Excremental.cs" />
     <Compile Include="Engines\Help\PageQueueGump.cs" />
@@ -2726,32 +2729,6 @@
     <Compile Include="Items\Quivers\QuiverOfFire.cs" />
     <Compile Include="Items\Quivers\QuiverOfIce.cs" />
     <Compile Include="Items\Quivers\QuiverOfLightning.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Custom\Mobiles\Guards\Cove\" />
-    <Folder Include="Custom\Mobiles\Guards\Jhelom\" />
-    <Folder Include="Custom\Mobiles\Guards\Minoc\" />
-    <Folder Include="Custom\Mobiles\Guards\Moonglow\" />
-    <Folder Include="Custom\Mobiles\Guards\Nujelm\" />
-    <Folder Include="Custom\Mobiles\Guards\Ocllo\" />
-    <Folder Include="Custom\Mobiles\Guards\Papua\" />
-    <Folder Include="Custom\Mobiles\Guards\SerpentsHold\" />
-    <Folder Include="Custom\Mobiles\Guards\SkaraBrae\" />
-    <Folder Include="Custom\Mobiles\Guards\Trinsic\" />
-    <Folder Include="Custom\Mobiles\Guards\Vesper\" />
-    <Folder Include="Custom\Mobiles\Guards\Yew\" />
-    <Folder Include="Custom\Gumps\" />
-    <Folder Include="Custom\Items\Containers\" />
-    <Folder Include="Custom\Engines\Spawner\" />
-    <Folder Include="Custom\Mobiles\Guards\BuccaneersDen\" />
-    <Folder Include="Custom\Items\Armor\" />
-    <Folder Include="Custom\Items\Armor\Bone\" />
-    <Folder Include="Custom\Items\Armor\Chain\" />
-    <Folder Include="Custom\Items\Armor\Dragon\" />
-    <Folder Include="Custom\Items\Armor\Leather\" />
-    <Folder Include="Custom\Items\Armor\Plate\" />
-    <Folder Include="Custom\Items\Armor\Ring\" />
-    <Folder Include="Custom\Items\Armor\Studded\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Output\Scripts.CS.hash">

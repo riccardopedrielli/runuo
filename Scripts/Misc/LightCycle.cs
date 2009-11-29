@@ -34,10 +34,15 @@ namespace Server
 
 		public static void Initialize()
 		{
+			//Time System
+			/*** DEL_START ***/
+			/*
 			new LightCycleTimer().Start();
 			EventSink.Login += new LoginEventHandler( OnLogin );
+			*/
+			/*** DEL_END ***/
 
-			CommandSystem.Register( "GlobalLight", AccessLevel.GameMaster, new CommandEventHandler( Light_OnCommand ) );
+            CommandSystem.Register( "GlobalLight", AccessLevel.GameMaster, new CommandEventHandler( Light_OnCommand ) );
 		}
 
 		[Usage( "GlobalLight <value>" )]
@@ -65,39 +70,51 @@ namespace Server
 
 		public static int ComputeLevelFor( Mobile from )
 		{
-			if ( m_LevelOverride > int.MinValue )
-				return m_LevelOverride;
+    		if (m_LevelOverride > int.MinValue)
+        		return m_LevelOverride;
+			
+			//Time System
+			/*** ADD_START ***/
+   			if (TimeSystem.System.Enabled)
+  			{
+      				return TimeSystem.System.ComputeLevelFor(from);
+			}
+			else
+			{
+			/*** ADD_END ***/
+   				int hours, minutes;
 
-			int hours, minutes;
+   				Server.Items.Clock.GetTime(from.Map, from.X, from.Y, out hours, out minutes);
 
-			Server.Items.Clock.GetTime( from.Map, from.X, from.Y, out hours, out minutes );
+		        /* OSI times:
+		         * 
+		         * Midnight ->  3:59 AM : Night
+		         *  4:00 AM -> 11:59 PM : Day
+		         * 
+		         * RunUO times:
+		         * 
+		         * 10:00 PM -> 11:59 PM : Scale to night
+		         * Midnight ->  3:59 AM : Night
+		         *  4:00 AM ->  5:59 AM : Scale to day
+		         *  6:00 AM ->  9:59 PM : Day
+		         */
 
-			/* OSI times:
-			 * 
-			 * Midnight ->  3:59 AM : Night
-			 *  4:00 AM -> 11:59 PM : Day
-			 * 
-			 * RunUO times:
-			 * 
-			 * 10:00 PM -> 11:59 PM : Scale to night
-			 * Midnight ->  3:59 AM : Night
-			 *  4:00 AM ->  5:59 AM : Scale to day
-			 *  6:00 AM ->  9:59 PM : Day
-			 */
+		        if ( hours < 4 )
+			        return NightLevel;
 
-			if ( hours < 4 )
-				return NightLevel;
+		        if ( hours < 6 )
+			        return NightLevel + (((((hours - 4) * 60) + minutes) * (DayLevel - NightLevel)) / 120);
 
-			if ( hours < 6 )
-				return NightLevel + (((((hours - 4) * 60) + minutes) * (DayLevel - NightLevel)) / 120);
+		        if ( hours < 22 )
+			        return DayLevel;
 
-			if ( hours < 22 )
-				return DayLevel;
+		        if ( hours < 24 )
+			        return DayLevel + (((((hours - 22) * 60) + minutes) * (NightLevel - DayLevel)) / 120);
 
-			if ( hours < 24 )
-				return DayLevel + (((((hours - 22) * 60) + minutes) * (NightLevel - DayLevel)) / 120);
-
-			return NightLevel; // should never be
+		        return NightLevel; // should never be
+			/*** ADD_START ***/
+	        }
+			/*** ADD_END ***/
 		}
 
 		private class LightCycleTimer : Timer

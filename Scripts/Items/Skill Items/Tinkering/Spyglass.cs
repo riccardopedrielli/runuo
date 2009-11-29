@@ -21,30 +21,42 @@ namespace Server.Items
 
 		public override void OnDoubleClick( Mobile from )
 		{
-			from.LocalOverheadMessage( MessageType.Regular, 0x3B2, 1008155 ); // You peer into the heavens, seeking the moons...
-
-			from.Send( new MessageLocalizedAffix( from.Serial, from.Body, MessageType.Regular, 0x3B2, 3, 1008146 + (int)Clock.GetMoonPhase( Map.Trammel, from.X, from.Y ), "", AffixType.Prepend, "Trammel : ", "" ) );
-			from.Send( new MessageLocalizedAffix( from.Serial, from.Body, MessageType.Regular, 0x3B2, 3, 1008146 + (int)Clock.GetMoonPhase( Map.Felucca, from.X, from.Y ), "", AffixType.Prepend, "Felucca : ", "" ) );
-
+			//Time System
+			/*** ADD_START ***/
+		    if (TimeSystem.System.Enabled)
+		    {
+		        from.LocalOverheadMessage(MessageType.Regular, 0x3B2, false, String.Format("You peer into the sky and see the moon is {0}.", TimeSystem.System.GetMoonPhaseName(from.X)));
+		    }
+		    else
+		    {
+			/*** ADD_END ***/
+		        from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1008155); // You peer into the heavens, seeking the moons...
+		
+		        from.Send(new MessageLocalizedAffix(from.Serial, from.Body, MessageType.Regular, 0x3B2, 3, 1008146 + (int)Clock.GetMoonPhase(Map.Trammel, from.X, from.Y), "", AffixType.Prepend, "Trammel : ", ""));
+		        from.Send(new MessageLocalizedAffix(from.Serial, from.Body, MessageType.Regular, 0x3B2, 3, 1008146 + (int)Clock.GetMoonPhase(Map.Felucca, from.X, from.Y), "", AffixType.Prepend, "Felucca : ", ""));
+			/*** ADD_START ***/
+		    }
+			/*** ADD_END ***/
+			
 			PlayerMobile player = from as PlayerMobile;
-
+		
 			if ( player != null )
 			{
 				QuestSystem qs = player.Quest;
-
+		
 				if ( qs is WitchApprenticeQuest )
 				{
 					FindIngredientObjective obj = qs.FindObjective( typeof( FindIngredientObjective ) ) as FindIngredientObjective;
-
+		
 					if ( obj != null && !obj.Completed && obj.Ingredient == Ingredient.StarChart )
 					{
 						int hours, minutes;
 						Clock.GetTime( from.Map, from.X, from.Y, out hours, out minutes );
-
+		
 						if ( hours < 5 || hours > 17 )
 						{
 							player.SendLocalizedMessage( 1055040 ); // You gaze up into the glittering night sky.  With great care, you compose a chart of the most prominent star patterns.
-
+		
 							obj.Complete();
 						}
 						else

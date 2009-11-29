@@ -162,8 +162,9 @@ Engines
 
 	* Gioco Battle Chess (scacchi giganti)
 	* rimosso il faction system da felucca
-
-
+	* Sistema di timing e season
+	
+	
 Nuovi items
 
 	* Dungeon chest

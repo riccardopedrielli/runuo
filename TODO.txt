@@ -50,8 +50,6 @@ Craft
 	
 Mondo
 
-	* Sistema di timing e season
-
 
 Staff Related
 
