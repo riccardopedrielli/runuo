@@ -1346,7 +1346,7 @@ namespace Server.TimeSystem
             if (month == 3 && day == 21 && hour == 0 && minute == 0) 
             {
             	Map map;
-                for (int i = 1; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
 
                     map = Map.AllMaps[i];
@@ -1367,7 +1367,7 @@ namespace Server.TimeSystem
             {
                 Map map;
 
-                for (int i = 1; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     map = Map.AllMaps[i];
                     map.Season = 1;
@@ -1386,7 +1386,7 @@ namespace Server.TimeSystem
             if (month == 9 && day == 21 && hour == 0 && minute == 0)
             {
             	Map map;
-                for (int i = 1; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
 
                     map = Map.AllMaps[i];
@@ -1406,7 +1406,7 @@ namespace Server.TimeSystem
             if (month == 12 && day == 21 && hour == 0 && minute == 0)
             {
             	Map map;
-                for (int i = 1; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
 
                     map = Map.AllMaps[i];
