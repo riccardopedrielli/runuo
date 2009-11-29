@@ -121,6 +121,14 @@ namespace Server.TimeSystem
             m_TimeFormat = m_TimeFormat.Replace('$', Support.CodeChar);
             m_ClockTimeFormat = m_ClockTimeFormat.Replace('$', Support.CodeChar);
 
+			// Start to Adjust Season on Maps
+			Map map;
+			for (int i = 0; i < 5; i++)
+			{
+				map = Map.AllMaps[i];
+				map.Season = Season;
+			}
+
             Console.WriteLine(String.Format("Time System: {0}", GetTime(0, false)));
         }
 
@@ -130,7 +138,7 @@ namespace Server.TimeSystem
 
         public const string Version = "1.1.12";
 
-        public const int BinaryVersion = 2; // The version number used in the data file.
+        public const int BinaryVersion = 3; // The version number used in the data file.
 
         private static readonly string m_DataDirectory = Path.Combine(Core.BaseDirectory, Core.Unix ? @"Data/Custom/Time System" : @"Data\Custom\Time System");
         private const string m_DataFileName = "Time System.dat";
@@ -243,6 +251,8 @@ namespace Server.TimeSystem
         private static string m_TimeFormat = String.Format("{0} {1}", m_TimeFormatPreset1, m_TimeFormatMoonPhase);
         private static string m_ClockTimeFormat = m_TimeFormatPreset1;
 
+		private static int m_Season = 0;
+
         private static ArrayList m_LightsList;
 
         private static bool m_LightsOn = false;
@@ -299,6 +309,8 @@ namespace Server.TimeSystem
 
         public static string TimeFormat { get { return m_TimeFormat; } }
         public static string ClockTimeFormat { get { return m_ClockTimeFormat; } }
+
+		public static int Season { get { return m_Season; } }
 
         public static int CurrentLevel { get { return m_CurrentLevel; } }
 
@@ -559,6 +571,11 @@ namespace Server.TimeSystem
                             m_ClockTimeFormat = reader.ReadString();
                         }
 
+						if (version >= 3)
+						{
+							m_Season = reader.ReadInt32();
+						}
+
                         reader.Close();
 
                         Console.WriteLine("Time System: Loading complete.");
@@ -650,6 +667,8 @@ namespace Server.TimeSystem
 
                     writer.Write(m_TimeFormat);
                     writer.Write(m_ClockTimeFormat);
+
+					writer.Write(m_Season);
 
                     writer.Close();
 
@@ -1352,6 +1371,9 @@ namespace Server.TimeSystem
                     map = Map.AllMaps[i];
                     map.Season = 0;
 
+					// Storing Season
+					m_Season = 0;
+
                     foreach (NetState state in NetState.Instances)
                     {
                         Mobile m = state.Mobile;
@@ -1371,6 +1393,9 @@ namespace Server.TimeSystem
                 {
                     map = Map.AllMaps[i];
                     map.Season = 1;
+
+					// Storing Season
+					m_Season = 1;
 
                     foreach (NetState state in NetState.Instances)
                     {
@@ -1392,6 +1417,9 @@ namespace Server.TimeSystem
                     map = Map.AllMaps[i];
                     map.Season = 2;
 
+					// Storing Season
+					m_Season = 2;
+
                     foreach (NetState state in NetState.Instances)
                     {
                         Mobile m = state.Mobile;
@@ -1411,6 +1439,9 @@ namespace Server.TimeSystem
 
                     map = Map.AllMaps[i];
                     map.Season = 3;
+
+					// Storing Season
+					m_Season = 3;
 
                     foreach (NetState state in NetState.Instances)
                     {
