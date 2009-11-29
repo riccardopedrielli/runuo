@@ -185,7 +185,8 @@ Staff related
 	* Generazione porte, sign, moongates e teleporter solo su Felucca
 	* Aggiunto il Sorious' FireFeet
 	* Aggiunto il parametro di avvio (-compilescripts) al server per avviare la compilazione degli script, altrimenti carica la dll direttamente
-	
+	* Aggiunto comando [season per cambiare la stagione
+	* Aggiunta la gestione del MOTD
 	
 File Cancellati
 	/Scripts/Engines/Virtues/
