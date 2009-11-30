@@ -95,7 +95,7 @@ Craft
     * Eliminati craft SE da Blacksmithy.
     * Eliminati craft SE da Bowcraft.
 	* Eliminati i craft delle Quiver da Tailoring.
-	* Aggiunto il craft di una Quiver senza proprietà e con grafica di Quiver of Infinity a Tailoring.
+	* Aggiunto il craft di una Quiver custom a Tailoring.
     * Bonus al danno delle armi exceptional: Arms Lore / 3
     * Bonus alla resistenza delle armature exceptional: Arms Lore / 10
     * Probabilità di craftare item exceptional basata su Arms Lore
@@ -127,7 +127,7 @@ Account
 
 	* Limite a 2 pg
 	* Disattivati i veteran rewards
-	* [Provvisorio] Eliminato il warning in caso di client obsoleti [Da impostare a kick]
+	* Kick dopo 10 secondo in caso la versione del client sia diversa da quella richiesta.
 	* [Provvisorio] Eliminato il delay per la cancellazione del pg [Da impostare a 7 giorni]
 
 
@@ -170,6 +170,7 @@ Engines
 Nuovi items
 
 	* Dungeon chest
+	* Quiver che dimezza il peso delle frecce con grafica di Quiver of Infinity
 
 	
 Varie

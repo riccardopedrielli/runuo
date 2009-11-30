@@ -25,7 +25,7 @@ namespace Server.Misc
 		/*
 		private static OldClientResponse m_OldClientResponse = OldClientResponse.LenientKick;
 		*/
-		private static OldClientResponse m_OldClientResponse = OldClientResponse.Ignore;
+		private static OldClientResponse m_OldClientResponse = OldClientResponse.Kick;
 		/*** MOD_END ***/
 
 		private static ClientVersion m_Required;

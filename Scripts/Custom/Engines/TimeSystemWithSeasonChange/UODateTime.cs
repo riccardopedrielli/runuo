@@ -1,5 +1,6 @@
 using System;
-using Server;
+using Server.TimeSystem;
+using Server.Commands;
 
 namespace Server
 {
@@ -13,7 +14,7 @@ namespace Server
 			public short Month;
 			public short Year;
 			public short Season;
-			public TimeSystem.System.MoonPhase MoonPhase;
+			public short MoonPhase;
 		}
 		
 		public static DateTimeInfo Now()
@@ -31,7 +32,7 @@ namespace Server
 			info.Day = (short)(Days % 73 + 1);
 			info.Month = (short)(Months % 12 + 1);
 			info.Year = (short)(Years);
-			info.MoonPhase = (TimeSystem.System.MoonPhase)(Days % 16);
+			info.MoonPhase = (short)(Days % 16);
 			
 			short DayOfTheYear = (short)(Days % 876);
 			if(DayOfTheYear < 189)
@@ -46,6 +47,18 @@ namespace Server
 				info.Season = 0; //Winter
 			
 			return info;
+		}
+		
+		public static void Initialize()
+		{
+			CommandSystem.Register("UOTime", AccessLevel.Seer, new CommandEventHandler(UOTime_OnCommand));
+		}
+
+		public static void UOTime_OnCommand(CommandEventArgs e)
+		{
+			DateTimeInfo info = Now();
+			
+			e.Mobile.SendMessage("{0}/{1}/{2} {3}:{4} Season:{5} MoonPhase:{6}", info.Day, info.Month, info.Year, info.Hour, info.Minute, info.Season, info.MoonPhase);
 		}
 	}
 }
