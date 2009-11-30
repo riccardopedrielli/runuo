@@ -110,12 +110,12 @@ namespace Server.TimeSystem
 
             CommandSystem.Register("TS", AccessLevel.GameMaster, new CommandEventHandler(TimeSystem_OnCommand));
             CommandSystem.Register("BaseTime", AccessLevel.GameMaster, new CommandEventHandler(BaseTime_OnCommand));
-            CommandSystem.Register("Time", AccessLevel.Player, new CommandEventHandler(Time_OnCommand));
+            CommandSystem.Register("Time", AccessLevel.GameMaster, new CommandEventHandler(Time_OnCommand));
 
             PopulateLightsList();
 
             Load();
-
+						
             Start();
 
             m_TimeFormat = m_TimeFormat.Replace('$', Support.CodeChar);
@@ -501,6 +501,24 @@ namespace Server.TimeSystem
 
         private static bool Load()
         {
+			SetVariable("defaults", null, false, false);
+
+			UODateTime.DateTimeInfo dateinfo = UODateTime.Now();
+
+			m_DaysPerMonth = 73;
+			m_MoonPhaseDay = dateinfo.MoonPhase;
+			m_Year = dateinfo.Year;
+			m_Month = dateinfo.Month;
+			m_Day = dateinfo.Day;
+			m_Hour = dateinfo.Hour;
+			m_Minute = dateinfo.Minute;
+
+			return true;
+
+			/*
+			 * Caricamento originale
+			 * 
+			 * 
             if (!CheckPaths())
             {
                 Console.WriteLine(String.Format("Time System: \"{0}\" not found!  Creating a new file using the current settings.", m_DataFileName));
@@ -608,10 +626,16 @@ namespace Server.TimeSystem
                     }
                 }
             }
+			*/
         }
 
         private static bool Save()
-        {
+        {			
+			return true;
+			/*
+			 * 
+			 * salvataggio originale
+			 * 
             CheckPaths();
 
             using (BinaryWriter writer = new BinaryWriter(File.Open(m_DataLocation, FileMode.Create)))
@@ -685,8 +709,10 @@ namespace Server.TimeSystem
                     return false;
                 }
             }
+			*/
         }
 
+		/*
         private static bool CheckPaths()
         {
             if (!Directory.Exists(m_DataDirectory))
@@ -705,7 +731,7 @@ namespace Server.TimeSystem
 
             return true;
         }
-
+		*/
         #endregion
 
         #region Game Commands
