@@ -20,7 +20,7 @@ Armature
 
 Scudi
 
-	* Impostare alcune props e craft
+	* Impostare durability e skill/materiali craft
 
 
 Mob

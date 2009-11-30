@@ -2736,6 +2736,8 @@
     <Compile Include="Items\Quivers\QuiverOfLightning.cs" />
     <Compile Include="Items\Addons\SolenAntHole.cs" />
     <Compile Include="Custom\Engines\TimeSystemWithSeasonChange\Season.cs" />
+    <Compile Include="Custom\Engines\TimeSystemWithSeasonChange\UODateTime.cs" />
+    <Compile Include="Custom\Items\Quivers\Quiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Output\Scripts.CS.hash">
@@ -2744,4 +2746,7 @@
     <None Include="Custom\Misc\MOTD\MOTD_Gump.gump" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Custom\Items\Quivers\" />
+  </ItemGroup>
 </Project>

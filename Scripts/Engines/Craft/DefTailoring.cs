@@ -216,6 +216,12 @@ namespace Server.Engines.Craft
 			*/
 			/*** MOD_END ***/
 
+			/*** ADD_START ***/
+			
+			/*** ADD_END ***/
+			AddCraft( typeof( Quiver ), 1015283, 1032657, 65.0, 115.0, typeof( Leather ), 1044462, 28, 1044463 );
+			/*** DEL_START ***/
+			/*
 			if( Core.ML )
 			{
 				index = AddCraft( typeof( ElvenQuiver ), 1015283, 1032657, 65.0, 115.0, typeof( Leather ), 1044462, 28, 1044463 );
@@ -242,6 +248,8 @@ namespace Server.Engines.Craft
 				AddRecipe( index, 505 );
 				SetNeededExpansion( index, Expansion.ML );
 			}
+			*/
+			/*** DEL_END ***/
 
 			AddCraft( typeof( OilCloth ), 1015283, 1041498, 74.6, 99.6, typeof( Cloth ), 1044286, 1, 1044287 );
 

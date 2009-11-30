@@ -390,6 +390,9 @@ namespace Server.Engines.Craft
 					index = AddCraft( typeof( ElvenMachete ), 1011081, 1031573, 70.0, 120.0, typeof( IronIngot ), 1044036, 14, 1044037 );
 					SetNeededExpansion( index, Expansion.ML );
 
+					/*** ADD_START ***/
+					/*
+					/*** ADD_END ***
 					index = AddCraft( typeof( RuneCarvingKnife ), 1011081, 1072915, 70.0, 120.0, typeof( IronIngot ), 1044036, 9, 1044037 );
 					AddRes( index, typeof( DreadHornMane ), 1032682, 1, 1053098 );
 					AddRes( index, typeof( Putrefication ), 1032678, 10, 1053098 );
@@ -422,9 +425,6 @@ namespace Server.Engines.Craft
 					ForceNonExceptional( index );
 					SetNeededExpansion( index, Expansion.ML );
 
-					/*** ADD_START ***/
-					/*
-					/*** ADD_END ***
 					index = AddCraft( typeof( TrueSpellblade ), 1011081, 1073513, 75.0, 125.0, typeof( IronIngot ), 1044036, 14, 1044037 );
 					AddRes( index, typeof( BlueDiamond ), 1032696, 1, 1044240 );
 					AddRecipe( index, 4 );
