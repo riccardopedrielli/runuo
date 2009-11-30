@@ -88,18 +88,18 @@ namespace Server.Items
 			else
 			{
 			/*** ADD_END ***/
-        		TimeSpan timeSpan = DateTime.Now - WorldStart;
+			TimeSpan timeSpan = DateTime.Now - WorldStart;
 
-        		totalMinutes = (int)(timeSpan.TotalSeconds / SecondsPerUOMinute);
+			totalMinutes = (int)(timeSpan.TotalSeconds / SecondsPerUOMinute);
 
-        		if ( map != null )
-            		totalMinutes += map.MapIndex * 320;
+			if ( map != null )
+				totalMinutes += map.MapIndex * 320;
 
-        		// Really on OSI this must be by subserver
-        		totalMinutes += x / 16;
+			// Really on OSI this must be by subserver
+			totalMinutes += x / 16;
 
-        		hours = (totalMinutes / 60) % 24;
-        		minutes = totalMinutes % 60;
+			hours = (totalMinutes / 60) % 24;
+			minutes = totalMinutes % 60;
 			/*** ADD_START ***/
     		}
 			/*** ADD_END ***/
@@ -172,13 +172,13 @@ namespace Server.Items
 			else
 			{
 			/*** ADD_END ***/
-  				int genericNumber;
-    			string exactTime;
+			int genericNumber;
+			string exactTime;
 
-    			GetTime( from, out genericNumber, out exactTime );
+			GetTime( from, out genericNumber, out exactTime );
 
-    			SendLocalizedMessageTo( from, genericNumber );
-    			SendLocalizedMessageTo( from, 1042958, exactTime ); // ~1_TIME~ to be exact
+			SendLocalizedMessageTo( from, genericNumber );
+			SendLocalizedMessageTo( from, 1042958, exactTime ); // ~1_TIME~ to be exact
 			/*** ADD_START ***/
 			}
 			/*** ADD_END ***/

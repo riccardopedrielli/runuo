@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -2735,14 +2735,14 @@
     <Compile Include="Items\Quivers\QuiverOfFire.cs" />
     <Compile Include="Items\Quivers\QuiverOfIce.cs" />
     <Compile Include="Items\Quivers\QuiverOfLightning.cs" />
+    <Compile Include="Items\Addons\SolenAntHole.cs" />
+    <Compile Include="Custom\Engines\TimeSystemWithSeasonChange\Season.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Output\Scripts.CS.hash">
       <Visible>False</Visible>
     </None>
-    <None Include="Items\Addons\SolenAntHole.cs">
-      <Visible>False</Visible>
-    </None>
+    <None Include="Custom\Misc\MOTD\MOTD_Gump.gump" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
