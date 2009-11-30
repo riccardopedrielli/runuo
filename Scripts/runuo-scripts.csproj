@@ -97,7 +97,6 @@
     <Compile Include="Custom\Misc\MOTD\Info.cs" />
     <Compile Include="Custom\Misc\MOTD\Main.cs" />
     <Compile Include="Custom\Misc\MOTD\Utility.cs" />
-    <Compile Include="Custom\Misc\Season.cs" />
     <Compile Include="Custom\Mobiles\Monsters\Elemental\Excremental.cs" />
     <Compile Include="Engines\Help\PageQueueGump.cs" />
     <Compile Include="Engines\Help\StuckMenu.cs" />
