@@ -88,18 +88,19 @@ Items
     * Rimossi reagenti, spellbook e oggetti aos da mob e treasure chest
 	* I BankCheck ora sono lootabili
 	* Bonus di alchemy sul danno delle pozioni explosion -50%.
+	* Eliminat la frase "Requires the Mondain's Legacy expansion" da tutti gli oggetti che l'avevano.
 
 	
 Craft
 
-    * Eliminati craft SE da Blacksmithy.
-    * Eliminati craft SE da Bowcraft.
+    * Eliminati craft SE da Blacksmithy, Tailoring, Bowcraft, Alchemy, Carpentry, Cooking, Masonry, Tinkering.
 	* Eliminati i craft delle Quiver da Tailoring.
 	* Aggiunto il craft di una Quiver custom a Tailoring.
     * Bonus al danno delle armi exceptional: Arms Lore / 3
     * Bonus alla resistenza delle armature exceptional: Arms Lore / 10
     * Probabilità di craftare item exceptional basata su Arms Lore
 	* Aggiunto il cauldron nei craft del tinker
+	* Eliminato il check sull'espansione.
 
 	
 Armi
@@ -127,7 +128,7 @@ Account
 
 	* Limite a 2 pg
 	* Disattivati i veteran rewards
-	* Kick dopo 10 secondo in caso la versione del client sia diversa da quella richiesta.
+	* Kick dopo 10 secondi in caso la versione del client sia diversa da quella richiesta.
 	* [Provvisorio] Eliminato il delay per la cancellazione del pg [Da impostare a 7 giorni]
 
 
@@ -170,7 +171,7 @@ Engines
 Nuovi items
 
 	* Dungeon chest
-	* Quiver che dimezza il peso delle frecce con grafica di Quiver of Infinity (Se exceptional da 10%damage increase ad archery)
+	* Quiver che dimezza il peso delle frecce con grafica di Quiver of Infinity, se exceptional da (ArmsLore/10)% damage increase ad archery
 
 	
 Varie
@@ -180,9 +181,8 @@ Varie
 	
 Staff related
 
-	* Sync with RunUO-svn: 433
+	* Sync with RunUO-svn: 442
 	* xmlSpawner 3.24
-	* Impostata la stagione 0 (primavera) su Felucca.
 	* TestRobe: toggle AccessLevel Player/Account con doppio click.
 	* Eliminati comandi decorate, decoratemag e vendorgen (verrà usato xmlSpawner)
 	* Generazione porte, sign, moongates e teleporter solo su Felucca

@@ -97,6 +97,8 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( ShortMusicStand ),			1044294, 1044313,	78.9, 103.9,	typeof( Log ), 1044041, 15, 1044351 );
 			AddCraft( typeof( TallMusicStand ),				1044294, 1044315,	81.5, 106.5,	typeof( Log ), 1044041, 20, 1044351 );
 			AddCraft( typeof( Easle ),						1044294, 1044317,	86.8, 111.8,	typeof( Log ), 1044041, 20, 1044351 );
+			/*** DEL_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( RedHangingLantern ), 1044294, 1029412, 65.0, 90.0, typeof( Log ), 1044041, 5, 1044351 );
@@ -117,6 +119,8 @@ namespace Server.Engines.Craft
 				AddRes( index, typeof( Cloth ), 1044286, 60, 1044287 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 
 			if( Core.AOS )	//Duplicate Entries to preserve ordering depending on era 
 			{
@@ -142,6 +146,8 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( YewWoodTable ),				1044291, 1044307,	63.1,  88.1,	typeof( Log ), 1044041, 23, 1044351 );
 			AddCraft( typeof( LargeTable ),					1044291, 1044308,	84.2, 109.2,	typeof( Log ), 1044041, 27, 1044351 );
 
+			/*** DEL_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( ElegantLowTable ),	1044291, 1030265,	80.0, 105.0,	typeof( Log ), 1044041, 35, 1044351 );
@@ -150,6 +156,8 @@ namespace Server.Engines.Craft
 				index = AddCraft( typeof( PlainLowTable ),		1044291, 1030266,	80.0, 105.0,	typeof( Log ), 1044041, 35, 1044351 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 
 			// Containers
 			AddCraft( typeof( WoodenBox ),					1044292, 1023709,	21.0,  46.0,	typeof( Log ), 1044041, 10, 1044351 );
@@ -161,6 +169,8 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( FancyArmoire ),				1044292, 1044312,	84.2, 109.2,	typeof( Log ), 1044041, 35, 1044351 );
 			AddCraft( typeof( Armoire ),					1044292, 1022643,	84.2, 109.2,	typeof( Log ), 1044041, 35, 1044351 );	
 
+			/*** DEL_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( PlainWoodenChest ),	1044292, 1030251, 90.0, 115.0,	typeof( Log ), 1044041, 30, 1044351 );
@@ -196,6 +206,8 @@ namespace Server.Engines.Craft
 				index = AddCraft( typeof( CherryArmoire ),	1044292, 1030328, 90.0, 115.0,	typeof( Log ), 1044041, 40, 1044351 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 
 			index = AddCraft( typeof( Keg ), 1044292, 1023711, 57.8, 82.8, typeof( BarrelStaves ), 1044288, 3, 1044253 );
 			AddRes( index, typeof( BarrelHoops ), 1044289, 1, 1044253 );
@@ -214,6 +226,8 @@ namespace Server.Engines.Craft
 				AddRes( index, typeof( Cloth ), 1044286, 5, 1044287 );
 			}
 
+			/*** DEL_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( Bokuto ), 1044295, 1030227, 70.0, 95.0, typeof( Log ), 1044041, 6, 1044351 );
@@ -227,6 +241,8 @@ namespace Server.Engines.Craft
 				AddRes( index, typeof( IronIngot ), 1044036, 5, 1044037 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 
 			// Instruments
 			index = AddCraft( typeof( LapHarp ), 1044293, 1023762, 63.1, 88.1, typeof( Log ), 1044041, 20, 1044351 );
@@ -253,12 +269,16 @@ namespace Server.Engines.Craft
 			AddSkill( index, SkillName.Musicianship, 45.0, 50.0 );
 			AddRes( index, typeof( Cloth ), 1044286, 15, 1044287 );	
 
+			/*** DEL_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( BambooFlute ), 1044293, 1030247, 80.0, 105.0, typeof( Log ), 1044041, 15, 1044351 );
 				AddSkill( index, SkillName.Musicianship, 45.0, 50.0 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 
 			// Misc
 			index = AddCraft( typeof( SmallBedSouthDeed ), 1044290, 1044321, 94.7, 113.1, typeof( Log ), 1044041, 100, 1044351 );

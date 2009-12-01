@@ -158,12 +158,16 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( Axle ), 1044042, 1024187, -25.0, 25.0, typeof( Log ), 1044041, 2, 1044351 );
 			AddCraft( typeof( RollingPin ), 1044042, 1024163, 0.0, 50.0, typeof( Log ), 1044041, 5, 1044351 );
 
+			/*** DEL_START ***/
+			/*
 			if( Core.SE )
 			{
 				index = AddCraft( typeof( Nunchaku ), 1044042, 1030158, 70.0, 120.0, typeof( IronIngot ), 1044036, 3, 1044037 );
 				AddRes( index, typeof( Log ), 1044041, 8, 1044351 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 			#endregion
 
 			#region Tools
@@ -227,11 +231,14 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( Spyglass ), 1044050, 1025365, 60.0, 110.0, typeof( IronIngot ), 1044036, 4, 1044037 );
 			AddCraft( typeof( Lantern ), 1044050, 1022597, 30.0, 80.0, typeof( IronIngot ), 1044036, 2, 1044037 );
 			AddCraft( typeof( HeatingStand ), 1044050, 1026217, 60.0, 110.0, typeof( IronIngot ), 1044036, 4, 1044037 );
-			/*** ADD_START ***/
-            // aggiunto il pentolone
-            AddCraft( typeof( Cauldron ), 1044050, 1022420, 50.0, 100.0, typeof( IronIngot ), 1044036, 8, 1044037 );
-            /*** ADD_END ***/
 
+			/*** ADD_START ***/
+			// aggiunto il pentolone
+			AddCraft( typeof( Cauldron ), 1044050, 1022420, 50.0, 100.0, typeof( IronIngot ), 1044036, 8, 1044037 );
+			/*** ADD_END ***/
+
+			/*** DEL_START ***/
+			/*
 			if ( Core.SE )
 			{
 				index = AddCraft( typeof( ShojiLantern ), 1044050, 1029404, 65.0, 115.0, typeof( IronIngot ), 1044036, 10, 1044037 );
@@ -253,6 +260,8 @@ namespace Server.Engines.Craft
 				SetNeededExpansion( index, Expansion.SE );
 
 			}
+			*/
+			/*** DEL_END ***/
 			#endregion
 
 			#region Jewelry

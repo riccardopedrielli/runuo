@@ -125,6 +125,8 @@ namespace Server.Engines.Craft
 			index = AddCraft( typeof( UnbakedPumpkinPie ), 1044496, 1041342, 0.0, 100.0, typeof( Dough ), 1044469, 1, 1044253 );
 			AddRes( index, typeof( Pumpkin ), 1044484, 1, 1044253 );
 
+			/*** DEL_START ***/
+			/*
 			if ( Core.SE )
 			{
 				index = AddCraft( typeof( GreenTea ), 1044496, 1030315, 80.0, 130.0, typeof( GreenTeaBasket ), 1030316, 1, 1044253 );
@@ -144,16 +146,22 @@ namespace Server.Engines.Craft
 				AddRes( index, typeof( RawFishSteak ), 1044476, 10, 1044253 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 
 			index = AddCraft( typeof( TribalPaint ), 1044496, 1040000, 80.0, 80.0, typeof( SackFlour ), 1044468, 1, 1044253 );
 			AddRes( index, typeof( TribalBerry ), 1046460, 1, 1044253 );
 
+			/*** DEL_START ***/
+			/*
 			if ( Core.SE )
 			{
 				index = AddCraft( typeof( EggBomb ), 1044496, 1030249, 90.0, 120.0, typeof( Eggs ), 1044477, 1, 1044253 );
 				AddRes( index, typeof( SackFlour ), 1044468, 3, 1044253 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+			*/
+			/*** DEL_END ***/
 			/* End Preparations */
 
 			/* Begin Baking */
@@ -193,6 +201,8 @@ namespace Server.Engines.Craft
 			index = AddCraft( typeof( PumpkinPie ), 1044497, 1041348, 0.0, 100.0, typeof( UnbakedPumpkinPie ), 1046461, 1, 1044253 );
 			SetNeedOven( index, true );
 
+			/*** DEL_START ***/
+			/*
 			if ( Core.SE )
 			{
 				index = AddCraft( typeof( MisoSoup ), 1044497, 1030317, 60.0, 110.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
@@ -215,6 +225,8 @@ namespace Server.Engines.Craft
 				SetNeededExpansion( index, Expansion.SE );
 				SetNeedOven( index, true );
 			}
+			*/
+			/*** DEL_END ***/
 			/* End Baking */
 
 			/* Begin Barbecue */

@@ -221,11 +221,15 @@ namespace Server.Engines.Craft
 			craftItem.NeedMill = needMill;
 		}
 
+		/*** DEL_START ***/
+		/*
 		public void SetNeededExpansion( int index, Expansion expansion )
 		{
 			CraftItem craftItem = m_CraftItems.GetAt( index );
 			craftItem.RequiredExpansion = expansion;
 		}
+		*/
+		/*** DEL_END ***/
 
 		public void AddRes( int index, Type type, TextDefinition name, int amount )
 		{

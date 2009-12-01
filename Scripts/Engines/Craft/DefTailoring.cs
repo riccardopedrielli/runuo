@@ -213,13 +213,14 @@ namespace Server.Engines.Craft
 				index = AddCraft( typeof( Obi ), 1015283, 1030219, 20.0, 45.0, typeof( Cloth ), 1044286, 6, 1044287 );
 				SetNeededExpansion( index, Expansion.SE );
 			}
+
 			*/
 			/*** MOD_END ***/
 
 			/*** ADD_START ***/
-			
-			/*** ADD_END ***/
 			AddCraft( typeof( Quiver ), 1015283, "quiver", 65.0, 115.0, typeof( Leather ), 1044462, 28, 1044463 );
+			/*** ADD_END ***/
+
 			/*** DEL_START ***/
 			/*
 			if( Core.ML )

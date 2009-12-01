@@ -362,33 +362,61 @@ namespace Server.Engines.Craft
 				SetNeededExpansion( index, Expansion.SE );
 				index = AddCraft( typeof( Sai ), 1011081, 1030234, 50.0, 100.0, typeof( IronIngot ), 1044036, 12, 1044037 );
 				SetNeededExpansion( index, Expansion.SE );
-				*/
-				/*** DEL_END ***/
+			*/
+			/*** DEL_END ***/
 				/*** DEL_START ***/
 				/*
 				/*** DEL_END ***/
 				if( Core.ML )
 				{
 					index = AddCraft( typeof( RadiantScimitar ), 1011081, 1031571, 75.0, 125.0, typeof( IronIngot ), 1044036, 15, 1044037 );
+					/*** DEL_START ***/
+					/*
 					SetNeededExpansion( index, Expansion.ML );
+					*/
+					/*** DEL_END ***/
 
 					index = AddCraft( typeof( WarCleaver ), 1011081, 1031567, 70.0, 120.0, typeof( IronIngot ), 1044036, 18, 1044037 );
+					/*** DEL_START ***/
+					/*
 					SetNeededExpansion( index, Expansion.ML );
+					*/
+					/*** DEL_END ***/
 
 					index = AddCraft( typeof( ElvenSpellblade ), 1011081, 1031564, 70.0, 120.0, typeof( IronIngot ), 1044036, 14, 1044037 );
+					/*** DEL_START ***/
+					/*
 					SetNeededExpansion( index, Expansion.ML );
+					*/
+					/*** DEL_END ***/
 
 					index = AddCraft( typeof( AssassinSpike ), 1011081, 1031565, 70.0, 120.0, typeof( IronIngot ), 1044036, 9, 1044037 );
+					/*** DEL_START ***/
+					/*
 					SetNeededExpansion( index, Expansion.ML );
+					*/
+					/*** DEL_END ***/
 
 					index = AddCraft( typeof( Leafblade ), 1011081, 1031566, 70.0, 120.0, typeof( IronIngot ), 1044036, 12, 1044037 );
+					/*** DEL_START ***/
+					/*
 					SetNeededExpansion( index, Expansion.ML );
+					*/
+					/*** DEL_END ***/
 
 					index = AddCraft( typeof( RuneBlade ), 1011081, 1031570, 70.0, 120.0, typeof( IronIngot ), 1044036, 15, 1044037 );
+					/*** DEL_START ***/
+					/*
 					SetNeededExpansion( index, Expansion.ML );
+					*/
+					/*** DEL_END ***/
 
 					index = AddCraft( typeof( ElvenMachete ), 1011081, 1031573, 70.0, 120.0, typeof( IronIngot ), 1044036, 14, 1044037 );
+					/*** DEL_START ***/
+					/*
 					SetNeededExpansion( index, Expansion.ML );
+					*/
+					/*** DEL_END ***/
 
 					/*** ADD_START ***/
 					/*
@@ -588,7 +616,12 @@ namespace Server.Engines.Craft
 			if( Core.ML )
 			{
 				index = AddCraft( typeof( OrnateAxe ), 1011082, 1031572, 70.0, 120.0, typeof( IronIngot ), 1044036, 18, 1044037 );
+				/*** DEL_START ***/
+				/*
 				SetNeededExpansion( index, Expansion.ML );
+
+				*/
+				/*** DEL_END ***/
 
 				/*** ADD_START ***/
 				/*
@@ -671,9 +704,7 @@ namespace Server.Engines.Craft
 			}
 			*/
 			/*** DEL_END ***/
-			/*** DEL_START ***/
 			/*
-			/*** DEL_END ***/
 			if( Core.ML )
 			{
 				index = AddCraft( typeof( DiamondMace ), 1011084, 1073568, 70.0, 120.0, typeof( IronIngot ), 1044036, 20, 1044037 );
@@ -687,9 +718,6 @@ namespace Server.Engines.Craft
 				ForceNonExceptional( index );
 				SetNeededExpansion( index, Expansion.ML );
 
-				/*** ADD_START ***/
-				/*
-				/*** ADD_END ***
 				index = AddCraft( typeof( RubyMace ), 1011084, 1073529, 75.0, 125.0, typeof( IronIngot ), 1044036, 20, 1044037 );
 				AddRes( index, typeof( FireRuby ), 1032695, 1, 1044240 );
 				AddRecipe( index, 38 );
@@ -710,9 +738,6 @@ namespace Server.Engines.Craft
 				AddRecipe( index, 41 );
 				SetNeededExpansion( index, Expansion.ML );
 			}*/
-			/*** ADD_START ***/
-			}
-			/*** ADD_END ***/
 			#endregion
 
 			#region Dragon Scale Armor

@@ -1,5 +1,5 @@
 using System;
-using Server;
+using Server.Engines.Craft;
 
 namespace Server.Items
 {
@@ -9,7 +9,8 @@ namespace Server.Items
 		[Constructable]
 		public Quiver() : base( 0x2B02 )
 		{
-				WeightReduction = 50;
+			Name = "Quiver";
+			WeightReduction = 50;
 		}
 
 		public Quiver( Serial serial ) : base( serial )
@@ -29,5 +30,20 @@ namespace Server.Items
 
 			int version = reader.ReadEncodedInt();
 		}
+		
+		#region ICraftable
+		public override int OnCraft( int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue )
+		{
+			Quality = (ClothingQuality) quality;
+
+			if ( makersMark )
+				Crafter = from;
+			
+			if(Quality == ClothingQuality.Exceptional)
+				DamageIncrease = (int)(from.Skills.ArmsLore.Value / 10);
+
+			return quality;
+		}
+		#endregion
 	}
 }

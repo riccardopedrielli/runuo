@@ -51,6 +51,8 @@ namespace Server.Engines.Craft
 			set { m_ForceNonExceptional = value; }
 		}
 	
+		/*** DEL_START ***/
+		/*
 
 		private Expansion m_RequiredExpansion;
 
@@ -59,6 +61,8 @@ namespace Server.Engines.Craft
 			get { return m_RequiredExpansion; }
 			set { m_RequiredExpansion = value; }
 		}
+		*/
+		/*** DEL_END ***/
 
 		private Recipe m_Recipe;
 
@@ -904,8 +908,12 @@ namespace Server.Engines.Craft
 		{
 			if ( from.BeginAction( typeof( CraftSystem ) ) )
 			{
+				/*** DEL_START ***/
+				/*
 				if( RequiredExpansion == Expansion.None || ( from.NetState != null && from.NetState.SupportsExpansion( RequiredExpansion ) ) )
 				{
+				*/
+				/*** DEL_END ***/
 					bool allRequiredSkills = true;
 					double chance = GetSuccessChance( from, typeRes, craftSystem, false, ref allRequiredSkills );
 
@@ -967,12 +975,16 @@ namespace Server.Engines.Craft
 						from.EndAction( typeof( CraftSystem ) );
 						from.SendGump( new CraftGump( from, craftSystem, tool, 1044153 ) ); // You don't have the required skills to attempt this item.
 					}
+				/*** DEL_START ***/
+				/*
 				}
 				else
 				{
 					from.EndAction( typeof( CraftSystem ) );
 					from.SendGump( new CraftGump( from, craftSystem, tool, RequiredExpansionMessage( RequiredExpansion ) ) ); //The {0} expansion is required to attempt this item.
 				}
+				*/
+				/*** DEL_END ***/
 			}
 			else
 			{
@@ -980,6 +992,8 @@ namespace Server.Engines.Craft
 			}
 		}
 
+		/*** DEL_START ***/
+		/*
 		private object RequiredExpansionMessage( Expansion expansion )	//Eventually convert to TextDefinition, but that requires that we convert all the gumps to ues it too.  Not that it wouldn't be a bad idea.
 		{
 			switch( expansion )
@@ -992,6 +1006,8 @@ namespace Server.Engines.Craft
 					return String.Format( "The \"{0}\" expansion is required to attempt this item.", ExpansionInfo.GetInfo( expansion ).Name );
 			}
 		}
+		*/
+		/*** DEL_END ***/
 
 		public void CompleteCraft( int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CustomCraft customCraft )
 		{
