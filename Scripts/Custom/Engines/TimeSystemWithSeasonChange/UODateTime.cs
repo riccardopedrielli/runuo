@@ -36,15 +36,15 @@ namespace Server
 			
 			short DayOfTheYear = (short)(Days % 876);
 			if(DayOfTheYear < 189)
-				info.Season = 0; //Winter
+				info.Season = 3; //Winter
 			else if(DayOfTheYear < 408)
-				info.Season = 1; //Spring
+				info.Season = 0; //Spring
 			else if(DayOfTheYear < 627)
 				info.Season = 1; //Summer
 			else if(DayOfTheYear < 846)
-				info.Season = 1; //Fall
+				info.Season = 2; //Fall
 			else
-				info.Season = 0; //Winter
+				info.Season = 3; //Winter
 			
 			return info;
 		}
