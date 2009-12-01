@@ -457,6 +457,9 @@ namespace Server.Items
 		public virtual int OnCraft( int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue )
 		{
 			Quality = (ClothingQuality) quality;
+			
+			if(Quality == ClothingQuality.Exceptional)
+				m_DamageIncrease = 10;
 
 			if ( makersMark )
 				Crafter = from;

@@ -219,7 +219,7 @@ namespace Server.Engines.Craft
 			/*** ADD_START ***/
 			
 			/*** ADD_END ***/
-			AddCraft( typeof( Quiver ), 1015283, "Quiver", 65.0, 115.0, typeof( Leather ), 1044462, 28, 1044463 );
+			AddCraft( typeof( Quiver ), 1015283, "quiver", 65.0, 115.0, typeof( Leather ), 1044462, 28, 1044463 );
 			/*** DEL_START ***/
 			/*
 			if( Core.ML )

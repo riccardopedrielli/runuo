@@ -170,7 +170,7 @@ Engines
 Nuovi items
 
 	* Dungeon chest
-	* Quiver che dimezza il peso delle frecce con grafica di Quiver of Infinity
+	* Quiver che dimezza il peso delle frecce con grafica di Quiver of Infinity (Se exceptional da 10%damage increase ad archery)
 
 	
 Varie
