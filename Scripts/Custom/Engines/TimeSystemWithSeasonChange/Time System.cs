@@ -322,20 +322,22 @@ namespace Server.TimeSystem
             }
             set
             {
+				/*
                 if (value && !m_UseRealTime)
                 {
                     m_TimerSpeed = 60.0;
 
                     m_MoonPhaseTotalDays = 28;
-                }
+                }				
                 else if (!value && m_UseRealTime)
-                {
+                {				
                     m_TimerSpeed = 5.0;
 
                     m_MoonPhaseTotalDays = 16;
                 }
+				*/
 
-                m_UseRealTime = value;
+				m_UseRealTime = value;
             }
         }
 
@@ -506,6 +508,7 @@ namespace Server.TimeSystem
 			UODateTime.DateTimeInfo dateinfo = UODateTime.Now();
 
 			m_DaysPerMonth = 73;
+			m_UseRealTime = true;
 			m_MoonPhaseDay = dateinfo.MoonPhase;
 			m_Year = dateinfo.Year;
 			m_Month = dateinfo.Month;
@@ -1318,11 +1321,13 @@ namespace Server.TimeSystem
         {
             if (m_UseRealTime)
             {
-                m_Minute = DateTime.Now.Minute;
-                m_Hour = DateTime.Now.Hour;
-                m_Day = DateTime.Now.Day;
-                m_Month = DateTime.Now.Month;
-                m_Year = DateTime.Now.Year;
+				UODateTime.DateTimeInfo dateinfo = UODateTime.Now();
+								
+				m_Minute = dateinfo.Minute;
+				m_Hour = dateinfo.Hour;
+				m_Day = dateinfo.Day;
+				m_Month = dateinfo.Month;
+				m_Year = dateinfo.Year;
             }
             else
             {
