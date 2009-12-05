@@ -263,7 +263,11 @@ namespace Server.Items
 			if ( direct != 0 )
 				list.Add( 1079978, direct.ToString() ); // Direct Damage: ~1_PERCENT~%
 
+			/*** DEL_START ***/
+			/*
 			list.Add( 1075085 ); // Requirement: Mondain's Legacy
+			*/
+			/*** DEL_END ***/
 
 			if ( (prop = m_Attributes.DefendChance) != 0 )
 				list.Add( 1060408, prop.ToString() ); // defense chance increase ~1_val~%

@@ -122,12 +122,13 @@ namespace Server.TimeSystem
             m_ClockTimeFormat = m_ClockTimeFormat.Replace('$', Support.CodeChar);
 
 			// Start to Adjust Season on Maps
-			Map map;
+			/*Map map;
 			for (int i = 0; i < 5; i++)
 			{
 				map = Map.AllMaps[i];
 				map.Season = Season;
-			}
+			}*/
+			Map.Felucca.Season = Season;
 
             Console.WriteLine(String.Format("Time System: {0}", GetTime(0, false)));
         }
@@ -515,6 +516,7 @@ namespace Server.TimeSystem
 			m_Day = dateinfo.Day;
 			m_Hour = dateinfo.Hour;
 			m_Minute = dateinfo.Minute;
+			m_Season = dateinfo.Season;
 
 			return true;
 
@@ -1328,6 +1330,21 @@ namespace Server.TimeSystem
 				m_Day = dateinfo.Day;
 				m_Month = dateinfo.Month;
 				m_Year = dateinfo.Year;
+				if(m_Season != dateinfo.Season)
+				{
+					m_Season = dateinfo.Season;
+					Map.Felucca.Season = m_Season;
+					
+					foreach (NetState state in NetState.Instances)
+					{
+						Mobile m = state.Mobile;
+						if (m != null)
+						{
+							state.Send(SeasonChange.Instantiate(m.GetSeason(), true));
+							m.SendEverything();
+						}
+					}
+				}
             }
             else
             {
@@ -1390,103 +1407,6 @@ namespace Server.TimeSystem
                     moonPhaseDay -= m_MoonPhaseTotalDays;
                 }
             }
-            #region SEASONS
-            // added for seasons by LIACS
-
-            if (month == 3 && day == 21 && hour == 0 && minute == 0) 
-            {
-            	Map map;
-                for (int i = 0; i < 5; i++)
-                {
-
-                    map = Map.AllMaps[i];
-                    map.Season = 0;
-
-					// Storing Season
-					m_Season = 0;
-
-                    foreach (NetState state in NetState.Instances)
-                    {
-                        Mobile m = state.Mobile;
-                        if (m != null)
-                        {
-                            state.Send(SeasonChange.Instantiate(m.GetSeason(), true));
-                            m.SendEverything();
-                        }
-                    }
-                }
-			}
-            if (month == 6 && day == 21 && hour == 0 && minute == 0)
-            {
-                Map map;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    map = Map.AllMaps[i];
-                    map.Season = 1;
-
-					// Storing Season
-					m_Season = 1;
-
-                    foreach (NetState state in NetState.Instances)
-                    {
-                        Mobile m = state.Mobile;
-                        if (m != null)
-                        {
-                            state.Send(SeasonChange.Instantiate(m.GetSeason(), true));
-                            m.SendEverything();
-                        }
-                    }
-                }
-            }
-            if (month == 9 && day == 21 && hour == 0 && minute == 0)
-            {
-            	Map map;
-                for (int i = 0; i < 5; i++)
-                {
-
-                    map = Map.AllMaps[i];
-                    map.Season = 2;
-
-					// Storing Season
-					m_Season = 2;
-
-                    foreach (NetState state in NetState.Instances)
-                    {
-                        Mobile m = state.Mobile;
-                        if (m != null)
-                        {
-                            state.Send(SeasonChange.Instantiate(m.GetSeason(), true));
-                            m.SendEverything();
-                        }
-                    }
-                }
-            }
-            if (month == 12 && day == 21 && hour == 0 && minute == 0)
-            {
-            	Map map;
-                for (int i = 0; i < 5; i++)
-                {
-
-                    map = Map.AllMaps[i];
-                    map.Season = 3;
-
-					// Storing Season
-					m_Season = 3;
-
-                    foreach (NetState state in NetState.Instances)
-                    {
-                        Mobile m = state.Mobile;
-                        if (m != null)
-                        {
-                            state.Send(SeasonChange.Instantiate(m.GetSeason(), true));
-                            m.SendEverything();
-                        }
-                    }
-                }
-            }
-            // end added for seasons by LIACS
-            #endregion SEASONS
         }
 
         #endregion
