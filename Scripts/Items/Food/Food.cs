@@ -8,9 +8,12 @@ namespace Server.Items
 {
 	public abstract class Food : Item
 	{
-		private Mobile m_Poisoner;
-		private Poison m_Poison;
+		private Mobile m_Poisoner;		
+		private Poison m_Poison;		
 		private int m_FillFactor;
+		/*** ADD_START ***/
+		public List<int> poison_level = new List<int>();
+		/*** ADD_END ***/
 
 		[CommandProperty( AccessLevel.GameMaster )]
 		public Mobile Poisoner
@@ -42,11 +45,61 @@ namespace Server.Items
 			Stackable = true;
 			Amount = amount;
 			m_FillFactor = 1;
+			
+			/*** ADD_START ***/
+			for (int i = 0; i < amount; i++)
+				poison_level.Add(0);
+			/*** ADD_END ***/			
 		}
 
-		public Food( Serial serial ) : base( serial )
+		public Food(Serial serial)
+			: base(serial)
 		{
 		}
+
+		/*** ADD_START ***/
+		public override bool StackWith(Mobile from, Item dropped, bool playSound)
+		{
+			if (dropped.Stackable && Stackable && dropped.GetType() == GetType() && dropped.ItemID == ItemID && dropped.Hue == Hue && dropped.Name == Name && (dropped.Amount + Amount) <= 60000)
+			{
+				if (LootType != dropped.LootType)
+					LootType = LootType.Regular;
+								
+				Amount += dropped.Amount;				
+				poison_level.AddRange(((Food)dropped).poison_level);
+
+				dropped.Delete();
+
+				if (playSound && from != null)
+				{
+					int soundID = GetDropSound();
+
+					if (soundID == -1)
+						soundID = 0x42;
+
+					from.SendSound(soundID, GetWorldLocation());
+				}
+
+				return true;
+			}
+
+			return false;
+		}
+
+		public override void Consume(int amount)
+		{
+			Amount -= amount;
+			poison_level.RemoveAt(poison_level.Count - 1);
+
+			if (Amount <= 0)
+				Delete();		
+		}
+
+		public override void OnAfterDuped(Item newItem)
+		{			
+			((Food)newItem).poison_level = poison_level.GetRange( poison_level.Count - newItem.Amount, newItem.Amount );
+		}
+		/*** ADD_END ***/
 
 		public override void GetContextMenuEntries( Mobile from, List<ContextMenuEntry> list )
 		{
@@ -78,8 +131,15 @@ namespace Server.Items
 				if ( from.Body.IsHuman && !from.Mounted )
 					from.Animate( 34, 5, 1, true, false, 0 );
 
+				/*** MOD_START ***/
+				/*
 				if ( m_Poison != null )
 					from.ApplyPoison( m_Poisoner, m_Poison );
+				*/
+
+				if (poison_level[poison_level.Count - 1] > 0)
+					from.ApplyPoison(from, Poison.GetPoison(poison_level[poison_level.Count - 1]));					
+				/*** MOD_END ***/
 
 				Consume();
 
@@ -126,7 +186,19 @@ namespace Server.Items
 		{
 			base.Serialize( writer );
 
+			/*** MOD_START ***/
+			/*
 			writer.Write( (int) 4 ); // version
+			*/
+			writer.Write( (int) 5 ); // version
+			/*** MOD_END ***/
+
+			/*** ADD_START ***/
+			writer.Write(poison_level.Count);
+
+			for (int i = 0; i < poison_level.Count; ++i)
+				writer.Write(poison_level[i]);
+			/*** ADD_END ***/
 
 			writer.Write( m_Poisoner );
 
@@ -171,6 +243,22 @@ namespace Server.Items
 					m_Poisoner = reader.ReadMobile();
 					goto case 3;
 				}
+				/*** ADD_START ***/
+				case 5:
+				{
+					int count = reader.ReadInt();
+
+					if (count > 0)
+					{
+						poison_level.Clear();
+
+						for (int i = 0; i < count; ++i)
+							poison_level.Add(reader.ReadInt());
+					}
+
+					goto case 4;
+				}
+				/*** ADD_END ***/
 			}
 		}
 	}

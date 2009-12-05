@@ -2,6 +2,7 @@ using System;
 using Server.Targeting;
 using Server.Items;
 using Server.Network;
+using System.Collections.Generic;
 
 namespace Server.SkillHandlers
 {
@@ -130,12 +131,21 @@ namespace Server.SkillHandlers
 								/*
 								((Food)m_Target).Poison = m_Poison;
 								*/
-								if (m_From.Skills[SkillName.Poisoning].Base / 3 < Utility.Random(100))
-									((Food)m_Target).Poison = Poison.GetPoison(m_Poison.Level + 1);
-								else
-									((Food)m_Target).Poison = m_Poison;
+								//((Food)m_Target).poison_level.Add()
 
-								poison_str = ((Food)m_Target).Poison.ToString();
+								//controllo di sicurezza per evitare crash
+								if (((Food)m_Target).poison_level == null)
+								{
+									((Food)m_Target).poison_level = new List<int>();
+									((Food)m_Target).poison_level.Add(0);
+								}
+
+								if (m_From.Skills[SkillName.Poisoning].Base / 3 < Utility.Random(100))
+									((Food)m_Target).poison_level[0] = m_Poison.Level + 1;
+								else
+									((Food)m_Target).poison_level[0] = m_Poison.Level;
+
+								poison_str = Poison.GetPoison(((Food)m_Target).poison_level[0]).Name;
 								/*** MOD_END ***/
 							}
 							else if ( m_Target is BaseWeapon )
