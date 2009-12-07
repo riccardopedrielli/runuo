@@ -134,13 +134,10 @@ namespace Server.SkillHandlers
 								//((Food)m_Target).poison_level.Add()
 
 								//controllo di sicurezza per evitare crash
-								if (((Food)m_Target).poison_level == null)
-								{
-									((Food)m_Target).poison_level = new List<int>();
-									((Food)m_Target).poison_level.Add(0);
-								}
+								if (((Food)m_Target).poison_level.Count <= 0)
+									((Food)m_Target).poison_level.Add(-1);
 
-								if (m_From.Skills[SkillName.Poisoning].Base / 3 < Utility.Random(100))
+								if (m_From.Skills[SkillName.Poisoning].Base / 3 > Utility.Random(100))
 									((Food)m_Target).poison_level[0] = m_Poison.Level + 1;
 								else
 									((Food)m_Target).poison_level[0] = m_Poison.Level;

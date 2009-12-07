@@ -42,6 +42,8 @@ namespace Server.SkillHandlers
 
 					if ( from.CheckTargetSkill( SkillName.TasteID, food, 0, 100 ) )
 					{
+						/*** MOD_START ***/
+						/*
 						if ( food.Poison != null )
 						{
 							food.SendLocalizedMessageTo( from, 1038284 ); // It appears to have poison smeared on it.
@@ -51,6 +53,23 @@ namespace Server.SkillHandlers
 							// No poison on the food
 							food.SendLocalizedMessageTo( from, 1010600 ); // You detect nothing unusual about this substance.
 						}
+						*/
+						bool isPoisoned = false;
+
+						for (int i = 0; i > food.poison_level.Count; i++)
+						{
+							if (food.poison_level[i] > -1)
+							{
+								isPoisoned = true;
+								break;
+							}
+						}
+
+						if ( isPoisoned )
+							food.SendLocalizedMessageTo(from, 1038284); // It appears to have poison smeared on it.
+						else // No poison on the food
+							food.SendLocalizedMessageTo(from, 1010600); // You detect nothing unusual about this substance.						
+						/*** MOD_END ***/
 					}
 					else
 					{

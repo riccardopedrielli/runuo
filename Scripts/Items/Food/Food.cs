@@ -48,7 +48,7 @@ namespace Server.Items
 			
 			/*** ADD_START ***/
 			for (int i = 0; i < amount; i++)
-				poison_level.Add(0);
+				poison_level.Add(-1);
 			/*** ADD_END ***/			
 		}
 
@@ -64,8 +64,8 @@ namespace Server.Items
 			{
 				if (LootType != dropped.LootType)
 					LootType = LootType.Regular;
-								
-				Amount += dropped.Amount;				
+
+				Amount += dropped.Amount;
 				poison_level.AddRange(((Food)dropped).poison_level);
 
 				dropped.Delete();
@@ -92,12 +92,13 @@ namespace Server.Items
 			poison_level.RemoveAt(poison_level.Count - 1);
 
 			if (Amount <= 0)
-				Delete();		
+				Delete();
 		}
 
 		public override void OnAfterDuped(Item newItem)
-		{			
-			((Food)newItem).poison_level = poison_level.GetRange( poison_level.Count - newItem.Amount, newItem.Amount );
+		{
+			((Food)newItem).poison_level = poison_level.GetRange( 0, newItem.Amount );
+			poison_level.RemoveRange( 0, newItem.Amount );
 		}
 		/*** ADD_END ***/
 
@@ -137,8 +138,8 @@ namespace Server.Items
 					from.ApplyPoison( m_Poisoner, m_Poison );
 				*/
 
-				if (poison_level[poison_level.Count - 1] > 0)
-					from.ApplyPoison(from, Poison.GetPoison(poison_level[poison_level.Count - 1]));					
+				if (poison_level.Count > 0 && poison_level[poison_level.Count - 1] > -1)
+					from.ApplyPoison(from, Poison.GetPoison(poison_level[poison_level.Count - 1]));
 				/*** MOD_END ***/
 
 				Consume();
@@ -195,8 +196,8 @@ namespace Server.Items
 
 			/*** ADD_START ***/
 			writer.Write(poison_level.Count);
-
-			for (int i = 0; i < poison_level.Count; ++i)
+									
+			for (int i = 0; i < poison_level.Count; i++)			
 				writer.Write(poison_level[i]);
 			/*** ADD_END ***/
 
@@ -247,13 +248,14 @@ namespace Server.Items
 				case 5:
 				{
 					int count = reader.ReadInt();
+					
 
 					if (count > 0)
 					{
 						poison_level.Clear();
-
-						for (int i = 0; i < count; ++i)
-							poison_level.Add(reader.ReadInt());
+						
+						for (int i = 0; i < count; i++)				
+							poison_level.Add(reader.ReadInt());						
 					}
 
 					goto case 4;
@@ -285,14 +287,14 @@ namespace Server.Items
 		{
 			base.Serialize( writer );
 
-			writer.Write( (int) 0 ); // version
+			writer.Write( (int) 0 ); // version			
 		}
 
 		public override void Deserialize( GenericReader reader )
 		{
 			base.Deserialize( reader );
 
-			int version = reader.ReadInt();
+			int version = reader.ReadInt();			
 		}
 	}
 
