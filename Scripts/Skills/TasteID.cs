@@ -56,7 +56,7 @@ namespace Server.SkillHandlers
 						*/
 						bool isPoisoned = false;
 
-						for (int i = 0; i > food.poison_level.Count; i++)
+						for (int i = 0; i < food.poison_level.Count; i++)
 						{
 							if (food.poison_level[i] > -1)
 							{
