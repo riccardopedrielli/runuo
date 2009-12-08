@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -97,6 +97,61 @@
     <Compile Include="Custom\Misc\MOTD\Info.cs" />
     <Compile Include="Custom\Misc\MOTD\Main.cs" />
     <Compile Include="Custom\Misc\MOTD\Utility.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Ambrosia.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\BoatTravel.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Britain.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\BritainPositive.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\BucsDen.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\CityNight.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\ConversationWithGwenno.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Cove.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\DeathTune.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\DragonsHigh.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\DragonsLow.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\DreadHornArea.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Dungeon.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\ElfCity.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Gargoyles.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\GoodEndGame.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\GoodVsEvil.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\GreatEarthSerpentsTheme.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\GrizzleDungeon.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Humanoids.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Jhelom.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Linelle.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\LordBritishsCastle.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\MelisandesLair.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\MinocNegative.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\MinocPositive.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\MoonglowPositive.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\NewMagincia.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Nujelm.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Overlord.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\ParoxysmusLair.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Paws.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\PubTune.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\SelimsBarStrikeCommander.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\SkaraBraePositive.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Stones.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Taiko.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Tavern1.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Tavern2.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Tavern3.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\TokunoDungeon.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\TrinsicPositive.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Turfin.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\UltimaVIISerpentIsleCombat.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\ValoriaPositive.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\ValoriaShips.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Vesper.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Victory.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Yew.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\YewPositive.cs" />
+    <Compile Include="Custom\Misc\Music Box\Music Box Songs\Zento.cs" />
+    <Compile Include="Custom\Misc\Music Box\MusicBox.cs" />
+    <Compile Include="Custom\Misc\Music Box\MusicBoxAddon.cs" />
+    <Compile Include="Custom\Misc\Music Box\MusicBoxComponent.cs" />
+    <Compile Include="Custom\Misc\Music Box\MusicBoxTrack.cs" />
     <Compile Include="Custom\Mobiles\Monsters\Elemental\Excremental.cs" />
     <Compile Include="Engines\Help\PageQueueGump.cs" />
     <Compile Include="Engines\Help\StuckMenu.cs" />
@@ -2746,7 +2801,4 @@
     <None Include="Custom\Misc\MOTD\MOTD_Gump.gump" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Custom\Items\Quivers\" />
-  </ItemGroup>
 </Project>

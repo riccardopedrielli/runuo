@@ -24,8 +24,7 @@ Skills
 Case
 	
     * Tolto il bonus di detecting hidden all'interno.
-    * Gli items "secure" e "locked" all'interno delle case sono rubabili con skill lockpicking a 100 (dex e stealing danno bonus) probabilità massima 5% e delay 10 secondi.
-    * Le case non decadono col tempo.
+    * Gli items "secure" e "locked" all'interno delle case sono rubabili con skill lockpicking a 100 (dex e stealing danno bonus) probabilità massima 5% e delay 10 secondi.    
     * Tutte le case sono accessibili a chiunque, pg e npc.
     * Rimosse le voci inutilizzate dal gump delle case.
     * Rimossa la possibilità di BAN e KICK delle case.
@@ -172,7 +171,7 @@ Nuovi items
 
 	* Dungeon chest
 	* Quiver che dimezza il peso delle frecce con grafica di Quiver of Infinity, se exceptional da (ArmsLore/10)% damage increase ad archery
-
+	* Music Box
 	
 Varie
 	* Abilitata la macro BandageSelf del client

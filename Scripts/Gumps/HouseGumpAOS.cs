@@ -288,9 +288,11 @@ namespace Server.Gumps
 					AddHtmlLocalized( 20, 190, 380, 20, 1018035, SelectedColor, false, false ); // This house is of modern design.
 					AddHtmlLocalized( 20, 210, 380, 20, (house is HouseFoundation) ? 1060681 : 1060680, SelectedColor, false, false ); // This is a (pre | custom)-built house.
 					/*** DEL_START ***/
-                    //le case sono sempre accessibili a tutti e non hanno decay
+                    //le case sono sempre accessibili a tutti
                     /*
 					AddHtmlLocalized( 20, 230, 380, 20, house.Public ? 1060678 : 1060679, SelectedColor, false, false ); // This house is (private | open to the public).
+					*/
+					/*** DEL_END ***/
 
 					switch ( house.DecayType )
 					{
@@ -310,9 +312,7 @@ namespace Server.Gumps
 							AddHtmlLocalized( 20, 250, 380, 20, 1062207, WarningColor, false, false ); // This house is <a href = "?ForceTopic97">Condemned</a>.
 							break;
 						}
-					}
-					*/
-                    /*** DEL_END ***/
+					}					
 
 					AddHtmlLocalized( 20, 290, 200, 20, 1060692, SelectedColor, false, false ); // Built On:
 					AddLabel( 250, 290, LabelHue, GetDateTime( house.BuiltOn ) );
@@ -323,13 +323,9 @@ namespace Server.Gumps
 					AddHtmlLocalized( 20, 330, 200, 20, 1061793, SelectedColor, false, false ); // House Value
 					AddLabel( 250, 330, LabelHue, house.Price.ToString() );
 
-                    /*** DEL_START ***/
-					/*
-					AddHtmlLocalized( 20, 360, 300, 20, 1011241, SelectedColor, false, false ); // Number of visits this building has had: 
+                    AddHtmlLocalized( 20, 360, 300, 20, 1011241, SelectedColor, false, false ); // Number of visits this building has had: 
 					AddLabel( 350, 360, LabelHue, house.Visits.ToString() );
-					*/
-                    /*** DEL_END ***/
-
+					
 					break;
 				}
 				case HouseGumpPageAOS.Security:

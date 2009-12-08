@@ -100,8 +100,6 @@ namespace Server.Multis
 
 		public override void OnSingleClick( Mobile from )
 		{
-			/*** DEL_START ***/
-			/*
 			if ( m_Owner != null && BaseHouse.DecayEnabled && m_Owner.DecayPeriod != TimeSpan.Zero )
 			{
 				string message;
@@ -119,9 +117,7 @@ namespace Server.Multis
 
 				LabelTo( from, "This house is {0}.", message );
 			}
-			*/
-			/*** DEL_END ***/
-
+		
 			base.OnSingleClick( from );
 		}
 
