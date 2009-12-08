@@ -33,6 +33,8 @@ Mob
 
 Account
 
+NPC
+	* Aggiungere i deeds delle case all'architect, decidere i prezzi per ogni singola casa e rimuovere l'house placement tool
 
 PG
 	
@@ -40,7 +42,6 @@ PG
 Skills
 
 	
-
 
 Craft
     
