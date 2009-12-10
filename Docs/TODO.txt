@@ -34,7 +34,7 @@ Mob
 Account
 
 NPC
-	* Aggiungere i deeds delle case all'architect, decidere i prezzi per ogni singola casa e rimuovere l'house placement tool
+	* decidere i prezzi per ogni singola casa
 
 PG
 	

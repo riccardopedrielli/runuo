@@ -18,10 +18,15 @@ namespace Server.Mobiles
 
 		public override void InitSBInfo()
 		{
+			/*** MOD_START ***/
+			/*
 			if ( !Core.AOS )
 				m_SBInfos.Add( new SBHouseDeed() );
-
+			
 			m_SBInfos.Add( new SBArchitect() );
+			*/
+			m_SBInfos.Add(new SBHouseDeed());
+			/*** MOD_END ***/
 		}
 
 		public Architect( Serial serial ) : base( serial )

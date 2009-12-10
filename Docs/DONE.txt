@@ -158,7 +158,7 @@ NPC
 	* Eliminati training skill SE e ML da npc
 	* Aggiunto il cauldron al vendor cuoco
 	* Rimossi i BulkOrder dai Blacksmith Weaponsmith Tailor e Weaver
-
+	* Aggiunti i deeds delle case all'architect e rimosso l'house placement tool
 	
 Engines
 
