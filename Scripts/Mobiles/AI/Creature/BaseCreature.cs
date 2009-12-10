@@ -774,6 +774,13 @@ namespace Server.Mobiles
 			if( TransformationSpellHelper.UnderTransformation( m, typeof( EtherealVoyageSpell ) ) )
 				return false;
 
+			/*** DEL_START ***/
+			/*
+			if ( m is PlayerMobile && ( (PlayerMobile)m ).HonorActive )
+				return false;
+			*/
+			/*** DEL_END ***/
+			
 			BaseCreature c = (BaseCreature)m;
 
 			return ( m_iTeam != c.m_iTeam || ( (m_bSummoned || m_bControlled) != (c.m_bSummoned || c.m_bControlled) )/* || c.Combatant == this*/ );

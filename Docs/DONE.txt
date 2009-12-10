@@ -181,7 +181,7 @@ Varie
 	
 Staff related
 
-	* Sync with RunUO-svn: 442
+	* Sync with RunUO-svn: 444
 	* xmlSpawner 3.24
 	* TestRobe: toggle AccessLevel Player/Account con doppio click.
 	* Eliminati comandi decorate, decoratemag e vendorgen (verrà usato xmlSpawner)

@@ -22,7 +22,7 @@ namespace Server.Mobiles
 			/*
 			if ( !Core.AOS )
 				m_SBInfos.Add( new SBHouseDeed() );
-			
+
 			m_SBInfos.Add( new SBArchitect() );
 			*/
 			m_SBInfos.Add(new SBHouseDeed());

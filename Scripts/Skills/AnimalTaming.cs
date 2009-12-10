@@ -180,7 +180,13 @@ namespace Server.SkillHandlers
 								creature.PrivateOverheadMessage( MessageType.Regular, 0x3B2, 502805, from.NetState ); // You seem to anger the beast!
 								creature.PlaySound( creature.GetAngerSound() );
 								creature.Direction = creature.GetDirectionTo( from );
-								creature.Combatant = from;
+								/*** MOD_START ***/
+								/*
+								if ( from is PlayerMobile && !( (PlayerMobile)from ).HonorActive )
+								*/
+								if ( from is PlayerMobile )
+								/*** MOD_END ***/
+									creature.Combatant = from;
 							}
 							else
 							{

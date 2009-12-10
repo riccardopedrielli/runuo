@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -2793,6 +2793,9 @@
     <Compile Include="Custom\Engines\TimeSystemWithSeasonChange\Season.cs" />
     <Compile Include="Custom\Engines\TimeSystemWithSeasonChange\UODateTime.cs" />
     <Compile Include="Custom\Items\Quivers\Quiver.cs" />
+    <Compile Include="Items\Misc\Firebomb.cs" />
+    <Compile Include="Items\Special\Special Scrolls\ScrollofTranscendence.cs" />
+    <Compile Include="Items\Special\Special Scrolls\ScrollofAlacrity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Output\Scripts.CS.hash">
