@@ -144,6 +144,7 @@ PG
 	* Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
 	* Se un pg da fantasma parla, non viene piu messo in automatico in war
 	* Rimosso il sistema di virtù
+	* Ogni singolo pg puo essere owner di una casa
 	
 	
 NPC

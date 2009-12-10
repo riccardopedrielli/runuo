@@ -201,8 +201,13 @@ namespace Server.Items
 			int index = info.ButtonID - 1;
 
 			if ( index >= 0 && index < m_Entries.Length )
-			{
+			{				
+				/*** MOD_START ***/
+				/*
 				if ( m_From.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse( m_From ) )
+				*/
+				if (m_From.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasHouse(m_From))
+				/*** MOD_END ***/
 					m_From.SendLocalizedMessage( 501271 ); // You already own a house, you may not place another!
 				else
 					m_From.Target = new NewHousePlacementTarget( m_Entries, m_Entries[index] );
@@ -362,7 +367,12 @@ namespace Server.Items
 			{
 				case HousePlacementResult.Valid:
 				{
+					/*** MOD_START ***/
+					/*
 					if ( from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse( from ) )
+					*/
+					if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasHouse(from))
+					/*** MOD_END ***/
 					{
 						from.SendLocalizedMessage( 501271 ); // You already own a house, you may not place another!
 					}
@@ -449,7 +459,12 @@ namespace Server.Items
 			{
 				case HousePlacementResult.Valid:
 				{
+					/*** MOD_START ***/
+					/*
 					if ( from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse( from ) )
+					*/
+					if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasHouse(from))
+					/*** MOD_END ***/
 					{
 						from.SendLocalizedMessage( 501271 ); // You already own a house, you may not place another!
 					}

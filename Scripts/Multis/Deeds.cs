@@ -132,7 +132,12 @@ namespace Server.Multis.Deeds
 			{
 				from.SendLocalizedMessage( 1042001 ); // That must be in your pack for you to use it.
 			}
+			/*** MOD_START ***/
+			/*
 			else if ( from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse( from ) )
+			*/
+			else if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasHouse(from))
+			/*** MOD_END ***/
 			{
 				from.SendLocalizedMessage( 501271 ); // You already own a house, you may not place another!
 			}
@@ -158,10 +163,15 @@ namespace Server.Multis.Deeds
 			{
 				from.SendLocalizedMessage( 1042001 ); // That must be in your pack for you to use it.
 			}
+			/*** MOD_START ***/
+			/*
 			else if ( from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse( from ) )
+			*/
+			else if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasHouse(from))
+			/*** MOD_END ***/
 			{
 				from.SendLocalizedMessage( 501271 ); // You already own a house, you may not place another!
-			}
+			}			
 			else
 			{
 				ArrayList toMove;
