@@ -895,6 +895,69 @@ namespace Server.Mobiles
 			}
 		}
 
+		/*** ADD_START ***/
+		public static bool Buy(Mobile from, int amount)
+		{
+			Item[] gold, checks;
+			int balance = 0;
+			Container cont = from.Backpack;			
+
+			if (cont != null)
+			{
+				if (amount == 0)
+					return true;
+
+				gold = cont.FindItemsByType(typeof(Gold));
+				checks = cont.FindItemsByType(typeof(BankCheck));
+
+				for (int i = 0; i < gold.Length; ++i)
+					balance += gold[i].Amount;
+
+				for (int i = 0; i < checks.Length; ++i)
+					balance += ((BankCheck)checks[i]).Worth;
+			}
+			else
+			{
+				return false;
+			}
+
+			if ( balance < amount )
+				return false;
+
+			for (int i = 0; i < gold.Length; ++i)
+			{
+				if (gold[i].Amount <= amount)
+				{
+					amount -= gold[i].Amount;
+					gold[i].Delete();
+				}
+				else
+				{
+					gold[i].Amount -= amount;
+					amount = 0;
+				}
+			}
+
+			for (int i = 0; i < checks.Length; ++i)
+			{
+				BankCheck check = (BankCheck)checks[i];
+
+				if (check.Worth <= amount)
+				{
+					amount -= check.Worth;
+					check.Delete();
+				}
+				else
+				{
+					check.Worth -= amount;
+					amount = 0;
+				}
+			}
+
+			return true;
+		}
+		/*** ADD_END ***/
+
 		public virtual bool OnBuyItems( Mobile buyer, ArrayList list )
 		{
 			if ( !IsActiveSeller )
@@ -988,25 +1051,22 @@ namespace Server.Mobiles
 			cont = buyer.Backpack;
 			if ( !bought && cont != null )
 			{
-				/*** ADD_START ***/
-				BankCheck check = cont.FindItemByType<BankCheck>();
-				/*** ADD_END ***/
+				/*** MOD_START ***/
+				/*
 				if ( cont.ConsumeTotal( typeof( Gold ), totalCost ) )
-					bought = true;
-				/*** ADD_START ***/
-				else if ( check != null && check.Worth >= totalCost )
-				{
-					bought = true;
-					check.Worth -= totalCost;
-					if (check.Worth == 0)
-						check.Consume();
-				}
-				/*** ADD_END ***/	
+					bought = true;				
 				else if ( totalCost < 2000 )
 					SayTo( buyer, 500192 );//Begging thy pardon, but thou casnt afford that.
+				*/
+				if ( Buy( buyer, totalCost ) )
+					bought = true;				
+				else if (totalCost < 2000)
+					SayTo(buyer, 500192);//Begging thy pardon, but thou casnt afford that.
+				/*** MOD_END ***/
 			}
 
 			/*** DEL_START ***/
+			//no bancomat e carte di credito grazie
 			/*
 			if ( !bought && totalCost >= 2000 )
 			{
