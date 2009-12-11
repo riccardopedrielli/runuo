@@ -988,12 +988,26 @@ namespace Server.Mobiles
 			cont = buyer.Backpack;
 			if ( !bought && cont != null )
 			{
+				/*** ADD_START ***/
+				BankCheck check = cont.FindItemByType<BankCheck>();
+				/*** ADD_END ***/
 				if ( cont.ConsumeTotal( typeof( Gold ), totalCost ) )
 					bought = true;
+				/*** ADD_START ***/
+				else if ( check != null && check.Worth >= totalCost )
+				{
+					bought = true;
+					check.Worth -= totalCost;
+					if (check.Worth == 0)
+						check.Consume();
+				}
+				/*** ADD_END ***/	
 				else if ( totalCost < 2000 )
 					SayTo( buyer, 500192 );//Begging thy pardon, but thou casnt afford that.
 			}
 
+			/*** DEL_START ***/
+			/*
 			if ( !bought && totalCost >= 2000 )
 			{
 				cont = buyer.FindBankNoCreate();
@@ -1007,6 +1021,8 @@ namespace Server.Mobiles
 					SayTo( buyer, 500191 ); //Begging thy pardon, but thy bank account lacks these funds.
 				}
 			}
+			*/
+			/*** DEL_END ***/
 
 			if ( !bought )
 				return false;

@@ -144,7 +144,7 @@ PG
 	* Aggiunti i messaggi che segnalano l'inizio dei vari livelli di DOT quando un pg e' affamato o assetato
 	* Se un pg da fantasma parla, non viene piu messo in automatico in war
 	* Rimosso il sistema di virtù
-	* Ogni singolo pg puo essere owner di una casa
+	* Ogni singolo pg puo essere owner di una casa	
 	
 	
 NPC
@@ -160,6 +160,10 @@ NPC
 	* Aggiunto il cauldron al vendor cuoco
 	* Rimossi i BulkOrder dai Blacksmith Weaponsmith Tailor e Weaver
 	* Aggiunti i deeds delle case all'architect e rimosso l'house placement tool
+	* I Banker ora accettano Withdraw massimo di 50.000 gp
+	* I Vendor non prendono piu i soldi direttamente dalla banca, se si vuole comprare qualcosa bisogna avere la somma richiesta nello zaino
+	* I Vendor accettano pagamenti con i bank check
+	
 	
 Engines
 

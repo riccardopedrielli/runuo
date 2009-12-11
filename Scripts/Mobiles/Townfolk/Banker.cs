@@ -264,7 +264,12 @@ namespace Server.Mobiles
 									break;
 								}
 
-								if ( amount > 5000 )
+								/*** MOD_START ***/
+								/*
+								if ( amount > 5000 )								
+								*/
+								if (amount > 50000)
+								/*** MOD_END ***/
 								{
 									this.Say( 500381 ); // Thou canst not withdraw so much at one time!
 								}
