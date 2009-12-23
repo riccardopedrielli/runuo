@@ -224,10 +224,19 @@ namespace Server
 
 		private static Type[] m_PaladinScrollTypes = new Type[0];
 
+		private static Type[] m_ArcaneScrollTypes = new Type[]
+		{
+			typeof( ArcaneCircleScroll ),	typeof ( GiftOfRenewalScroll ),	typeof( ImmolatingWeaponScroll ),	typeof( AttuneWeaponScroll ),
+			typeof( ThunderstormScroll ),	typeof( NatureFuryScroll ),		typeof( ReaperFormScroll ),			typeof( WildfireScroll ),
+			typeof( EssenceOfWindScroll ),	typeof( DryadAllureScroll ),	typeof( EtherealVoyageScroll ),		typeof( WordOfDeathScroll ),
+			typeof( GiftOfLifeScroll ),		typeof( ArcaneEmpowermentScroll )
+		};
+
 		public static Type[] RegularScrollTypes{ get{ return m_RegularScrollTypes; } }
 		public static Type[] NecromancyScrollTypes{ get{ return m_NecromancyScrollTypes; } }
 		public static Type[] SENecromancyScrollTypes{ get{ return m_SENecromancyScrollTypes; } }
 		public static Type[] PaladinScrollTypes{ get{ return m_PaladinScrollTypes; } }
+		public static Type[] ArcaneScrollTypes{ get{ return m_ArcaneScrollTypes; } }
 
 		private static Type[] m_GrimmochJournalTypes = new Type[]
 		{
@@ -654,10 +663,11 @@ namespace Server
 				default:
 				case SpellbookType.Regular: types = m_RegularScrollTypes; break;
 				/*** DEL_START ***/
-				//no pala no necro
+				//no pala no necro no arcane (che kakkio è arcane?)
 				/*
 				case SpellbookType.Necromancer: types = (Core.SE ? m_SENecromancyScrollTypes : m_NecromancyScrollTypes ); break;
 				case SpellbookType.Paladin: types = m_PaladinScrollTypes; break;
+				case SpellbookType.Arcanist: types = m_ArcaneScrollTypes; break;
 				*/
 				/*** DEL_END ***/
 			}

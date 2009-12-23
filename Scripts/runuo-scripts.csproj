@@ -2796,6 +2796,10 @@
     <Compile Include="Items\Misc\Firebomb.cs" />
     <Compile Include="Items\Special\Special Scrolls\ScrollofTranscendence.cs" />
     <Compile Include="Items\Special\Special Scrolls\ScrollofAlacrity.cs" />
+    <Compile Include="Items\Special\Holiday\Stockings.cs" />
+    <Compile Include="Items\Special\Holiday\PKHolidayStuff.cs" />
+    <Compile Include="Items\Special\Holiday\HolidayFoods.cs" />
+    <Compile Include="Items\Special\Holiday\GingerBreadHouseDeed.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Output\Scripts.CS.hash">

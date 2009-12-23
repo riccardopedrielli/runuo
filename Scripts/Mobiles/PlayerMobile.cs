@@ -318,6 +318,62 @@ namespace Server.Mobiles
 		}
 		#endregion
 
+		#region Auto Arrow Recovery
+		private Dictionary<Type, int> m_RecoverableAmmo = new Dictionary<Type,int>();
+
+		public Dictionary<Type, int> RecoverableAmmo
+		{
+			get { return m_RecoverableAmmo; }
+		}
+
+		public void RecoverAmmo()
+		{
+			if ( Core.SE && Alive )
+			{
+				foreach ( KeyValuePair<Type, int> kvp in m_RecoverableAmmo )
+				{
+					if ( kvp.Value > 0 )
+					{
+						Item ammo = null;
+
+						try
+						{
+							ammo = Activator.CreateInstance( kvp.Key ) as Item;
+						}
+						catch
+						{
+						}
+
+						if ( ammo != null )
+						{
+							string name = ammo.Name;
+							ammo.Amount = kvp.Value;
+
+							if ( name == null )
+							{
+								if ( ammo is Arrow )
+									name = "arrow";
+								else if ( ammo is Bolt )
+									name = "bolt";
+							}
+
+							if ( name != null && ammo.Amount > 1 )
+								name = String.Format( "{0}s", name );
+
+							if ( name == null )
+								name = String.Format( "#{0}", ammo.LabelNumber );
+
+							PlaceInBackpack( ammo );
+							SendLocalizedMessage( 1073504, String.Format( "{0}\t{1}", ammo.Amount, name ) ); // You recover ~1_NUM~ ~2_AMMO~.
+						}
+					}
+				}
+
+				m_RecoverableAmmo.Clear();
+			}
+		}
+		#endregion
+
 		private DateTime m_AnkhNextUse;
 
 		[CommandProperty( AccessLevel.GameMaster )]
@@ -325,6 +381,15 @@ namespace Server.Mobiles
 		{
 			get{ return m_AnkhNextUse; }
 			set{ m_AnkhNextUse = value; }
+		}
+
+		private DateTime m_PeacedUntil;
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public DateTime PeacedUntil
+		{
+			get { return m_PeacedUntil; }
+			set { m_PeacedUntil = value; }
 		}
 
 		#region Scroll of Alacrity
@@ -346,7 +411,6 @@ namespace Server.Mobiles
 			set { m_AcceleratedSkill = value; }
 		}
 		#endregion
-
 
 		public static Direction GetDirection4( Point3D from, Point3D to )
 		{
@@ -1901,6 +1965,9 @@ namespace Server.Mobiles
 			*/
 			/*** DEL_END ***/
 
+			if ( willKill && from is PlayerMobile )
+				Timer.DelayCall( TimeSpan.FromSeconds( 10 ), new TimerCallback( ((PlayerMobile) from).RecoverAmmo ) );
+
 			base.OnDamage( amount, from, willKill );
 		}
 
@@ -1935,6 +2002,12 @@ namespace Server.Mobiles
 			}
 		}
 
+		public override void OnWarmodeChanged()
+		{
+			if ( !Warmode )
+				Timer.DelayCall( TimeSpan.FromSeconds( 10 ), new TimerCallback( RecoverAmmo ) );
+		}
+
 		private Mobile m_InsuranceAward;
 		private int m_InsuranceCost;
 		private int m_InsuranceBonus;
@@ -1966,6 +2039,8 @@ namespace Server.Mobiles
 				m_SentHonorContext.OnSourceKilled();
 			*/
 			/*** DEL_END ***/
+
+			RecoverAmmo();
 
 			return base.OnBeforeDeath();
 		}
@@ -2516,6 +2591,12 @@ namespace Server.Mobiles
 
 			switch ( version )
 			{
+				case 28:
+				{
+					m_PeacedUntil = reader.ReadDateTime();
+
+					goto case 27;
+				}
 				case 27: 
 				{
 					m_AnkhNextUse = reader.ReadDateTime();
@@ -2837,8 +2918,9 @@ namespace Server.Mobiles
 
 			base.Serialize( writer );
 			
-			writer.Write( (int) 27 ); // version
+			writer.Write( (int) 28 ); // version
 
+			writer.Write( (DateTime) m_PeacedUntil );
 			writer.Write( (DateTime) m_AnkhNextUse );
 			writer.Write( m_AutoStabled, true );
 
