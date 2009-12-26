@@ -2808,4 +2808,10 @@
     <None Include="Custom\Misc\MOTD\MOTD_Gump.gump" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Server\runuo-server.csproj">
+      <Project>{16F42AD6-7673-4AB1-91FB-AEC2012C958F}</Project>
+      <Name>runuo-server</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
