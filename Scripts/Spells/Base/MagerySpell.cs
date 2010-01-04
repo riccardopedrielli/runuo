@@ -1,6 +1,7 @@
 using System;
 using Server;
 using Server.Items;
+using Server.Mobiles;
 
 namespace Server.Spells
 {
@@ -24,7 +25,12 @@ namespace Server.Spells
 			return false;
 		}
 
+		/*** MOD_START ***/
+		/*
 		private const double ChanceOffset = 20.0, ChanceLength = 100.0 / 7.0;
+		*/
+		private const double ChanceOffset = 12.5, ChanceLength = 100.0 / 8.0;
+		/*** MOD_END ***/
 
 		public override void GetCastSkills( out double min, out double max )
 		{
@@ -112,5 +118,306 @@ namespace Server.Spells
 				return TimeSpan.FromSeconds( (3 + (int)Circle) * CastDelaySecondsPerTick );
 			}
 		}
+		
+		/*** ADD_START ***/
+		public override bool CheckFizzle()
+		{
+			if ( Scroll is BaseWand )
+				return true;
+
+			double minSkill, maxSkill;
+
+			GetCastSkills( out minSkill, out maxSkill );
+
+			if ( DamageSkill != CastSkill )
+				Caster.CheckSkill( DamageSkill, 0.0, Caster.Skills[ DamageSkill ].Cap );
+
+			if ( Caster.CheckSkill( CastSkill, minSkill, maxSkill ) == false )
+			{
+				return false;
+			}
+			
+			ArmorMaterialType armorType = ArmorMaterialType.Cloth;
+			
+			if ( Caster is PlayerMobile )
+			{
+				foreach ( Item item in Caster.Items )
+				{
+					if ( item is BaseArmor )
+					{
+						if ( ((BaseArmor) item).MaterialType == ArmorMaterialType.Plate )
+						{
+							armorType = ((BaseArmor) item).MaterialType;
+							break;
+						}
+						else if ( ((BaseArmor) item).MaterialType == ArmorMaterialType.Dragon && armorType < ArmorMaterialType.Dragon )
+						{
+							armorType = ((BaseArmor) item).MaterialType;
+						}
+						else if ( ((BaseArmor) item).MaterialType == ArmorMaterialType.Chainmail && armorType < ArmorMaterialType.Chainmail )
+						{
+							armorType = ((BaseArmor) item).MaterialType;
+						}
+						else if ( ((BaseArmor) item).MaterialType == ArmorMaterialType.Ringmail && armorType < ArmorMaterialType.Ringmail )
+						{
+							armorType = ((BaseArmor) item).MaterialType;
+						}
+						else if ( ((BaseArmor) item).MaterialType == ArmorMaterialType.Bone && armorType < ArmorMaterialType.Bone )
+						{
+							armorType = ((BaseArmor) item).MaterialType;
+						}
+						else if ( ((BaseArmor) item).MaterialType == ArmorMaterialType.Studded && armorType < ArmorMaterialType.Studded )
+						{
+							armorType = ((BaseArmor) item).MaterialType;
+						}
+						else if ( ((BaseArmor) item).MaterialType == ArmorMaterialType.Leather && armorType < ArmorMaterialType.Leather )
+						{
+							armorType = ((BaseArmor) item).MaterialType;
+						}
+					}
+				}
+			}
+			
+			int chance = 0;
+			
+			switch ( armorType )
+			{
+				case ArmorMaterialType.Cloth:
+					switch ( Circle )
+					{
+						case SpellCircle.First:
+							chance = 100;
+							break;
+						case SpellCircle.Second:
+							chance = 100;
+							break;
+						case SpellCircle.Third:
+							chance = 100;
+							break;
+						case SpellCircle.Fourth:
+							chance = 100;
+							break;
+						case SpellCircle.Fifth:
+							chance = 100;
+							break;
+						case SpellCircle.Sixth:
+							chance = 100;
+							break;
+						case SpellCircle.Seventh:
+							chance = 100;
+							break;
+						case SpellCircle.Eighth:
+							chance = 80;
+							break;
+					}
+					break;
+				case ArmorMaterialType.Leather:
+					switch ( Circle )
+					{
+						case SpellCircle.First:
+							chance = 100;
+							break;
+						case SpellCircle.Second:
+							chance = 100;
+							break;
+						case SpellCircle.Third:
+							chance = 100;
+							break;
+						case SpellCircle.Fourth:
+							chance = 100;
+							break;
+						case SpellCircle.Fifth:
+							chance = 100;
+							break;
+						case SpellCircle.Sixth:
+							chance = 100;
+							break;
+						case SpellCircle.Seventh:
+							chance = 80;
+							break;
+						case SpellCircle.Eighth:
+							chance = 60;
+							break;
+					}
+					break;
+				case ArmorMaterialType.Studded:
+					switch ( Circle )
+					{
+						case SpellCircle.First:
+							chance = 100;
+							break;
+						case SpellCircle.Second:
+							chance = 100;
+							break;
+						case SpellCircle.Third:
+							chance = 100;
+							break;
+						case SpellCircle.Fourth:
+							chance = 100;
+							break;
+						case SpellCircle.Fifth:
+							chance = 100;
+							break;
+						case SpellCircle.Sixth:
+							chance = 80;
+							break;
+						case SpellCircle.Seventh:
+							chance = 60;
+							break;
+						case SpellCircle.Eighth:
+							chance = 40;
+							break;
+					}
+					break;
+				case ArmorMaterialType.Bone:
+					switch ( Circle )
+					{
+						case SpellCircle.First:
+							chance = 100;
+							break;
+						case SpellCircle.Second:
+							chance = 100;
+							break;
+						case SpellCircle.Third:
+							chance = 100;
+							break;
+						case SpellCircle.Fourth:
+							chance = 100;
+							break;
+						case SpellCircle.Fifth:
+							chance = 80;
+							break;
+						case SpellCircle.Sixth:
+							chance = 60;
+							break;
+						case SpellCircle.Seventh:
+							chance = 40;
+							break;
+						case SpellCircle.Eighth:
+							chance = 20;
+							break;
+					}
+					break;
+				case ArmorMaterialType.Ringmail:
+					switch ( Circle )
+					{
+						case SpellCircle.First:
+							chance = 100;
+							break;
+						case SpellCircle.Second:
+							chance = 100;
+							break;
+						case SpellCircle.Third:
+							chance = 100;
+							break;
+						case SpellCircle.Fourth:
+							chance = 80;
+							break;
+						case SpellCircle.Fifth:
+							chance = 60;
+							break;
+						case SpellCircle.Sixth:
+							chance = 40;
+							break;
+						case SpellCircle.Seventh:
+							chance = 20;
+							break;
+						case SpellCircle.Eighth:
+							chance = 0;
+							break;
+					}
+					break;
+				case ArmorMaterialType.Chainmail:
+					switch ( Circle )
+					{
+						case SpellCircle.First:
+							chance = 100;
+							break;
+						case SpellCircle.Second:
+							chance = 100;
+							break;
+						case SpellCircle.Third:
+							chance = 80;
+							break;
+						case SpellCircle.Fourth:
+							chance = 60;
+							break;
+						case SpellCircle.Fifth:
+							chance = 40;
+							break;
+						case SpellCircle.Sixth:
+							chance = 20;
+							break;
+						case SpellCircle.Seventh:
+							chance = 0;
+							break;
+						case SpellCircle.Eighth:
+							chance = 0;
+							break;
+					}
+					break;
+				case ArmorMaterialType.Dragon:
+					switch ( Circle )
+					{
+						case SpellCircle.First:
+							chance = 100;
+							break;
+						case SpellCircle.Second:
+							chance = 80;
+							break;
+						case SpellCircle.Third:
+							chance = 60;
+							break;
+						case SpellCircle.Fourth:
+							chance = 40;
+							break;
+						case SpellCircle.Fifth:
+							chance = 20;
+							break;
+						case SpellCircle.Sixth:
+							chance = 0;
+							break;
+						case SpellCircle.Seventh:
+							chance = 0;
+							break;
+						case SpellCircle.Eighth:
+							chance = 0;
+							break;
+					}
+					break;
+				case ArmorMaterialType.Plate:
+					switch ( Circle )
+					{
+						case SpellCircle.First:
+							chance = 80;
+							break;
+						case SpellCircle.Second:
+							chance = 60;
+							break;
+						case SpellCircle.Third:
+							chance = 40;
+							break;
+						case SpellCircle.Fourth:
+							chance = 20;
+							break;
+						case SpellCircle.Fifth:
+							chance = 0;
+							break;
+						case SpellCircle.Sixth:
+							chance = 0;
+							break;
+						case SpellCircle.Seventh:
+							chance = 0;
+							break;
+						case SpellCircle.Eighth:
+							chance = 0;
+							break;
+					}
+					break;
+				}
+				
+			return chance > Utility.Random(100);
+		}
+		/*** ADD_END ***/
 	}
 }

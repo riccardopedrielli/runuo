@@ -15,8 +15,6 @@ Items
 
 Armature
 
-	* Sistemare % cast
-
 
 Scudi
 

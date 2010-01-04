@@ -19,6 +19,7 @@ Skills
 	* Il veleno, se applicato al cibo, ha una probabilità di (poisoning/3)% che venga aumentato di 1 livello
 	* Il veleno non può essere applicato ad oggetti impilati
 	* Il veleno ora toglie sempre lo stesso danno per ogni tick a seconda del livello
+	* Scalati i valori di skill dei circoli di Magery in base a 0-100
 
 
 Case
@@ -114,6 +115,7 @@ Armature
     * Str minima per PlateChest e FemalePlateChest impostata a 90.
 	* Rigenero mana in accordo con UODT
 	* Resistenze in accordo con UODT
+	* Impostata % cast in accordo con UODT
 
 
 Scudi
