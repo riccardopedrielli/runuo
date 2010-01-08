@@ -72,6 +72,7 @@ Gates (public & cast)
     * Attraversabili durante il combat
     * Non si possono castare durante il combat
 	* I criminali possono attraversarli e castarli
+	* Si possono aprire in casa
 
 
 Moongates

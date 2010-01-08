@@ -164,6 +164,8 @@ namespace Server.Items
 			{
 				m_House = BaseHouse.FindHouseAt( m );
 
+				/*** MOD_START ***/
+				/*
 				if ( m_House == null )
 				{
 					m_Target = m.Location;
@@ -182,19 +184,39 @@ namespace Server.Items
 						m_Description = "an unnamed house";
 
 					setDesc = true;
-
+										
 					int x = m_House.BanLocation.X;
 					int y = m_House.BanLocation.Y + 2;
 					int z = m_House.BanLocation.Z;
-
+										
 					Map map = m_House.Map;
 
 					if ( map != null && !map.CanFit( x, y, z, 16, false, false ) )
 						z = map.GetAverageZ( x, y );
-
+					
 					m_Target = new Point3D( x, y, z );
-					m_TargetMap = map;
+					m_TargetMap = map;					
 				}
+				*/				
+
+				if (m_House != null)
+				{
+					HouseSign sign = m_House.Sign;
+
+					if (sign != null)
+						m_Description = sign.Name;
+					else
+						m_Description = null;
+
+					if (m_Description == null || (m_Description = m_Description.Trim()).Length == 0)
+						m_Description = "an unnamed house";
+
+					setDesc = true;
+				}
+
+				m_Target = m.Location;
+				m_TargetMap = m.Map;
+				/*** MOD_END ***/
 			}
 			else
 			{

@@ -138,6 +138,8 @@ namespace Server.Spells.Fourth
 			}
 			else if ( CheckSequence() )
 			{
+				/*** MOD_START ***/
+				/*
 				BaseCreature.TeleportPets( Caster, loc, map, true );
 
 				if ( m_Book != null )
@@ -146,6 +148,32 @@ namespace Server.Spells.Fourth
 				Caster.PlaySound( 0x1FC );
 				Caster.MoveToWorld( loc, map );
 				Caster.PlaySound( 0x1FC );
+				*/
+				BaseHouse house = BaseHouse.FindHouseAt( loc, map, 16 );
+				Point3D target_loc = new Point3D();
+
+				if (house != null)
+				{
+					int x = house.BanLocation.X;
+					int y = house.BanLocation.Y + 2;
+					int z = house.BanLocation.Z;
+
+					target_loc = new Point3D(x, y, z);
+				}
+				else
+				{
+					target_loc = loc;
+				}
+
+				BaseCreature.TeleportPets(Caster, target_loc, map, true);
+
+				if (m_Book != null)
+					--m_Book.CurCharges;
+
+				Caster.PlaySound(0x1FC);
+				Caster.MoveToWorld(target_loc, map);
+				Caster.PlaySound(0x1FC);
+				/*** MOD_END ***/
 			}
 
 			FinishSequence();
