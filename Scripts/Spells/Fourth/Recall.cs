@@ -103,8 +103,7 @@ namespace Server.Spells.Fourth
 			{
 				Caster.SendLocalizedMessage( 1049543 ); // You decide against traveling to Felucca while you are still young.
 			}
-			/*** DEL_START ***/
-			// diocane ma sapete programmare dioporc?
+			/*** DEL_START ***/			
 			/*
 			else if ( Caster.Kills >= 5 && map != Map.Felucca )
 			{
@@ -128,10 +127,15 @@ namespace Server.Spells.Fourth
 			{
 				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
 			}
+			/*** DEL_START ***/
+			//se no non si riesce ad aprire gate dentro le case
+			/*
 			else if ( (checkMulti && SpellHelper.CheckMulti( loc, map )) )
 			{
 				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
 			}
+			*/
+			/*** DEL_END ***/
 			else if ( m_Book != null && m_Book.CurCharges <= 0 )
 			{
 				Caster.SendLocalizedMessage( 502412 ); // There are no charges left on that item.

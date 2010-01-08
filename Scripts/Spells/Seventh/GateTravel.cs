@@ -125,10 +125,15 @@ namespace Server.Spells.Seventh
 			{
 				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
 			}
+			/*** DEL_START ***/
+			//se no non si riesce ad aprire gate dentro le case
+			/*
 			else if ( (checkMulti && SpellHelper.CheckMulti( loc, map )) )
 			{
 				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
 			}
+			*/
+			/*** DEL_END ***/
 			else if ( Core.SE && ( GateExistsAt( map, loc ) || GateExistsAt( Caster.Map, Caster.Location ) ) ) // SE restricted stacking gates
 			{
 				Caster.SendLocalizedMessage( 1071242 ); // There is already a gate there.
