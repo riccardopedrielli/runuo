@@ -2761,8 +2761,6 @@
     <Compile Include="Mobiles\AI\Creature\Paragon.cs" />
     <Compile Include="Mobiles\AI\Creature\SpeedInfo.cs" />
     <Compile Include="Mobiles\AI\Targets\AIControlMobileTarget.cs" />
-    <Compile Include="Mobiles\AI\Team\Team.cs" />
-    <Compile Include="Mobiles\AI\Team\TeamRegistry.cs" />
     <Compile Include="Engines\Doom\LeverPuzzle\LeverPuzzleController.cs" />
     <Compile Include="Engines\Doom\LeverPuzzle\LeverPuzzleItems.cs" />
     <Compile Include="Engines\Doom\LeverPuzzle\LeverPuzzleRegions.cs" />
