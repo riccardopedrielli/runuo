@@ -201,7 +201,7 @@ namespace Server.Items
 			int index = info.ButtonID - 1;
 
 			if ( index >= 0 && index < m_Entries.Length )
-			{				
+			{
 				/*** MOD_START ***/
 				/*
 				if ( m_From.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse( m_From ) )

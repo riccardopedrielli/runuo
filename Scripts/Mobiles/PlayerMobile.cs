@@ -31,25 +31,21 @@ namespace Server.Mobiles
 	[Flags]
 	public enum PlayerFlag // First 16 bits are reserved for default-distro use, start custom flags at 0x00010000
 	{
-		None				= 0x00000000,
+		None					= 0x00000000,
 		Glassblowing			= 0x00000001,
-		Masonry				= 0x00000002,
-		SandMining			= 0x00000004,
-		StoneMining			= 0x00000008,
+		Masonry					= 0x00000002,
+		SandMining				= 0x00000004,
+		StoneMining				= 0x00000008,
 		ToggleMiningStone		= 0x00000010,
-		KarmaLocked			= 0x00000020,
+		KarmaLocked				= 0x00000020,
 		AutoRenewInsurance		= 0x00000040,
 		UseOwnFilter			= 0x00000080,
 		PublicMyRunUO			= 0x00000100,
 		PagingSquelched			= 0x00000200,
-		Young				= 0x00000400,
+		Young					= 0x00000400,
 		AcceptGuildInvites		= 0x00000800,
-		DisplayChampionTitle		= 0x00001000,
-		HasStatReward			= 0x00002000,
-
-		#region Scroll of Alacrity
-		AcceleratedSkill = 0x00080000,
-		#endregion
+		DisplayChampionTitle	= 0x00001000,
+		HasStatReward			= 0x00002000
 	}
 
 	public enum NpcGuild
@@ -110,7 +106,14 @@ namespace Server.Mobiles
 		private int m_StepsTaken;
 		private int m_Profession;
 		private bool m_IsStealthing; // IsStealthing should be moved to Server.Mobiles
+		private bool m_IgnoreMobiles; // IgnoreMobiles should be moved to Server.Mobiles
 
+		/* 
+		 * a value of zero means, that the mobile is not executing the spell. Otherwise,
+		 * the value should match the BaseMana required 
+		*/
+		private int m_ExecutesLightningStrike; // move to Server.Mobiles??
+		
 		private DateTime m_LastOnline;
 		private Server.Guilds.RankDefinition m_GuildRank;
 
@@ -179,6 +182,23 @@ namespace Server.Mobiles
 		}
 		
 		[CommandProperty( AccessLevel.GameMaster )]
+		public bool IgnoreMobiles // IgnoreMobiles should be moved to Server.Mobiles
+		{
+			get
+			{
+				return m_IgnoreMobiles;
+			}
+			set
+			{
+				if( m_IgnoreMobiles != value )
+				{
+					m_IgnoreMobiles = value;
+					Delta( MobileDelta.Flags );
+				}
+			}
+		}
+		
+		[CommandProperty( AccessLevel.GameMaster )]
 		public NpcGuild NpcGuild
 		{
 			get{ return m_NpcGuild; }
@@ -222,6 +242,12 @@ namespace Server.Mobiles
 		{
 			get { return m_ToTTotalMonsterFame; }
 			set { m_ToTTotalMonsterFame = value; }
+		}
+
+		public int ExecutesLightningStrike
+		{
+			get { return m_ExecutesLightningStrike; }
+			set { m_ExecutesLightningStrike = value; }
 		}
 
 		#endregion
@@ -382,6 +408,12 @@ namespace Server.Mobiles
 			get{ return m_AnkhNextUse; }
 			set{ m_AnkhNextUse = value; }
 		}
+		
+		[CommandProperty( AccessLevel.GameMaster )]
+		public TimeSpan DisguiseTimeLeft
+		{
+			get{ return DisguiseTimers.TimeRemaining( this ); }
+		}
 
 		private DateTime m_PeacedUntil;
 
@@ -441,13 +473,16 @@ namespace Server.Mobiles
 
 			IPooledEnumerable mobiles = Map.GetMobilesInRange( location, 0 );
 			
-			if ( mobiles.GetEnumerator().MoveNext() ) 
+			foreach ( Mobile m in mobiles ) 
 			{ 
-				mobiles.Free(); 
-				return false; 
+				if ( m.Z >= location.Z && m.Z < location.Z + 16 )
+				{
+					mobiles.Free();
+					return false;
+				}
 			}
-			else
-				mobiles.Free();
+			
+			mobiles.Free();
 
 			BounceInfo bi = item.GetBounce();
 
@@ -501,6 +536,26 @@ namespace Server.Mobiles
 			}
 
 			return true;
+		}
+		
+		public override int GetPacketFlags()
+		{
+			int flags = base.GetPacketFlags();
+			
+			if ( m_IgnoreMobiles )
+				flags |= 0x10;
+			
+			return flags;
+		}
+		
+		public override int GetOldPacketFlags()
+		{
+			int flags = base.GetOldPacketFlags();
+			
+			if ( m_IgnoreMobiles )
+				flags |= 0x10;
+			
+			return flags;
 		}
 
 		public bool GetFlag( PlayerFlag flag )
@@ -657,6 +712,18 @@ namespace Server.Mobiles
 				min = baseMin;
 
 			return min;
+		}
+
+		public override void OnManaChange(int oldValue)
+		{
+			base.OnManaChange(oldValue);
+			if (m_ExecutesLightningStrike > 0)
+			{
+				if (Mana < m_ExecutesLightningStrike)
+				{
+					LightningStrike.ClearCurrentMove(this);
+				}
+			}
 		}
 
 		private static void OnLogin( LoginEventArgs e )
@@ -964,6 +1031,8 @@ namespace Server.Mobiles
 				pm.BedrollLogout = false;
 				pm.LastOnline = DateTime.Now;
 			}
+			
+			DisguiseTimers.StartTimer( e.Mobile );
 
 			Timer.DelayCall( TimeSpan.Zero, new TimerStateCallback( ClearSpecialMovesCallback ), e.Mobile );
 		}
@@ -1016,6 +1085,8 @@ namespace Server.Mobiles
 				pm.m_SpeechLog = null;
 				pm.LastOnline = DateTime.Now;
 			}
+			
+			DisguiseTimers.StopTimer( from );
 		}
 
 		public override void RevealingAction()
@@ -1435,6 +1506,20 @@ namespace Server.Mobiles
 					list.Add( new CallbackEntry( 6210, new ContextCallback( ToggleChampionTitleDisplay ) ) );
 				*/
 				/*** DEL_END ***/
+			}
+			if ( from != this )
+			{
+					
+				if ( Alive && Core.Expansion >= Expansion.AOS )
+					list.Add( new AddToPartyEntry( from, this ) );
+			
+				BaseHouse curhouse = BaseHouse.FindHouseAt( this );
+			
+				if( curhouse != null )
+				{
+					if ( Alive && Core.Expansion >= Expansion.AOS && curhouse.IsAosRules && curhouse.IsFriend( from ) )
+						list.Add( new EjectPlayerEntry( from, this ) );
+				}
 			}
 		}
 
@@ -1893,7 +1978,7 @@ namespace Server.Mobiles
 
 		public override bool CheckShove( Mobile shoved )
 		{
-			if( TransformationSpellHelper.UnderTransformation( this, typeof( WraithFormSpell ) ) )
+			if( m_IgnoreMobiles || TransformationSpellHelper.UnderTransformation( shoved, typeof( WraithFormSpell ) ) )
 				return true;
 			else
 				return base.CheckShove( shoved );
@@ -2124,7 +2209,7 @@ namespace Server.Mobiles
 
 			PolymorphSpell.StopTimer( this );
 			IncognitoSpell.StopTimer( this );
-			DisguiseGump.StopTimer( this );
+			DisguiseTimers.RemoveTimer( this );
 
 			EndAction( typeof( PolymorphSpell ) );
 			EndAction( typeof( IncognitoSpell ) );
@@ -2758,9 +2843,6 @@ namespace Server.Mobiles
 						m_HairModHue = reader.ReadInt();
 						m_BeardModID = reader.ReadInt();
 						m_BeardModHue = reader.ReadInt();
-
-						// We cannot call SetHairMods( -1, -1 ) here because the items have not yet loaded
-						Timer.DelayCall( TimeSpan.Zero, new TimerCallback( RevertHair ) );
 					}
 
 					goto case 9;
@@ -3368,6 +3450,11 @@ namespace Server.Mobiles
 
 		public override void OnAccessLevelChanged( AccessLevel oldLevel )
 		{
+			if ( AccessLevel == AccessLevel.Player )
+				IgnoreMobiles = false;
+			else
+				IgnoreMobiles = true;
+			
 			InvalidateMyRunUO();
 		}
 
@@ -4238,7 +4325,7 @@ namespace Server.Mobiles
 		{
 			if ( Core.SE && AllFollowers.Count > 0 )
 			{
-				for ( int i = 0; i < m_AllFollowers.Count; ++i )
+				for ( int i = m_AllFollowers.Count - 1; i >= 0; --i )
 				{
 					BaseCreature pet = AllFollowers[i] as BaseCreature;
 
@@ -4251,7 +4338,7 @@ namespace Server.Mobiles
 					if ( (pet is PackLlama || pet is PackHorse || pet is Beetle || pet is HordeMinionFamiliar) && (pet.Backpack != null && pet.Backpack.Items.Count > 0) )
 						continue;
 
-					if ( !pet.Summoned && !pet.IsBonded )
+					if ( pet is BaseEscortable )
 						continue;
 
 					pet.ControlTarget = null;
@@ -4267,41 +4354,37 @@ namespace Server.Mobiles
 
 					Stabled.Add( pet );
 					m_AutoStabled.Add( pet );
-					--i;
 				}
 			}
 		}
 
 		public void ClaimAutoStabledPets()
 		{
-			if( !Core.SE || m_AutoStabled.Count <= 0 )
+			if ( !Core.SE || m_AutoStabled.Count <= 0 )
 				return;
 
-			if( !Alive )
+			if ( !Alive )
 			{
 				SendLocalizedMessage( 1076251 ); // Your pet was unable to join you while you are a ghost.  Please re-login once you have ressurected to claim your pets.				
 				return;
 			}
 
-			for ( int i = 0; i < m_AutoStabled.Count; ++i )
+			for ( int i = m_AutoStabled.Count - 1; i >= 0; --i )
 			{
 				BaseCreature pet = m_AutoStabled[i] as BaseCreature;
 
 				if ( pet == null || pet.Deleted )
 				{
 					pet.IsStabled = false;
-					m_AutoStabled.RemoveAt( i );
-					if( Stabled.Contains( pet ) )
+
+					if ( Stabled.Contains( pet ) )
 						Stabled.Remove( pet );
-					--i;
+
 					continue;
 				}
 
 				if ( (Followers + pet.ControlSlots) <= FollowersMax )
 				{
-					m_AutoStabled.RemoveAt( i );
-					--i;
-
 					pet.SetControlMaster( this );
 
 					if ( pet.Summoned )
@@ -4316,7 +4399,7 @@ namespace Server.Mobiles
 
 					pet.Loyalty = BaseCreature.MaxLoyalty; // Wonderfully Happy
 
-					if( Stabled.Contains( pet ) )
+					if ( Stabled.Contains( pet ) )
 						Stabled.Remove( pet );
 				}
 				else

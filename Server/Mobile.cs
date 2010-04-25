@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: Mobile.cs 406 2009-10-18 01:34:42Z mark $
+ *   $Id: Mobile.cs 511 2010-04-25 06:09:43Z mark $
  *
  ***************************************************************************/
 
@@ -4421,7 +4421,7 @@ namespace Server
 			item.Layer = oldItem.Layer;
 			item.Name = oldItem.Name;
 			item.Weight = oldItem.Weight;
-			//item.Amount = oldItem.amount;
+
 			item.Amount = oldItem.Amount - amount;
 			item.Map = oldItem.Map;
 
@@ -8103,8 +8103,10 @@ namespace Server
 			{
 				if( item.Parent is Item )
 				{
-					if( !CanSee( (Item)item.Parent ) )
-						return false;
+                    Item parent = item.Parent as Item;
+
+                    if ( !(CanSee( parent ) && parent.IsChildVisibleTo( this, item )) )
+                        return false;
 				}
 				else if( item.Parent is Mobile )
 				{

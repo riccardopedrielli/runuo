@@ -21,10 +21,10 @@ namespace Server.Multis
 		public static bool NewVendorSystem{ get{ return Core.AOS; } } // Is new player vendor system enabled?
 
 		public const int MaxCoOwners = 15;
-		public const int MaxFriends = 50;
-		public const int MaxBans = 50;
-		
-		public const bool DecayEnabled = true;		
+		public static int MaxFriends { get { return !Core.AOS ? 50 : 140; } }
+		public static int MaxBans { get { return !Core.AOS ? 50 : 140; } }
+
+		public const bool DecayEnabled = true;
 
 		public static void Decay_OnTick()
 		{
@@ -291,12 +291,18 @@ namespace Server.Multis
 
 			ArrayList list = m_Secures;
 
-			for ( int i = 0; list != null && i < list.Count; ++i )
+			if ( list != null )
 			{
-				SecureInfo si = (SecureInfo)list[i];
+				for ( int i = 0; i < list.Count; ++i )
+				{
+					SecureInfo si = (SecureInfo)list[i];
 
-				fromSecures += si.Item.TotalItems;
+					fromSecures += si.Item.TotalItems;
+				}
+				
+				fromLockdowns += list.Count;
 			}
+			
 
 			if ( m_LockDowns != null )
 				fromLockdowns += m_LockDowns.Count;
@@ -2063,7 +2069,7 @@ namespace Server.Multis
 			{
 				from.SendLocalizedMessage( 501346 ); // Uh oh...a bigger boot may be required!
 			}
-			else if ( IsFriend( targ ) )
+			else if ( IsFriend( targ ) && !Core.ML )
 			{
 				from.SendLocalizedMessage( 501348 ); // You cannot eject a friend of the house!
 			}
@@ -2283,7 +2289,7 @@ namespace Server.Multis
 					{
 						c.IsLockedDown = false;
 						c.IsSecure = false;
-						m_Secures.Remove( c );
+						m_Secures.Remove( info );
 						c.Destroy();
 						break;
 					}

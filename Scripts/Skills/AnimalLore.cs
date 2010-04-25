@@ -42,11 +42,11 @@ namespace Server.SkillHandlers
 					{
 						if ( c.Body.IsAnimal || c.Body.IsMonster || c.Body.IsSea )
 						{
-							if ( (!c.Controlled || !c.Tamable) && from.Skills[SkillName.AnimalLore].Base < 100.0 )
+							if ( (!c.Controlled || !c.Tamable) && from.Skills[SkillName.AnimalLore].Value < 100.0 )
 							{
 								from.SendLocalizedMessage( 1049674 ); // At your skill level, you can only lore tamed creatures.
 							}
-							else if ( !c.Tamable && from.Skills[SkillName.AnimalLore].Base < 110.0 )
+							else if ( !c.Tamable && from.Skills[SkillName.AnimalLore].Value < 110.0 )
 							{
 								from.SendLocalizedMessage( 1049675 ); // At your skill level, you can only lore tamed or tameable creatures.
 							}
@@ -341,6 +341,8 @@ namespace Server.SkillHandlers
 				foodPref = 1049568; // Fish
 			else if ( (c.FavoriteFood & FoodType.Meat) != 0 )
 				foodPref = 1049564; // Meat
+			else if ( (c.FavoriteFood & FoodType.Eggs) != 0 )
+				foodPref = 1044477; // Eggs
 
 			AddHtmlLocalized( 153, 168, 160, 18, foodPref, LabelColor, false, false );
 

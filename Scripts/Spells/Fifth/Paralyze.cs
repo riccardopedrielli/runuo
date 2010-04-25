@@ -2,6 +2,7 @@ using System;
 using Server.Mobiles;
 using Server.Targeting;
 using Server.Network;
+using Server.Spells.Chivalry;
 
 namespace Server.Spells.Fifth
 {
@@ -36,7 +37,7 @@ namespace Server.Spells.Fifth
 			/*** MOD_START ***/
 			//si deve poter frizzare uno che casta
 			/*
-			else if ( Core.AOS && (m.Frozen || m.Paralyzed || (m.Spell != null && m.Spell.IsCasting)) )
+			else if ( Core.AOS && (m.Frozen || m.Paralyzed || (m.Spell != null && m.Spell.IsCasting && !(m.Spell is PaladinSpell))) )
 			*/
 			else if ( Core.AOS && (m.Frozen || m.Paralyzed))
 			/*** MOD_START ***/

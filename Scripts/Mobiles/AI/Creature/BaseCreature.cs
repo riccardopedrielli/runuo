@@ -11,6 +11,7 @@ using Server.Items;
 using Server.Mobiles;
 using Server.ContextMenus;
 using Server.Engines.Quests;
+using Server.Engines.PartySystem;
 using Server.Factions;
 using Server.Spells.Bushido;
 using Server.Spells.Spellweaving;
@@ -254,10 +255,16 @@ namespace Server.Mobiles
 
 		public virtual InhumanSpeech SpeechType{ get{ return null; } }
 
+		[CommandProperty( AccessLevel.GameMaster, AccessLevel.Administrator )]
 		public bool IsStabled
 		{
 			get{ return m_IsStabled; }
-			set{ m_IsStabled = value; }
+			set
+			{
+				m_IsStabled = value;
+				if ( m_IsStabled )
+					StopDeleteTimer();
+			}
 		}
 
 		[CommandProperty( AccessLevel.GameMaster )]
@@ -332,6 +339,58 @@ namespace Server.Mobiles
 			get{ return m_OwnerAbandonTime; }
 			set{ m_OwnerAbandonTime = value; }
 		}
+		#endregion
+		
+		#region Delete Previously Tamed Timer
+		private DeleteTimer		m_DeleteTimer;
+		
+		[CommandProperty( AccessLevel.GameMaster )]
+		public TimeSpan DeleteTimeLeft
+		{
+			get
+			{
+				if ( m_DeleteTimer != null && m_DeleteTimer.Running )
+					return m_DeleteTimer.Next - DateTime.Now;
+				
+				return TimeSpan.Zero;
+			}
+		}
+		
+		private class DeleteTimer : Timer
+		{
+			private Mobile m;
+			
+			public DeleteTimer( Mobile creature, TimeSpan delay ) : base( delay )
+			{
+				m = creature;
+				Priority = TimerPriority.OneMinute;
+			}
+			
+			protected override void OnTick()
+			{
+				m.Delete();
+			}
+		}
+		
+		public void BeginDeleteTimer()
+		{
+			if ( !(this is BaseEscortable) && !Summoned && !Deleted && !IsStabled )
+			{
+				StopDeleteTimer();
+				m_DeleteTimer = new DeleteTimer( this, TimeSpan.FromDays( 3.0 ) );
+				m_DeleteTimer.Start();
+			}
+		}
+
+		public void StopDeleteTimer()
+		{
+			if ( m_DeleteTimer != null )
+			{
+				m_DeleteTimer.Stop();
+				m_DeleteTimer = null;
+			}
+		}
+
 		#endregion
 
 		public virtual double WeaponAbilityChance{ get{ return 0.4; } }
@@ -468,6 +527,9 @@ namespace Server.Mobiles
 		public virtual int BreathColdDamage{ get{ return 0; } }
 		public virtual int BreathPoisonDamage{ get{ return 0; } }
 		public virtual int BreathEnergyDamage{ get{ return 0; } }
+		
+		// Is immune to breath damages
+		public virtual bool BreathImmune{ get{ return false; } }
 
 		// Effect details and sound
 		public virtual int BreathEffectItemID{ get{ return 0x36D4; } }
@@ -539,6 +601,9 @@ namespace Server.Mobiles
 		public virtual void BreathDamage_Callback( object state )
 		{
 			Mobile target = (Mobile)state;
+			
+			if ( target is BaseCreature && ((BaseCreature)target).BreathImmune )
+				return;
 
 			if ( CanBeHarmful( target ) )
 			{
@@ -1281,7 +1346,7 @@ namespace Server.Mobiles
 		{
 		}
 
-		public virtual void OnCarve( Mobile from, Corpse corpse )
+		public virtual void OnCarve( Mobile from, Corpse corpse, Item with )
 		{
 			int feathers = Feathers;
 			int wool = Wool;
@@ -1316,40 +1381,67 @@ namespace Server.Mobiles
 
 				if ( feathers != 0 )
 				{
-					corpse.DropItem( new Feather( feathers ) );
+					corpse.AddCarvedItem( new Feather( feathers ), from );
 					from.SendLocalizedMessage( 500479 ); // You pluck the bird. The feathers are now on the corpse.
 				}
 
 				if ( wool != 0 )
 				{
-					corpse.DropItem( new Wool( wool ) );
+                    corpse.AddCarvedItem( new Wool( wool ), from );
 					from.SendLocalizedMessage( 500483 ); // You shear it, and the wool is now on the corpse.
 				}
 
 				if ( meat != 0 )
 				{
 					if ( MeatType == MeatType.Ribs )
-						corpse.DropItem( new RawRibs( meat ) );
+                        corpse.AddCarvedItem( new RawRibs( meat ), from );
 					else if ( MeatType == MeatType.Bird )
-						corpse.DropItem( new RawBird( meat ) );
+                        corpse.AddCarvedItem( new RawBird( meat ), from );
 					else if ( MeatType == MeatType.LambLeg )
-						corpse.DropItem( new RawLambLeg( meat ) );
+                        corpse.AddCarvedItem( new RawLambLeg( meat ), from );
 
 					from.SendLocalizedMessage( 500467 ); // You carve some meat, which remains on the corpse.
 				}
 
 				if ( hides != 0 )
 				{
-					if ( HideType == HideType.Regular )
-						corpse.DropItem( new Hides( hides ) );
-					else if ( HideType == HideType.Spined )
-						corpse.DropItem( new SpinedHides( hides ) );
-					else if ( HideType == HideType.Horned )
-						corpse.DropItem( new HornedHides( hides ) );
-					else if ( HideType == HideType.Barbed )
-						corpse.DropItem( new BarbedHides( hides ) );
+					Item holding = from.Weapon as Item;
+					if ( Core.AOS && ( holding is SkinningKnife /* TODO: || holding is ButcherWarCleaver || with is ButcherWarCleaver */ ) )
+					{
+						Item leather = null;
 
-					from.SendLocalizedMessage( 500471 ); // You skin it, and the hides are now in the corpse.
+						switch ( HideType )
+						{
+							case HideType.Regular: leather = new Leather( hides ); break;
+							case HideType.Spined: leather = new SpinedLeather( hides ); break;
+							case HideType.Horned: leather = new HornedLeather( hides ); break;
+							case HideType.Barbed: leather = new BarbedLeather( hides ); break;
+						}
+
+						if ( leather != null )
+						{
+							if ( !from.PlaceInBackpack( leather ) )
+							{
+								corpse.DropItem( leather );
+								from.SendLocalizedMessage( 500471 ); // You skin it, and the hides are now in the corpse.
+							}
+							else
+								from.SendLocalizedMessage( 1073555 ); // You skin it and place the cut-up hides in your backpack.
+						}
+					}
+					else
+					{
+						if ( HideType == HideType.Regular )
+							corpse.DropItem( new Hides( hides ) );
+						else if ( HideType == HideType.Spined )
+							corpse.DropItem( new SpinedHides( hides ) );
+						else if ( HideType == HideType.Horned )
+							corpse.DropItem( new HornedHides( hides ) );
+						else if ( HideType == HideType.Barbed )
+							corpse.DropItem( new BarbedHides( hides ) );
+
+						from.SendLocalizedMessage( 500471 ); // You skin it, and the hides are now in the corpse.
+					}
 				}
 
 				if ( scales != 0 )
@@ -1358,20 +1450,20 @@ namespace Server.Mobiles
 
 					switch ( sc )
 					{
-						case ScaleType.Red:		corpse.DropItem( new RedScales( scales ) ); break;
-						case ScaleType.Yellow:	corpse.DropItem( new YellowScales( scales ) ); break;
-						case ScaleType.Black:	corpse.DropItem( new BlackScales( scales ) ); break;
-						case ScaleType.Green:	corpse.DropItem( new GreenScales( scales ) ); break;
-						case ScaleType.White:	corpse.DropItem( new WhiteScales( scales ) ); break;
-						case ScaleType.Blue:	corpse.DropItem( new BlueScales( scales ) ); break;
+                        case ScaleType.Red:     corpse.AddCarvedItem( new RedScales( scales ), from ); break;
+                        case ScaleType.Yellow:  corpse.AddCarvedItem( new YellowScales( scales ), from ); break;
+                        case ScaleType.Black:   corpse.AddCarvedItem( new BlackScales( scales ), from ); break;
+                        case ScaleType.Green:   corpse.AddCarvedItem( new GreenScales( scales ), from ); break;
+                        case ScaleType.White:   corpse.AddCarvedItem( new WhiteScales( scales ), from ); break;
+                        case ScaleType.Blue:    corpse.AddCarvedItem( new BlueScales( scales ), from ); break;
 						case ScaleType.All:
 						{
-							corpse.DropItem( new RedScales( scales ) );
-							corpse.DropItem( new YellowScales( scales ) );
-							corpse.DropItem( new BlackScales( scales ) );
-							corpse.DropItem( new GreenScales( scales ) );
-							corpse.DropItem( new WhiteScales( scales ) );
-							corpse.DropItem( new BlueScales( scales ) );
+                            corpse.AddCarvedItem( new RedScales( scales ), from );
+                            corpse.AddCarvedItem( new YellowScales( scales ), from );
+                            corpse.AddCarvedItem( new BlackScales( scales ), from );
+                            corpse.AddCarvedItem( new GreenScales( scales ), from );
+                            corpse.AddCarvedItem( new WhiteScales( scales ), from );
+                            corpse.AddCarvedItem( new BlueScales( scales ), from );
 							break;
 						}
 					}
@@ -1455,7 +1547,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize( writer );
 
-			writer.Write( (int) 16 ); // version
+			writer.Write( (int) 17 ); // version
 
 			writer.Write( (int)m_CurrentAI );
 			writer.Write( (int)m_DefaultAI );
@@ -1565,6 +1657,12 @@ namespace Server.Mobiles
 			// Version 14
 			writer.Write( (bool)m_RemoveIfUntamed );
 			writer.Write( (int)m_RemoveStep );
+			
+			// Version 17
+			if ( IsStabled || ( Controlled && ControlMaster != null ) )
+				writer.Write( TimeSpan.Zero );
+			else
+				writer.Write( DeleteTimeLeft );
 		}
 
 		private static double[] m_StandardActiveSpeeds = new double[]
@@ -1770,6 +1868,20 @@ namespace Server.Mobiles
 			{
 				m_RemoveIfUntamed = reader.ReadBool();
 				m_RemoveStep = reader.ReadInt();
+			}
+			
+			TimeSpan deleteTime = TimeSpan.Zero;
+				
+			if ( version >= 17 )
+				deleteTime = reader.ReadTimeSpan();
+
+			if ( deleteTime > TimeSpan.Zero || LastOwner != null && !Controlled && !IsStabled )
+			{
+				if ( deleteTime == TimeSpan.Zero )
+					deleteTime = TimeSpan.FromDays( 3.0 );
+					
+				m_DeleteTimer = new DeleteTimer( this, deleteTime );
+				m_DeleteTimer.Start();
 			}
 
 			if( version <= 14 && m_Paragon && Hue == 0x31 )
@@ -1981,7 +2093,7 @@ namespace Server.Mobiles
 
 							if ( master != null && master == from )	//So friends can't start the bonding process
 							{
-								if ( m_dMinTameSkill <= 29.1 || master.Skills[SkillName.AnimalTaming].Base >= m_dMinTameSkill || OverrideBondingReqs() )
+								if ( m_dMinTameSkill <= 29.1 || master.Skills[SkillName.AnimalTaming].Base >= m_dMinTameSkill || OverrideBondingReqs() || (Core.ML && master.Skills[SkillName.AnimalTaming].Value >= m_dMinTameSkill) )
 								{
 									if ( BondingBegin == DateTime.MinValue )
 									{
@@ -2386,12 +2498,14 @@ namespace Server.Mobiles
 			}
 			set
 			{
-				if ( m_ControlMaster == value )
+				if ( m_ControlMaster == value || this == value )
 					return;
 
 				RemoveFollowers();
 				m_ControlMaster = value;
 				AddFollowers();
+				if ( m_ControlMaster != null )
+					StopDeleteTimer();
 
 				Delta( MobileDelta.Noto );
 			}
@@ -2406,7 +2520,7 @@ namespace Server.Mobiles
 			}
 			set
 			{
-				if ( m_SummonMaster == value )
+				if ( m_SummonMaster == value || this == value )
 					return;
 
 				RemoveFollowers();
@@ -2637,8 +2751,11 @@ namespace Server.Mobiles
 			if ( m_Paragon )
 				p = PoisonImpl.IncreaseLevel( p );
 
-			if ( p != null && HitPoisonChance >= Utility.RandomDouble() )
+			if ( p != null && HitPoisonChance >= Utility.RandomDouble() ) {
 				defender.ApplyPoison( this, p );
+				if ( this.Controlled )
+					this.CheckSkill(SkillName.Poisoning, 0, this.Skills[SkillName.Poisoning].Cap);
+			}
 
 			if( AutoDispel && defender is BaseCreature && ((BaseCreature)defender).IsDispellable && AutoDispelChance > Utility.RandomDouble() )
 				Dispel( defender );
@@ -2652,6 +2769,12 @@ namespace Server.Mobiles
 					m_AI.m_Timer.Stop();
 
 				m_AI = null;
+			}
+			
+			if ( m_DeleteTimer != null )
+			{
+				m_DeleteTimer.Stop();
+				m_DeleteTimer = null;
 			}
 
 			FocusMob = null;
@@ -4208,11 +4331,6 @@ namespace Server.Mobiles
 
 		public static List<DamageStore> GetLootingRights( List<DamageEntry> damageEntries, int hitsMax )
 		{
-			return GetLootingRights( damageEntries, hitsMax, false );
-		}
-
-		public static List<DamageStore> GetLootingRights( List<DamageEntry> damageEntries, int hitsMax, bool partyAsIndividual )
-		{
 			List<DamageStore> rights = new List<DamageStore>();
 
 			for ( int i = damageEntries.Count - 1; i >= 0; --i )
@@ -4395,7 +4513,10 @@ namespace Server.Mobiles
 					int totalKarma = -Karma / 100;
 
 					List<DamageStore> list = GetLootingRights( this.DamageEntries, this.HitsMax );
-
+					List<Mobile> titles = new List<Mobile>();
+					List<int> fame = new List<int>();
+					List<int> karma = new List<int>();
+					
 					bool givenQuestKill = false;
 					bool givenFactionKill = false;
 					bool givenToTKill = false;
@@ -4407,8 +4528,41 @@ namespace Server.Mobiles
 						if ( !ds.m_HasRight )
 							continue;
 
-						Titles.AwardFame( ds.m_Mobile, totalFame, true );
-						Titles.AwardKarma( ds.m_Mobile, totalKarma, true );
+						Party party = Engines.PartySystem.Party.Get( ds.m_Mobile );
+ 
+						if ( party != null )
+						{
+							int divedFame = totalFame / party.Members.Count;
+							int divedKarma = totalKarma / party.Members.Count;
+
+							for ( int j = 0; j < party.Members.Count; ++j )
+							{
+								PartyMemberInfo info = party.Members[ j ] as PartyMemberInfo;
+
+								if ( info != null && info.Mobile != null )
+								{
+									int index = titles.IndexOf( info.Mobile );
+
+									if ( index == -1 )
+									{
+										titles.Add( info.Mobile );
+										fame.Add( divedFame );
+										karma.Add( divedKarma );
+									}
+									else
+									{
+										fame[ index ] += divedFame;
+										karma[ index ] += divedKarma;
+									}
+								}
+							}
+						}
+						else
+						{
+							titles.Add( ds.m_Mobile );
+							fame.Add( totalFame );
+							karma.Add( totalKarma );
+						}
 
 						OnKilledBy( ds.m_Mobile );
 
@@ -4418,7 +4572,7 @@ namespace Server.Mobiles
 							Faction.HandleDeath( this, ds.m_Mobile );
 						}
 
-						if( !givenToTKill )
+						if( !givenToTKill && Map == Map.Tokuno )
 						{
 							givenToTKill = true;
 							TreasuresOfTokuno.HandleKill( this, ds.m_Mobile );
@@ -4439,6 +4593,11 @@ namespace Server.Mobiles
 								givenQuestKill = true;
 							}
 						}
+					}
+					for ( int i = 0; i < titles.Count; ++i )
+					{
+						Titles.AwardFame( titles[ i ], fame[ i ], true );
+						Titles.AwardKarma( titles[ i ], karma[ i ], true );
 					}
 				}
 
@@ -4554,6 +4713,12 @@ namespace Server.Mobiles
 				ControlTarget = null;
 				ControlOrder = OrderType.Come;
 				Guild = null;
+				
+				if ( m_DeleteTimer != null )
+				{
+					m_DeleteTimer.Stop();
+					m_DeleteTimer = null;
+				}
 
 				Delta( MobileDelta.Noto );
 			}
@@ -4864,6 +5029,7 @@ namespace Server.Mobiles
 				{
 					// *rummages through a corpse and takes an item*
 					PublicOverheadMessage( MessageType.Emote, 0x3B2, 1008086 );
+                    //TODO: Instancing of Rummaged stuff.
 					return true;
 				}
 			}
@@ -4893,8 +5059,11 @@ namespace Server.Mobiles
 		{
 			BardProvoked = true;
 
-			this.PublicOverheadMessage( MessageType.Emote, EmoteHue, false, "*looks furious*" );
- 
+			if ( !Core.ML )
+			{
+				this.PublicOverheadMessage( MessageType.Emote, EmoteHue, false, "*looks furious*" );
+			}
+			
 			if ( bSuccess )
 			{
 				PlaySound( GetIdleSound() );

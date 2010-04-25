@@ -3,6 +3,7 @@ using Server.Targeting;
 using Server.Network;
 using Server.Misc;
 using Server.Items;
+using Server.Mobiles;
 
 namespace Server.Spells.Seventh
 {
@@ -111,6 +112,7 @@ namespace Server.Spells.Seventh
 		private class InternalItem : Item
 		{
 			private Timer m_Timer;
+			private Mobile m_Caster;
 
 			public override bool BlocksFit{ get{ return true; } }
 
@@ -121,6 +123,8 @@ namespace Server.Spells.Seventh
 				Light = LightType.Circle300;
 
 				MoveToWorld( loc, map );
+
+				m_Caster = caster;
 
 				if ( caster.InLOS( this ) )
 					Visible = true;
@@ -152,6 +156,19 @@ namespace Server.Spells.Seventh
 				base.Deserialize( reader );
 
 				int version = reader.ReadInt();
+			}
+
+			public override bool OnMoveOver( Mobile m )
+			{
+				int noto;
+
+				if ( m is PlayerMobile )
+				{
+					noto = Notoriety.Compute( m_Caster, m );
+					if ( noto == Notoriety.Enemy || noto == Notoriety.Ally )
+						return false;
+				}
+				return base.OnMoveOver( m );
 			}
 
 			public override void OnAfterDelete()

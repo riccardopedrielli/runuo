@@ -85,7 +85,7 @@ namespace Server.Engines.Craft
 
 			DrawItem();
 			DrawSkill();
-			DrawRessource();
+			DrawResource();
 
 			/*
 			if( craftItem.RequiresSE )
@@ -184,7 +184,7 @@ namespace Server.Engines.Craft
 		private static Type typeofBlankScroll = typeof( BlankScroll );
 		private static Type typeofSpellScroll = typeof( SpellScroll );
 
-		public void DrawRessource()
+		public void DrawResource()
 		{
 			bool retainedColor = false;
 

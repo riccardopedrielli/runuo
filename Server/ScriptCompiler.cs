@@ -5,7 +5,7 @@
  *   copyright            : (C) The RunUO Software Team
  *   email                : info@runuo.com
  *
- *   $Id: ScriptCompiler.cs 353 2009-08-07 07:07:15Z mark $
+ *   $Id: ScriptCompiler.cs 511 2010-04-25 06:09:43Z mark $
  *
  ***************************************************************************/
 
@@ -126,6 +126,7 @@ namespace Server
 					}
 
 					bin.Write( debug );
+                    bin.Write( Core.Version.ToString() );
 
 					ms.Position = 0;
 
@@ -316,7 +317,7 @@ namespace Server
 			/*** ADD_START ***/
 			if (!Core.CompileScripts)
 			{
-				if( File.Exists( "Scripts/Output/Scripts.VB.dll" ) )
+				if (File.Exists("Scripts/Output/Scripts.VB.dll"))
 				{
 					assembly = Assembly.LoadFrom("Scripts/Output/Scripts.VB.dll");
 

@@ -5,6 +5,8 @@ using Server.Targeting;
 using Server.Network;
 using Server.Mobiles;
 using Server.Factions;
+using Server.Spells;
+using Server.Spells.Spellweaving;
 
 namespace Server.SkillHandlers
 {
@@ -182,7 +184,7 @@ namespace Server.SkillHandlers
 								creature.Direction = creature.GetDirectionTo( from );
 								/*** MOD_START ***/
 								/*
-								if ( from is PlayerMobile && !( (PlayerMobile)from ).HonorActive )
+								if ( from is PlayerMobile && !(( (PlayerMobile)from ).HonorActive || TransformationSpellHelper.UnderTransformation( from, typeof( EtherealVoyageSpell ))))
 								*/
 								if ( from is PlayerMobile )
 								/*** MOD_END ***/

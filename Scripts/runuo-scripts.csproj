@@ -2800,6 +2800,14 @@
     <Compile Include="Items\Special\Holiday\PKHolidayStuff.cs" />
     <Compile Include="Items\Special\Holiday\HolidayFoods.cs" />
     <Compile Include="Items\Special\Holiday\GingerBreadHouseDeed.cs" />
+    <Compile Include="Context Menus\AddToParty.cs" />
+    <Compile Include="Context Menus\EjectPlayer.cs" />
+    <Compile Include="Engines\Treasures of Tokuno\BasePigmentsOfTokuno.cs" />
+    <Compile Include="Engines\Treasures of Tokuno\TreasuresOfTokunoPersistance.cs" />
+    <Compile Include="Gumps\ToTAdminGump.cs" />
+    <Compile Include="Items\Skill Items\Thief\DisguisePersistance.cs" />
+    <Compile Include="Items\Special\Special Scrolls\SpecialScroll.cs" />
+    <Compile Include="Mobiles\Monsters\LBR\Meers\EnragedCreatures.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Output\Scripts.CS.hash">
