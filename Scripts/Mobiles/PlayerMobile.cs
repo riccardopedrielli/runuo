@@ -2947,6 +2947,9 @@ namespace Server.Mobiles
 
 			if( m_ChampionTitles == null )
 				m_ChampionTitles = new ChampionTitleInfo();
+			
+			if ( AccessLevel > AccessLevel.Player )
+				m_IgnoreMobiles = true;
 
 			List<Mobile> list = this.Stabled;
 
@@ -3192,6 +3195,8 @@ namespace Server.Mobiles
 				faction.RemoveMember( this );
 
 			BaseHouse.HandleDeletion( this );
+			
+			DisguiseTimers.RemoveTimer( this );
 		}
 
 		public override bool NewGuildDisplay { get { return Server.Guilds.Guild.NewGuildSystem; } }
